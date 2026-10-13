@@ -1,0 +1,113 @@
+@page
+slug: tutorials-claude-code
+kind: tutorials
+group: tutorials
+order: 3
+en: "Tutorials: Claude Code and the Claude Platform"
+fa: "آموزش‌های کوتاه: Claude Code و پلتفرم Claude"
+stats: 5 tutorials · 3–15 min each
+url: https://academy.claude.com/code/tutorials
+expect: 5
+who_en: Developers using Claude Code or building on the Claude Platform.
+who_fa: برنامه‌نویس‌هایی که از Claude Code استفاده می‌کنند یا روی پلتفرم Claude می‌سازند.
+blurb_fa: انتخاب سطح effort در Claude Code، کنترل از راه دور جلسه‌ها، Claude Security برای پیدا کردن آسیب‌پذیری‌ها، Managed Agents و به اشتراک گذاشتن اسکیل‌ها.
+desc_en: Effort levels in Claude Code, Remote Control, Claude Security, Managed Agents and sharing skills.
+
+@intro
+Short guides for developers. For the full picture, pair them with [Claude Code 101](page:claude-code-101), [Claude Code in action](page:claude-code-in-action), [Introduction to agent skills](page:introduction-to-agent-skills) and [Claude Platform 101](page:claude-platform-101).
+~~
+راهنماهای کوتاه برای برنامه‌نویس‌ها. برای تصویر کامل، آن‌ها را با [Claude Code 101](page:claude-code-101)، [Claude Code در عمل](page:claude-code-in-action)، [آشنایی با اسکیل‌های ایجنت](page:introduction-to-agent-skills) و [Claude Platform 101](page:claude-platform-101) همراه کن.
+
+@section Claude Code | Claude Code
+
+@lesson
+id: choosing-the-right-effort-level-in-claude-code
+en: Choosing the right effort level in Claude Code
+fa: انتخاب سطح درست effort در Claude Code
+meta: 15 min
+url: https://academy.claude.com/tutorials/choosing-the-right-effort-level-in-claude-code
+
+#explain
+**Effort** decides how much thinking and checking Claude spends on a task. The default is a good starting point. **Turn it down** for small, clear edits (rename, format, a one-line fix) to get faster, cheaper answers; **turn it up** for hard work (a tricky bug, a design across many files, a migration). You can change it per session with the `/effort` command, at launch with the `--effort` flag, or as a default in settings. On Enterprise plans, admins can set a maximum effort per model.
+~~
+**effort** تعیین می‌کند Claude چقدر روی یک کار فکر و بازبینی خرج کند. پیش‌فرض نقطهٔ شروع خوبی است. برای ویرایش‌های کوچک و روشن (تغییر اسم، قالب‌بندی، اصلاح یک خط) **پایینش بیاور** تا جواب سریع‌تر و ارزان‌تر بگیری؛ برای کار سخت (یک باگ پیچیده، طراحی‌ای که به چند فایل دست می‌زند، یک مهاجرت) **بالایش ببر**. می‌توانی در هر جلسه با فرمان `/effort`، موقع اجرا با پرچم `--effort` یا به‌عنوان پیش‌فرض در تنظیمات عوضش کنی. در پلن‌های Enterprise، مدیرها می‌توانند برای هر مدل یک سقف effort بگذارند.
+
+#code bash Two ways to set it
+claude --effort high      # start a session for a hard refactor
+> /effort low             # inside a session, before a batch of tiny edits
+#end
+
+#analogy
+Effort is like **how long you study before a test**: ten minutes is fine for a spelling quiz, not for the final exam.
+~~
+effort مثل **مدت زمانی است که قبل از امتحان درس می‌خوانی**: ده دقیقه برای یک دیکتهٔ کوتاه کافی است، نه برای امتحان پایان ترم.
+
+@lesson
+id: using-claude-code-remote-control
+en: Using Claude Code Remote Control
+fa: کنترل از راه دور Claude Code
+meta: 3 min
+url: https://academy.claude.com/code/tutorials
+
+#explain
+**Remote Control** lets you keep working with a Claude Code session that runs on your own computer **from another device**, like your phone or a browser. Start a long task at your desk, then check progress, answer Claude's questions, or approve the next step while you're away. The code and tools stay on your machine; you're just steering from elsewhere.
+~~
+**کنترل از راه دور (Remote Control)** به تو اجازه می‌دهد کار با یک جلسهٔ Claude Code را که روی کامپیوتر خودت اجرا می‌شود **از یک دستگاه دیگر** ادامه بدهی؛ مثل گوشی یا یک مرورگر. یک کار طولانی را پشت میز شروع کن و وقتی دور هستی پیشرفتش را ببین، به سؤال‌های Claude جواب بده یا قدم بعدی را تأیید کن. کد و ابزارها روی دستگاه خودت می‌مانند؛ تو فقط از جای دیگری فرمان را در دست داری.
+
+#tip
+Approving permissions from your phone is convenient, so be strict: approve only actions you'd approve at your desk, and keep risky commands behind "ask every time".
+~~
+تأیید کردن مجوزها از روی گوشی راحت است؛ پس سخت‌گیر باش: فقط کارهایی را تأیید کن که پشت میز هم تأییدشان می‌کردی و فرمان‌های پرخطر را پشت «هر بار بپرس» نگه دار.
+
+@lesson
+id: getting-started-with-claude-security
+en: Getting started with Claude Security
+fa: شروع کار با Claude Security
+meta: 6 min
+url: https://academy.claude.com/tutorials/getting-started-with-claude-security
+
+#explain
+**Claude Security** is built into Claude.ai: it **scans your codebases for security vulnerabilities** and suggests **targeted patches** for you to review. It's a beta for Claude Enterprise. Prerequisites: an administrator installs the **GitHub App** for your organization, and each person who runs scans needs a **premium seat**.
+~~
+**Claude Security** داخل Claude.ai ساخته شده: **کدبیس‌هایت را برای پیدا کردن آسیب‌پذیری‌های امنیتی بررسی می‌کند** و **اصلاحیه‌های هدفمند** پیشنهاد می‌دهد تا خودت بازبینی‌شان کنی. نسخهٔ بتایی برای Claude Enterprise است. پیش‌نیازها: یک مدیر **اپ GitHub** را برای سازمانت نصب می‌کند و هر کسی که اسکن اجرا می‌کند به یک **صندلی پریمیوم** نیاز دارد.
+
+#warn
+Treat suggested patches like a colleague's pull request: read them, run your tests, and have someone review security-critical changes. A scanner finding nothing is not proof that nothing is there.
+~~
+با اصلاحیه‌های پیشنهادی مثل pull request یک همکار رفتار کن: بخوانشان، تست‌هایت را اجرا کن و تغییرهای حساس امنیتی را به بازبینی یک نفر دیگر بسپار. پیدا نکردن چیزی توسط اسکنر، دلیل نبودن مشکل نیست.
+
+#analogy
+It's a **home inspector** for your code: it walks through every room, points at the loose wires, and suggests fixes; you still decide what gets repaired.
+~~
+مثل **بازرس ساختمان** برای کد توست: همهٔ اتاق‌ها را می‌گردد، سیم‌های شل را نشان می‌دهد و راه‌حل پیشنهاد می‌کند؛ ولی تصمیم این‌که چه چیزی تعمیر شود هنوز با توست.
+
+@section Claude Platform | پلتفرم Claude
+
+@lesson
+id: what-is-claude-managed-agents
+en: What is Claude Managed Agents?
+fa: Claude Managed Agents چیست؟
+meta: 4 min
+url: https://academy.claude.com/collections/build-with-claude
+
+#explain
+With **Claude Managed Agents**, Anthropic **runs the agent loop and hosts the sandbox** where tools execute, so you don't write loop code, manage containers or keep state files. You define an **agent** (model, instructions, tools), an **environment** (the container and its network rules), start a **session**, and follow its **events**. It has its own section in the Claude Console. Full walkthrough with code: [What are managed agents?](page:claude-platform-101#what-are-managed-agents) and [Building your first managed agent](page:claude-platform-101#building-your-first-managed-agent).
+~~
+با **Claude Managed Agents**، Anthropic **حلقهٔ ایجنت را اجرا و محیط ایزوله‌ای را که ابزارها در آن اجرا می‌شوند میزبانی می‌کند**؛ پس نه کد حلقه می‌نویسی، نه کانتینر مدیریت می‌کنی و نه فایل‌های وضعیت نگه می‌داری. یک **ایجنت** (مدل، دستورها، ابزارها) و یک **محیط** (کانتینر و قانون‌های شبکه‌اش) تعریف می‌کنی، یک **جلسه** شروع می‌کنی و **رویدادهایش** را دنبال می‌کنی. در کنسول Claude بخش مخصوص خودش را دارد. راهنمای کامل با کد: [ایجنت‌های مدیریت‌شده چیستند؟](page:claude-platform-101#what-are-managed-agents) و [ساختن اولین ایجنت مدیریت‌شده](page:claude-platform-101#building-your-first-managed-agent).
+
+#analogy
+Building your own agent loop is **cooking at home**; Managed Agents is a **restaurant kitchen you rent**: you bring the recipe, they run the stoves.
+~~
+ساختن حلقهٔ ایجنت به دست خودت مثل **آشپزی در خانه** است؛ Managed Agents مثل **اجارهٔ آشپزخانهٔ یک رستوران** است: تو دستور پخت را می‌آوری، آن‌ها اجاق‌ها را می‌گردانند.
+
+@lesson
+id: sharing-skills
+en: Sharing skills
+fa: به اشتراک گذاشتن اسکیل‌ها
+meta: 4 min
+url: https://academy.claude.com/tutorials/sharing-skills
+
+#explain
+Three ways to get a skill to your whole team: **commit it to the repository** (in `.claude/skills/`, so everyone who clones the repo gets it), **package it in a plugin**, or distribute it through **enterprise managed settings**. One gotcha: **subagents don't see your skills automatically**; list the skills a custom subagent should use in its frontmatter. More in [Sharing skills](page:introduction-to-agent-skills#sharing-skills).
+~~
+سه راه برای رساندن یک اسکیل به کل تیم: **در مخزن کامیتش کن** (در `.claude/skills/` تا هر کسی مخزن را کلون می‌کند آن را داشته باشد)، **در یک پلاگین بسته‌بندی‌اش کن** یا از طریق **تنظیمات مدیریت‌شدهٔ سازمانی** پخشش کن. یک نکتهٔ گول‌زننده: **ساب‌ایجنت‌ها اسکیل‌هایت را خودکار نمی‌بینند**؛ اسکیل‌هایی را که یک ساب‌ایجنت سفارشی باید استفاده کند در بخش frontmatter آن فهرست کن. بیشتر در [به اشتراک گذاشتن اسکیل‌ها](page:introduction-to-agent-skills#sharing-skills).

@@ -1,0 +1,112 @@
+@page
+slug: tutorials-admin
+kind: tutorials
+group: tutorials
+order: 9
+en: "Tutorials: admins and enterprise rollout"
+fa: "آموزش‌های کوتاه: مدیرها و استقرار سازمانی"
+stats: 4 guides · 4–20 min each
+url: https://academy.claude.com/collections/claude-for-work
+expect: 4
+who_en: Admins and IT owners setting up Claude, Cowork and Claude Code for an organization.
+who_fa: مدیرها و مسئولان IT که Claude، Cowork و Claude Code را برای یک سازمان راه‌اندازی می‌کنند.
+blurb_fa: راهنمای مدیر Claude Enterprise (SSO، SCIM، صندلی‌ها، Claude Code، آنالیتیکس)، راهنمای مدیر Cowork، فعال‌سازی Claude Code برای تیم و چک‌لیست راه‌اندازی Cowork.
+desc_en: Admin guides for Claude Enterprise, Cowork and Claude Code: identity, provisioning, seats, connectors, analytics and a setup checklist.
+
+@intro
+These guides are for the people who **set Claude up for everyone else**. They pair well with the decision-focused course [Deploying Claude Enterprise with confidence](page:deploying-claude-enterprise-with-confidence): the course helps you decide *what* to do; these guides show *where to click*.
+~~
+این راهنماها برای کسانی است که **Claude را برای بقیه راه‌اندازی می‌کنند**. با دورهٔ تصمیم‌محور [استقرار مطمئن Claude Enterprise](page:deploying-claude-enterprise-with-confidence) خوب جفت می‌شوند: دوره کمکت می‌کند تصمیم بگیری *چه* کاری بکنی؛ این راهنماها نشان می‌دهند *کجا کلیک کنی*.
+
+@section Admin guides | راهنماهای مدیریتی
+
+@lesson
+id: claude-enterprise-administrator-guide
+en: Claude Enterprise administrator guide
+fa: راهنمای مدیر Claude Enterprise
+meta: 20 min
+url: https://academy.claude.com/tutorials/claude-enterprise-administrator-guide
+
+#explain
+The core admin walkthrough:
+
+- **Identity:** SSO with SAML 2.0 or OIDC; **SCIM** provisioning (recommended) syncs users and groups from your identity provider automatically, with just-in-time or manual invites as alternatives.
+- **Seats and access:** assign seat types per person; note that some seat types (Standard, Chat-only) **don't include Claude Code**.
+- **Connectors and features:** decide which connectors and capabilities are on for the organization.
+- **Visibility:** usage analytics, including a Claude Code section.
+- **Resources:** links to product guides, including Claude for Life Sciences, Financial Services and the mobile apps.
+~~
+راهنمای اصلی مدیریت:
+
+- **هویت:** ورود یکپارچه (SSO) با SAML 2.0 یا OIDC؛ تأمین کاربر با **SCIM** (پیشنهادی) که کاربرها و گروه‌ها را خودکار از سامانهٔ هویت شما همگام می‌کند؛ دعوت لحظه‌ای (JIT) یا دستی هم گزینه‌های دیگرند.
+- **صندلی‌ها و دسترسی:** نوع صندلی هر نفر را تعیین کن؛ توجه کن بعضی نوع‌ها (Standard، فقط Chat) **Claude Code ندارند**.
+- **کانکتورها و قابلیت‌ها:** تصمیم بگیر کدام کانکتورها و توانایی‌ها برای سازمان روشن باشند.
+- **دید و گزارش:** آنالیتیکس مصرف، از جمله یک بخش برای Claude Code.
+- **منابع:** پیوند به راهنماهای محصول، از جمله Claude برای علوم زیستی، خدمات مالی و اپ‌های موبایل.
+
+#warn
+Before enforcing SSO, keep **at least two Owners assigned directly** (not through a synced group), so a bad group sync can't lock every admin out. Enforcing too early also locks out anyone not yet provisioned.
+~~
+قبل از اجباری کردن SSO، **دست‌کم دو مالک (Owner) را مستقیم** (نه از طریق یک گروه همگام‌شده) نگه دار تا یک همگام‌سازی خراب نتواند همهٔ مدیرها را بیرون بیندازد. اجباری کردن زودهنگام هم هر کسی را که هنوز تأمین نشده بیرون می‌گذارد.
+
+#terms
+SSO (single sign-on) = ورود یکپارچه = ورود با حساب سازمانی به چند سرویس با یک بار احراز هویت.
+SCIM = SCIM = استانداردی برای همگام‌سازی خودکار کاربرها و گروه‌ها از سامانهٔ هویت سازمان.
+
+@lesson
+id: claude-cowork-enterprise-administrator-guide
+en: Claude Cowork enterprise admin guide
+fa: راهنمای مدیر سازمانی Claude Cowork
+meta: 20 min
+url: https://academy.claude.com/tutorials/claude-cowork-enterprise-administrator-guide
+
+#explain
+Rolling out Cowork adds a few admin decisions: **SCIM and role-based access (RBAC)** for who gets Cowork, **connectors with a two-gate model** (an admin enables a connector for the org, then each user connects their own account with OAuth), organization-wide **instructions and plugins**, and **analytics** to see adoption.
+~~
+راه‌اندازی Cowork چند تصمیم مدیریتی اضافه می‌کند: **SCIM و دسترسی مبتنی بر نقش (RBAC)** برای این‌که چه کسی Cowork بگیرد، **کانکتورها با مدل دودروازه‌ای** (مدیر کانکتور را برای سازمان فعال می‌کند و بعد هر کاربر با OAuth حساب خودش را وصل می‌کند)، **دستورها و پلاگین‌های** سراسری سازمان و **آنالیتیکس** برای دیدن میزان پذیرش.
+
+#analogy
+The two-gate model is like a **building with a front gate and apartment doors**: the admin opens the front gate for a service; each person still uses their own key for their own apartment.
+~~
+مدل دودروازه‌ای مثل **ساختمانی با یک در ورودی و درهای واحدها** است: مدیر در ورودی را برای یک سرویس باز می‌کند؛ ولی هر نفر هنوز با کلید خودش در واحد خودش را باز می‌کند.
+
+@lesson
+id: how-to-enable-claude-code-for-your-enterprise-team
+en: How to enable Claude Code for your Enterprise team
+fa: فعال کردن Claude Code برای تیم سازمانی
+meta: 4 min
+url: https://academy.claude.com/tutorials/how-to-enable-claude-code-for-your-enterprise-team
+
+#explain
+The short version: in **Settings → Organization → Members**, give developers a seat type that **includes Claude Code**; they then sign in to Claude Code with your **Enterprise SSO**. Track usage under **Analytics → Claude Code**, and use managed settings to set organization-wide defaults (for example permissions and allowed tools).
+~~
+نسخهٔ کوتاه: در **Settings ← Organization ← Members**، به برنامه‌نویس‌ها نوعی صندلی بده که **Claude Code را شامل شود**؛ بعد آن‌ها با **SSO سازمانی** وارد Claude Code می‌شوند. مصرف را در **Analytics ← Claude Code** دنبال کن و با تنظیمات مدیریت‌شده پیش‌فرض‌های کل سازمان را تعیین کن (مثلاً مجوزها و ابزارهای مجاز).
+
+#tip
+Roll out to one team first and share their CLAUDE.md and best prompts with the next team. Good examples spread faster than training slides.
+~~
+اول برای یک تیم راه بینداز و CLAUDE.md و بهترین پرامپت‌هایشان را با تیم بعدی به اشتراک بگذار. مثال‌های خوب سریع‌تر از اسلایدهای آموزشی پخش می‌شوند.
+
+@lesson
+id: cowork-setup-checklist
+en: Cowork setup checklist
+fa: چک‌لیست راه‌اندازی Cowork
+url: https://academy.claude.com/products/cowork/setup/checklist
+
+#explain
+A step-by-step checklist for getting an organization ready for Cowork: identity and provisioning in the right order, roles and access, connectors, organization instructions and plugins, analytics, and a pilot group. Its biggest warning: don't **enforce** sign-in rules before everyone is provisioned, because there's **no self-service recovery** for people locked out.
+~~
+یک چک‌لیست قدم‌به‌قدم برای آماده کردن یک سازمان برای Cowork: هویت و تأمین کاربر به ترتیب درست، نقش‌ها و دسترسی‌ها، کانکتورها، دستورها و پلاگین‌های سازمان، آنالیتیکس و یک گروه آزمایشی. بزرگ‌ترین هشدارش: قبل از این‌که همه تأمین شده باشند، قانون‌های ورود را **اجباری نکن**؛ چون برای کسانی که بیرون می‌مانند **راه بازیابی سلف‌سرویس وجود ندارد**.
+
+#steps
+1. Connect your identity provider and set up provisioning.
+2. Verify that every intended user appears with the right role.
+3. Only then enforce SSO.
+4. Enable connectors and org instructions; add approved plugins.
+5. Pilot with one team, watch analytics, then expand.
+~~
+1. سامانهٔ هویت را وصل کن و تأمین کاربر را راه بینداز.
+2. مطمئن شو هر کاربری که باید باشد، با نقش درست دیده می‌شود.
+3. فقط بعد از آن SSO را اجباری کن.
+4. کانکتورها و دستورهای سازمان را فعال کن؛ پلاگین‌های تأییدشده را اضافه کن.
+5. با یک تیم آزمایشی شروع کن، آنالیتیکس را ببین و بعد گسترش بده.

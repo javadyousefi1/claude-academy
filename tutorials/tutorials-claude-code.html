@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-lang="both">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>آموزش‌های کوتاه: Claude Code و پلتفرم Claude | Tutorials: Claude Code and the Claude Platform</title>
+<meta name="description" content="Effort levels in Claude Code, Remote Control, Claude Security, Managed Agents and sharing skills.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Lalezar&family=Vazirmatn:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>try{var l=localStorage.getItem("ca-lang");if(l)document.documentElement.setAttribute("data-lang",l)}catch(e){}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+<script src="../assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">پرش به متن اصلی</a>
+
+<header class="topbar">
+  <nav class="crumbs" aria-label="مسیر صفحه"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">C</span><span>جزوهٔ Claude Academy</span></a><span class="crumb-sep" aria-hidden="true">/</span><a href="../index.html#tutorials">آموزش‌های کوتاه</a><span class="crumb-sep" aria-hidden="true">/</span><span>آموزش‌های کوتاه: Claude Code و پلتفرم Claude</span></nav>
+  <div class="lang-switch" role="group" aria-label="زبان نمایش">
+    <button type="button" data-set-lang="both" aria-pressed="true">دوزبانه</button>
+    <button type="button" data-set-lang="fa" aria-pressed="false">فارسی</button>
+    <button type="button" data-set-lang="en" aria-pressed="false" lang="en">English</button>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="side-toc" aria-label="فهرست این صفحه"><details open><summary>فهرست این صفحه <span class="toc-count">۵ مورد</span></summary><ol><li class="toc-sec">Claude Code</li><li><a href="#tutorials-claude-code--choosing-the-right-effort-level-in-claude-code" data-toc="tutorials-claude-code--choosing-the-right-effort-level-in-claude-code"><span class="toc-n">۱</span><span class="toc-t">انتخاب سطح درست effort در Claude Code</span></a></li><li><a href="#tutorials-claude-code--using-claude-code-remote-control" data-toc="tutorials-claude-code--using-claude-code-remote-control"><span class="toc-n">۲</span><span class="toc-t">کنترل از راه دور Claude Code</span></a></li><li><a href="#tutorials-claude-code--getting-started-with-claude-security" data-toc="tutorials-claude-code--getting-started-with-claude-security"><span class="toc-n">۳</span><span class="toc-t">شروع کار با Claude Security</span></a></li><li class="toc-sec">پلتفرم Claude</li><li><a href="#tutorials-claude-code--what-is-claude-managed-agents" data-toc="tutorials-claude-code--what-is-claude-managed-agents"><span class="toc-n">۴</span><span class="toc-t">Claude Managed Agents چیست؟</span></a></li><li><a href="#tutorials-claude-code--sharing-skills" data-toc="tutorials-claude-code--sharing-skills"><span class="toc-n">۵</span><span class="toc-t">به اشتراک گذاشتن اسکیل‌ها</span></a></li></ol></details></nav>
+<main id="main">
+<header class="page-head">
+  <p class="eyebrow">آموزش‌های کوتاه <span lang="en" dir="ltr">· Tutorials</span></p>
+  <h1><span class="h1-fa">آموزش‌های کوتاه: Claude Code و پلتفرم Claude</span><span class="h1-en" lang="en" dir="ltr">Tutorials: Claude Code and the Claude Platform</span></h1>
+  <p class="page-stats"><span lang="en" dir="ltr">5 tutorials · 3–15 min each</span> <a class="src src-big" href="https://academy.claude.com/code/tutorials" target="_blank" rel="noopener">صفحهٔ رسمی در Claude Academy<span aria-hidden="true"> ↗</span></a></p>
+  <p class="who"><span class="who-label">مناسب برای</span> <span>برنامه‌نویس‌هایی که از Claude Code استفاده می‌کنند یا روی پلتفرم Claude می‌سازند.</span> <span class="who-en" lang="en" dir="ltr">Developers using Claude Code or building on the Claude Platform.</span></p>
+  <p class="progress" data-progress-for="tutorials-claude-code" data-total="5"><span class="progress-bar"><span></span></span><span class="progress-text">۰ از ۵ خوانده شده</span></p>
+</header>
+<div class="page-intro"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Short guides for developers. For the full picture, pair them with <a class="xref" href="../courses/claude-code-101.html">Claude Code 101</a>, <a class="xref" href="../courses/claude-code-in-action.html">Claude Code in action</a>, <a class="xref" href="../courses/introduction-to-agent-skills.html">Introduction to agent skills</a> and <a class="xref" href="../courses/claude-platform-101.html">Claude Platform 101</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>راهنماهای کوتاه برای برنامه‌نویس‌ها. برای تصویر کامل، آن‌ها را با <a class="xref" href="../courses/claude-code-101.html">Claude Code 101</a>، <a class="xref" href="../courses/claude-code-in-action.html">Claude Code در عمل</a>، <a class="xref" href="../courses/introduction-to-agent-skills.html">آشنایی با اسکیل‌های ایجنت</a> و <a class="xref" href="../courses/claude-platform-101.html">Claude Platform 101</a> همراه کن.</p></div></div></div>
+
+<h2 class="section-title"><span>Claude Code</span><span class="sec-en" lang="en" dir="ltr">Claude Code</span></h2>
+<article class="item" id="tutorials-claude-code--choosing-the-right-effort-level-in-claude-code" data-item="tutorials-claude-code--choosing-the-right-effort-level-in-claude-code">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۱ <span lang="en" dir="ltr">· Tutorial 1</span> </p>
+      <h3><span class="t-fa">انتخاب سطح درست effort در Claude Code</span><span class="t-en" lang="en" dir="ltr">Choosing the right effort level in Claude Code</span></h3>
+      <div class="item-tools"><span class="item-meta">15 min</span><a class="src" href="https://academy.claude.com/tutorials/choosing-the-right-effort-level-in-claude-code" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-claude-code--choosing-the-right-effort-level-in-claude-code" data-done="tutorials-claude-code--choosing-the-right-effort-level-in-claude-code"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p><strong>Effort</strong> decides how much thinking and checking Claude spends on a task. The default is a good starting point. <strong>Turn it down</strong> for small, clear edits (rename, format, a one-line fix) to get faster, cheaper answers; <strong>turn it up</strong> for hard work (a tricky bug, a design across many files, a migration). You can change it per session with the <code dir="ltr">/effort</code> command, at launch with the <code dir="ltr">--effort</code> flag, or as a default in settings. On Enterprise plans, admins can set a maximum effort per model.</p></div><div class="fa" lang="fa" dir="rtl"><p><strong>effort</strong> تعیین می‌کند Claude چقدر روی یک کار فکر و بازبینی خرج کند. پیش‌فرض نقطهٔ شروع خوبی است. برای ویرایش‌های کوچک و روشن (تغییر اسم، قالب‌بندی، اصلاح یک خط) <strong>پایینش بیاور</strong> تا جواب سریع‌تر و ارزان‌تر بگیری؛ برای کار سخت (یک باگ پیچیده، طراحی‌ای که به چند فایل دست می‌زند، یک مهاجرت) <strong>بالایش ببر</strong>. می‌توانی در هر جلسه با فرمان <code dir="ltr">/effort</code>، موقع اجرا با پرچم <code dir="ltr">--effort</code> یا به‌عنوان پیش‌فرض در تنظیمات عوضش کنی. در پلن‌های Enterprise، مدیرها می‌توانند برای هر مدل یک سقف effort بگذارند.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">bash</span><span class="code-cap">Two ways to set it</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-bash">claude --effort high      # start a session for a hard refactor
+&gt; /effort low             # inside a session, before a batch of tiny edits</code></pre></figure>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Effort is like <strong>how long you study before a test</strong>: ten minutes is fine for a spelling quiz, not for the final exam.</p></div><div class="fa" lang="fa" dir="rtl"><p>effort مثل <strong>مدت زمانی است که قبل از امتحان درس می‌خوانی</strong>: ده دقیقه برای یک دیکتهٔ کوتاه کافی است، نه برای امتحان پایان ترم.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-claude-code--using-claude-code-remote-control" data-item="tutorials-claude-code--using-claude-code-remote-control">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۲ <span lang="en" dir="ltr">· Tutorial 2</span> </p>
+      <h3><span class="t-fa">کنترل از راه دور Claude Code</span><span class="t-en" lang="en" dir="ltr">Using Claude Code Remote Control</span></h3>
+      <div class="item-tools"><span class="item-meta">3 min</span><a class="src" href="https://academy.claude.com/code/tutorials" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-claude-code--using-claude-code-remote-control" data-done="tutorials-claude-code--using-claude-code-remote-control"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p><strong>Remote Control</strong> lets you keep working with a Claude Code session that runs on your own computer <strong>from another device</strong>, like your phone or a browser. Start a long task at your desk, then check progress, answer Claude's questions, or approve the next step while you're away. The code and tools stay on your machine; you're just steering from elsewhere.</p></div><div class="fa" lang="fa" dir="rtl"><p><strong>کنترل از راه دور (Remote Control)</strong> به تو اجازه می‌دهد کار با یک جلسهٔ Claude Code را که روی کامپیوتر خودت اجرا می‌شود <strong>از یک دستگاه دیگر</strong> ادامه بدهی؛ مثل گوشی یا یک مرورگر. یک کار طولانی را پشت میز شروع کن و وقتی دور هستی پیشرفتش را ببین، به سؤال‌های Claude جواب بده یا قدم بعدی را تأیید کن. کد و ابزارها روی دستگاه خودت می‌مانند؛ تو فقط از جای دیگری فرمان را در دست داری.</p></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Approving permissions from your phone is convenient, so be strict: approve only actions you'd approve at your desk, and keep risky commands behind "ask every time".</p></div><div class="fa" lang="fa" dir="rtl"><p>تأیید کردن مجوزها از روی گوشی راحت است؛ پس سخت‌گیر باش: فقط کارهایی را تأیید کن که پشت میز هم تأییدشان می‌کردی و فرمان‌های پرخطر را پشت «هر بار بپرس» نگه دار.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-claude-code--getting-started-with-claude-security" data-item="tutorials-claude-code--getting-started-with-claude-security">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۳ <span lang="en" dir="ltr">· Tutorial 3</span> </p>
+      <h3><span class="t-fa">شروع کار با Claude Security</span><span class="t-en" lang="en" dir="ltr">Getting started with Claude Security</span></h3>
+      <div class="item-tools"><span class="item-meta">6 min</span><a class="src" href="https://academy.claude.com/tutorials/getting-started-with-claude-security" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-claude-code--getting-started-with-claude-security" data-done="tutorials-claude-code--getting-started-with-claude-security"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p><strong>Claude Security</strong> is built into Claude.ai: it <strong>scans your codebases for security vulnerabilities</strong> and suggests <strong>targeted patches</strong> for you to review. It's a beta for Claude Enterprise. Prerequisites: an administrator installs the <strong>GitHub App</strong> for your organization, and each person who runs scans needs a <strong>premium seat</strong>.</p></div><div class="fa" lang="fa" dir="rtl"><p><strong>Claude Security</strong> داخل Claude.ai ساخته شده: <strong>کدبیس‌هایت را برای پیدا کردن آسیب‌پذیری‌های امنیتی بررسی می‌کند</strong> و <strong>اصلاحیه‌های هدفمند</strong> پیشنهاد می‌دهد تا خودت بازبینی‌شان کنی. نسخهٔ بتایی برای Claude Enterprise است. پیش‌نیازها: یک مدیر <strong>اپ GitHub</strong> را برای سازمانت نصب می‌کند و هر کسی که اسکن اجرا می‌کند به یک <strong>صندلی پریمیوم</strong> نیاز دارد.</p></div></div></section>
+<section class="blk blk-warn"><h4 class="blk-label"><span lang="en">Watch out</span><span>حواست باشد</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Treat suggested patches like a colleague's pull request: read them, run your tests, and have someone review security-critical changes. A scanner finding nothing is not proof that nothing is there.</p></div><div class="fa" lang="fa" dir="rtl"><p>با اصلاحیه‌های پیشنهادی مثل pull request یک همکار رفتار کن: بخوانشان، تست‌هایت را اجرا کن و تغییرهای حساس امنیتی را به بازبینی یک نفر دیگر بسپار. پیدا نکردن چیزی توسط اسکنر، دلیل نبودن مشکل نیست.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>It's a <strong>home inspector</strong> for your code: it walks through every room, points at the loose wires, and suggests fixes; you still decide what gets repaired.</p></div><div class="fa" lang="fa" dir="rtl"><p>مثل <strong>بازرس ساختمان</strong> برای کد توست: همهٔ اتاق‌ها را می‌گردد، سیم‌های شل را نشان می‌دهد و راه‌حل پیشنهاد می‌کند؛ ولی تصمیم این‌که چه چیزی تعمیر شود هنوز با توست.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>پلتفرم Claude</span><span class="sec-en" lang="en" dir="ltr">Claude Platform</span></h2>
+<article class="item" id="tutorials-claude-code--what-is-claude-managed-agents" data-item="tutorials-claude-code--what-is-claude-managed-agents">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۴ <span lang="en" dir="ltr">· Tutorial 4</span> </p>
+      <h3><span class="t-fa">Claude Managed Agents چیست؟</span><span class="t-en" lang="en" dir="ltr">What is Claude Managed Agents?</span></h3>
+      <div class="item-tools"><span class="item-meta">4 min</span><a class="src" href="https://academy.claude.com/collections/build-with-claude" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-claude-code--what-is-claude-managed-agents" data-done="tutorials-claude-code--what-is-claude-managed-agents"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>With <strong>Claude Managed Agents</strong>, Anthropic <strong>runs the agent loop and hosts the sandbox</strong> where tools execute, so you don't write loop code, manage containers or keep state files. You define an <strong>agent</strong> (model, instructions, tools), an <strong>environment</strong> (the container and its network rules), start a <strong>session</strong>, and follow its <strong>events</strong>. It has its own section in the Claude Console. Full walkthrough with code: <a class="xref" href="../courses/claude-platform-101.html#claude-platform-101--what-are-managed-agents">What are managed agents?</a> and <a class="xref" href="../courses/claude-platform-101.html#claude-platform-101--building-your-first-managed-agent">Building your first managed agent</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>با <strong>Claude Managed Agents</strong>، Anthropic <strong>حلقهٔ ایجنت را اجرا و محیط ایزوله‌ای را که ابزارها در آن اجرا می‌شوند میزبانی می‌کند</strong>؛ پس نه کد حلقه می‌نویسی، نه کانتینر مدیریت می‌کنی و نه فایل‌های وضعیت نگه می‌داری. یک <strong>ایجنت</strong> (مدل، دستورها، ابزارها) و یک <strong>محیط</strong> (کانتینر و قانون‌های شبکه‌اش) تعریف می‌کنی، یک <strong>جلسه</strong> شروع می‌کنی و <strong>رویدادهایش</strong> را دنبال می‌کنی. در کنسول Claude بخش مخصوص خودش را دارد. راهنمای کامل با کد: <a class="xref" href="../courses/claude-platform-101.html#claude-platform-101--what-are-managed-agents">ایجنت‌های مدیریت‌شده چیستند؟</a> و <a class="xref" href="../courses/claude-platform-101.html#claude-platform-101--building-your-first-managed-agent">ساختن اولین ایجنت مدیریت‌شده</a>.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Building your own agent loop is <strong>cooking at home</strong>; Managed Agents is a <strong>restaurant kitchen you rent</strong>: you bring the recipe, they run the stoves.</p></div><div class="fa" lang="fa" dir="rtl"><p>ساختن حلقهٔ ایجنت به دست خودت مثل <strong>آشپزی در خانه</strong> است؛ Managed Agents مثل <strong>اجارهٔ آشپزخانهٔ یک رستوران</strong> است: تو دستور پخت را می‌آوری، آن‌ها اجاق‌ها را می‌گردانند.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-claude-code--sharing-skills" data-item="tutorials-claude-code--sharing-skills">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۵ <span lang="en" dir="ltr">· Tutorial 5</span> </p>
+      <h3><span class="t-fa">به اشتراک گذاشتن اسکیل‌ها</span><span class="t-en" lang="en" dir="ltr">Sharing skills</span></h3>
+      <div class="item-tools"><span class="item-meta">4 min</span><a class="src" href="https://academy.claude.com/tutorials/sharing-skills" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-claude-code--sharing-skills" data-done="tutorials-claude-code--sharing-skills"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Three ways to get a skill to your whole team: <strong>commit it to the repository</strong> (in <code dir="ltr">.claude/skills/</code>, so everyone who clones the repo gets it), <strong>package it in a plugin</strong>, or distribute it through <strong>enterprise managed settings</strong>. One gotcha: <strong>subagents don't see your skills automatically</strong>; list the skills a custom subagent should use in its frontmatter. More in <a class="xref" href="../courses/introduction-to-agent-skills.html#introduction-to-agent-skills--sharing-skills">Sharing skills</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>سه راه برای رساندن یک اسکیل به کل تیم: <strong>در مخزن کامیتش کن</strong> (در <code dir="ltr">.claude/skills/</code> تا هر کسی مخزن را کلون می‌کند آن را داشته باشد)، <strong>در یک پلاگین بسته‌بندی‌اش کن</strong> یا از طریق <strong>تنظیمات مدیریت‌شدهٔ سازمانی</strong> پخشش کن. یک نکتهٔ گول‌زننده: <strong>ساب‌ایجنت‌ها اسکیل‌هایت را خودکار نمی‌بینند</strong>؛ اسکیل‌هایی را که یک ساب‌ایجنت سفارشی باید استفاده کند در بخش frontmatter آن فهرست کن. بیشتر در <a class="xref" href="../courses/introduction-to-agent-skills.html#introduction-to-agent-skills--sharing-skills">به اشتراک گذاشتن اسکیل‌ها</a>.</p></div></div></section>
+  </div>
+</article>
+<nav class="pager" aria-label="صفحهٔ قبلی و بعدی"><a class="prev" href="../tutorials/tutorials-cowork.html"><span class="pager-label">قبلی</span><span>آموزش‌های کوتاه: Claude Cowork</span></a><a class="next" href="../tutorials/tutorials-admin.html"><span class="pager-label">بعدی</span><span>آموزش‌های کوتاه: مدیرها و استقرار سازمانی</span></a></nav>
+</main>
+</div>
+
+<footer class="site-foot">
+  <p>این جزوه یک بازنویسی آموزشی و آزاد از مطالب <a href="https://academy.claude.com" target="_blank" rel="noopener">Claude Academy</a> است؛ متن‌ها، تشبیه‌ها و مثال‌ها تازه نوشته شده‌اند. برای جدیدترین نسخه همیشه به صفحهٔ رسمی هر درس سر بزن.</p>
+  <p lang="en" dir="ltr">An independent study companion to Claude Academy. Explanations and examples are original; follow each "official page" link for the source lesson.</p>
+  <p><a href="../index.html">بازگشت به فهرست کامل</a> · <a href="../glossary.html">واژه‌نامه</a></p>
+</footer>
+
+</body>
+</html>

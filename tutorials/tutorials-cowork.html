@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-lang="both">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>آموزش‌های کوتاه: Claude Cowork | Tutorials: Claude Cowork</title>
+<meta name="description" content="Short Cowork guides: setup, delegating and scheduling, customizing, plugins, and role-based walkthroughs for sales, marketing, legal, product and small business.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Lalezar&family=Vazirmatn:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>try{var l=localStorage.getItem("ca-lang");if(l)document.documentElement.setAttribute("data-lang",l)}catch(e){}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+<script src="../assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">پرش به متن اصلی</a>
+
+<header class="topbar">
+  <nav class="crumbs" aria-label="مسیر صفحه"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">C</span><span>جزوهٔ Claude Academy</span></a><span class="crumb-sep" aria-hidden="true">/</span><a href="../index.html#tutorials">آموزش‌های کوتاه</a><span class="crumb-sep" aria-hidden="true">/</span><span>آموزش‌های کوتاه: Claude Cowork</span></nav>
+  <div class="lang-switch" role="group" aria-label="زبان نمایش">
+    <button type="button" data-set-lang="both" aria-pressed="true">دوزبانه</button>
+    <button type="button" data-set-lang="fa" aria-pressed="false">فارسی</button>
+    <button type="button" data-set-lang="en" aria-pressed="false" lang="en">English</button>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="side-toc" aria-label="فهرست این صفحه"><details open><summary>فهرست این صفحه <span class="toc-count">۱۴ مورد</span></summary><ol><li class="toc-sec">قدم‌های اول</li><li><a href="#tutorials-cowork--get-started-in-claude-cowork-in-three-steps" data-toc="tutorials-cowork--get-started-in-claude-cowork-in-three-steps"><span class="toc-n">۱</span><span class="toc-t">شروع Claude Cowork در سه قدم</span></a></li><li><a href="#tutorials-cowork--choosing-between-claude-cowork-or-chat" data-toc="tutorials-cowork--choosing-between-claude-cowork-or-chat"><span class="toc-n">۲</span><span class="toc-t">انتخاب بین Claude Cowork و Chat</span></a></li><li><a href="#tutorials-cowork--delegating-your-first-task-in-claude-cowork" data-toc="tutorials-cowork--delegating-your-first-task-in-claude-cowork"><span class="toc-n">۳</span><span class="toc-t">سپردن اولین کار به Claude Cowork</span></a></li><li><a href="#tutorials-cowork--delegating-and-scheduling-tasks-in-claude-cowork" data-toc="tutorials-cowork--delegating-and-scheduling-tasks-in-claude-cowork"><span class="toc-n">۴</span><span class="toc-t">سپردن و زمان‌بندی کارها در Claude Cowork</span></a></li><li class="toc-sec">Cowork را مال خودت کن</li><li><a href="#tutorials-cowork--customize-claude-cowork" data-toc="tutorials-cowork--customize-claude-cowork"><span class="toc-n">۵</span><span class="toc-t">شخصی‌سازی Claude Cowork</span></a></li><li><a href="#tutorials-cowork--how-to-customize-plugins-in-claude-cowork" data-toc="tutorials-cowork--how-to-customize-plugins-in-claude-cowork"><span class="toc-n">۶</span><span class="toc-t">شخصی‌سازی پلاگین‌ها در Claude Cowork</span></a></li><li><a href="#tutorials-cowork--how-to-build-a-plugin-from-scratch-in-cowork" data-toc="tutorials-cowork--how-to-build-a-plugin-from-scratch-in-cowork"><span class="toc-n">۷</span><span class="toc-t">ساختن پلاگین از صفر در Claude Cowork</span></a></li><li class="toc-sec">Cowork برای نقش تو</li><li><a href="#tutorials-cowork--using-claude-cowork-for-sales-account-research" data-toc="tutorials-cowork--using-claude-cowork-for-sales-account-research"><span class="toc-n">۸</span><span class="toc-t">Cowork برای فروش: هر حسابی را قبل از اولین تماس بشناس</span></a></li><li><a href="#tutorials-cowork--using-claude-cowork-for-marketing-ops-review" data-toc="tutorials-cowork--using-claude-cowork-for-marketing-ops-review"><span class="toc-n">۹</span><span class="toc-t">Cowork برای بازبینی عملیات بازاریابی</span></a></li><li><a href="#tutorials-cowork--using-claude-cowork-for-legal-question-briefing" data-toc="tutorials-cowork--using-claude-cowork-for-legal-question-briefing"><span class="toc-n">۱۰</span><span class="toc-t">Cowork برای واحد حقوقی: جواب سریع به سؤال‌هایی دربارهٔ تصمیم‌های گذشته</span></a></li><li><a href="#tutorials-cowork--claude-for-product-management" data-toc="tutorials-cowork--claude-for-product-management"><span class="toc-n">۱۱</span><span class="toc-t">Claude برای مدیریت محصول (راهنما)</span></a></li><li><a href="#tutorials-cowork--using-claude-for-your-small-business" data-toc="tutorials-cowork--using-claude-for-your-small-business"><span class="toc-n">۱۲</span><span class="toc-t">استفاده از Claude Cowork برای کسب‌وکار کوچک</span></a></li><li><a href="#tutorials-cowork--how-to-install-the-claude-for-small-business-plugin" data-toc="tutorials-cowork--how-to-install-the-claude-for-small-business-plugin"><span class="toc-n">۱۳</span><span class="toc-t">نصب و استفاده از پلاگین Claude for Small Business</span></a></li><li class="toc-sec">در مقیاس سازمان</li><li><a href="#tutorials-cowork--scaling-workflows-with-claude-cowork-at-your-organization" data-toc="tutorials-cowork--scaling-workflows-with-claude-cowork-at-your-organization"><span class="toc-n">۱۴</span><span class="toc-t">گسترش روال‌های کاری Cowork در سازمان</span></a></li></ol></details></nav>
+<main id="main">
+<header class="page-head">
+  <p class="eyebrow">آموزش‌های کوتاه <span lang="en" dir="ltr">· Tutorials</span></p>
+  <h1><span class="h1-fa">آموزش‌های کوتاه: Claude Cowork</span><span class="h1-en" lang="en" dir="ltr">Tutorials: Claude Cowork</span></h1>
+  <p class="page-stats"><span lang="en" dir="ltr">14 tutorials · 4–15 min each</span> <a class="src src-big" href="https://academy.claude.com/products/cowork/tutorials" target="_blank" rel="noopener">صفحهٔ رسمی در Claude Academy<span aria-hidden="true"> ↗</span></a></p>
+  <p class="who"><span class="who-label">مناسب برای</span> <span>هر کسی که می‌خواهد کارهای کامل روی فایل‌ها و اپ‌هایش را به Claude بسپارد؛ از اولین مأموریت تا روال‌های کاری کل تیم.</span> <span class="who-en" lang="en" dir="ltr">Anyone who wants to hand Claude whole tasks on their files and apps, from a first errand to team-wide workflows.</span></p>
+  <p class="progress" data-progress-for="tutorials-cowork" data-total="14"><span class="progress-bar"><span></span></span><span class="progress-text">۰ از ۱۴ خوانده شده</span></p>
+</header>
+<div class="page-intro"><div class="pair"><div class="en" lang="en" dir="ltr"><p><strong>Cowork</strong> is Claude for <strong>delegating whole tasks</strong>: you describe the outcome, Claude plans, works across your files, connectors and browser, and comes back with a finished deliverable. (Cowork now lives inside the main Claude desktop app.) These tutorials go from your first task to scheduled routines, custom plugins and organization-wide workflows. For the full course, see <a class="xref" href="../courses/introduction-to-claude-cowork.html">Introduction to Claude Cowork</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p><strong>Cowork</strong> همان Claude برای <strong>سپردن کارهای کامل</strong> است: نتیجه را توصیف می‌کنی، Claude برنامه می‌ریزد، روی فایل‌ها، کانکتورها و مرورگرت کار می‌کند و با یک خروجی تمام‌شده برمی‌گردد. (Cowork حالا داخل خود اپ دسکتاپ Claude است.) این آموزش‌ها از اولین کار تا روال‌های زمان‌بندی‌شده، پلاگین‌های سفارشی و روال‌های کاری کل سازمان پیش می‌روند. برای دورهٔ کامل، <a class="xref" href="../courses/introduction-to-claude-cowork.html">آشنایی با Claude Cowork</a> را ببین.</p></div></div></div>
+
+<h2 class="section-title"><span>قدم‌های اول</span><span class="sec-en" lang="en" dir="ltr">First steps</span></h2>
+<article class="item" id="tutorials-cowork--get-started-in-claude-cowork-in-three-steps" data-item="tutorials-cowork--get-started-in-claude-cowork-in-three-steps">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۱ <span lang="en" dir="ltr">· Tutorial 1</span> </p>
+      <h3><span class="t-fa">شروع Claude Cowork در سه قدم</span><span class="t-en" lang="en" dir="ltr">Get started in Claude Cowork in three steps</span></h3>
+      <div class="item-tools"><span class="item-meta">4 min</span><a class="src" href="https://academy.claude.com/tutorials/get-started-in-claude-cowork-in-three-steps" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--get-started-in-claude-cowork-in-three-steps" data-done="tutorials-cowork--get-started-in-claude-cowork-in-three-steps"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A quickstart where <strong>Claude walks you through setup inside the conversation</strong>:</p>
+<ol><li>Open Claude and switch to Cowork.</li><li>Run the <strong>guided setup</strong>: it asks about your role and installs a matching <strong>plugin</strong> (a bundle of skills and connectors), helping you connect the tools it uses (Slack, Google Workspace, Microsoft 365...).</li><li>Choose a <strong>folder</strong> for Cowork to work in.</li></ol></div><div class="fa" lang="fa" dir="rtl"><p>یک شروع سریع که در آن <strong>Claude داخل خود گفت‌وگو راه‌اندازی را قدم به قدم با تو جلو می‌برد</strong>:</p>
+<ol><li>Claude را باز کن و به Cowork برو.</li><li><strong>راه‌اندازی هدایت‌شده</strong> را اجرا کن: دربارهٔ نقشت می‌پرسد و یک <strong>پلاگین</strong> مناسب نصب می‌کند (بسته‌ای از اسکیل‌ها و کانکتورها) و کمکت می‌کند ابزارهایی را که استفاده می‌کند وصل کنی (Slack، Google Workspace، Microsoft 365...).</li><li>یک <strong>پوشه</strong> برای کار Cowork انتخاب کن.</li></ol></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Make a dedicated folder like <code dir="ltr">Claude Work</code> instead of giving access to your whole Documents folder. Small, clear boundaries make it easy to trust what Cowork touches.</p></div><div class="fa" lang="fa" dir="rtl"><p>به جای دادن دسترسی به کل پوشهٔ Documents، یک پوشهٔ مخصوص مثل <code dir="ltr">Claude Work</code> بساز. مرزهای کوچک و روشن، اعتماد به چیزهایی را که Cowork به آن‌ها دست می‌زند آسان می‌کند.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-cowork--choosing-between-claude-cowork-or-chat" data-item="tutorials-cowork--choosing-between-claude-cowork-or-chat">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۲ <span lang="en" dir="ltr">· Tutorial 2</span> </p>
+      <h3><span class="t-fa">انتخاب بین Claude Cowork و Chat</span><span class="t-en" lang="en" dir="ltr">Choosing between Claude Cowork or Chat</span></h3>
+      <div class="item-tools"><span class="item-meta">5 min</span><a class="src" href="https://academy.claude.com/tutorials/choosing-between-claude-cowork-or-chat" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--choosing-between-claude-cowork-or-chat" data-done="tutorials-cowork--choosing-between-claude-cowork-or-chat"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p><strong>Chat</strong> is a turn-by-turn conversation: best for one-off questions, thinking partnership, and tasks that need little context. <strong>Cowork</strong> is a <strong>delegated task that ends in a finished deliverable</strong>: best when the work touches your files or tools, like research pulled together from several places, a cleaned spreadsheet, or a report built from last month's documents.</p></div><div class="fa" lang="fa" dir="rtl"><p><strong>Chat</strong> یک گفت‌وگوی نوبت‌به‌نوبت است: بهترین برای سؤال‌های یک‌باره، هم‌فکری و کارهایی که زمینهٔ کمی لازم دارند. <strong>Cowork</strong> یک <strong>کار سپرده‌شده است که با یک خروجی تمام‌شده تمام می‌شود</strong>: بهترین وقتی کار به فایل‌ها یا ابزارهایت دست می‌زند؛ مثل پژوهشی که از چند جا جمع می‌شود، یک صفحه‌گستردهٔ تمیزشده یا گزارشی که از سندهای ماه قبل ساخته می‌شود.</p></div></div></section>
+<section class="blk blk-example"><h4 class="blk-label"><span lang="en">Real example</span><span>مثال واقعی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>"What's a good structure for a quarterly review?" → <strong>Chat</strong>. "Build the Q3 review from the files in /Reports and the numbers in our sales sheet, as a 6-page Word doc" → <strong>Cowork</strong>.</p></div><div class="fa" lang="fa" dir="rtl"><p>«یک ساختار خوب برای گزارش فصلی چیست؟» ← <strong>Chat</strong>. «گزارش فصل سوم را از فایل‌های داخل /Reports و عددهای برگهٔ فروشمان بساز، به شکل یک سند Word شش‌صفحه‌ای» ← <strong>Cowork</strong>.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Chat is <strong>talking with a colleague at the coffee machine</strong>; Cowork is <strong>handing them a folder and saying "please have this ready by noon."</strong></p></div><div class="fa" lang="fa" dir="rtl"><p>Chat مثل <strong>گپ زدن با یک همکار کنار دستگاه قهوه</strong> است؛ Cowork مثل این است که <strong>یک پوشه دستش بدهی و بگویی «لطفاً تا ظهر آماده‌اش کن.»</strong></p></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-cowork--delegating-your-first-task-in-claude-cowork" data-item="tutorials-cowork--delegating-your-first-task-in-claude-cowork">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۳ <span lang="en" dir="ltr">· Tutorial 3</span> </p>
+      <h3><span class="t-fa">سپردن اولین کار به Claude Cowork</span><span class="t-en" lang="en" dir="ltr">Delegating your first task in Claude Cowork</span></h3>
+      <div class="item-tools"><span class="item-meta">4 min</span><a class="src" href="https://academy.claude.com/tutorials/delegating-your-first-task-in-claude-cowork" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--delegating-your-first-task-in-claude-cowork" data-done="tutorials-cowork--delegating-your-first-task-in-claude-cowork"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A good first task has a <strong>clear outcome</strong>, uses <strong>files or tools you've connected</strong>, and is <strong>easy to check</strong>. Describe the goal, what "done" looks like, and where to find the inputs. Cowork shows its plan and progress; it asks before sensitive actions, and you can step in at any point. Review the result like you'd review a new colleague's work.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک کار اول خوب <strong>نتیجهٔ روشن</strong> دارد، از <strong>فایل‌ها یا ابزارهایی که وصل کرده‌ای</strong> استفاده می‌کند و <strong>چک کردنش آسان است</strong>. هدف، این‌که «تمام شد» یعنی چه و این‌که ورودی‌ها کجا هستند را توصیف کن. Cowork برنامه و پیشرفتش را نشان می‌دهد؛ قبل از کارهای حساس می‌پرسد و هر لحظه می‌توانی وارد شوی. نتیجه را همان‌طور بررسی کن که کار یک همکار تازه را بررسی می‌کنی.</p></div></div></section>
+<section class="blk blk-prompt"><h4 class="blk-label"><span lang="en">Sample prompt</span><span>پرامپت نمونه</span></h4><div class="pair pair-prompt"><div class="en" lang="en" dir="ltr"><div class="prompt-text"><p>In my Downloads folder there are about 40 receipts (PDFs and photos) from my October work trip. Rename each as YYYY-MM-DD_vendor_amount, put them in /Expenses/October, and make an Excel sheet listing date, vendor, category and amount, with a total. Flag any receipt you can't read clearly.</p></div><button type="button" class="copy" data-copy-target=".prompt-text">Copy</button></div><div class="fa" lang="fa" dir="rtl"><div class="prompt-text"><p>در پوشهٔ Downloads من حدود ۴۰ رسید (PDF و عکس) از سفر کاری مهرماه هست. اسم هر کدام را به شکل YYYY-MM-DD_vendor_amount عوض کن، همه را در /Expenses/October بگذار و یک برگهٔ اکسل بساز که تاریخ، فروشنده، دسته و مبلغ را با جمع کل فهرست کند. هر رسیدی را که واضح نمی‌توانی بخوانی علامت بزن.</p></div><button type="button" class="copy" data-copy-target=".prompt-text">کپی</button></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-cowork--delegating-and-scheduling-tasks-in-claude-cowork" data-item="tutorials-cowork--delegating-and-scheduling-tasks-in-claude-cowork">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۴ <span lang="en" dir="ltr">· Tutorial 4</span> </p>
+      <h3><span class="t-fa">سپردن و زمان‌بندی کارها در Claude Cowork</span><span class="t-en" lang="en" dir="ltr">Delegating and scheduling tasks in Claude Cowork</span></h3>
+      <div class="item-tools"><span class="item-meta">4 min</span><a class="src" href="https://academy.claude.com/tutorials/delegating-and-scheduling-tasks-in-claude-cowork" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--delegating-and-scheduling-tasks-in-claude-cowork" data-done="tutorials-cowork--delegating-and-scheduling-tasks-in-claude-cowork"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>The video shows preparing for an important call by having Cowork pull context from your <strong>calendar, Slack, email and past meeting notes</strong> into one brief. Then it makes the job <strong>recurring</strong> with <code dir="ltr">/schedule</code>: describe the task and cadence (hourly, daily, weekdays...), review the prompt Claude drafts, and accept. Or run a task once, check the output, then schedule that exact process. Each run is a fresh session; tasks that need local files run only while the desktop app is open (late runs happen as soon as you're back).</p></div><div class="fa" lang="fa" dir="rtl"><p>ویدئو نشان می‌دهد چطور برای یک تماس مهم آماده شوی: Cowork زمینه را از <strong>تقویم، Slack، ایمیل و یادداشت‌های جلسه‌های قبلی</strong> در یک خلاصه جمع می‌کند. بعد با <code dir="ltr">/schedule</code> کار را <strong>تکرارشونده</strong> می‌کند: کار و تناوبش را توصیف کن (ساعتی، روزانه، روزهای کاری...)، پرامپتی را که Claude پیش‌نویس می‌کند بازبینی کن و تأیید کن. یا یک بار کار را اجرا کن، خروجی را چک کن و بعد همان فرایند را زمان‌بندی کن. هر اجرا یک جلسهٔ تازه است؛ کارهایی که فایل محلی لازم دارند فقط وقتی اجرا می‌شوند که اپ دسکتاپ باز باشد (اجراهای عقب‌افتاده به‌محض برگشتنت انجام می‌شوند).</p></div></div></section>
+<section class="blk blk-example"><h4 class="blk-label"><span lang="en">Real example</span><span>مثال واقعی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>"Every weekday at 8:30, look at today's meetings, pull the latest email thread and Slack messages with each attendee, and write me a one-page prep note per meeting."</p></div><div class="fa" lang="fa" dir="rtl"><p>«هر روز کاری ساعت ۸:۳۰، جلسه‌های امروز را ببین، آخرین رشتهٔ ایمیل و پیام‌های Slack با هر شرکت‌کننده را بیرون بکش و برای هر جلسه یک یادداشت آمادگی یک‌صفحه‌ای برایم بنویس.»</p></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Schedule only what you've already run successfully by hand at least once. A broken prompt on a schedule just produces a broken result every morning.</p></div><div class="fa" lang="fa" dir="rtl"><p>فقط چیزی را زمان‌بندی کن که دست‌کم یک بار دستی و موفق اجرایش کرده‌ای. یک پرامپت خراب روی برنامهٔ زمانی، فقط هر روز صبح یک نتیجهٔ خراب تحویل می‌دهد.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>Cowork را مال خودت کن</span><span class="sec-en" lang="en" dir="ltr">Making Cowork yours</span></h2>
+<article class="item" id="tutorials-cowork--customize-claude-cowork" data-item="tutorials-cowork--customize-claude-cowork">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۵ <span lang="en" dir="ltr">· Tutorial 5</span> </p>
+      <h3><span class="t-fa">شخصی‌سازی Claude Cowork</span><span class="t-en" lang="en" dir="ltr">Customize Claude Cowork</span></h3>
+      <div class="item-tools"><span class="item-meta">7 min</span><a class="src" href="https://academy.claude.com/tutorials/customize-claude-cowork" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--customize-claude-cowork" data-done="tutorials-cowork--customize-claude-cowork"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Set Cowork up to fit your work: <strong>global instructions</strong> in Settings (who you are, how you like deliverables, what to never do), <strong>folder instructions</strong> for specific projects, organization-wide instructions on Enterprise plans, and <strong>connector permissions</strong> (some of which an admin controls). Good standing context means shorter prompts and fewer corrections.</p></div><div class="fa" lang="fa" dir="rtl"><p>Cowork را طوری تنظیم کن که با کارت جور باشد: <strong>دستورهای سراسری</strong> در تنظیمات (کی هستی، خروجی‌ها را چطور دوست داری، چه کارهایی را هرگز نکند)، <strong>دستورهای پوشه</strong> برای پروژه‌های مشخص، دستورهای کل سازمان در پلن‌های Enterprise و <strong>مجوزهای کانکتورها</strong> (که بعضی‌شان در اختیار مدیر است). زمینهٔ ماندگار خوب یعنی پرامپت‌های کوتاه‌تر و اصلاح‌های کمتر.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">markdown</span><span class="code-cap">Global instructions example</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-markdown">I&#x27;m a marketing manager at a 40-person B2B software company.
+- Deliverables: Word or Google Docs, headings + short paragraphs, no emojis.
+- Always cite where numbers came from (file name or link).
+- Never send emails or post messages without asking me first.
+- British spelling.</code></pre></figure>
+  </div>
+</article>
+<article class="item" id="tutorials-cowork--how-to-customize-plugins-in-claude-cowork" data-item="tutorials-cowork--how-to-customize-plugins-in-claude-cowork">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۶ <span lang="en" dir="ltr">· Tutorial 6</span> </p>
+      <h3><span class="t-fa">شخصی‌سازی پلاگین‌ها در Claude Cowork</span><span class="t-en" lang="en" dir="ltr">How to customize plugins in Claude Cowork</span></h3>
+      <div class="item-tools"><span class="item-meta">6 min</span><a class="src" href="https://academy.claude.com/products/cowork/tutorials" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--how-to-customize-plugins-in-claude-cowork" data-done="tutorials-cowork--how-to-customize-plugins-in-claude-cowork"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Marketplace plugins are generic on purpose. After installing one, go to <strong>Customize → Plugins → [plugin] → Customize</strong>: this opens a Cowork task where you and Claude tailor it to your team, for example your CRM fields, your pricing tiers, your approval rules, your templates. The result is a plugin that speaks your company's language.</p></div><div class="fa" lang="fa" dir="rtl"><p>پلاگین‌های بازارچه عمداً عمومی‌اند. بعد از نصب یکی، به <strong>Customize ← Plugins ← [اسم پلاگین] ← Customize</strong> برو: یک کار Cowork باز می‌شود که در آن تو و Claude آن را برای تیمت تنظیم می‌کنید؛ مثلاً فیلدهای CRM، سطح‌های قیمت‌گذاری، قانون‌های تأیید و قالب‌هایتان. نتیجه پلاگینی است که به زبان شرکت تو حرف می‌زند.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Like buying a <strong>suit off the rack and taking it to a tailor</strong>: same suit, now it actually fits.</p></div><div class="fa" lang="fa" dir="rtl"><p>مثل خریدن <strong>یک کت‌وشلوار آماده و بردنش پیش خیاط</strong> است: همان کت‌وشلوار، ولی حالا واقعاً اندازه است.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-cowork--how-to-build-a-plugin-from-scratch-in-cowork" data-item="tutorials-cowork--how-to-build-a-plugin-from-scratch-in-cowork">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۷ <span lang="en" dir="ltr">· Tutorial 7</span> </p>
+      <h3><span class="t-fa">ساختن پلاگین از صفر در Claude Cowork</span><span class="t-en" lang="en" dir="ltr">How to build a plugin from scratch in Claude Cowork</span></h3>
+      <div class="item-tools"><span class="item-meta">15 min</span><a class="src" href="https://academy.claude.com/tutorials/how-to-build-a-plugin-from-scratch-in-cowork" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--how-to-build-a-plugin-from-scratch-in-cowork" data-done="tutorials-cowork--how-to-build-a-plugin-from-scratch-in-cowork"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A <strong>plugin</strong> packages your team's expertise: <strong>skills</strong> (how to do tasks), <strong>commands</strong> (shortcuts like <code dir="ltr">/brief</code>), and the <strong>connectors</strong> those skills need. You build it <strong>with Claude</strong>: describe the workflows your team repeats, let Claude draft the skills, test each on real tasks, then package and share it so everyone works the same way.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک <strong>پلاگین</strong> تخصص تیمت را بسته‌بندی می‌کند: <strong>اسکیل‌ها</strong> (روش انجام کارها)، <strong>فرمان‌ها</strong> (میان‌برهایی مثل <code dir="ltr">/brief</code>) و <strong>کانکتورهایی</strong> که آن اسکیل‌ها لازم دارند. آن را <strong>با Claude</strong> می‌سازی: روال‌هایی را که تیمت تکرار می‌کند توصیف کن، بگذار Claude اسکیل‌ها را پیش‌نویس کند، هر کدام را روی کارهای واقعی امتحان کن و بعد بسته‌بندی‌اش کن و به اشتراک بگذار تا همه یک‌جور کار کنند.</p></div></div></section>
+<section class="blk blk-prompt"><h4 class="blk-label"><span lang="en">Sample prompt</span><span>پرامپت نمونه</span></h4><div class="pair pair-prompt"><div class="en" lang="en" dir="ltr"><div class="prompt-text"><p>Help me build a plugin for our recruiting team. We repeat three things: writing job descriptions in our format, screening CVs against a scorecard, and drafting interview-feedback summaries. Interview me about each, then draft one skill per workflow.</p></div><button type="button" class="copy" data-copy-target=".prompt-text">Copy</button></div><div class="fa" lang="fa" dir="rtl"><div class="prompt-text"><p>کمکم کن یک پلاگین برای تیم استخدام‌مان بسازیم. سه کار را مدام تکرار می‌کنیم: نوشتن آگهی شغلی با قالب خودمان، غربال رزومه‌ها با یک کارت امتیاز، و پیش‌نویس خلاصهٔ بازخورد مصاحبه‌ها. دربارهٔ هر کدام با من مصاحبه کن، بعد برای هر روال یک اسکیل پیش‌نویس کن.</p></div><button type="button" class="copy" data-copy-target=".prompt-text">کپی</button></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Skills inside a plugin can also be <strong>scheduled</strong>: a "Monday pipeline review" skill can run every Monday with your criteria applied automatically.</p></div><div class="fa" lang="fa" dir="rtl"><p>اسکیل‌های داخل یک پلاگین را هم می‌شود <strong>زمان‌بندی کرد</strong>: یک اسکیل «مرور قیف استخدام دوشنبه‌ها» می‌تواند هر دوشنبه با معیارهای تو خودکار اجرا شود.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>Cowork برای نقش تو</span><span class="sec-en" lang="en" dir="ltr">Cowork for your role</span></h2>
+<article class="item" id="tutorials-cowork--using-claude-cowork-for-sales-account-research" data-item="tutorials-cowork--using-claude-cowork-for-sales-account-research">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۸ <span lang="en" dir="ltr">· Tutorial 8</span> </p>
+      <h3><span class="t-fa">Cowork برای فروش: هر حسابی را قبل از اولین تماس بشناس</span><span class="t-en" lang="en" dir="ltr">Using Claude Cowork for sales: research any account before the first call</span></h3>
+      <div class="item-tools"><span class="item-meta">15 min</span><a class="src" href="https://academy.claude.com/tutorials/using-claude-cowork-for-sales-account-research" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--using-claude-cowork-for-sales-account-research" data-done="tutorials-cowork--using-claude-cowork-for-sales-account-research"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Before a first call, Cowork pulls together a <strong>one-page account brief</strong>: what the company does and recent news (web), your history with them (CRM, email), who you're meeting and their roles, likely priorities, and smart questions to ask. What used to take an hour of tab-hopping becomes a ready document.</p></div><div class="fa" lang="fa" dir="rtl"><p>قبل از اولین تماس، Cowork یک <strong>خلاصهٔ یک‌صفحه‌ای از حساب مشتری</strong> جمع می‌کند: شرکت چه کار می‌کند و خبرهای اخیرش (وب)، سابقهٔ شما با آن‌ها (CRM، ایمیل)، با چه کسانی جلسه داری و نقششان، اولویت‌های احتمالی و سؤال‌های هوشمندانه برای پرسیدن. چیزی که قبلاً یک ساعت پریدن بین زبانه‌ها وقت می‌گرفت، به یک سند آماده تبدیل می‌شود.</p></div></div></section>
+<section class="blk blk-prompt"><h4 class="blk-label"><span lang="en">Sample prompt</span><span>پرامپت نمونه</span></h4><div class="pair pair-prompt"><div class="en" lang="en" dir="ltr"><div class="prompt-text"><p>I have a first call with Northwind Logistics on Thursday. Build an account brief: company overview and last 6 months of news, anything in our CRM and my inbox about them, the LinkedIn roles of the two attendees, three likely pain points for a logistics company their size, and five discovery questions.</p></div><button type="button" class="copy" data-copy-target=".prompt-text">Copy</button></div><div class="fa" lang="fa" dir="rtl"><div class="prompt-text"><p>پنجشنبه اولین تماسم را با Northwind Logistics دارم. یک خلاصهٔ حساب بساز: معرفی شرکت و خبرهای ۶ ماه اخیر، هر چیزی که در CRM ما و صندوق ایمیلم دربارهٔ آن‌هاست، نقش دو شرکت‌کننده در لینکدین، سه دغدغهٔ احتمالی برای یک شرکت لجستیک هم‌اندازهٔ آن‌ها و پنج سؤال کشف نیاز.</p></div><button type="button" class="copy" data-copy-target=".prompt-text">کپی</button></div></div></section>
+<section class="blk blk-warn"><h4 class="blk-label"><span lang="en">Watch out</span><span>حواست باشد</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Double-check names, titles and any number before you say them on a call. A wrong job title in the first minute costs more trust than the brief saved time.</p></div><div class="fa" lang="fa" dir="rtl"><p>اسم‌ها، سمت‌ها و هر عددی را قبل از گفتنش در تماس دوباره چک کن. یک سمت شغلی اشتباه در دقیقهٔ اول، بیشتر از وقتی که خلاصه صرفه‌جویی کرده اعتماد هزینه دارد.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-cowork--using-claude-cowork-for-marketing-ops-review" data-item="tutorials-cowork--using-claude-cowork-for-marketing-ops-review">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۹ <span lang="en" dir="ltr">· Tutorial 9</span> </p>
+      <h3><span class="t-fa">Cowork برای بازبینی عملیات بازاریابی</span><span class="t-en" lang="en" dir="ltr">Using Claude Cowork for a marketing ops review</span></h3>
+      <div class="item-tools"><span class="item-meta">15 min</span><a class="src" href="https://academy.claude.com/tutorials/using-claude-cowork-for-marketing-ops-review" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--using-claude-cowork-for-marketing-ops-review" data-done="tutorials-cowork--using-claude-cowork-for-marketing-ops-review"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Marketing ops reviews mean gathering numbers from many places (ad platforms, analytics, CRM, spreadsheets), comparing them to plan, and explaining what changed. Cowork does the gathering and first analysis, then drafts the review: what worked, what didn't, anomalies to investigate and recommended next steps. You add the judgment and the context only your team has.</p></div><div class="fa" lang="fa" dir="rtl"><p>بازبینی عملیات بازاریابی یعنی جمع کردن عددها از جاهای مختلف (پلتفرم‌های تبلیغاتی، آنالیتیکس، CRM، صفحه‌گسترده‌ها)، مقایسه‌شان با برنامه و توضیح این‌که چه چیزی عوض شده. Cowork جمع‌آوری و تحلیل اولیه را انجام می‌دهد و بعد بازبینی را پیش‌نویس می‌کند: چه چیزی جواب داد، چه چیزی نه، ناهنجاری‌هایی که باید بررسی شوند و قدم‌های پیشنهادی. قضاوت و زمینه‌ای را که فقط تیم تو دارد خودت اضافه می‌کنی.</p></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Ask Cowork to <strong>separate facts from interpretations</strong> ("numbers with sources" vs "possible explanations"). It makes the review meeting faster and keeps guesses from turning into "facts".</p></div><div class="fa" lang="fa" dir="rtl"><p>از Cowork بخواه <strong>واقعیت‌ها را از تفسیرها جدا کند</strong> («عددها با منبع» در برابر «توضیح‌های احتمالی»). جلسهٔ بازبینی را سریع‌تر می‌کند و نمی‌گذارد حدس‌ها به «واقعیت» تبدیل شوند.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-cowork--using-claude-cowork-for-legal-question-briefing" data-item="tutorials-cowork--using-claude-cowork-for-legal-question-briefing">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۱۰ <span lang="en" dir="ltr">· Tutorial 10</span> </p>
+      <h3><span class="t-fa">Cowork برای واحد حقوقی: جواب سریع به سؤال‌هایی دربارهٔ تصمیم‌های گذشته</span><span class="t-en" lang="en" dir="ltr">Using Claude Cowork for legal: answer fast questions on past decisions</span></h3>
+      <div class="item-tools"><span class="item-meta">15 min</span><a class="src" href="https://academy.claude.com/tutorials/using-claude-cowork-for-legal-question-briefing" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--using-claude-cowork-for-legal-question-briefing" data-done="tutorials-cowork--using-claude-cowork-for-legal-question-briefing"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Legal teams get the same questions again and again: "Did we ever accept unlimited liability?", "What did we agree with this vendor last year?" With the <strong>Legal plugin</strong> and access to past contracts and decisions, Cowork finds the precedent and answers with <strong>sources</strong>. The tutorial also sets up a <strong>morning brief</strong> by scheduling the plugin's <code dir="ltr">/brief</code> skill, which reads connected inboxes and chat and writes a short memo of what needs attention.</p></div><div class="fa" lang="fa" dir="rtl"><p>تیم‌های حقوقی مدام سؤال‌های تکراری می‌گیرند: «تا حالا مسئولیت نامحدود را قبول کرده‌ایم؟»، «پارسال با این تأمین‌کننده چه توافق کردیم؟» با <strong>پلاگین Legal</strong> و دسترسی به قراردادها و تصمیم‌های گذشته، Cowork سابقه را پیدا می‌کند و <strong>با منبع</strong> جواب می‌دهد. آموزش همچنین با زمان‌بندی اسکیل <code dir="ltr">/brief</code> پلاگین، یک <strong>خلاصهٔ صبحگاهی</strong> راه می‌اندازد که صندوق‌های ایمیل و گفت‌وگوهای وصل‌شده را می‌خواند و یک یادداشت کوتاه از چیزهایی که توجه لازم دارند می‌نویسد.</p></div></div></section>
+<section class="blk blk-warn"><h4 class="blk-label"><span lang="en">Watch out</span><span>حواست باشد</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>AI finds and summarizes precedent; a lawyer decides. Always open the cited clause before relying on it.</p></div><div class="fa" lang="fa" dir="rtl"><p>هوش مصنوعی سابقه را پیدا و خلاصه می‌کند؛ تصمیم با وکیل است. همیشه قبل از تکیه کردن به یک بند ارجاع‌شده، خودش را باز کن و بخوان.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-cowork--claude-for-product-management" data-item="tutorials-cowork--claude-for-product-management">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۱۱ <span lang="en" dir="ltr">· Tutorial 11</span> </p>
+      <h3><span class="t-fa">Claude برای مدیریت محصول (راهنما)</span><span class="t-en" lang="en" dir="ltr">Claude for product management (guide)</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/products/cowork/tutorials" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--claude-for-product-management" data-done="tutorials-cowork--claude-for-product-management"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>The <strong>Product Management plugin</strong> bundles skills for a PM's week: <code dir="ltr">/write-spec</code> to draft PRDs, <code dir="ltr">/metrics-review</code> to analyze product metrics, plus feedback clustering, roadmap planning, sprint updates and competitive teardowns. Connect your analytics, issue tracker and feedback channels so the skills work on real data.</p></div><div class="fa" lang="fa" dir="rtl"><p><strong>پلاگین مدیریت محصول</strong> اسکیل‌های هفتهٔ یک مدیر محصول را یک‌جا دارد: <code dir="ltr">/write-spec</code> برای پیش‌نویس سند نیازمندی‌های محصول (PRD)، <code dir="ltr">/metrics-review</code> برای تحلیل معیارهای محصول، به‌اضافهٔ خوشه‌بندی بازخوردها، برنامه‌ریزی نقشهٔ راه، گزارش اسپرینت و کالبدشکافی رقبا. آنالیتیکس، سامانهٔ مدیریت کارها و کانال‌های بازخوردت را وصل کن تا اسکیل‌ها روی دادهٔ واقعی کار کنند.</p></div></div></section>
+<section class="blk blk-prompt"><h4 class="blk-label"><span lang="en">Sample prompt</span><span>پرامپت نمونه</span></h4><div class="pair pair-prompt"><div class="en" lang="en" dir="ltr"><div class="prompt-text"><p>/write-spec Users keep asking to export dashboards as PDF. Use the 30 related tickets in our tracker and last quarter's feedback survey to draft a one-page spec: problem, who it's for, success metrics, scope, and open questions.</p></div><button type="button" class="copy" data-copy-target=".prompt-text">Copy</button></div><div class="fa" lang="fa" dir="rtl"><div class="prompt-text"><p>/write-spec کاربرها مدام می‌خواهند داشبوردها را به PDF خروجی بگیرند. با ۳۰ تیکت مرتبط در سامانهٔ ما و نظرسنجی بازخورد فصل قبل، یک مشخصات یک‌صفحه‌ای پیش‌نویس کن: مسئله، برای چه کسانی، معیارهای موفقیت، دامنه و سؤال‌های باز.</p></div><button type="button" class="copy" data-copy-target=".prompt-text">کپی</button></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-cowork--using-claude-for-your-small-business" data-item="tutorials-cowork--using-claude-for-your-small-business">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۱۲ <span lang="en" dir="ltr">· Tutorial 12</span> </p>
+      <h3><span class="t-fa">استفاده از Claude Cowork برای کسب‌وکار کوچک</span><span class="t-en" lang="en" dir="ltr">Using Claude Cowork for your small business</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/tutorials/using-claude-for-your-small-business" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--using-claude-for-your-small-business" data-done="tutorials-cowork--using-claude-for-your-small-business"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>For owners who wear every hat: Cowork can take the <strong>admin load</strong>: invoices and receipts, customer emails, social posts, supplier comparisons, weekly numbers. Start with the job you like least, give it your files and tools, and keep anything involving money movement or sensitive customer data behind your approval.</p></div><div class="fa" lang="fa" dir="rtl"><p>برای صاحبان کسب‌وکاری که همهٔ نقش‌ها را خودشان بازی می‌کنند: Cowork می‌تواند <strong>بار کارهای اداری</strong> را بردارد: فاکتورها و رسیدها، ایمیل‌های مشتری، پست‌های شبکه‌های اجتماعی، مقایسهٔ تأمین‌کننده‌ها، عددهای هفتگی. با کاری شروع کن که از همه کمتر دوستش داری، فایل‌ها و ابزارهایت را در اختیارش بگذار و هر چیزی را که به جابه‌جایی پول یا دادهٔ حساس مشتری مربوط است پشت تأیید خودت نگه دار.</p></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Pair this with the <a class="xref" href="../courses/ai-fluency-for-small-businesses.html">AI Fluency for small businesses</a> course: it helps you decide what to hand over and write a one-page AI policy.</p></div><div class="fa" lang="fa" dir="rtl"><p>این را با دورهٔ <a class="xref" href="../courses/ai-fluency-for-small-businesses.html">سواد هوش مصنوعی برای کسب‌وکارهای کوچک</a> همراه کن: کمکت می‌کند تصمیم بگیری چه چیزی را بسپاری و یک سیاست یک‌صفحه‌ای هوش مصنوعی بنویسی.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-cowork--how-to-install-the-claude-for-small-business-plugin" data-item="tutorials-cowork--how-to-install-the-claude-for-small-business-plugin">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۱۳ <span lang="en" dir="ltr">· Tutorial 13</span> </p>
+      <h3><span class="t-fa">نصب و استفاده از پلاگین Claude for Small Business</span><span class="t-en" lang="en" dir="ltr">How to install and use the Claude for Small Business plugin</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/tutorials/how-to-install-the-claude-for-small-business-plugin" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--how-to-install-the-claude-for-small-business-plugin" data-done="tutorials-cowork--how-to-install-the-claude-for-small-business-plugin"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Open Cowork, click <strong>Customize</strong> in the sidebar, then <strong>Plugins → +</strong>, find <strong>Small Business</strong> and click <strong>Install</strong>. Setup starts with an <strong>onboarding skill</strong>: it asks about your business, helps you connect your tools, and <strong>saves your business context</strong> so every other skill already knows who you are, what you sell and how you talk to customers.</p></div><div class="fa" lang="fa" dir="rtl"><p>Cowork را باز کن، در نوار کناری روی <strong>Customize</strong> بزن، بعد <strong>Plugins ← +</strong>، <strong>Small Business</strong> را پیدا کن و روی <strong>Install</strong> بزن. راه‌اندازی با یک <strong>اسکیل آشنایی</strong> شروع می‌شود: دربارهٔ کسب‌وکارت می‌پرسد، کمکت می‌کند ابزارهایت را وصل کنی و <strong>زمینهٔ کسب‌وکارت را ذخیره می‌کند</strong> تا هر اسکیل دیگری از قبل بداند تو کی هستی، چه می‌فروشی و با مشتری‌ها چطور حرف می‌زنی.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>The onboarding skill is the <strong>first-day orientation</strong> for a new hire, except you only have to do it once for every skill in the plugin.</p></div><div class="fa" lang="fa" dir="rtl"><p>اسکیل آشنایی مثل <strong>جلسهٔ آشنایی روز اول</strong> برای یک نیروی تازه است، با این فرق که فقط یک بار برای همهٔ اسکیل‌های پلاگین انجامش می‌دهی.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>در مقیاس سازمان</span><span class="sec-en" lang="en" dir="ltr">At organization scale</span></h2>
+<article class="item" id="tutorials-cowork--scaling-workflows-with-claude-cowork-at-your-organization" data-item="tutorials-cowork--scaling-workflows-with-claude-cowork-at-your-organization">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۱۴ <span lang="en" dir="ltr">· Tutorial 14</span> </p>
+      <h3><span class="t-fa">گسترش روال‌های کاری Cowork در سازمان</span><span class="t-en" lang="en" dir="ltr">Scaling workflows with Claude Cowork at your organization</span></h3>
+      <div class="item-tools"><span class="item-meta">15 min</span><a class="src" href="https://academy.claude.com/tutorials/scaling-workflows-with-claude-cowork-at-your-organization" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-cowork--scaling-workflows-with-claude-cowork-at-your-organization" data-done="tutorials-cowork--scaling-workflows-with-claude-cowork-at-your-organization"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>When one person's great workflow should become everyone's: capture it as a <strong>skill or plugin</strong>, test it with a few colleagues, then share it through your organization's <strong>plugin marketplace</strong> with the right connectors pre-configured. Pair it with admin settings (which connectors, which permissions) and a simple way for people to report what's not working.</p></div><div class="fa" lang="fa" dir="rtl"><p>وقتی روال کاری عالیِ یک نفر باید روال کار همه شود: آن را به شکل یک <strong>اسکیل یا پلاگین</strong> ثبت کن، با چند همکار امتحانش کن و بعد از طریق <strong>بازارچهٔ پلاگین سازمان</strong> با کانکتورهای ازپیش‌تنظیم‌شده به اشتراک بگذار. آن را با تنظیمات مدیریتی (کدام کانکتورها، کدام مجوزها) و یک راه ساده برای گزارش دادن مشکل‌ها همراه کن.</p></div></div></section>
+<section class="blk blk-steps"><h4 class="blk-label"><span lang="en">Step by step</span><span>قدم‌به‌قدم</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><ol><li>Pick a workflow that's frequent and already working well for one person.</li><li>Turn it into a skill (or a plugin with several skills).</li><li>Pilot with 3–5 colleagues for two weeks; collect fixes.</li><li>Publish to the org marketplace; announce with a 2-minute demo.</li><li>Review usage and feedback monthly; update the plugin.</li></ol></div><div class="fa" lang="fa" dir="rtl"><ol><li>یک روال پرتکرار را انتخاب کن که همین حالا برای یک نفر خوب جواب می‌دهد.</li><li>آن را به یک اسکیل (یا پلاگینی با چند اسکیل) تبدیل کن.</li><li>دو هفته با ۳ تا ۵ همکار آزمایشی اجرایش کن؛ اصلاح‌ها را جمع کن.</li><li>در بازارچهٔ سازمان منتشرش کن؛ با یک دموی دودقیقه‌ای اعلامش کن.</li><li>ماهانه استفاده و بازخورد را مرور کن؛ پلاگین را به‌روز کن.</li></ol></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>For the admin side, see the <a class="xref" href="../tutorials/tutorials-admin.html#tutorials-admin--claude-cowork-enterprise-administrator-guide">Cowork enterprise admin guide</a> tutorial in this handout.</p></div><div class="fa" lang="fa" dir="rtl"><p>برای بخش مدیریتی، آموزش <a class="xref" href="../tutorials/tutorials-admin.html#tutorials-admin--claude-cowork-enterprise-administrator-guide">راهنمای مدیر سازمانی Cowork</a> در همین جزوه را ببین.</p></div></div></section>
+  </div>
+</article>
+<nav class="pager" aria-label="صفحهٔ قبلی و بعدی"><a class="prev" href="../tutorials/tutorials-claude-app.html"><span class="pager-label">قبلی</span><span>آموزش‌های کوتاه: اپ Claude</span></a><a class="next" href="../tutorials/tutorials-claude-code.html"><span class="pager-label">بعدی</span><span>آموزش‌های کوتاه: Claude Code و پلتفرم Claude</span></a></nav>
+</main>
+</div>
+
+<footer class="site-foot">
+  <p>این جزوه یک بازنویسی آموزشی و آزاد از مطالب <a href="https://academy.claude.com" target="_blank" rel="noopener">Claude Academy</a> است؛ متن‌ها، تشبیه‌ها و مثال‌ها تازه نوشته شده‌اند. برای جدیدترین نسخه همیشه به صفحهٔ رسمی هر درس سر بزن.</p>
+  <p lang="en" dir="ltr">An independent study companion to Claude Academy. Explanations and examples are original; follow each "official page" link for the source lesson.</p>
+  <p><a href="../index.html">بازگشت به فهرست کامل</a> · <a href="../glossary.html">واژه‌نامه</a></p>
+</footer>
+
+</body>
+</html>

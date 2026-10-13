@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-lang="both">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>آموزش‌های کوتاه: مدیرها و استقرار سازمانی | Tutorials: admins and enterprise rollout</title>
+<meta name="description" content="Admin guides for Claude Enterprise, Cowork and Claude Code: identity, provisioning, seats, connectors, analytics and a setup checklist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Lalezar&family=Vazirmatn:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>try{var l=localStorage.getItem("ca-lang");if(l)document.documentElement.setAttribute("data-lang",l)}catch(e){}</script>
+<script src="../assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">پرش به متن اصلی</a>
+
+<header class="topbar">
+  <nav class="crumbs" aria-label="مسیر صفحه"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">C</span><span>جزوهٔ Claude Academy</span></a><span class="crumb-sep" aria-hidden="true">/</span><a href="../index.html#tutorials">آموزش‌های کوتاه</a><span class="crumb-sep" aria-hidden="true">/</span><span>آموزش‌های کوتاه: مدیرها و استقرار سازمانی</span></nav>
+  <div class="lang-switch" role="group" aria-label="زبان نمایش">
+    <button type="button" data-set-lang="both" aria-pressed="true">دوزبانه</button>
+    <button type="button" data-set-lang="fa" aria-pressed="false">فارسی</button>
+    <button type="button" data-set-lang="en" aria-pressed="false" lang="en">English</button>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="side-toc" aria-label="فهرست این صفحه"><details open><summary>فهرست این صفحه <span class="toc-count">۴ مورد</span></summary><ol><li class="toc-sec">راهنماهای مدیریتی</li><li><a href="#tutorials-admin--claude-enterprise-administrator-guide" data-toc="tutorials-admin--claude-enterprise-administrator-guide"><span class="toc-n">۱</span><span class="toc-t">راهنمای مدیر Claude Enterprise</span></a></li><li><a href="#tutorials-admin--claude-cowork-enterprise-administrator-guide" data-toc="tutorials-admin--claude-cowork-enterprise-administrator-guide"><span class="toc-n">۲</span><span class="toc-t">راهنمای مدیر سازمانی Claude Cowork</span></a></li><li><a href="#tutorials-admin--how-to-enable-claude-code-for-your-enterprise-team" data-toc="tutorials-admin--how-to-enable-claude-code-for-your-enterprise-team"><span class="toc-n">۳</span><span class="toc-t">فعال کردن Claude Code برای تیم سازمانی</span></a></li><li><a href="#tutorials-admin--cowork-setup-checklist" data-toc="tutorials-admin--cowork-setup-checklist"><span class="toc-n">۴</span><span class="toc-t">چک‌لیست راه‌اندازی Cowork</span></a></li></ol></details></nav>
+<main id="main">
+<header class="page-head">
+  <p class="eyebrow">آموزش‌های کوتاه <span lang="en" dir="ltr">· Tutorials</span></p>
+  <h1><span class="h1-fa">آموزش‌های کوتاه: مدیرها و استقرار سازمانی</span><span class="h1-en" lang="en" dir="ltr">Tutorials: admins and enterprise rollout</span></h1>
+  <p class="page-stats"><span lang="en" dir="ltr">4 guides · 4–20 min each</span> <a class="src src-big" href="https://academy.claude.com/collections/claude-for-work" target="_blank" rel="noopener">صفحهٔ رسمی در Claude Academy<span aria-hidden="true"> ↗</span></a></p>
+  <p class="who"><span class="who-label">مناسب برای</span> <span>مدیرها و مسئولان IT که Claude، Cowork و Claude Code را برای یک سازمان راه‌اندازی می‌کنند.</span> <span class="who-en" lang="en" dir="ltr">Admins and IT owners setting up Claude, Cowork and Claude Code for an organization.</span></p>
+  <p class="progress" data-progress-for="tutorials-admin" data-total="4"><span class="progress-bar"><span></span></span><span class="progress-text">۰ از ۴ خوانده شده</span></p>
+</header>
+<div class="page-intro"><div class="pair"><div class="en" lang="en" dir="ltr"><p>These guides are for the people who <strong>set Claude up for everyone else</strong>. They pair well with the decision-focused course <a class="xref" href="../courses/deploying-claude-enterprise-with-confidence.html">Deploying Claude Enterprise with confidence</a>: the course helps you decide *what* to do; these guides show *where to click*.</p></div><div class="fa" lang="fa" dir="rtl"><p>این راهنماها برای کسانی است که <strong>Claude را برای بقیه راه‌اندازی می‌کنند</strong>. با دورهٔ تصمیم‌محور <a class="xref" href="../courses/deploying-claude-enterprise-with-confidence.html">استقرار مطمئن Claude Enterprise</a> خوب جفت می‌شوند: دوره کمکت می‌کند تصمیم بگیری *چه* کاری بکنی؛ این راهنماها نشان می‌دهند *کجا کلیک کنی*.</p></div></div></div>
+
+<h2 class="section-title"><span>راهنماهای مدیریتی</span><span class="sec-en" lang="en" dir="ltr">Admin guides</span></h2>
+<article class="item" id="tutorials-admin--claude-enterprise-administrator-guide" data-item="tutorials-admin--claude-enterprise-administrator-guide">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۱ <span lang="en" dir="ltr">· Tutorial 1</span> </p>
+      <h3><span class="t-fa">راهنمای مدیر Claude Enterprise</span><span class="t-en" lang="en" dir="ltr">Claude Enterprise administrator guide</span></h3>
+      <div class="item-tools"><span class="item-meta">20 min</span><a class="src" href="https://academy.claude.com/tutorials/claude-enterprise-administrator-guide" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-admin--claude-enterprise-administrator-guide" data-done="tutorials-admin--claude-enterprise-administrator-guide"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>The core admin walkthrough:</p>
+<ul><li><strong>Identity:</strong> SSO with SAML 2.0 or OIDC; <strong>SCIM</strong> provisioning (recommended) syncs users and groups from your identity provider automatically, with just-in-time or manual invites as alternatives.</li><li><strong>Seats and access:</strong> assign seat types per person; note that some seat types (Standard, Chat-only) <strong>don't include Claude Code</strong>.</li><li><strong>Connectors and features:</strong> decide which connectors and capabilities are on for the organization.</li><li><strong>Visibility:</strong> usage analytics, including a Claude Code section.</li><li><strong>Resources:</strong> links to product guides, including Claude for Life Sciences, Financial Services and the mobile apps.</li></ul></div><div class="fa" lang="fa" dir="rtl"><p>راهنمای اصلی مدیریت:</p>
+<ul><li><strong>هویت:</strong> ورود یکپارچه (SSO) با SAML 2.0 یا OIDC؛ تأمین کاربر با <strong>SCIM</strong> (پیشنهادی) که کاربرها و گروه‌ها را خودکار از سامانهٔ هویت شما همگام می‌کند؛ دعوت لحظه‌ای (JIT) یا دستی هم گزینه‌های دیگرند.</li><li><strong>صندلی‌ها و دسترسی:</strong> نوع صندلی هر نفر را تعیین کن؛ توجه کن بعضی نوع‌ها (Standard، فقط Chat) <strong>Claude Code ندارند</strong>.</li><li><strong>کانکتورها و قابلیت‌ها:</strong> تصمیم بگیر کدام کانکتورها و توانایی‌ها برای سازمان روشن باشند.</li><li><strong>دید و گزارش:</strong> آنالیتیکس مصرف، از جمله یک بخش برای Claude Code.</li><li><strong>منابع:</strong> پیوند به راهنماهای محصول، از جمله Claude برای علوم زیستی، خدمات مالی و اپ‌های موبایل.</li></ul></div></div></section>
+<section class="blk blk-warn"><h4 class="blk-label"><span lang="en">Watch out</span><span>حواست باشد</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Before enforcing SSO, keep <strong>at least two Owners assigned directly</strong> (not through a synced group), so a bad group sync can't lock every admin out. Enforcing too early also locks out anyone not yet provisioned.</p></div><div class="fa" lang="fa" dir="rtl"><p>قبل از اجباری کردن SSO، <strong>دست‌کم دو مالک (Owner) را مستقیم</strong> (نه از طریق یک گروه همگام‌شده) نگه دار تا یک همگام‌سازی خراب نتواند همهٔ مدیرها را بیرون بیندازد. اجباری کردن زودهنگام هم هر کسی را که هنوز تأمین نشده بیرون می‌گذارد.</p></div></div></section>
+<section class="blk blk-terms"><h4 class="blk-label"><span lang="en">Key words</span><span>واژه‌های کلیدی</span></h4><dl class="terms"><div class="term"><dt><span lang="en" dir="ltr">SSO (single sign-on)</span><span class="term-fa">ورود یکپارچه</span></dt><dd>ورود با حساب سازمانی به چند سرویس با یک بار احراز هویت.</dd></div><div class="term"><dt><span lang="en" dir="ltr">SCIM</span><span class="term-fa">SCIM</span></dt><dd>استانداردی برای همگام‌سازی خودکار کاربرها و گروه‌ها از سامانهٔ هویت سازمان.</dd></div></dl></section>
+  </div>
+</article>
+<article class="item" id="tutorials-admin--claude-cowork-enterprise-administrator-guide" data-item="tutorials-admin--claude-cowork-enterprise-administrator-guide">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۲ <span lang="en" dir="ltr">· Tutorial 2</span> </p>
+      <h3><span class="t-fa">راهنمای مدیر سازمانی Claude Cowork</span><span class="t-en" lang="en" dir="ltr">Claude Cowork enterprise admin guide</span></h3>
+      <div class="item-tools"><span class="item-meta">20 min</span><a class="src" href="https://academy.claude.com/tutorials/claude-cowork-enterprise-administrator-guide" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-admin--claude-cowork-enterprise-administrator-guide" data-done="tutorials-admin--claude-cowork-enterprise-administrator-guide"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Rolling out Cowork adds a few admin decisions: <strong>SCIM and role-based access (RBAC)</strong> for who gets Cowork, <strong>connectors with a two-gate model</strong> (an admin enables a connector for the org, then each user connects their own account with OAuth), organization-wide <strong>instructions and plugins</strong>, and <strong>analytics</strong> to see adoption.</p></div><div class="fa" lang="fa" dir="rtl"><p>راه‌اندازی Cowork چند تصمیم مدیریتی اضافه می‌کند: <strong>SCIM و دسترسی مبتنی بر نقش (RBAC)</strong> برای این‌که چه کسی Cowork بگیرد، <strong>کانکتورها با مدل دودروازه‌ای</strong> (مدیر کانکتور را برای سازمان فعال می‌کند و بعد هر کاربر با OAuth حساب خودش را وصل می‌کند)، <strong>دستورها و پلاگین‌های</strong> سراسری سازمان و <strong>آنالیتیکس</strong> برای دیدن میزان پذیرش.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>The two-gate model is like a <strong>building with a front gate and apartment doors</strong>: the admin opens the front gate for a service; each person still uses their own key for their own apartment.</p></div><div class="fa" lang="fa" dir="rtl"><p>مدل دودروازه‌ای مثل <strong>ساختمانی با یک در ورودی و درهای واحدها</strong> است: مدیر در ورودی را برای یک سرویس باز می‌کند؛ ولی هر نفر هنوز با کلید خودش در واحد خودش را باز می‌کند.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-admin--how-to-enable-claude-code-for-your-enterprise-team" data-item="tutorials-admin--how-to-enable-claude-code-for-your-enterprise-team">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۳ <span lang="en" dir="ltr">· Tutorial 3</span> </p>
+      <h3><span class="t-fa">فعال کردن Claude Code برای تیم سازمانی</span><span class="t-en" lang="en" dir="ltr">How to enable Claude Code for your Enterprise team</span></h3>
+      <div class="item-tools"><span class="item-meta">4 min</span><a class="src" href="https://academy.claude.com/tutorials/how-to-enable-claude-code-for-your-enterprise-team" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-admin--how-to-enable-claude-code-for-your-enterprise-team" data-done="tutorials-admin--how-to-enable-claude-code-for-your-enterprise-team"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>The short version: in <strong>Settings → Organization → Members</strong>, give developers a seat type that <strong>includes Claude Code</strong>; they then sign in to Claude Code with your <strong>Enterprise SSO</strong>. Track usage under <strong>Analytics → Claude Code</strong>, and use managed settings to set organization-wide defaults (for example permissions and allowed tools).</p></div><div class="fa" lang="fa" dir="rtl"><p>نسخهٔ کوتاه: در <strong>Settings ← Organization ← Members</strong>، به برنامه‌نویس‌ها نوعی صندلی بده که <strong>Claude Code را شامل شود</strong>؛ بعد آن‌ها با <strong>SSO سازمانی</strong> وارد Claude Code می‌شوند. مصرف را در <strong>Analytics ← Claude Code</strong> دنبال کن و با تنظیمات مدیریت‌شده پیش‌فرض‌های کل سازمان را تعیین کن (مثلاً مجوزها و ابزارهای مجاز).</p></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Roll out to one team first and share their CLAUDE.md and best prompts with the next team. Good examples spread faster than training slides.</p></div><div class="fa" lang="fa" dir="rtl"><p>اول برای یک تیم راه بینداز و CLAUDE.md و بهترین پرامپت‌هایشان را با تیم بعدی به اشتراک بگذار. مثال‌های خوب سریع‌تر از اسلایدهای آموزشی پخش می‌شوند.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="tutorials-admin--cowork-setup-checklist" data-item="tutorials-admin--cowork-setup-checklist">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">آموزش ۴ <span lang="en" dir="ltr">· Tutorial 4</span> </p>
+      <h3><span class="t-fa">چک‌لیست راه‌اندازی Cowork</span><span class="t-en" lang="en" dir="ltr">Cowork setup checklist</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/products/cowork/setup/checklist" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-tutorials-admin--cowork-setup-checklist" data-done="tutorials-admin--cowork-setup-checklist"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A step-by-step checklist for getting an organization ready for Cowork: identity and provisioning in the right order, roles and access, connectors, organization instructions and plugins, analytics, and a pilot group. Its biggest warning: don't <strong>enforce</strong> sign-in rules before everyone is provisioned, because there's <strong>no self-service recovery</strong> for people locked out.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک چک‌لیست قدم‌به‌قدم برای آماده کردن یک سازمان برای Cowork: هویت و تأمین کاربر به ترتیب درست، نقش‌ها و دسترسی‌ها، کانکتورها، دستورها و پلاگین‌های سازمان، آنالیتیکس و یک گروه آزمایشی. بزرگ‌ترین هشدارش: قبل از این‌که همه تأمین شده باشند، قانون‌های ورود را <strong>اجباری نکن</strong>؛ چون برای کسانی که بیرون می‌مانند <strong>راه بازیابی سلف‌سرویس وجود ندارد</strong>.</p></div></div></section>
+<section class="blk blk-steps"><h4 class="blk-label"><span lang="en">Step by step</span><span>قدم‌به‌قدم</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><ol><li>Connect your identity provider and set up provisioning.</li><li>Verify that every intended user appears with the right role.</li><li>Only then enforce SSO.</li><li>Enable connectors and org instructions; add approved plugins.</li><li>Pilot with one team, watch analytics, then expand.</li></ol></div><div class="fa" lang="fa" dir="rtl"><ol><li>سامانهٔ هویت را وصل کن و تأمین کاربر را راه بینداز.</li><li>مطمئن شو هر کاربری که باید باشد، با نقش درست دیده می‌شود.</li><li>فقط بعد از آن SSO را اجباری کن.</li><li>کانکتورها و دستورهای سازمان را فعال کن؛ پلاگین‌های تأییدشده را اضافه کن.</li><li>با یک تیم آزمایشی شروع کن، آنالیتیکس را ببین و بعد گسترش بده.</li></ol></div></div></section>
+  </div>
+</article>
+<nav class="pager" aria-label="صفحهٔ قبلی و بعدی"><a class="prev" href="../tutorials/tutorials-claude-code.html"><span class="pager-label">قبلی</span><span>آموزش‌های کوتاه: Claude Code و پلتفرم Claude</span></a></nav>
+</main>
+</div>
+
+<footer class="site-foot">
+  <p>این جزوه یک بازنویسی آموزشی و آزاد از مطالب <a href="https://academy.claude.com" target="_blank" rel="noopener">Claude Academy</a> است؛ متن‌ها، تشبیه‌ها و مثال‌ها تازه نوشته شده‌اند. برای جدیدترین نسخه همیشه به صفحهٔ رسمی هر درس سر بزن.</p>
+  <p lang="en" dir="ltr">An independent study companion to Claude Academy. Explanations and examples are original; follow each "official page" link for the source lesson.</p>
+  <p><a href="../index.html">بازگشت به فهرست کامل</a> · <a href="../glossary.html">واژه‌نامه</a></p>
+</footer>
+
+</body>
+</html>

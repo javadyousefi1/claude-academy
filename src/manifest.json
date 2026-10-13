@@ -720,5 +720,55 @@
    "getting-started-with-connectors",
    "connect-your-tools-to-unlock-a-smarter-more-capable-ai-companion"
   ]
+ },
+ {
+  "slug": "tutorials-cowork",
+  "kind": "tutorials",
+  "group": "tutorials",
+  "en": "Tutorials: Claude Cowork",
+  "fa": "آموزش‌های کوتاه: Claude Cowork",
+  "items": [
+   "get-started-in-claude-cowork-in-three-steps",
+   "choosing-between-claude-cowork-or-chat",
+   "delegating-your-first-task-in-claude-cowork",
+   "delegating-and-scheduling-tasks-in-claude-cowork",
+   "customize-claude-cowork",
+   "how-to-customize-plugins-in-claude-cowork",
+   "how-to-build-a-plugin-from-scratch-in-cowork",
+   "using-claude-cowork-for-sales-account-research",
+   "using-claude-cowork-for-marketing-ops-review",
+   "using-claude-cowork-for-legal-question-briefing",
+   "claude-for-product-management",
+   "using-claude-for-your-small-business",
+   "how-to-install-the-claude-for-small-business-plugin",
+   "scaling-workflows-with-claude-cowork-at-your-organization"
+  ]
+ },
+ {
+  "slug": "tutorials-claude-code",
+  "kind": "tutorials",
+  "group": "tutorials",
+  "en": "Tutorials: Claude Code and the Claude Platform",
+  "fa": "آموزش‌های کوتاه: Claude Code و پلتفرم Claude",
+  "items": [
+   "choosing-the-right-effort-level-in-claude-code",
+   "using-claude-code-remote-control",
+   "getting-started-with-claude-security",
+   "what-is-claude-managed-agents",
+   "sharing-skills"
+  ]
+ },
+ {
+  "slug": "tutorials-admin",
+  "kind": "tutorials",
+  "group": "tutorials",
+  "en": "Tutorials: admins and enterprise rollout",
+  "fa": "آموزش‌های کوتاه: مدیرها و استقرار سازمانی",
+  "items": [
+   "claude-enterprise-administrator-guide",
+   "claude-cowork-enterprise-administrator-guide",
+   "how-to-enable-claude-code-for-your-enterprise-team",
+   "cowork-setup-checklist"
+  ]
  }
 ]

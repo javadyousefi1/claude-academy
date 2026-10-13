@@ -1,0 +1,306 @@
+@page
+slug: tutorials-cowork
+kind: tutorials
+group: tutorials
+order: 2
+en: "Tutorials: Claude Cowork"
+fa: "آموزش‌های کوتاه: Claude Cowork"
+stats: 14 tutorials · 4–15 min each
+url: https://academy.claude.com/products/cowork/tutorials
+expect: 14
+who_en: Anyone who wants to hand Claude whole tasks on their files and apps, from a first errand to team-wide workflows.
+who_fa: هر کسی که می‌خواهد کارهای کامل روی فایل‌ها و اپ‌هایش را به Claude بسپارد؛ از اولین مأموریت تا روال‌های کاری کل تیم.
+blurb_fa: راه‌اندازی در سه قدم، Cowork یا Chat، سپردن و زمان‌بندی کارها، شخصی‌سازی، پلاگین‌ها (شخصی‌سازی و ساخت از صفر)، فروش، بازاریابی، حقوقی، مدیریت محصول، کسب‌وکار کوچک و گسترش در سازمان.
+desc_en: Short Cowork guides: setup, delegating and scheduling, customizing, plugins, and role-based walkthroughs for sales, marketing, legal, product and small business.
+
+@intro
+**Cowork** is Claude for **delegating whole tasks**: you describe the outcome, Claude plans, works across your files, connectors and browser, and comes back with a finished deliverable. (Cowork now lives inside the main Claude desktop app.) These tutorials go from your first task to scheduled routines, custom plugins and organization-wide workflows. For the full course, see [Introduction to Claude Cowork](page:introduction-to-claude-cowork).
+~~
+**Cowork** همان Claude برای **سپردن کارهای کامل** است: نتیجه را توصیف می‌کنی، Claude برنامه می‌ریزد، روی فایل‌ها، کانکتورها و مرورگرت کار می‌کند و با یک خروجی تمام‌شده برمی‌گردد. (Cowork حالا داخل خود اپ دسکتاپ Claude است.) این آموزش‌ها از اولین کار تا روال‌های زمان‌بندی‌شده، پلاگین‌های سفارشی و روال‌های کاری کل سازمان پیش می‌روند. برای دورهٔ کامل، [آشنایی با Claude Cowork](page:introduction-to-claude-cowork) را ببین.
+
+@section First steps | قدم‌های اول
+
+@lesson
+id: get-started-in-claude-cowork-in-three-steps
+en: Get started in Claude Cowork in three steps
+fa: شروع Claude Cowork در سه قدم
+meta: 4 min
+url: https://academy.claude.com/tutorials/get-started-in-claude-cowork-in-three-steps
+
+#explain
+A quickstart where **Claude walks you through setup inside the conversation**:
+
+1. Open Claude and switch to Cowork.
+2. Run the **guided setup**: it asks about your role and installs a matching **plugin** (a bundle of skills and connectors), helping you connect the tools it uses (Slack, Google Workspace, Microsoft 365...).
+3. Choose a **folder** for Cowork to work in.
+~~
+یک شروع سریع که در آن **Claude داخل خود گفت‌وگو راه‌اندازی را قدم به قدم با تو جلو می‌برد**:
+
+1. Claude را باز کن و به Cowork برو.
+2. **راه‌اندازی هدایت‌شده** را اجرا کن: دربارهٔ نقشت می‌پرسد و یک **پلاگین** مناسب نصب می‌کند (بسته‌ای از اسکیل‌ها و کانکتورها) و کمکت می‌کند ابزارهایی را که استفاده می‌کند وصل کنی (Slack، Google Workspace، Microsoft 365...).
+3. یک **پوشه** برای کار Cowork انتخاب کن.
+
+#tip
+Make a dedicated folder like `Claude Work` instead of giving access to your whole Documents folder. Small, clear boundaries make it easy to trust what Cowork touches.
+~~
+به جای دادن دسترسی به کل پوشهٔ Documents، یک پوشهٔ مخصوص مثل `Claude Work` بساز. مرزهای کوچک و روشن، اعتماد به چیزهایی را که Cowork به آن‌ها دست می‌زند آسان می‌کند.
+
+@lesson
+id: choosing-between-claude-cowork-or-chat
+en: Choosing between Claude Cowork or Chat
+fa: انتخاب بین Claude Cowork و Chat
+meta: 5 min
+url: https://academy.claude.com/tutorials/choosing-between-claude-cowork-or-chat
+
+#explain
+**Chat** is a turn-by-turn conversation: best for one-off questions, thinking partnership, and tasks that need little context. **Cowork** is a **delegated task that ends in a finished deliverable**: best when the work touches your files or tools, like research pulled together from several places, a cleaned spreadsheet, or a report built from last month's documents.
+~~
+**Chat** یک گفت‌وگوی نوبت‌به‌نوبت است: بهترین برای سؤال‌های یک‌باره، هم‌فکری و کارهایی که زمینهٔ کمی لازم دارند. **Cowork** یک **کار سپرده‌شده است که با یک خروجی تمام‌شده تمام می‌شود**: بهترین وقتی کار به فایل‌ها یا ابزارهایت دست می‌زند؛ مثل پژوهشی که از چند جا جمع می‌شود، یک صفحه‌گستردهٔ تمیزشده یا گزارشی که از سندهای ماه قبل ساخته می‌شود.
+
+#example
+"What's a good structure for a quarterly review?" → **Chat**. "Build the Q3 review from the files in /Reports and the numbers in our sales sheet, as a 6-page Word doc" → **Cowork**.
+~~
+«یک ساختار خوب برای گزارش فصلی چیست؟» ← **Chat**. «گزارش فصل سوم را از فایل‌های داخل /Reports و عددهای برگهٔ فروشمان بساز، به شکل یک سند Word شش‌صفحه‌ای» ← **Cowork**.
+
+#analogy
+Chat is **talking with a colleague at the coffee machine**; Cowork is **handing them a folder and saying "please have this ready by noon."**
+~~
+Chat مثل **گپ زدن با یک همکار کنار دستگاه قهوه** است؛ Cowork مثل این است که **یک پوشه دستش بدهی و بگویی «لطفاً تا ظهر آماده‌اش کن.»**
+
+@lesson
+id: delegating-your-first-task-in-claude-cowork
+en: Delegating your first task in Claude Cowork
+fa: سپردن اولین کار به Claude Cowork
+meta: 4 min
+url: https://academy.claude.com/tutorials/delegating-your-first-task-in-claude-cowork
+
+#explain
+A good first task has a **clear outcome**, uses **files or tools you've connected**, and is **easy to check**. Describe the goal, what "done" looks like, and where to find the inputs. Cowork shows its plan and progress; it asks before sensitive actions, and you can step in at any point. Review the result like you'd review a new colleague's work.
+~~
+یک کار اول خوب **نتیجهٔ روشن** دارد، از **فایل‌ها یا ابزارهایی که وصل کرده‌ای** استفاده می‌کند و **چک کردنش آسان است**. هدف، این‌که «تمام شد» یعنی چه و این‌که ورودی‌ها کجا هستند را توصیف کن. Cowork برنامه و پیشرفتش را نشان می‌دهد؛ قبل از کارهای حساس می‌پرسد و هر لحظه می‌توانی وارد شوی. نتیجه را همان‌طور بررسی کن که کار یک همکار تازه را بررسی می‌کنی.
+
+#prompt
+In my Downloads folder there are about 40 receipts (PDFs and photos) from my October work trip. Rename each as YYYY-MM-DD_vendor_amount, put them in /Expenses/October, and make an Excel sheet listing date, vendor, category and amount, with a total. Flag any receipt you can't read clearly.
+~~
+در پوشهٔ Downloads من حدود ۴۰ رسید (PDF و عکس) از سفر کاری مهرماه هست. اسم هر کدام را به شکل YYYY-MM-DD_vendor_amount عوض کن، همه را در /Expenses/October بگذار و یک برگهٔ اکسل بساز که تاریخ، فروشنده، دسته و مبلغ را با جمع کل فهرست کند. هر رسیدی را که واضح نمی‌توانی بخوانی علامت بزن.
+
+@lesson
+id: delegating-and-scheduling-tasks-in-claude-cowork
+en: Delegating and scheduling tasks in Claude Cowork
+fa: سپردن و زمان‌بندی کارها در Claude Cowork
+meta: 4 min
+url: https://academy.claude.com/tutorials/delegating-and-scheduling-tasks-in-claude-cowork
+
+#explain
+The video shows preparing for an important call by having Cowork pull context from your **calendar, Slack, email and past meeting notes** into one brief. Then it makes the job **recurring** with `/schedule`: describe the task and cadence (hourly, daily, weekdays...), review the prompt Claude drafts, and accept. Or run a task once, check the output, then schedule that exact process. Each run is a fresh session; tasks that need local files run only while the desktop app is open (late runs happen as soon as you're back).
+~~
+ویدئو نشان می‌دهد چطور برای یک تماس مهم آماده شوی: Cowork زمینه را از **تقویم، Slack، ایمیل و یادداشت‌های جلسه‌های قبلی** در یک خلاصه جمع می‌کند. بعد با `/schedule` کار را **تکرارشونده** می‌کند: کار و تناوبش را توصیف کن (ساعتی، روزانه، روزهای کاری...)، پرامپتی را که Claude پیش‌نویس می‌کند بازبینی کن و تأیید کن. یا یک بار کار را اجرا کن، خروجی را چک کن و بعد همان فرایند را زمان‌بندی کن. هر اجرا یک جلسهٔ تازه است؛ کارهایی که فایل محلی لازم دارند فقط وقتی اجرا می‌شوند که اپ دسکتاپ باز باشد (اجراهای عقب‌افتاده به‌محض برگشتنت انجام می‌شوند).
+
+#example
+"Every weekday at 8:30, look at today's meetings, pull the latest email thread and Slack messages with each attendee, and write me a one-page prep note per meeting."
+~~
+«هر روز کاری ساعت ۸:۳۰، جلسه‌های امروز را ببین، آخرین رشتهٔ ایمیل و پیام‌های Slack با هر شرکت‌کننده را بیرون بکش و برای هر جلسه یک یادداشت آمادگی یک‌صفحه‌ای برایم بنویس.»
+
+#tip
+Schedule only what you've already run successfully by hand at least once. A broken prompt on a schedule just produces a broken result every morning.
+~~
+فقط چیزی را زمان‌بندی کن که دست‌کم یک بار دستی و موفق اجرایش کرده‌ای. یک پرامپت خراب روی برنامهٔ زمانی، فقط هر روز صبح یک نتیجهٔ خراب تحویل می‌دهد.
+
+@section Making Cowork yours | Cowork را مال خودت کن
+
+@lesson
+id: customize-claude-cowork
+en: Customize Claude Cowork
+fa: شخصی‌سازی Claude Cowork
+meta: 7 min
+url: https://academy.claude.com/tutorials/customize-claude-cowork
+
+#explain
+Set Cowork up to fit your work: **global instructions** in Settings (who you are, how you like deliverables, what to never do), **folder instructions** for specific projects, organization-wide instructions on Enterprise plans, and **connector permissions** (some of which an admin controls). Good standing context means shorter prompts and fewer corrections.
+~~
+Cowork را طوری تنظیم کن که با کارت جور باشد: **دستورهای سراسری** در تنظیمات (کی هستی، خروجی‌ها را چطور دوست داری، چه کارهایی را هرگز نکند)، **دستورهای پوشه** برای پروژه‌های مشخص، دستورهای کل سازمان در پلن‌های Enterprise و **مجوزهای کانکتورها** (که بعضی‌شان در اختیار مدیر است). زمینهٔ ماندگار خوب یعنی پرامپت‌های کوتاه‌تر و اصلاح‌های کمتر.
+
+#code markdown Global instructions example
+I'm a marketing manager at a 40-person B2B software company.
+- Deliverables: Word or Google Docs, headings + short paragraphs, no emojis.
+- Always cite where numbers came from (file name or link).
+- Never send emails or post messages without asking me first.
+- British spelling.
+#end
+
+@lesson
+id: how-to-customize-plugins-in-claude-cowork
+en: How to customize plugins in Claude Cowork
+fa: شخصی‌سازی پلاگین‌ها در Claude Cowork
+meta: 6 min
+url: https://academy.claude.com/products/cowork/tutorials
+
+#explain
+Marketplace plugins are generic on purpose. After installing one, go to **Customize → Plugins → [plugin] → Customize**: this opens a Cowork task where you and Claude tailor it to your team, for example your CRM fields, your pricing tiers, your approval rules, your templates. The result is a plugin that speaks your company's language.
+~~
+پلاگین‌های بازارچه عمداً عمومی‌اند. بعد از نصب یکی، به **Customize ← Plugins ← [اسم پلاگین] ← Customize** برو: یک کار Cowork باز می‌شود که در آن تو و Claude آن را برای تیمت تنظیم می‌کنید؛ مثلاً فیلدهای CRM، سطح‌های قیمت‌گذاری، قانون‌های تأیید و قالب‌هایتان. نتیجه پلاگینی است که به زبان شرکت تو حرف می‌زند.
+
+#analogy
+Like buying a **suit off the rack and taking it to a tailor**: same suit, now it actually fits.
+~~
+مثل خریدن **یک کت‌وشلوار آماده و بردنش پیش خیاط** است: همان کت‌وشلوار، ولی حالا واقعاً اندازه است.
+
+@lesson
+id: how-to-build-a-plugin-from-scratch-in-cowork
+en: How to build a plugin from scratch in Claude Cowork
+fa: ساختن پلاگین از صفر در Claude Cowork
+meta: 15 min
+url: https://academy.claude.com/tutorials/how-to-build-a-plugin-from-scratch-in-cowork
+
+#explain
+A **plugin** packages your team's expertise: **skills** (how to do tasks), **commands** (shortcuts like `/brief`), and the **connectors** those skills need. You build it **with Claude**: describe the workflows your team repeats, let Claude draft the skills, test each on real tasks, then package and share it so everyone works the same way.
+~~
+یک **پلاگین** تخصص تیمت را بسته‌بندی می‌کند: **اسکیل‌ها** (روش انجام کارها)، **فرمان‌ها** (میان‌برهایی مثل `/brief`) و **کانکتورهایی** که آن اسکیل‌ها لازم دارند. آن را **با Claude** می‌سازی: روال‌هایی را که تیمت تکرار می‌کند توصیف کن، بگذار Claude اسکیل‌ها را پیش‌نویس کند، هر کدام را روی کارهای واقعی امتحان کن و بعد بسته‌بندی‌اش کن و به اشتراک بگذار تا همه یک‌جور کار کنند.
+
+#prompt
+Help me build a plugin for our recruiting team. We repeat three things: writing job descriptions in our format, screening CVs against a scorecard, and drafting interview-feedback summaries. Interview me about each, then draft one skill per workflow.
+~~
+کمکم کن یک پلاگین برای تیم استخدام‌مان بسازیم. سه کار را مدام تکرار می‌کنیم: نوشتن آگهی شغلی با قالب خودمان، غربال رزومه‌ها با یک کارت امتیاز، و پیش‌نویس خلاصهٔ بازخورد مصاحبه‌ها. دربارهٔ هر کدام با من مصاحبه کن، بعد برای هر روال یک اسکیل پیش‌نویس کن.
+
+#tip
+Skills inside a plugin can also be **scheduled**: a "Monday pipeline review" skill can run every Monday with your criteria applied automatically.
+~~
+اسکیل‌های داخل یک پلاگین را هم می‌شود **زمان‌بندی کرد**: یک اسکیل «مرور قیف استخدام دوشنبه‌ها» می‌تواند هر دوشنبه با معیارهای تو خودکار اجرا شود.
+
+@section Cowork for your role | Cowork برای نقش تو
+
+@lesson
+id: using-claude-cowork-for-sales-account-research
+en: "Using Claude Cowork for sales: research any account before the first call"
+fa: "Cowork برای فروش: هر حسابی را قبل از اولین تماس بشناس"
+meta: 15 min
+url: https://academy.claude.com/tutorials/using-claude-cowork-for-sales-account-research
+
+#explain
+Before a first call, Cowork pulls together a **one-page account brief**: what the company does and recent news (web), your history with them (CRM, email), who you're meeting and their roles, likely priorities, and smart questions to ask. What used to take an hour of tab-hopping becomes a ready document.
+~~
+قبل از اولین تماس، Cowork یک **خلاصهٔ یک‌صفحه‌ای از حساب مشتری** جمع می‌کند: شرکت چه کار می‌کند و خبرهای اخیرش (وب)، سابقهٔ شما با آن‌ها (CRM، ایمیل)، با چه کسانی جلسه داری و نقششان، اولویت‌های احتمالی و سؤال‌های هوشمندانه برای پرسیدن. چیزی که قبلاً یک ساعت پریدن بین زبانه‌ها وقت می‌گرفت، به یک سند آماده تبدیل می‌شود.
+
+#prompt
+I have a first call with Northwind Logistics on Thursday. Build an account brief: company overview and last 6 months of news, anything in our CRM and my inbox about them, the LinkedIn roles of the two attendees, three likely pain points for a logistics company their size, and five discovery questions.
+~~
+پنجشنبه اولین تماسم را با Northwind Logistics دارم. یک خلاصهٔ حساب بساز: معرفی شرکت و خبرهای ۶ ماه اخیر، هر چیزی که در CRM ما و صندوق ایمیلم دربارهٔ آن‌هاست، نقش دو شرکت‌کننده در لینکدین، سه دغدغهٔ احتمالی برای یک شرکت لجستیک هم‌اندازهٔ آن‌ها و پنج سؤال کشف نیاز.
+
+#warn
+Double-check names, titles and any number before you say them on a call. A wrong job title in the first minute costs more trust than the brief saved time.
+~~
+اسم‌ها، سمت‌ها و هر عددی را قبل از گفتنش در تماس دوباره چک کن. یک سمت شغلی اشتباه در دقیقهٔ اول، بیشتر از وقتی که خلاصه صرفه‌جویی کرده اعتماد هزینه دارد.
+
+@lesson
+id: using-claude-cowork-for-marketing-ops-review
+en: Using Claude Cowork for a marketing ops review
+fa: Cowork برای بازبینی عملیات بازاریابی
+meta: 15 min
+url: https://academy.claude.com/tutorials/using-claude-cowork-for-marketing-ops-review
+
+#explain
+Marketing ops reviews mean gathering numbers from many places (ad platforms, analytics, CRM, spreadsheets), comparing them to plan, and explaining what changed. Cowork does the gathering and first analysis, then drafts the review: what worked, what didn't, anomalies to investigate and recommended next steps. You add the judgment and the context only your team has.
+~~
+بازبینی عملیات بازاریابی یعنی جمع کردن عددها از جاهای مختلف (پلتفرم‌های تبلیغاتی، آنالیتیکس، CRM، صفحه‌گسترده‌ها)، مقایسه‌شان با برنامه و توضیح این‌که چه چیزی عوض شده. Cowork جمع‌آوری و تحلیل اولیه را انجام می‌دهد و بعد بازبینی را پیش‌نویس می‌کند: چه چیزی جواب داد، چه چیزی نه، ناهنجاری‌هایی که باید بررسی شوند و قدم‌های پیشنهادی. قضاوت و زمینه‌ای را که فقط تیم تو دارد خودت اضافه می‌کنی.
+
+#tip
+Ask Cowork to **separate facts from interpretations** ("numbers with sources" vs "possible explanations"). It makes the review meeting faster and keeps guesses from turning into "facts".
+~~
+از Cowork بخواه **واقعیت‌ها را از تفسیرها جدا کند** («عددها با منبع» در برابر «توضیح‌های احتمالی»). جلسهٔ بازبینی را سریع‌تر می‌کند و نمی‌گذارد حدس‌ها به «واقعیت» تبدیل شوند.
+
+@lesson
+id: using-claude-cowork-for-legal-question-briefing
+en: "Using Claude Cowork for legal: answer fast questions on past decisions"
+fa: "Cowork برای واحد حقوقی: جواب سریع به سؤال‌هایی دربارهٔ تصمیم‌های گذشته"
+meta: 15 min
+url: https://academy.claude.com/tutorials/using-claude-cowork-for-legal-question-briefing
+
+#explain
+Legal teams get the same questions again and again: "Did we ever accept unlimited liability?", "What did we agree with this vendor last year?" With the **Legal plugin** and access to past contracts and decisions, Cowork finds the precedent and answers with **sources**. The tutorial also sets up a **morning brief** by scheduling the plugin's `/brief` skill, which reads connected inboxes and chat and writes a short memo of what needs attention.
+~~
+تیم‌های حقوقی مدام سؤال‌های تکراری می‌گیرند: «تا حالا مسئولیت نامحدود را قبول کرده‌ایم؟»، «پارسال با این تأمین‌کننده چه توافق کردیم؟» با **پلاگین Legal** و دسترسی به قراردادها و تصمیم‌های گذشته، Cowork سابقه را پیدا می‌کند و **با منبع** جواب می‌دهد. آموزش همچنین با زمان‌بندی اسکیل `/brief` پلاگین، یک **خلاصهٔ صبحگاهی** راه می‌اندازد که صندوق‌های ایمیل و گفت‌وگوهای وصل‌شده را می‌خواند و یک یادداشت کوتاه از چیزهایی که توجه لازم دارند می‌نویسد.
+
+#warn
+AI finds and summarizes precedent; a lawyer decides. Always open the cited clause before relying on it.
+~~
+هوش مصنوعی سابقه را پیدا و خلاصه می‌کند؛ تصمیم با وکیل است. همیشه قبل از تکیه کردن به یک بند ارجاع‌شده، خودش را باز کن و بخوان.
+
+@lesson
+id: claude-for-product-management
+en: Claude for product management (guide)
+fa: Claude برای مدیریت محصول (راهنما)
+url: https://academy.claude.com/products/cowork/tutorials
+
+#explain
+The **Product Management plugin** bundles skills for a PM's week: `/write-spec` to draft PRDs, `/metrics-review` to analyze product metrics, plus feedback clustering, roadmap planning, sprint updates and competitive teardowns. Connect your analytics, issue tracker and feedback channels so the skills work on real data.
+~~
+**پلاگین مدیریت محصول** اسکیل‌های هفتهٔ یک مدیر محصول را یک‌جا دارد: `/write-spec` برای پیش‌نویس سند نیازمندی‌های محصول (PRD)، `/metrics-review` برای تحلیل معیارهای محصول، به‌اضافهٔ خوشه‌بندی بازخوردها، برنامه‌ریزی نقشهٔ راه، گزارش اسپرینت و کالبدشکافی رقبا. آنالیتیکس، سامانهٔ مدیریت کارها و کانال‌های بازخوردت را وصل کن تا اسکیل‌ها روی دادهٔ واقعی کار کنند.
+
+#prompt
+/write-spec Users keep asking to export dashboards as PDF. Use the 30 related tickets in our tracker and last quarter's feedback survey to draft a one-page spec: problem, who it's for, success metrics, scope, and open questions.
+~~
+/write-spec کاربرها مدام می‌خواهند داشبوردها را به PDF خروجی بگیرند. با ۳۰ تیکت مرتبط در سامانهٔ ما و نظرسنجی بازخورد فصل قبل، یک مشخصات یک‌صفحه‌ای پیش‌نویس کن: مسئله، برای چه کسانی، معیارهای موفقیت، دامنه و سؤال‌های باز.
+
+@lesson
+id: using-claude-for-your-small-business
+en: Using Claude Cowork for your small business
+fa: استفاده از Claude Cowork برای کسب‌وکار کوچک
+url: https://academy.claude.com/tutorials/using-claude-for-your-small-business
+
+#explain
+For owners who wear every hat: Cowork can take the **admin load**: invoices and receipts, customer emails, social posts, supplier comparisons, weekly numbers. Start with the job you like least, give it your files and tools, and keep anything involving money movement or sensitive customer data behind your approval.
+~~
+برای صاحبان کسب‌وکاری که همهٔ نقش‌ها را خودشان بازی می‌کنند: Cowork می‌تواند **بار کارهای اداری** را بردارد: فاکتورها و رسیدها، ایمیل‌های مشتری، پست‌های شبکه‌های اجتماعی، مقایسهٔ تأمین‌کننده‌ها، عددهای هفتگی. با کاری شروع کن که از همه کمتر دوستش داری، فایل‌ها و ابزارهایت را در اختیارش بگذار و هر چیزی را که به جابه‌جایی پول یا دادهٔ حساس مشتری مربوط است پشت تأیید خودت نگه دار.
+
+#tip
+Pair this with the [AI Fluency for small businesses](page:ai-fluency-for-small-businesses) course: it helps you decide what to hand over and write a one-page AI policy.
+~~
+این را با دورهٔ [سواد هوش مصنوعی برای کسب‌وکارهای کوچک](page:ai-fluency-for-small-businesses) همراه کن: کمکت می‌کند تصمیم بگیری چه چیزی را بسپاری و یک سیاست یک‌صفحه‌ای هوش مصنوعی بنویسی.
+
+@lesson
+id: how-to-install-the-claude-for-small-business-plugin
+en: How to install and use the Claude for Small Business plugin
+fa: نصب و استفاده از پلاگین Claude for Small Business
+url: https://academy.claude.com/tutorials/how-to-install-the-claude-for-small-business-plugin
+
+#explain
+Open Cowork, click **Customize** in the sidebar, then **Plugins → +**, find **Small Business** and click **Install**. Setup starts with an **onboarding skill**: it asks about your business, helps you connect your tools, and **saves your business context** so every other skill already knows who you are, what you sell and how you talk to customers.
+~~
+Cowork را باز کن، در نوار کناری روی **Customize** بزن، بعد **Plugins ← +**، **Small Business** را پیدا کن و روی **Install** بزن. راه‌اندازی با یک **اسکیل آشنایی** شروع می‌شود: دربارهٔ کسب‌وکارت می‌پرسد، کمکت می‌کند ابزارهایت را وصل کنی و **زمینهٔ کسب‌وکارت را ذخیره می‌کند** تا هر اسکیل دیگری از قبل بداند تو کی هستی، چه می‌فروشی و با مشتری‌ها چطور حرف می‌زنی.
+
+#analogy
+The onboarding skill is the **first-day orientation** for a new hire, except you only have to do it once for every skill in the plugin.
+~~
+اسکیل آشنایی مثل **جلسهٔ آشنایی روز اول** برای یک نیروی تازه است، با این فرق که فقط یک بار برای همهٔ اسکیل‌های پلاگین انجامش می‌دهی.
+
+@section At organization scale | در مقیاس سازمان
+
+@lesson
+id: scaling-workflows-with-claude-cowork-at-your-organization
+en: Scaling workflows with Claude Cowork at your organization
+fa: گسترش روال‌های کاری Cowork در سازمان
+meta: 15 min
+url: https://academy.claude.com/tutorials/scaling-workflows-with-claude-cowork-at-your-organization
+
+#explain
+When one person's great workflow should become everyone's: capture it as a **skill or plugin**, test it with a few colleagues, then share it through your organization's **plugin marketplace** with the right connectors pre-configured. Pair it with admin settings (which connectors, which permissions) and a simple way for people to report what's not working.
+~~
+وقتی روال کاری عالیِ یک نفر باید روال کار همه شود: آن را به شکل یک **اسکیل یا پلاگین** ثبت کن، با چند همکار امتحانش کن و بعد از طریق **بازارچهٔ پلاگین سازمان** با کانکتورهای ازپیش‌تنظیم‌شده به اشتراک بگذار. آن را با تنظیمات مدیریتی (کدام کانکتورها، کدام مجوزها) و یک راه ساده برای گزارش دادن مشکل‌ها همراه کن.
+
+#steps
+1. Pick a workflow that's frequent and already working well for one person.
+2. Turn it into a skill (or a plugin with several skills).
+3. Pilot with 3–5 colleagues for two weeks; collect fixes.
+4. Publish to the org marketplace; announce with a 2-minute demo.
+5. Review usage and feedback monthly; update the plugin.
+~~
+1. یک روال پرتکرار را انتخاب کن که همین حالا برای یک نفر خوب جواب می‌دهد.
+2. آن را به یک اسکیل (یا پلاگینی با چند اسکیل) تبدیل کن.
+3. دو هفته با ۳ تا ۵ همکار آزمایشی اجرایش کن؛ اصلاح‌ها را جمع کن.
+4. در بازارچهٔ سازمان منتشرش کن؛ با یک دموی دودقیقه‌ای اعلامش کن.
+5. ماهانه استفاده و بازخورد را مرور کن؛ پلاگین را به‌روز کن.
+
+#tip
+For the admin side, see the [Cowork enterprise admin guide](page:tutorials-admin#claude-cowork-enterprise-administrator-guide) tutorial in this handout.
+~~
+برای بخش مدیریتی، آموزش [راهنمای مدیر سازمانی Cowork](page:tutorials-admin#claude-cowork-enterprise-administrator-guide) در همین جزوه را ببین.
