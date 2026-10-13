@@ -1,0 +1,311 @@
+@page
+slug: ai-fluency-for-builders
+kind: course
+group: fluency
+order: 4
+en: AI Fluency for builders
+fa: سواد هوش مصنوعی برای سازندگان (برنامه‌نویس‌ها و سازندگان محصول)
+stats: 9 lessons · 1 quiz · ~3 hr · badge
+url: https://academy.claude.com/courses/ai-fluency-for-builders
+expect: 9
+who_en: Product people, engineers and makers who build with AI. Built in partnership with CodePath.
+who_fa: آدم‌های محصول، مهندس‌ها و سازنده‌هایی که با هوش مصنوعی می‌سازند. با همکاری CodePath ساخته شده.
+blurb_fa: چارچوب 4D برای ساختن: یک پروژهٔ سراسری «بررسی‌کنندهٔ زمان انتظار درمانگاه»، تست پذیرش قبل از کد، زنجیرهٔ توصیف، تشخیص برای کد و تجربهٔ کاربر، و پشتیبانی از چیزی که منتشر می‌کنی.
+desc_en: The 4D framework for people who build software with AI, through one running project: a clinic wait-time checker.
+
+@intro
+When you build with AI, the risks change: code that runs but solves the wrong problem, an app that works on your laptop but confuses real users, a library the AI recommended that doesn't exist. This edition applies the 4D Framework to **building**, through one running project you return to in every lesson: a **Clinic Wait Time Checker** that tells people how long they'll wait at nearby clinics.
+
+You'll write a reusable project brief, define "done" with acceptance tests **before** any code, translate user needs into precise instructions, judge AI-written code and UX, and decide what it takes to stand behind what you ship.
+~~
+وقتی با هوش مصنوعی می‌سازی، ریسک‌ها عوض می‌شوند: کدی که اجرا می‌شود ولی مسئلهٔ اشتباهی را حل می‌کند، اپی که روی لپ‌تاپ تو کار می‌کند ولی کاربران واقعی را گیج می‌کند، کتابخانه‌ای که هوش مصنوعی پیشنهاد داده و اصلاً وجود ندارد. این نسخه چارچوب 4D را روی **ساختن** پیاده می‌کند، با یک پروژهٔ سراسری که در هر درس به آن برمی‌گردی: یک **بررسی‌کنندهٔ زمان انتظار درمانگاه** که به مردم می‌گوید در درمانگاه‌های نزدیک چقدر باید منتظر بمانند.
+
+یک خلاصهٔ پروژهٔ قابل‌استفادهٔ دوباره می‌نویسی، «تمام شد» را **قبل از** هر خط کد با تست‌های پذیرش تعریف می‌کنی، نیاز کاربر را به دستورالعمل دقیق ترجمه می‌کنی، کد و تجربهٔ کاربری‌ای را که هوش مصنوعی ساخته قضاوت می‌کنی و تصمیم می‌گیری پشتیبانی از چیزی که منتشر می‌کنی چه لازم دارد.
+
+@lesson
+id: ai-fluency-for-builders
+en: Welcome to AI Fluency for builders
+fa: خوش آمدی به سواد هوش مصنوعی برای سازندگان
+url: https://academy.claude.com/courses/ai-fluency-for-builders/ai-fluency-for-builders
+
+#explain
+Builders face a special temptation: AI makes it so easy to produce code that it's easy to skip thinking. This course argues the opposite: **AI moves your job up a level**, from typing code to defining problems, specifying behavior, judging quality and owning outcomes.
+
+The first exercise is a **reusable project brief**: who the users are, what problem you solve, what "done" means, the constraints (privacy, accessibility, budget). You'll reuse this brief with any AI tool, and it will anchor every lesson.
+~~
+سازنده‌ها با یک وسوسهٔ خاص روبه‌رو هستند: هوش مصنوعی تولید کد را آن‌قدر آسان می‌کند که فکر کردن را می‌شود جا انداخت. این دوره برعکس را می‌گوید: **هوش مصنوعی کار تو را یک پله بالا می‌برد**؛ از تایپ کد به تعریف مسئله، مشخص کردن رفتار، قضاوت کیفیت و مالکیت نتیجه.
+
+اولین تمرین یک **خلاصهٔ پروژهٔ قابل‌استفادهٔ دوباره** است: کاربرها چه کسانی‌اند، چه مسئله‌ای را حل می‌کنی، «تمام شد» یعنی چه، محدودیت‌ها چیست (حریم خصوصی، دسترس‌پذیری، بودجه). این خلاصه را با هر ابزار هوش مصنوعی‌ای دوباره استفاده می‌کنی و پایهٔ همهٔ درس‌ها می‌شود.
+
+#code markdown brief.md: Clinic Wait Time Checker
+Users: parents and elderly patients in our city, many on old phones, some with low vision.
+Problem: people don't know which nearby clinic has the shortest wait.
+Done means: a mobile web page shows the 5 nearest open clinics with an estimated wait,
+            updated at least every 15 minutes, readable at 200% zoom.
+Constraints: no personal health data collected; works on 3G; Persian and English.
+#end
+
+#analogy
+A builder with AI is like an **architect with a fast construction crew**: the crew can put up walls in hours, which makes the drawings, the measurements and the inspection more important, not less.
+~~
+سازنده‌ای که هوش مصنوعی دارد مثل **معماری است با یک گروه ساختمانی خیلی سریع**: گروه می‌تواند در چند ساعت دیوار بالا ببرد و همین، نقشه‌ها، اندازه‌گیری‌ها و بازرسی را مهم‌تر می‌کند، نه کم‌اهمیت‌تر.
+
+@lesson
+id: the-4d-framework
+en: The 4D Framework for builders
+fa: چارچوب 4D برای سازندگان
+url: https://academy.claude.com/courses/ai-fluency-for-builders/the-4d-framework
+
+#explain
+The four competencies, in builder terms (see the foundations course for the full model):
+
+- **Delegation**: which parts of the build go to AI (boilerplate, tests, migrations, first drafts) and which stay with you (architecture decisions, security-sensitive logic, product trade-offs).
+- **Description**: specs, acceptance tests, examples and constraints that let AI build the right thing.
+- **Discernment**: reviewing code for correctness and quality, and the product for fit and experience.
+- **Diligence**: security, privacy, accessibility, licenses, and being accountable for what reaches users.
+~~
+چهار توانمندی، به زبان سازنده‌ها (برای مدل کامل به دورهٔ مبانی سر بزن):
+
+- **سپردن**: کدام بخش‌های ساخت به هوش مصنوعی برسد (کدهای تکراری، تست‌ها، migrationها، پیش‌نویس اول) و کدام پیش خودت بماند (تصمیم‌های معماری، منطق حساس امنیتی، سبک‌سنگین کردن‌های محصول).
+- **توصیف**: مشخصات، تست‌های پذیرش، نمونه‌ها و محدودیت‌هایی که به هوش مصنوعی اجازه می‌دهند چیز درست را بسازد.
+- **تشخیص**: بازبینی کد از نظر درستی و کیفیت و بازبینی محصول از نظر تناسب و تجربه.
+- **مسئولیت‌پذیری**: امنیت، حریم خصوصی، دسترس‌پذیری، مجوزها و پاسخ‌گو بودن برای چیزی که به دست کاربر می‌رسد.
+
+#analogy
+The 4Ds are the **build pipeline for your thinking**: plan → spec → review → release, with you as the person who signs each stage.
+~~
+4D مثل **خط تولید برای فکر کردن توست**: برنامه ← مشخصات ← بازبینی ← انتشار، و تو کسی هستی که هر مرحله را امضا می‌کند.
+
+#try
+For the clinic project, write one sentence per D: what you'll delegate, how you'll describe it, how you'll check it, and what you'll take responsibility for.
+~~
+برای پروژهٔ درمانگاه برای هر D یک جمله بنویس: چه چیزی را می‌سپاری، چطور توصیفش می‌کنی، چطور چکش می‌کنی و مسئولیت چه چیزی را می‌پذیری.
+
+@lesson
+id: ai-capabilities-and-limitations
+en: AI capabilities and limitations for builders
+fa: توانایی‌ها و محدودیت‌های هوش مصنوعی از نگاه سازنده
+url: https://academy.claude.com/courses/ai-fluency-for-builders/ai-capabilities-and-limitations
+
+#explain
+How generative AI works matters for code, and where it tends to fail:
+
+- **Strong**: common patterns, boilerplate, translating between languages and frameworks, explaining unfamiliar code, writing tests, refactoring with clear goals.
+- **Weak spots**: very new library versions (knowledge cutoff), rare APIs (it may invent functions or packages that don't exist), subtle concurrency or security bugs, and anything requiring knowledge of *your* system that it hasn't seen.
+
+Practical checks: spot-check every recommended library and function against the real docs, and ask time-sensitive questions ("is this still the recommended approach in the latest version?") to see whether the AI flags possible staleness.
+~~
+این‌که هوش مصنوعی مولد چطور کار می‌کند برای کد مهم است و این‌که کجا معمولاً شکست می‌خورد:
+
+- **قوی**: الگوهای رایج، کدهای تکراری، ترجمه بین زبان‌ها و فریم‌ورک‌ها، توضیح کد ناآشنا، نوشتن تست، بازنویسی (refactor) با هدف روشن.
+- **نقطه‌های ضعف**: نسخه‌های خیلی تازهٔ کتابخانه‌ها (تاریخ قطع دانش)، APIهای کم‌کاربرد (ممکن است تابع یا بسته‌ای را از خودش بسازد که وجود ندارد)، باگ‌های ظریف هم‌زمانی یا امنیت و هر چیزی که دانستن دربارهٔ سیستم *خود تو* را لازم دارد و آن را ندیده.
+
+بررسی‌های عملی: هر کتابخانه و تابع پیشنهادی را با مستندات واقعی چک کن و سؤال‌های وابسته به زمان بپرس («آیا این هنوز در آخرین نسخه روش پیشنهادی است؟») تا ببینی هوش مصنوعی احتمال کهنه بودن را علامت می‌زند یا نه.
+
+#warn
+An invented package name is not just a broken build: attackers sometimes publish malicious packages under names AI tools tend to hallucinate. Always verify a package exists and is the right one **before** installing it.
+~~
+اسم بسته‌ای که هوش مصنوعی از خودش ساخته فقط یک build خراب نیست: مهاجم‌ها گاهی بسته‌های مخرب را با همان اسم‌هایی منتشر می‌کنند که ابزارهای هوش مصنوعی معمولاً خیال‌بافی می‌کنند. **قبل از** نصب، همیشه مطمئن شو بسته وجود دارد و همان بستهٔ درست است.
+
+#analogy
+An AI coding partner is like a colleague who **memorized a huge library of code** but has been offline for a while: great at patterns, unreliable on what changed last month.
+~~
+همکار کدنویس هوش مصنوعی مثل همکاری است که **کتابخانهٔ عظیمی از کد را حفظ کرده** ولی مدتی آفلاین بوده: در الگوها عالی است، دربارهٔ چیزهایی که ماه پیش عوض شده غیرقابل‌اعتماد.
+
+@lesson
+id: delegation-the-builder-s-toolkit
+en: Delegation and the builder's toolkit
+fa: سپردن و جعبه‌ابزار سازنده
+url: https://academy.claude.com/courses/ai-fluency-for-builders/delegation-the-builder-s-toolkit
+
+#explain
+Delegation for builders starts with **defining "done" before a single line of code exists**: write **acceptance tests** (in plain language or as real tests) that describe what the finished feature must do. Then choose the right tool for each piece: a chat assistant for exploring options, an agentic coding tool for implementation, a design tool for prototypes.
+
+Acceptance tests are the most powerful delegation tool you have: they turn a vague wish into something code can **pass or fail**, so you can hand implementation to AI and still know whether it succeeded.
+~~
+سپردن برای سازنده‌ها با **تعریف «تمام شد» قبل از نوشتن حتی یک خط کد** شروع می‌شود: **تست‌های پذیرش** بنویس (به زبان ساده یا به شکل تست واقعی) که توصیف می‌کنند قابلیت تمام‌شده باید چه کاری بکند. بعد برای هر تکه ابزار درست را انتخاب کن: یک دستیار گفت‌وگو برای بررسی گزینه‌ها، یک ابزار کدنویسی ایجنتی برای پیاده‌سازی، یک ابزار طراحی برای نمونه‌های اولیه.
+
+تست‌های پذیرش قوی‌ترین ابزار سپردنی است که داری: یک آرزوی مبهم را به چیزی تبدیل می‌کنند که کد می‌تواند **قبولش شود یا ردش شود**؛ پس می‌توانی پیاده‌سازی را به هوش مصنوعی بسپاری و باز هم بدانی موفق شده یا نه.
+
+#code text Acceptance tests for the clinic checker
+1. Given 3 open clinics within 5 km, the page lists them sorted by estimated wait.
+2. A clinic that is closed now is never shown as "open".
+3. If no wait data was received in the last 30 minutes, show "no recent data", not "0 minutes".
+4. With no clinics nearby, show a friendly message and the emergency number.
+5. The page passes an automated accessibility check and is usable at 200% zoom.
+#end
+
+#analogy
+Before ordering furniture from a workshop, you measure the room and write "must fit through a 80 cm door". The measurement is what lets you trust the result without watching every cut.
+~~
+قبل از سفارش مبل به یک کارگاه، اتاق را متر می‌کنی و می‌نویسی «باید از در ۸۰ سانتی رد شود». همین اندازه است که اجازه می‌دهد بدون تماشای هر برش به نتیجه اعتماد کنی.
+
+#tip
+Notice tests 3 and 4: **edge cases**. AI handles the happy path well on its own; the value of your tests is in the closed clinic, the missing data and the zero.
+~~
+به تست‌های ۳ و ۴ دقت کن: **حالت‌های لبه‌ای**. هوش مصنوعی مسیر عادی را خودش خوب از پس برمی‌آید؛ ارزش تست‌های تو در درمانگاه بسته، دادهٔ ناموجود و عدد صفر است.
+
+#terms
+Acceptance test = تست پذیرش = آزمونی که از نگاه کاربر مشخص می‌کند یک قابلیت کامل و درست است یا نه.
+
+@lesson
+id: description-building-great-things
+en: Description and building great things
+fa: توصیف و ساختن چیزهای عالی
+url: https://academy.claude.com/courses/ai-fluency-for-builders/description-building-great-things
+
+#explain
+The **Description Chain** is the path from a messy human need to a precise instruction AI can act on, with **you as the translator at every link**:
+
+user need → problem statement → requirements → acceptance tests → technical spec → AI instruction.
+
+When **the code works but the product doesn't**, that's a **description failure**: find which link broke upstream. Maybe the need was misunderstood, or a requirement never became a test. Make each test something code could pass or fail, and add edge cases (a closed clinic, no data, a zero wait time).
+~~
+**زنجیرهٔ توصیف** مسیر رسیدن از یک نیاز درهم انسانی به یک دستور دقیق است که هوش مصنوعی بتواند بر اساسش عمل کند، و **تو در هر حلقه مترجمی**:
+
+نیاز کاربر ← بیان مسئله ← نیازمندی‌ها ← تست‌های پذیرش ← مشخصات فنی ← دستور به هوش مصنوعی.
+
+وقتی **کد کار می‌کند ولی محصول کار نمی‌کند**، یعنی یک **شکست در توصیف** رخ داده: پیدا کن کدام حلقه در بالادست شکسته. شاید نیاز بد فهمیده شده، یا یک نیازمندی هیچ‌وقت به تست تبدیل نشده. هر تست را چیزی کن که کد بتواند قبول یا ردش شود و حالت‌های لبه‌ای اضافه کن (درمانگاه بسته، نبودن داده، زمان انتظار صفر).
+
+#example
+Need: "I don't want to wait two hours with a sick child."
+Problem: "Parents can't compare current waits across nearby clinics."
+Requirement: "Show estimated waits for the 5 nearest open clinics."
+Test: "A closed clinic never appears as open."
+AI instruction: "Implement the clinic list component per spec.md; make tests in tests/clinic-list pass; don't change the API client."
+~~
+نیاز: «نمی‌خواهم دو ساعت با بچهٔ مریض منتظر بمانم.»
+مسئله: «والدین نمی‌توانند زمان انتظار فعلی درمانگاه‌های نزدیک را مقایسه کنند.»
+نیازمندی: «زمان انتظار تخمینی ۵ درمانگاه باز نزدیک را نشان بده.»
+تست: «درمانگاه بسته هرگز به‌عنوان باز نمایش داده نمی‌شود.»
+دستور به هوش مصنوعی: «کامپوننت فهرست درمانگاه‌ها را طبق spec.md پیاده کن؛ تست‌های tests/clinic-list را پاس کن؛ کلاینت API را تغییر نده.»
+
+#analogy
+Like the children's game "telephone": a message whispered down a line changes at every link. The Description Chain makes each link explicit so you can see where the message got bent.
+~~
+مثل بازی «تلفن خراب» بچه‌هاست: پیامی که در گوش نفر به نفر منتقل می‌شود در هر حلقه عوض می‌شود. زنجیرهٔ توصیف هر حلقه را آشکار می‌کند تا ببینی پیام کجا کج شده.
+
+@lesson
+id: discernment-for-code
+en: Discernment for code
+fa: تشخیص برای کد
+url: https://academy.claude.com/courses/ai-fluency-for-builders/discernment-for-code
+
+#explain
+Reviewing AI-written code across five lenses: **correctness** (does it do what the tests and spec say, including edge cases?), **quality** (readable, maintainable, consistent with your codebase?), **fit** (does it use your existing patterns and libraries, or invent new ones?), **experience** (covered in the next lesson), and **responsibility** (security, privacy, licenses).
+
+Habits that work: read the diff, not just the summary; run the tests yourself; look for suspicious signs (silently caught errors, hard-coded values, "TODO" comments, tests that test nothing); and ask a second AI session to review in a fresh context.
+~~
+بازبینی کدی که هوش مصنوعی نوشته از پنج زاویه: **درستی** (همان کاری را می‌کند که تست‌ها و مشخصات می‌گویند، حالت‌های لبه‌ای هم؟)، **کیفیت** (خوانا، قابل‌نگهداری، هماهنگ با بقیهٔ کدبیس؟)، **تناسب** (از الگوها و کتابخانه‌های موجود تو استفاده می‌کند یا چیزهای تازه اختراع می‌کند؟)، **تجربه** (در درس بعد) و **مسئولیت** (امنیت، حریم خصوصی، مجوزها).
+
+عادت‌هایی که جواب می‌دهند: diff را بخوان، نه فقط خلاصه را؛ تست‌ها را خودت اجرا کن؛ دنبال نشانه‌های مشکوک بگرد (خطاهایی که بی‌صدا گرفته شده‌اند، مقادیر ثابت‌شده در کد، کامنت‌های «TODO»، تست‌هایی که هیچ چیزی را نمی‌سنجند) و از یک جلسهٔ دوم هوش مصنوعی بخواه در یک کانتکست تازه بازبینی کند.
+
+#warn
+A classic AI shortcut: making a failing test pass by **changing the test** or special-casing the input. Always check that tests weren't weakened to get green.
+~~
+یک میان‌بر کلاسیک هوش مصنوعی: قبول کردن یک تست شکست‌خورده با **تغییر دادن خود تست** یا نوشتن حالت خاص برای همان ورودی. همیشه چک کن تست‌ها برای سبز شدن ضعیف نشده باشند.
+
+#analogy
+Like checking a contractor's electrical work: the lights turning on (tests pass) is necessary but not enough. You also open the panel to look at the wiring.
+~~
+مثل چک کردن کار برق‌کار است: روشن شدن چراغ‌ها (پاس شدن تست‌ها) لازم است ولی کافی نیست. درِ تابلو برق را هم باز می‌کنی تا سیم‌کشی را ببینی.
+
+@lesson
+id: discernment-for-user-experience
+en: Discernment for user experience
+fa: تشخیص برای تجربهٔ کاربر
+url: https://academy.claude.com/courses/ai-fluency-for-builders/discernment-for-user-experience
+
+#explain
+Code can be correct and the product still fail. Discernment for UX asks: **would a real user succeed and feel respected?** Check the flows a real person takes, on a real device, with real constraints: a slow connection, an old phone, low vision, a stressed parent at 2 a.m.
+
+AI can help here too: ask it to role-play specific users and walk through the flow, to audit accessibility, or to list confusing moments. But the final judgment comes from watching or asking real users.
+~~
+کد می‌تواند درست باشد و محصول باز هم شکست بخورد. تشخیص برای تجربهٔ کاربر می‌پرسد: **آیا یک کاربر واقعی موفق می‌شود و احساس احترام می‌کند؟** مسیرهایی را که یک آدم واقعی طی می‌کند، روی یک دستگاه واقعی و با محدودیت‌های واقعی چک کن: اینترنت کند، گوشی قدیمی، کم‌بینایی، پدر یا مادری نگران ساعت ۲ بامداد.
+
+این‌جا هم هوش مصنوعی کمک می‌کند: بخواه نقش کاربرهای مشخص را بازی کند و مسیر را قدم‌به‌قدم برود، دسترس‌پذیری را بررسی کند یا لحظه‌های گیج‌کننده را فهرست کند. ولی قضاوت نهایی از تماشا کردن یا پرسیدن از کاربرهای واقعی می‌آید.
+
+#prompt
+Act as a 70-year-old with low vision using an old Android phone on a slow connection. Walk through our clinic checker page step by step (screenshots attached). At each step say what you'd try, what confuses you, and what you'd give up on.
+~~
+نقش یک فرد ۷۰ ساله با بینایی ضعیف را بازی کن که با یک گوشی اندرویدی قدیمی و اینترنت کند از صفحه استفاده می‌کند. صفحهٔ بررسی‌کنندهٔ درمانگاه ما را قدم‌به‌قدم طی کن (اسکرین‌شات‌ها پیوست است). در هر قدم بگو چه کاری را امتحان می‌کنی، چه چیزی گیجت می‌کند و از چه چیزی دست می‌کشی.
+
+#analogy
+A restaurant can follow every recipe perfectly and still fail if the menu is unreadable and the door is too heavy to open.
+~~
+یک رستوران می‌تواند همهٔ دستورها را بی‌نقص اجرا کند و باز هم شکست بخورد اگر منو خوانا نباشد و در ورودی آن‌قدر سنگین باشد که باز نشود.
+
+@lesson
+id: stand-behind-what-you-build
+en: Stand behind what you build
+fa: پشت چیزی که می‌سازی بایست
+url: https://academy.claude.com/courses/ai-fluency-for-builders/stand-behind-what-you-build
+
+#explain
+Diligence for builders: before shipping, make sure you can **vouch** for the product even though AI wrote much of it.
+
+- **Security and privacy**: no secrets in code, user data minimized, dependencies verified.
+- **Reliability**: monitoring, error handling, a rollback plan.
+- **Accessibility and fairness**: works for the people least like you.
+- **Transparency**: tell users when they're interacting with AI, and tell your team how AI was used in building.
+- **Accountability**: "the AI wrote it" is never an answer to a user who was harmed.
+~~
+مسئولیت‌پذیری برای سازندگان: قبل از انتشار مطمئن شو می‌توانی **ضامن** محصول باشی، حتی اگر بخش زیادی از آن را هوش مصنوعی نوشته.
+
+- **امنیت و حریم خصوصی**: هیچ رمزی در کد نباشد، دادهٔ کاربر به حداقل برسد، وابستگی‌ها تأیید شده باشند.
+- **پایداری**: مانیتورینگ، مدیریت خطا، برنامهٔ برگشت.
+- **دسترس‌پذیری و انصاف**: برای آدم‌هایی که کمترین شباهت را به تو دارند هم کار کند.
+- **شفافیت**: به کاربرها بگو کی با هوش مصنوعی سروکار دارند و به تیمت بگو در ساختن چطور از هوش مصنوعی استفاده شد.
+- **پاسخ‌گویی**: «هوش مصنوعی نوشته» هرگز جوابی برای کاربری که آسیب دیده نیست.
+
+#analogy
+A bridge engineer signs the plans. It doesn't matter which software drew them; the signature means "I checked, and I'm responsible".
+~~
+مهندس پل نقشه‌ها را امضا می‌کند. مهم نیست کدام نرم‌افزار آن‌ها را کشیده؛ امضا یعنی «من چک کردم و مسئولم».
+
+#try
+Write a pre-launch checklist for the clinic checker with at least one item per area above. Which item would you be most embarrassed to have skipped?
+~~
+برای بررسی‌کنندهٔ درمانگاه یک چک‌لیست قبل از انتشار بنویس که برای هر حوزهٔ بالا دست‌کم یک مورد داشته باشد. جا انداختن کدام مورد بیشتر از همه خجالت‌زده‌ات می‌کرد؟
+
+@lesson
+id: closure-looking-forward
+en: Closure and looking forward
+fa: جمع‌بندی و نگاه به آینده
+kind: wrap
+url: https://academy.claude.com/courses/ai-fluency-for-builders/closure-looking-forward
+
+#explain
+The builder's version of AI Fluency in one line: **define done first, describe precisely, judge the code and the experience, and own what ships.** Tools will keep changing; the brief, the acceptance tests, the Description Chain and your review habits travel with you to every new tool. The course ends with a final quiz and a completion badge.
+~~
+نسخهٔ سازنده‌ها از سواد هوش مصنوعی در یک خط: **اول «تمام شد» را تعریف کن، دقیق توصیف کن، کد و تجربه را قضاوت کن و مالک چیزی باش که منتشر می‌شود.** ابزارها مدام عوض می‌شوند؛ خلاصهٔ پروژه، تست‌های پذیرش، زنجیرهٔ توصیف و عادت‌های بازبینی‌ات با تو به هر ابزار تازه‌ای می‌آیند. دوره با یک آزمون نهایی و نشان پایان دوره تمام می‌شود.
+
+#try
+Rebuild a tiny feature of your own using this course's sequence: brief → acceptance tests → Description Chain → AI build → code and UX discernment → pre-launch checklist.
+~~
+یک قابلیت کوچک خودت را با ترتیب این دوره دوباره بساز: خلاصهٔ پروژه ← تست‌های پذیرش ← زنجیرهٔ توصیف ← ساخت با هوش مصنوعی ← تشخیص کد و تجربه ← چک‌لیست قبل از انتشار.
+
+@cheatsheet
+- AI moves builders up a level: define, specify, judge, own.
+- Start every project with a **reusable brief** (users, problem, done, constraints).
+- **Acceptance tests before code**; include edge cases.
+- **Description Chain**: need → problem → requirements → tests → spec → AI instruction. Works-but-wrong = description failure upstream.
+- Code discernment: correctness · quality · fit · experience · responsibility. Read diffs; watch for weakened tests; verify packages exist.
+- UX discernment: real users, real devices, real constraints; AI role-play helps but doesn't replace users.
+- Stand behind it: security, privacy, reliability, accessibility, transparency, accountability.
+~~
+- هوش مصنوعی سازنده‌ها را یک پله بالا می‌برد: تعریف، مشخص کردن، قضاوت، مالکیت.
+- هر پروژه را با یک **خلاصهٔ قابل‌استفادهٔ دوباره** شروع کن (کاربرها، مسئله، تمام شدن، محدودیت‌ها).
+- **تست پذیرش قبل از کد**؛ حالت‌های لبه‌ای را هم بگذار.
+- **زنجیرهٔ توصیف**: نیاز ← مسئله ← نیازمندی ← تست ← مشخصات ← دستور به هوش مصنوعی. کار می‌کند ولی غلط است = شکست توصیف در بالادست.
+- تشخیص کد: درستی · کیفیت · تناسب · تجربه · مسئولیت. diff بخوان؛ مواظب تست‌های ضعیف‌شده باش؛ وجود بسته‌ها را تأیید کن.
+- تشخیص تجربه: کاربر واقعی، دستگاه واقعی، محدودیت واقعی؛ نقش‌آفرینی هوش مصنوعی کمک می‌کند ولی جای کاربر را نمی‌گیرد.
+- پشتش بایست: امنیت، حریم خصوصی، پایداری، دسترس‌پذیری، شفافیت، پاسخ‌گویی.
+
+@quiz
+Q: Why write acceptance tests before any code? || چرا قبل از هر کدی تست پذیرش بنویسیم؟
+A: They turn a vague goal into something code can pass or fail, so you can delegate implementation and still know if it succeeded. || چون هدف مبهم را به چیزی تبدیل می‌کنند که کد می‌تواند قبول یا ردش شود؛ پس می‌توانی پیاده‌سازی را بسپاری و باز هم بدانی موفق شده یا نه.
+Q: The code passes all tests but users can't figure out the page. Which competency failed, and where? || کد همهٔ تست‌ها را پاس می‌کند ولی کاربرها از صفحه سر درنمی‌آورند. کدام توانمندی و کجا شکست خورده؟
+A: Description, somewhere upstream in the Description Chain (the need or requirements never became tests); plus UX discernment didn't catch it. || توصیف، جایی در بالادست زنجیرهٔ توصیف (نیاز یا نیازمندی هیچ‌وقت به تست تبدیل نشده)؛ و تشخیص تجربهٔ کاربر هم آن را نگرفته.
+Q: What's a security risk of AI-recommended packages? || یک ریسک امنیتی بسته‌هایی که هوش مصنوعی پیشنهاد می‌دهد چیست؟
+A: The package may not exist, and attackers can publish malicious packages under commonly hallucinated names. Verify before installing. || ممکن است بسته وجود نداشته باشد و مهاجم‌ها می‌توانند با اسم‌هایی که معمولاً خیال‌بافی می‌شوند بستهٔ مخرب منتشر کنند. قبل از نصب تأیید کن.

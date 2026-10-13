@@ -1,0 +1,116 @@
+@page
+slug: ai-fluency-for-pk-12-train-the-trainer
+kind: course
+group: fluency
+order: 8
+en: AI Fluency for pK-12 Train the Trainer
+fa: سواد هوش مصنوعی برای مدرسه: تربیت مربی
+stats: 4 lessons · 45 min
+url: https://academy.claude.com/courses/ai-fluency-for-pk-12-train-the-trainer
+expect: 4
+who_en: Educators who completed AI Fluency for pK–12 Educators and want to lead a workshop for colleagues.
+who_fa: معلم‌هایی که دورهٔ سواد هوش مصنوعی برای معلم‌های مدرسه را گذرانده‌اند و می‌خواهند برای همکارانشان کارگاه برگزار کنند.
+blurb_fa: از یادگیرنده به مربی: کیت آمادهٔ کارگاه شامل اسلایدها با راهنمای مجری و کتاب کار با تمرین‌های تفکیک‌شده بر اساس پایه.
+desc_en: A ready-to-run workshop kit so pK-12 educators can lead AI fluency training for their colleagues.
+
+@intro
+The best way to spread AI fluency in a school is teacher-to-teacher. This short course turns you **from learner to trainer** with a ready-to-run **workshop kit**: a slide deck with a built-in facilitator guide, and a learner workbook with exercises for different grade bands, all built around the 4D Framework.
+~~
+بهترین راه پخش سواد هوش مصنوعی در یک مدرسه، از معلم به معلم است. این دورهٔ کوتاه تو را **از یادگیرنده به مربی** تبدیل می‌کند، با یک **کیت کارگاه آماده‌به‌اجرا**: یک ارائهٔ اسلایدی با راهنمای مجری داخلش و یک کتاب کار برای شرکت‌کننده‌ها با تمرین‌هایی برای گروه‌های پایه‌ای مختلف؛ همه بر پایهٔ چارچوب 4D.
+
+@section Welcome | خوش آمدی
+
+@lesson
+id: introduction-from-learner-to-trainer
+en: "Introduction: from learner to trainer"
+fa: مقدمه: از یادگیرنده به مربی
+meta: 2 min
+url: https://academy.claude.com/courses/ai-fluency-for-pk-12-train-the-trainer/introduction-from-learner-to-trainer
+
+#explain
+You already have the 4D Framework and the classroom guardrails from AI Fluency for pK–12 Educators. Leading a workshop is a different skill: making colleagues feel safe to try, adapting examples to their subjects, and answering worried questions honestly ("will this replace us?", "what about cheating?"). The kit does the heavy lifting on content, so you can focus on the people in the room.
+~~
+تو از دورهٔ سواد هوش مصنوعی برای معلم‌های مدرسه، چارچوب 4D و نرده‌های ایمنی کلاس را داری. برگزار کردن کارگاه یک مهارت متفاوت است: این‌که همکاران برای امتحان کردن احساس امنیت کنند، مثال‌ها را با درس‌های آن‌ها جور کنی و به سؤال‌های نگران صادقانه جواب بدهی («جای ما را می‌گیرد؟»، «تقلب چه می‌شود؟»). کیت بار سنگین محتوا را برمی‌دارد تا تو روی آدم‌های داخل اتاق تمرکز کنی.
+
+#analogy
+You've learned to swim; now you're the swimming instructor. Same water, but your job is to make others comfortable getting in.
+~~
+شنا کردن را یاد گرفته‌ای؛ حالا مربی شنا هستی. همان آب، ولی کار تو این است که دیگران با خیال راحت وارد آب شوند.
+
+@section pK-12 Train the Trainer kit | کیت تربیت مربی
+
+@lesson
+id: how-to-use-the-kit
+en: How to use the kit
+fa: چطور از کیت استفاده کنیم
+url: https://academy.claude.com/courses/ai-fluency-for-pk-12-train-the-trainer
+
+#explain
+The kit has two parts that work together: the **slide deck** (what you present and facilitate) and the **learner workbook** (what participants do). Plan your session around your colleagues: pick the grade-band exercises that match them, decide where to pause for hands-on practice, and test the AI tool and room setup beforehand (logins, projector, Wi-Fi).
+~~
+کیت دو بخش دارد که با هم کار می‌کنند: **ارائهٔ اسلایدی** (چیزی که ارائه و هدایت می‌کنی) و **کتاب کار شرکت‌کننده** (کاری که شرکت‌کننده‌ها انجام می‌دهند). جلسه را حول همکارانت برنامه‌ریزی کن: تمرین‌های گروه پایه‌ای مناسب آن‌ها را انتخاب کن، تصمیم بگیر کجا برای تمرین عملی مکث کنی و از قبل ابزار هوش مصنوعی و آمادگی اتاق را امتحان کن (ورود به حساب‌ها، پروژکتور، وای‌فای).
+
+#tip
+Run the workshop once with two friendly colleagues first. A dry run reveals timing problems and confusing slides before the real session.
+~~
+اول یک بار کارگاه را با دو همکار صمیمی اجرا کن. یک اجرای آزمایشی مشکل‌های زمان‌بندی و اسلایدهای گیج‌کننده را قبل از جلسهٔ اصلی نشان می‌دهد.
+
+#analogy
+Like a recipe box with both the recipe cards (slides) and the measured ingredients for each guest (workbook): you still need to preheat the oven (test the room).
+~~
+مثل یک جعبهٔ آشپزی است که هم کارت دستور پخت (اسلایدها) را دارد و هم مواد اندازه‌گیری‌شده برای هر مهمان (کتاب کار): ولی باز هم باید فر را از قبل گرم کنی (اتاق را امتحان کنی).
+
+@lesson
+id: slide-deck-and-facilitator-guide
+en: The slide deck and facilitator guide
+fa: ارائهٔ اسلایدی و راهنمای مجری
+url: https://academy.claude.com/courses/ai-fluency-for-pk-12-train-the-trainer
+
+#explain
+The facilitator guide is **built into the deck as speaker notes** you can toggle on: slide-by-slide talking points and **timing**, so you know what to say, what to ask, and how long to spend. Adapt the examples to your school (local subjects, your colleagues' grades), but keep the structure: framework, practice, reflection.
+~~
+راهنمای مجری **به شکل یادداشت‌های سخنران داخل خود ارائه** قرار گرفته که می‌توانی روشنش کنی: نکته‌های صحبت اسلاید به اسلاید و **زمان‌بندی**؛ پس می‌دانی چه بگویی، چه بپرسی و چقدر وقت بگذاری. مثال‌ها را با مدرسه‌ات جور کن (درس‌های محلی، پایه‌های همکارانت)، ولی ساختار را نگه دار: چارچوب، تمرین، تأمل.
+
+#tip
+Keep the hands-on blocks even if you run short on time. Colleagues remember what they tried, not what they heard.
+~~
+حتی اگر وقت کم آوردی، بخش‌های عملی را حذف نکن. همکاران چیزی را یادشان می‌ماند که امتحان کرده‌اند، نه چیزی که شنیده‌اند.
+
+#analogy
+Speaker notes are the **sheet music** for your talk: you can improvise, but the notes keep the melody and the rhythm.
+~~
+یادداشت‌های سخنران **نت موسیقی** صحبت تو هستند: می‌توانی بداهه بزنی، ولی نت‌ها ملودی و ریتم را نگه می‌دارند.
+
+@lesson
+id: learner-workbook-and-course-complete
+en: The learner workbook and course complete
+fa: کتاب کار شرکت‌کننده و پایان دوره
+kind: wrap
+url: https://academy.claude.com/courses/ai-fluency-for-pk-12-train-the-trainer
+
+#explain
+The **learner workbook** gives participants exercises organized by **grade band** (for example early grades, upper elementary, middle and high school), each built around the 4Ds: delegating a planning task, describing it well, discerning the output, and practicing diligence with student data. Participants leave with something they made and can use the next day.
+
+When you've reviewed the kit, the course is complete. Run your first workshop, gather feedback, and adapt.
+~~
+**کتاب کار شرکت‌کننده** تمرین‌هایی به تفکیک **گروه پایه‌ای** دارد (مثلاً پایه‌های اول، دبستان بالا، متوسطهٔ اول و دوم) که هر کدام بر پایهٔ 4D ساخته شده: سپردن یک کار برنامه‌ریزی، توصیف خوبش، تشخیص خروجی و تمرین مسئولیت‌پذیری با دادهٔ دانش‌آموز. شرکت‌کننده‌ها با چیزی که خودشان ساخته‌اند و فردا می‌توانند استفاده کنند کارگاه را ترک می‌کنند.
+
+وقتی کیت را مرور کردی، دوره تمام است. اولین کارگاهت را اجرا کن، بازخورد جمع کن و تطبیقش بده.
+
+#try
+End your workshop with one question on a sticky note: "What will you try with AI next week, and what will you check before using it?" Collect them; they're your best feedback.
+~~
+کارگاهت را با یک سؤال روی کاغذ یادداشت تمام کن: «هفتهٔ بعد چه کاری را با هوش مصنوعی امتحان می‌کنی و قبل از استفاده چه چیزی را چک می‌کنی؟» جمعشان کن؛ بهترین بازخورد تو همین‌هاست.
+
+@cheatsheet
+- Prerequisite: AI Fluency for pK–12 Educators.
+- Kit = **slide deck with facilitator guide in speaker notes** (talking points + timing) + **learner workbook** (grade-band 4D exercises).
+- Prepare: pick grade bands, plan hands-on breaks, test tools and room, do a dry run.
+- In the room: safety to try, honest answers to worries, keep the hands-on parts.
+- Participants should leave with something usable tomorrow.
+~~
+- پیش‌نیاز: سواد هوش مصنوعی برای معلم‌های مدرسه.
+- کیت = **ارائهٔ اسلایدی با راهنمای مجری در یادداشت‌های سخنران** (نکته‌ها + زمان‌بندی) + **کتاب کار شرکت‌کننده** (تمرین‌های 4D به تفکیک پایه).
+- آمادگی: گروه‌های پایه را انتخاب کن، وقفه‌های عملی را برنامه‌ریزی کن، ابزار و اتاق را امتحان کن، یک اجرای آزمایشی داشته باش.
+- در کارگاه: امنیت برای امتحان کردن، جواب صادقانه به نگرانی‌ها، حفظ بخش‌های عملی.
+- شرکت‌کننده‌ها باید با چیزی که فردا قابل‌استفاده است بروند.

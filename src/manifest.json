@@ -297,5 +297,85 @@
    "organizational-readiness-checklist",
    "practical-ways-to-get-started"
   ]
+ },
+ {
+  "slug": "ai-fluency-for-builders",
+  "kind": "course",
+  "group": "fluency",
+  "en": "AI Fluency for builders",
+  "fa": "سواد هوش مصنوعی برای سازندگان (برنامه‌نویس‌ها و سازندگان محصول)",
+  "items": [
+   "ai-fluency-for-builders",
+   "the-4d-framework",
+   "ai-capabilities-and-limitations",
+   "delegation-the-builder-s-toolkit",
+   "description-building-great-things",
+   "discernment-for-code",
+   "discernment-for-user-experience",
+   "stand-behind-what-you-build",
+   "closure-looking-forward"
+  ]
+ },
+ {
+  "slug": "ai-fluency-for-creative-work",
+  "kind": "course",
+  "group": "fluency",
+  "en": "AI Fluency for creative work",
+  "fa": "سواد هوش مصنوعی برای کار خلاقانه",
+  "items": [
+   "welcome-to-ai-fluency-for-creative-work",
+   "the-creative-value-lens",
+   "the-production-lens",
+   "the-4d-framework",
+   "description-and-discernment",
+   "delegation-and-diligence",
+   "ai-roles-as-delegation-outcomes",
+   "putting-it-all-together"
+  ]
+ },
+ {
+  "slug": "ai-fluency-for-educators",
+  "kind": "course",
+  "group": "fluency",
+  "en": "AI Fluency for educators",
+  "fa": "سواد هوش مصنوعی برای مدرس‌ها",
+  "items": [
+   "introduction-to-ai-fluency-for-educators",
+   "ai-fluency-framework-review",
+   "applying-ai-fluency-to-course-design-and-learning-outcomes",
+   "applying-ai-fluency-to-learning-materials-and-assignments"
+  ]
+ },
+ {
+  "slug": "ai-fluency-for-k-12-educators",
+  "kind": "course",
+  "group": "fluency",
+  "en": "AI Fluency for pK–12 educators",
+  "fa": "سواد هوش مصنوعی برای معلم‌های پیش‌دبستان تا دوازدهم",
+  "items": [
+   "welcome-to-ai-fluency-for-k-12-educators",
+   "the-4d-framework",
+   "explore",
+   "ai-capabilities-and-limitations",
+   "creating-high-quality-ai-outputs-in-your-teaching-practice",
+   "ethics-and-responsible-ai-use",
+   "ai-s-constitution-pedagogy-and-you",
+   "tying-it-all-together",
+   "how-this-course-was-made",
+   "course-quiz"
+  ]
+ },
+ {
+  "slug": "ai-fluency-for-pk-12-train-the-trainer",
+  "kind": "course",
+  "group": "fluency",
+  "en": "AI Fluency for pK-12 Train the Trainer",
+  "fa": "سواد هوش مصنوعی برای مدرسه: تربیت مربی",
+  "items": [
+   "introduction-from-learner-to-trainer",
+   "how-to-use-the-kit",
+   "slide-deck-and-facilitator-guide",
+   "learner-workbook-and-course-complete"
+  ]
  }
 ]

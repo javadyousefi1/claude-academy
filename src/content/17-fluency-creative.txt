@@ -1,0 +1,274 @@
+@page
+slug: ai-fluency-for-creative-work
+kind: course
+group: fluency
+order: 5
+en: AI Fluency for creative work
+fa: سواد هوش مصنوعی برای کار خلاقانه
+stats: 8 lessons · 1 quiz · 5 hr · badge
+url: https://academy.claude.com/courses/ai-fluency-for-creative-work
+expect: 8
+who_en: Writers, artists, designers, musicians, filmmakers and anyone whose work is creative. Written with Professors Rick Dakan and Joseph Feller.
+who_fa: نویسنده‌ها، هنرمندان، طراحان، موسیقی‌دان‌ها، فیلم‌سازان و هر کسی که کارش خلاقانه است. نوشته‌شده با استادها ریک داکان و جوزف فِلِر.
+blurb_fa: شروع از «بدون هوش مصنوعی»، لنز ارزش خلاقانه و لنز تولید، دو حلقهٔ تودرتوی 4D، پنج نقش هوش مصنوعی (هیچ، مشاور، سازندهٔ ابزار، هم‌آفرین، رسانه) و نوشتن سیاست شخصی استفاده از هوش مصنوعی.
+desc_en: A careful framework for deciding if, when and how AI belongs in your creative practice, ending in a personal AI-use policy.
+
+@intro
+For creative people, the question isn't only "can AI do this?" but "**should it, for me, in this work?**" This edition starts from a deliberate stance: **begin with no AI use**, then use analytical tools to decide where AI adds value without taking away what makes your work yours.
+
+Two lenses (creative value and production), the 4D Framework seen as **two nested loops**, and five possible **AI roles** lead to the course's final product: **your personal AI use policy**, stress-tested against real scenarios.
+~~
+برای آدم‌های خلاق، سؤال فقط این نیست که «آیا هوش مصنوعی می‌تواند این کار را بکند؟» بلکه این است که «**آیا باید بکند؟ برای من؟ در همین کار؟**» این نسخه از یک موضع آگاهانه شروع می‌کند: **با استفادهٔ صفر از هوش مصنوعی شروع کن** و بعد با ابزارهای تحلیلی تصمیم بگیر هوش مصنوعی کجا ارزش اضافه می‌کند بدون این‌که چیزی را که کار تو را مال تو می‌کند بگیرد.
+
+دو لنز (ارزش خلاقانه و تولید)، چارچوب 4D به شکل **دو حلقهٔ تودرتو** و پنج **نقش** ممکن برای هوش مصنوعی، به محصول نهایی دوره می‌رسند: **سیاست شخصی استفاده از هوش مصنوعی** تو که با سناریوهای واقعی محک خورده.
+
+@lesson
+id: welcome-to-ai-fluency-for-creative-work
+en: Welcome to AI Fluency for creative work
+fa: خوش آمدی به سواد هوش مصنوعی برای کار خلاقانه
+meta: 15 min
+url: https://academy.claude.com/courses/ai-fluency-for-creative-work/welcome-to-ai-fluency-for-creative-work
+
+#explain
+The course doesn't assume you should use AI. It starts from **zero AI** and asks you to earn every use with a reason. Some artists will end up using AI for admin and research only; others will make AI part of the art itself. Both can be fluent, **if the choice is deliberate**.
+
+You'll need an AI assistant for the hands-on exercises (examples use Claude.ai, any assistant works) and, ideally, the foundations course first.
+~~
+این دوره فرض نمی‌کند که باید از هوش مصنوعی استفاده کنی. از **صفر** شروع می‌کند و می‌خواهد هر استفاده را با یک دلیل به دست بیاوری. بعضی هنرمندان آخرش فقط برای کارهای اداری و تحقیق از هوش مصنوعی استفاده می‌کنند؛ بعضی دیگر آن را بخشی از خود اثر هنری می‌کنند. هر دو می‌توانند مسلط باشند، **به شرطی که انتخاب آگاهانه باشد**.
+
+برای تمرین‌های عملی یک دستیار هوش مصنوعی لازم داری (مثال‌ها با Claude.ai است، هر دستیاری کار می‌کند) و بهتر است اول دورهٔ مبانی را دیده باشی.
+
+#analogy
+A painter doesn't use every brush in the shop. They pick tools for a reason. "Start with no AI" is starting with an empty brush jar and adding only the brushes you'll actually use.
+~~
+یک نقاش از همهٔ قلم‌موهای مغازه استفاده نمی‌کند؛ ابزارها را به دلیلی انتخاب می‌کند. «بدون هوش مصنوعی شروع کن» یعنی با یک ظرف خالی قلم‌مو شروع کنی و فقط قلم‌موهایی را اضافه کنی که واقعاً استفاده می‌کنی.
+
+@lesson
+id: the-creative-value-lens
+en: The creative value lens
+fa: لنز ارزش خلاقانه
+meta: 30 min
+url: https://academy.claude.com/courses/ai-fluency-for-creative-work/the-creative-value-lens
+
+#explain
+The first lens asks: **what makes this work valuable?** Three kinds of creative value:
+
+- **Creative Expression**: the work carries *your* ideas, feelings and choices.
+- **Human Connection**: the work connects people: the author with the audience, a community with itself.
+- **Distinctiveness**: the work is recognizably yours, not interchangeable with anyone else's.
+
+For each part of a project, ask whether AI involvement would strengthen, leave untouched, or weaken each kind of value. A wedding song for your sister scores very differently from the background music for a corporate training video.
+~~
+لنز اول می‌پرسد: **چه چیزی این کار را باارزش می‌کند؟** سه نوع ارزش خلاقانه:
+
+- **بیان خلاقانه**: کار ایده‌ها، احساس‌ها و انتخاب‌های *تو* را با خود دارد.
+- **پیوند انسانی**: کار آدم‌ها را به هم وصل می‌کند: نویسنده را با مخاطب، یک جامعه را با خودش.
+- **متمایز بودن**: کار به‌وضوح مال توست و با کار هیچ‌کس دیگری قابل‌جایگزینی نیست.
+
+برای هر بخش از یک پروژه بپرس دخالت هوش مصنوعی هر نوع ارزش را تقویت می‌کند، دست‌نخورده می‌گذارد یا ضعیف می‌کند. یک ترانه برای عروسی خواهرت با موسیقی پس‌زمینهٔ یک ویدیوی آموزشی شرکتی، نمرهٔ خیلی متفاوتی می‌گیرد.
+
+#analogy
+A handwritten birthday card and a printed one say the same words. The value of the first is in the **human connection**, which no printer can add.
+~~
+یک کارت تولد دست‌نویس و یک کارت چاپی همان کلمه‌ها را می‌گویند. ارزش اولی در **پیوند انسانی** است که هیچ چاپگری نمی‌تواند اضافه‌اش کند.
+
+#try
+Pick a current project and rate each part (high / medium / low) on expression, connection and distinctiveness. Parts that are "low" on all three are your safest candidates for AI help.
+~~
+یک پروژهٔ فعلی را انتخاب کن و هر بخشش را از نظر بیان، پیوند و تمایز امتیاز بده (زیاد/متوسط/کم). بخش‌هایی که در هر سه «کم» گرفته‌اند امن‌ترین کاندیداها برای کمک هوش مصنوعی‌اند.
+
+@lesson
+id: the-production-lens
+en: The production lens
+fa: لنز تولید
+meta: 45 min
+url: https://academy.claude.com/courses/ai-fluency-for-creative-work/the-production-lens
+
+#explain
+The second lens looks at the **costs of making the work**: **Time, Effort and Resources**. Every technology, from the printing press to the camera to digital editing, **rearranges** these costs: something expensive becomes cheap, and new things become possible.
+
+Ask where your production costs really sit: is it the drafting, the research, the repetitive formatting, the marketing, the grant applications? AI can lower some costs dramatically, which may free time for the parts you value most, or may tempt you to produce more of less meaningful work.
+~~
+لنز دوم به **هزینه‌های ساختن اثر** نگاه می‌کند: **زمان، تلاش و منابع**. هر فناوری، از ماشین چاپ تا دوربین تا ویرایش دیجیتال، این هزینه‌ها را **جابه‌جا** می‌کند: چیزی گران ارزان می‌شود و چیزهای تازه‌ای ممکن می‌شوند.
+
+بپرس هزینه‌های تولیدت واقعاً کجا نشسته‌اند: پیش‌نویس؟ تحقیق؟ قالب‌بندی تکراری؟ بازاریابی؟ درخواست‌های کمک‌هزینه؟ هوش مصنوعی می‌تواند بعضی هزینه‌ها را به‌شدت پایین بیاورد؛ این ممکن است وقت را برای بخش‌هایی که بیشتر برایت ارزش دارند آزاد کند، یا وسوسه‌ات کند آثار بیشتری با معنای کمتر تولید کنی.
+
+#example
+An illustrator spends 30% of her time on client emails, invoices and social posts. Using AI there (low creative value, high production cost) gives her back a day a week for drawing, which she keeps 100% AI-free.
+~~
+یک تصویرگر ۳۰٪ وقتش را صرف ایمیل مشتری‌ها، فاکتورها و پست‌های شبکه‌های اجتماعی می‌کند. استفاده از هوش مصنوعی در آن‌جا (ارزش خلاقانهٔ کم، هزینهٔ تولید زیاد) هفته‌ای یک روز به او برمی‌گرداند برای نقاشی؛ که آن را ۱۰۰٪ بدون هوش مصنوعی نگه می‌دارد.
+
+#analogy
+When the washing machine arrived, nobody's art got worse; people got hours back. Some uses of AI are washing machines; some would be like hiring someone to paint your painting.
+~~
+وقتی ماشین لباسشویی آمد، هنر هیچ‌کس بدتر نشد؛ آدم‌ها ساعت‌ها وقت پس گرفتند. بعضی استفاده‌های هوش مصنوعی ماشین لباسشویی‌اند؛ بعضی مثل این است که کسی را استخدام کنی تا نقاشی‌ات را بکشد.
+
+@lesson
+id: the-4d-framework
+en: The 4D Framework as two nested loops
+fa: چارچوب 4D به شکل دو حلقهٔ تودرتو
+meta: 25 min
+url: https://academy.claude.com/courses/ai-fluency-for-creative-work/the-4d-framework
+
+#explain
+For creative work, the 4Ds are best seen as **two nested loops**:
+
+- The **outer loop**, **Delegation and Diligence**: the big decisions about whether, where and how AI enters your practice, and taking responsibility for those choices (credit, consent, transparency with your audience).
+- The **inner loop**, **Description and Discernment**: the hands-on cycle while working: describing what you want and judging what comes back against *your* standards.
+
+The outer loop sets the boundaries; the inner loop works inside them.
+~~
+برای کار خلاقانه، 4D را بهتر است به شکل **دو حلقهٔ تودرتو** ببینی:
+
+- **حلقهٔ بیرونی، سپردن و مسئولیت‌پذیری**: تصمیم‌های بزرگ دربارهٔ این‌که آیا، کجا و چطور هوش مصنوعی وارد کار هنری‌ات شود و پذیرفتن مسئولیت این انتخاب‌ها (اعتبار، رضایت، شفافیت با مخاطب).
+- **حلقهٔ درونی، توصیف و تشخیص**: چرخهٔ عملی حین کار: توصیف آنچه می‌خواهی و قضاوت آنچه برمی‌گردد با معیارهای *خودت*.
+
+حلقهٔ بیرونی مرزها را تعیین می‌کند؛ حلقهٔ درونی داخل آن مرزها کار می‌کند.
+
+#analogy
+The outer loop is choosing **which garden beds** a helper may work in; the inner loop is how you and the helper **tend the plants** inside those beds, day by day.
+~~
+حلقهٔ بیرونی یعنی انتخاب این‌که یک کمک‌کار در **کدام باغچه‌ها** کار کند؛ حلقهٔ درونی یعنی تو و کمک‌کار روزبه‌روز چطور از **گیاه‌های** داخل همان باغچه‌ها مراقبت می‌کنید.
+
+#terms
+Two nested loops = دو حلقهٔ تودرتو = حلقهٔ بیرونی (سپردن و مسئولیت‌پذیری) و حلقهٔ درونی (توصیف و تشخیص) در چارچوب 4D.
+
+@lesson
+id: description-and-discernment
+en: Description and Discernment (the inner loop)
+fa: توصیف و تشخیص (حلقهٔ درونی)
+meta: 1 hr
+url: https://academy.claude.com/courses/ai-fluency-for-creative-work/description-and-discernment
+
+#explain
+The inner loop starts with **describing your own practice**: your themes, materials, techniques, the qualities you aim for and the things you never do. Then you turn those descriptions into **standards**: concrete criteria to judge any work against, yours or AI-assisted.
+
+This has a surprising benefit beyond AI: articulating your standards makes you a clearer, more intentional artist. And it protects your voice: when you judge AI output against *your* standards, generic results get rejected quickly.
+~~
+حلقهٔ درونی با **توصیف کار هنری خودت** شروع می‌شود: درون‌مایه‌ها، مواد، تکنیک‌ها، کیفیت‌هایی که دنبالشان هستی و کارهایی که هرگز نمی‌کنی. بعد این توصیف‌ها را به **معیار** تبدیل می‌کنی: سنجه‌های ملموسی که هر اثری را، چه اثر خودت چه اثر با کمک هوش مصنوعی، با آن‌ها قضاوت کنی.
+
+این کار یک فایدهٔ غافلگیرکنندهٔ فراتر از هوش مصنوعی هم دارد: بیان کردن معیارهایت تو را هنرمند روشن‌تر و آگاه‌تری می‌کند. و از صدای تو محافظت می‌کند: وقتی خروجی هوش مصنوعی را با معیارهای *خودت* قضاوت می‌کنی، نتیجه‌های کلیشه‌ای سریع رد می‌شوند.
+
+#prompt
+Interview me about my writing practice: ask 8 questions, one at a time, about my themes, influences, sentence style, what I avoid, and what a "successful" piece feels like to me. Then summarize my answers as a one-page list of standards I can use to judge drafts.
+~~
+دربارهٔ روش نوشتن من از من مصاحبه کن: ۸ سؤال بپرس، یکی‌یکی، دربارهٔ درون‌مایه‌ها، تأثیرپذیری‌ها، سبک جمله‌ها، چیزهایی که از آن‌ها پرهیز می‌کنم و این‌که یک اثر «موفق» برای من چه حسی دارد. بعد جواب‌هایم را به شکل یک فهرست یک‌صفحه‌ای از معیارها خلاصه کن که بتوانم با آن پیش‌نویس‌ها را قضاوت کنم.
+
+#analogy
+A chef who can say *why* a dish is theirs ("sour notes, crunchy texture, never cream") can taste any plate, theirs or an assistant's, and know immediately if it belongs on their menu.
+~~
+آشپزی که می‌تواند بگوید *چرا* یک غذا مال اوست («نت‌های ترش، بافت ترد، هرگز خامه») می‌تواند هر بشقابی را، مال خودش یا یک کمک‌آشپز، بچشد و فوراً بفهمد به منوی او تعلق دارد یا نه.
+
+@lesson
+id: delegation-and-diligence
+en: Delegation and Diligence (the outer loop)
+fa: سپردن و مسئولیت‌پذیری (حلقهٔ بیرونی)
+meta: 45 min
+url: https://academy.claude.com/courses/ai-fluency-for-creative-work/delegation-and-diligence
+
+#explain
+The outer loop applies **Problem Awareness** (what is this creative project really about?), **Platform Awareness** (what do these tools do, how were they trained, what are their terms?) and **Task Delegation** (which parts, if any, go to AI), and then the **Diligence checks**:
+
+- **Creation**: is this use consistent with my values and with respect for other artists?
+- **Transparency**: will I tell my audience, clients or collaborators how AI was involved?
+- **Deployment**: am I comfortable standing behind this work publicly, with my name on it?
+~~
+حلقهٔ بیرونی **آگاهی از مسئله** (این پروژهٔ خلاقانه واقعاً دربارهٔ چیست؟)، **آگاهی از ابزار** (این ابزارها چه می‌کنند، چطور آموزش دیده‌اند، شرایطشان چیست؟) و **تقسیم کار** (کدام بخش‌ها، اگر اصلاً، به هوش مصنوعی برسد) را به کار می‌گیرد و بعد **بررسی‌های مسئولیت‌پذیری** را:
+
+- **ساختن**: آیا این استفاده با ارزش‌های من و احترام به هنرمندان دیگر جور است؟
+- **شفافیت**: آیا به مخاطبان، مشتری‌ها یا همکارانم می‌گویم هوش مصنوعی چطور دخیل بوده؟
+- **انتشار**: آیا راحتم که این کار را با اسم خودم عمومی کنم و پشتش بایستم؟
+
+#analogy
+Before a collaboration, musicians agree on who wrote what, how credits appear on the album, and who can use the song later. The outer loop is that conversation, held with yourself about AI.
+~~
+قبل از یک همکاری، موسیقی‌دان‌ها توافق می‌کنند چه کسی چه بخشی را نوشته، اسم‌ها روی آلبوم چطور بیاید و بعداً چه کسی اجازهٔ استفاده از ترانه را دارد. حلقهٔ بیرونی همان گفت‌وگوست، با خودت و دربارهٔ هوش مصنوعی.
+
+@lesson
+id: ai-roles-as-delegation-outcomes
+en: AI roles as Delegation outcomes
+fa: نقش‌های هوش مصنوعی به‌عنوان نتیجهٔ سپردن
+meta: 30 min
+url: https://academy.claude.com/courses/ai-fluency-for-creative-work/ai-roles-as-delegation-outcomes
+
+#explain
+Delegation decisions usually land on one of **five roles** for AI in a creative project:
+
+1. **No AI**: the work (or this part of it) stays fully human.
+2. **Consultant**: AI gives feedback, research or ideas; you make every creative decision.
+3. **Tool Builder**: AI helps you build tools for your process (a script to organize references, a custom brush pipeline), not the art itself.
+4. **Co-Creator**: AI generates material you shape, select and combine with your own.
+5. **Medium**: AI is the material of the art itself; the work is *about* or *made of* AI.
+
+Different projects, and different parts of one project, can have different roles.
+~~
+تصمیم‌های سپردن معمولاً به یکی از **پنج نقش** هوش مصنوعی در یک پروژهٔ خلاقانه می‌رسند:
+
+1. **بدون هوش مصنوعی**: کار (یا این بخش از آن) کاملاً انسانی می‌ماند.
+2. **مشاور**: هوش مصنوعی بازخورد، تحقیق یا ایده می‌دهد؛ تو همهٔ تصمیم‌های خلاقانه را می‌گیری.
+3. **سازندهٔ ابزار**: هوش مصنوعی کمک می‌کند برای فرایند کارت ابزار بسازی (اسکریپتی برای مرتب کردن منابع الهام، یک روال قلم‌موی سفارشی)، نه خود اثر را.
+4. **هم‌آفرین**: هوش مصنوعی ماده‌ای تولید می‌کند که تو شکلش می‌دهی، انتخابش می‌کنی و با کار خودت ترکیبش می‌کنی.
+5. **رسانه**: هوش مصنوعی خودِ مادهٔ اثر هنری است؛ اثر *دربارهٔ* هوش مصنوعی است یا *از* آن ساخته شده.
+
+پروژه‌های مختلف، و حتی بخش‌های مختلف یک پروژه، می‌توانند نقش‌های متفاوتی داشته باشند.
+
+#example
+A novelist: research on 1950s Tehran → **Consultant**. A script that tracks every character's timeline → **Tool Builder**. The prose itself → **No AI**. A short experimental story about talking to a machine, built from real AI transcripts → **Medium**.
+~~
+یک رمان‌نویس: تحقیق دربارهٔ تهران دههٔ ۱۳۳۰ ← **مشاور**. اسکریپتی که خط زمانی همهٔ شخصیت‌ها را دنبال می‌کند ← **سازندهٔ ابزار**. خود نثر ← **بدون هوش مصنوعی**. یک داستان کوتاه تجربی دربارهٔ حرف زدن با یک ماشین که از متن‌های واقعی گفت‌وگو با هوش مصنوعی ساخته شده ← **رسانه**.
+
+#analogy
+Like roles on a film set: some people advise (consultant), some build the cameras and rigs (tool builder), some act alongside you (co-creator), and in some experimental films the camera itself is the subject (medium).
+~~
+مثل نقش‌ها سر صحنهٔ فیلم‌برداری: بعضی مشاوره می‌دهند (مشاور)، بعضی دوربین و تجهیزات می‌سازند (سازندهٔ ابزار)، بعضی کنارت بازی می‌کنند (هم‌آفرین) و در بعضی فیلم‌های تجربی خود دوربین موضوع فیلم است (رسانه).
+
+@lesson
+id: putting-it-all-together
+en: Putting it all together
+fa: کنار هم گذاشتن همه‌چیز
+meta: 1 hr
+url: https://academy.claude.com/courses/ai-fluency-for-creative-work/putting-it-all-together
+
+#explain
+The final project: assemble your **personal AI use policy**: a short document stating which roles AI may play in your work, where it's never used, how you'll be transparent, and your standards for judging AI-assisted output. Then **stress-test it** against tricky scenarios: a client who demands AI, a collaborator who used AI without telling you, a deadline crunch, a commission for something deeply personal.
+
+A good policy is short, honest and revisable. You'll update it as your practice and the tools evolve.
+~~
+پروژهٔ نهایی: **سیاست شخصی استفاده از هوش مصنوعی** را جمع کن: سندی کوتاه که می‌گوید هوش مصنوعی در کار تو چه نقش‌هایی می‌تواند داشته باشد، کجا هرگز استفاده نمی‌شود، چطور شفاف خواهی بود و معیارهایت برای قضاوت خروجی‌های با کمک هوش مصنوعی چیست. بعد آن را با سناریوهای دشوار **محک بزن**: مشتری‌ای که اصرار به استفاده از هوش مصنوعی دارد، همکاری که بدون گفتن به تو از هوش مصنوعی استفاده کرده، فشار یک مهلت، سفارش ساختن چیزی عمیقاً شخصی.
+
+یک سیاست خوب کوتاه، صادقانه و قابل‌بازنگری است. همراه با تغییر کار هنری‌ات و ابزارها به‌روزش می‌کنی.
+
+#prompt
+Here is my draft personal AI use policy: [paste]. Stress-test it: invent 5 realistic, difficult scenarios from my field and, for each, say whether my policy gives a clear answer. Point out gaps or contradictions, but don't rewrite my values.
+~~
+این پیش‌نویس سیاست شخصی استفاده از هوش مصنوعی من است: [بچسبان]. محکش بزن: ۵ سناریوی واقع‌گرایانه و دشوار از رشتهٔ من بساز و برای هر کدام بگو سیاست من جواب روشنی می‌دهد یا نه. شکاف‌ها و تناقض‌ها را نشان بده، ولی ارزش‌های من را بازنویسی نکن.
+
+#analogy
+Like a band writing its "house rules" before touring: short, agreed, and tested against the situations that will definitely happen on the road.
+~~
+مثل گروه موسیقی‌ای است که قبل از تور «قانون‌های خانه‌اش» را می‌نویسد: کوتاه، مورد توافق و محک‌خورده با موقعیت‌هایی که حتماً در جاده پیش می‌آید.
+
+@cheatsheet
+- Start from **no AI**; earn each use with a reason.
+- Creative value lens: **Expression · Human Connection · Distinctiveness**.
+- Production lens: **Time · Effort · Resources**; technology rearranges costs.
+- 4Ds as **two nested loops**: outer = Delegation + Diligence; inner = Description + Discernment.
+- Describe your practice → turn it into **standards** → judge any output against them.
+- Five AI roles: **No AI · Consultant · Tool Builder · Co-Creator · Medium**.
+- Final product: a short, revisable **personal AI use policy**, stress-tested.
+~~
+- از **بدون هوش مصنوعی** شروع کن؛ هر استفاده را با یک دلیل به دست بیاور.
+- لنز ارزش خلاقانه: **بیان · پیوند انسانی · متمایز بودن**.
+- لنز تولید: **زمان · تلاش · منابع**؛ فناوری هزینه‌ها را جابه‌جا می‌کند.
+- 4D به شکل **دو حلقهٔ تودرتو**: بیرونی = سپردن + مسئولیت‌پذیری؛ درونی = توصیف + تشخیص.
+- کار هنری‌ات را توصیف کن ← به **معیار** تبدیلش کن ← هر خروجی را با آن قضاوت کن.
+- پنج نقش هوش مصنوعی: **بدون هوش مصنوعی · مشاور · سازندهٔ ابزار · هم‌آفرین · رسانه**.
+- محصول نهایی: یک **سیاست شخصی استفاده از هوش مصنوعی** کوتاه و قابل‌بازنگری، محک‌خورده.
+
+@quiz
+Q: Name the three kinds of creative value. || سه نوع ارزش خلاقانه را نام ببر.
+A: Creative Expression, Human Connection and Distinctiveness. || بیان خلاقانه، پیوند انسانی و متمایز بودن.
+Q: Which two Ds form the outer loop for creative work? || کدام دو D حلقهٔ بیرونی کار خلاقانه را می‌سازند؟
+A: Delegation and Diligence. || سپردن و مسئولیت‌پذیری.
+Q: AI writes a script that organizes your reference photos, but never touches the artwork. Which role is that? || هوش مصنوعی اسکریپتی می‌نویسد که عکس‌های مرجعت را مرتب می‌کند، ولی هرگز به اثر هنری دست نمی‌زند. این کدام نقش است؟
+A: Tool Builder. || سازندهٔ ابزار.

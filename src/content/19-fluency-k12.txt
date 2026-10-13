@@ -1,0 +1,308 @@
+@page
+slug: ai-fluency-for-k-12-educators
+kind: course
+group: fluency
+order: 7
+en: AI Fluency for pK–12 educators
+fa: سواد هوش مصنوعی برای معلم‌های پیش‌دبستان تا دوازدهم
+stats: 10 lessons · 1 quiz · 3 hr · badge
+url: https://academy.claude.com/courses/ai-fluency-for-k-12-educators
+expect: 10
+who_en: Classroom teachers and school staff from pre-K to grade 12. Created in partnership with Teach For America.
+who_fa: معلم‌ها و کارکنان مدرسه از پیش‌دبستان تا پایهٔ دوازدهم. با همکاری Teach For America ساخته شده.
+blurb_fa: 4D در کلاس درس: سند زمینه، کشف و آزمایش، توانایی‌ها و محدودیت‌ها، مواد آموزشی متمایز، اخلاق و حفاظت از دادهٔ دانش‌آموز، سند ارزش‌های شخصی و یک کار واقعی از ابتدا تا انتها.
+desc_en: The 4D framework for school teachers: differentiated materials, student data protection, a personal AI values document and a real end-to-end task.
+
+@intro
+School teachers face their own AI questions: How do I save time on planning without lowering quality? How do I make materials for students at very different levels? What about student privacy? What do I teach children about AI? This edition, built with **Teach For America**, works through those questions with the 4D Framework and classroom-sized examples.
+
+Recommended background: AI Fluency: Framework and foundations, and AI capabilities and limitations.
+~~
+معلم‌های مدرسه سؤال‌های خاص خودشان را دربارهٔ هوش مصنوعی دارند: چطور در برنامه‌ریزی وقت صرفه‌جویی کنم بدون این‌که کیفیت پایین بیاید؟ چطور برای دانش‌آموزهایی با سطح‌های خیلی متفاوت مواد آموزشی بسازم؟ حریم خصوصی دانش‌آموزها چه می‌شود؟ دربارهٔ هوش مصنوعی چه چیزی به بچه‌ها یاد بدهم؟ این نسخه که با **Teach For America** ساخته شده، این سؤال‌ها را با چارچوب 4D و مثال‌هایی به اندازهٔ کلاس درس بررسی می‌کند.
+
+پیش‌زمینهٔ پیشنهادی: سواد هوش مصنوعی: چارچوب و مبانی، و توانایی‌ها و محدودیت‌های هوش مصنوعی.
+
+@section Introduction and AI Fluency framework | مقدمه و چارچوب
+
+@lesson
+id: welcome-to-ai-fluency-for-k-12-educators
+en: Welcome to AI Fluency for educators
+fa: خوش آمدی، معلم عزیز
+url: https://academy.claude.com/courses/ai-fluency-for-k-12-educators/welcome-to-ai-fluency-for-k-12-educators
+
+#explain
+You'll define AI Fluency for a school setting and start building a reusable **context document**: your grade, subject, students' needs (including students with learning differences and language learners), school policies and your goals. Every later exercise uses it.
+~~
+سواد هوش مصنوعی را برای محیط مدرسه تعریف می‌کنی و ساختن یک **سند زمینه** قابل‌استفادهٔ دوباره را شروع می‌کنی: پایه، درس، نیازهای دانش‌آموزها (از جمله دانش‌آموزهای با تفاوت‌های یادگیری و زبان‌آموزها)، سیاست‌های مدرسه و هدف‌هایت. همهٔ تمرین‌های بعدی از آن استفاده می‌کنند.
+
+#code markdown My classroom context (example)
+Grade 5, science, 28 students, public school in Mashhad.
+Reading levels range from grade 3 to grade 7; 4 students are recent Afghan immigrants learning Persian.
+Two students have ADHD plans: short tasks, movement breaks.
+School policy: no student names or grades in AI tools.
+This month: the water cycle. Goal: students explain evaporation with an everyday example.
+#end
+
+#analogy
+It's the **seating chart plus the notes** you'd leave for a substitute, written once, used every day.
+~~
+مثل **نقشهٔ نشستن کلاس به‌اضافهٔ یادداشت‌هایی است** که برای معلم جانشین می‌گذاری؛ یک بار نوشته می‌شود و هر روز استفاده می‌شود.
+
+#warn
+Notice the last policy line: **no student names or grades in AI tools**. Describe students by needs and levels, never by identity.
+~~
+به خط آخر سیاست دقت کن: **هیچ اسم یا نمرهٔ دانش‌آموز در ابزارهای هوش مصنوعی نه**. دانش‌آموزها را با نیاز و سطحشان توصیف کن، هرگز با هویتشان.
+
+@lesson
+id: the-4d-framework
+en: The 4D Framework
+fa: چارچوب 4D در کلاس
+url: https://academy.claude.com/courses/ai-fluency-for-k-12-educators/the-4d-framework
+
+#explain
+The four interconnected competencies, with classroom examples:
+
+- **Delegation**: AI drafts a leveled reading passage; you decide which students get which version.
+- **Description**: you describe the lesson goal, the students' levels and the format clearly.
+- **Discernment**: you check the passage is accurate, age-appropriate and culturally relevant.
+- **Diligence**: you protect student data, tell parents and colleagues how you use AI, and take responsibility for every worksheet.
+
+Inner loop (Description–Discernment) for daily material creation; outer loop (Delegation–Diligence) for decisions about when and how AI belongs in your classroom at all.
+~~
+چهار توانمندی به‌هم‌پیوسته با مثال‌های کلاسی:
+
+- **سپردن**: هوش مصنوعی یک متن خواندنی سطح‌بندی‌شده پیش‌نویس می‌کند؛ تو تصمیم می‌گیری کدام دانش‌آموز کدام نسخه را بگیرد.
+- **توصیف**: هدف درس، سطح دانش‌آموزها و قالب را روشن توصیف می‌کنی.
+- **تشخیص**: چک می‌کنی متن درست، مناسب سن و مرتبط با فرهنگ بچه‌ها باشد.
+- **مسئولیت‌پذیری**: از دادهٔ دانش‌آموزها محافظت می‌کنی، به والدین و همکاران می‌گویی چطور از هوش مصنوعی استفاده می‌کنی و مسئولیت هر برگهٔ تمرین را می‌پذیری.
+
+حلقهٔ درونی (توصیف و تشخیص) برای ساختن روزانهٔ مواد؛ حلقهٔ بیرونی (سپردن و مسئولیت‌پذیری) برای تصمیم دربارهٔ این‌که اصلاً کی و چطور هوش مصنوعی به کلاست تعلق دارد.
+
+#analogy
+Like a teaching assistant who is fast and tireless but has never met your class: you assign the work, explain it, check it, and you're still the teacher.
+~~
+مثل یک کمک‌معلم سریع و خستگی‌ناپذیر که هرگز کلاس تو را ندیده: کار را تو تعیین می‌کنی، توضیح می‌دهی، چک می‌کنی و هنوز معلم خودت هستی.
+
+@lesson
+id: explore
+en: Explore!
+fa: کشف کن!
+kind: exercise
+url: https://academy.claude.com/courses/ai-fluency-for-k-12-educators/explore
+
+#explain
+A hands-on lesson: open an AI assistant with your context document and try real classroom tasks. Ask for an exit ticket, a set of discussion questions, a parent newsletter paragraph, a game to review vocabulary. The goal is to build **intuition** through play: what comes out great, what needs fixing, and how your context document changes the results.
+~~
+یک درس عملی: یک دستیار هوش مصنوعی را با سند زمینه‌ات باز کن و کارهای واقعی کلاس را امتحان کن. یک «برگهٔ خروج» (exit ticket) بخواه، یک دسته سؤال بحث، یک پاراگراف برای خبرنامهٔ والدین، یک بازی برای مرور واژه‌ها. هدف ساختن **شهود** از راه بازی است: چه چیزی عالی درمی‌آید، چه چیزی اصلاح لازم دارد و سند زمینه‌ات چطور نتیجه‌ها را عوض می‌کند.
+
+#prompt
+Using my classroom context above, create a 3-question exit ticket on evaporation for today's lesson: one question with a picture description for my beginning Persian readers, one everyday-life question, and one "explain to a friend" question. Include a simple answer key.
+~~
+با استفاده از زمینهٔ کلاس من در بالا، یک برگهٔ خروج ۳ سؤالی دربارهٔ تبخیر برای درس امروز بساز: یک سؤال همراه با توصیف یک تصویر برای دانش‌آموزهای تازه‌کار در خواندن فارسی، یک سؤال از زندگی روزمره و یک سؤال «برای یک دوست توضیح بده». یک پاسخ‌نامهٔ ساده هم بگذار.
+
+#analogy
+Like letting students explore a new science kit before the formal lesson: curiosity first, rules second.
+~~
+مثل این است که قبل از درس رسمی بگذاری بچه‌ها یک جعبهٔ آزمایش علوم تازه را کشف کنند: اول کنجکاوی، بعد قانون‌ها.
+
+@section How AI works | هوش مصنوعی چطور کار می‌کند
+
+@lesson
+id: ai-capabilities-and-limitations
+en: AI capabilities and limitations
+fa: توانایی‌ها و محدودیت‌های هوش مصنوعی
+url: https://academy.claude.com/courses/ai-fluency-for-k-12-educators/ai-capabilities-and-limitations
+
+#explain
+Test for yourself where generative AI is **versatile** (drafting, explaining at many levels, generating examples and questions, translating, adapting texts) and where it **struggles**: knowledge cutoff dates, **hallucinations** (confident wrong facts), context-window limits in long conversations, and complex reasoning.
+
+For teachers, the riskiest spots are **facts in materials** (dates, science facts, math answers) and **local relevance** (it may not know your curriculum or your town). Always check answer keys yourself.
+~~
+خودت امتحان کن هوش مصنوعی مولد کجا **همه‌کاره** است (پیش‌نویس، توضیح در سطح‌های مختلف، تولید مثال و سؤال، ترجمه، تطبیق متن‌ها) و کجا **به مشکل می‌خورد**: تاریخ قطع دانش، **توهم** (واقعیت‌های غلط ولی مطمئن)، محدودیت پنجرهٔ کانتکست در گفت‌وگوهای طولانی و استدلال پیچیده.
+
+برای معلم‌ها، پرخطرترین جاها **واقعیت‌های داخل مواد آموزشی** (تاریخ‌ها، واقعیت‌های علمی، جواب‌های ریاضی) و **تناسب محلی** است (ممکن است برنامهٔ درسی یا شهر تو را نشناسد). پاسخ‌نامه‌ها را همیشه خودت چک کن.
+
+#example
+A teacher asks for 10 math word problems with answers. Nine are perfect; one answer key is wrong because the problem had two possible interpretations. Students would have been confused, and so would the teacher, if she hadn't solved them herself.
+~~
+معلمی ۱۰ مسئلهٔ داستانی ریاضی با جواب می‌خواهد. نه تا بی‌نقص‌اند؛ پاسخ یکی غلط است چون مسئله دو برداشت ممکن داشت. اگر معلم خودش حلشان نکرده بود، هم بچه‌ها گیج می‌شدند و هم خودش.
+
+#analogy
+AI is like a very well-read new colleague who sometimes **misremembers** details. You'd happily use their worksheet, after checking the answer key.
+~~
+هوش مصنوعی مثل همکار تازه‌ای است که خیلی کتاب خوانده ولی گاهی جزئیات را **اشتباه به یاد می‌آورد**. با کمال میل از برگهٔ تمرینش استفاده می‌کنی، بعد از چک کردن پاسخ‌نامه.
+
+@section Using AI responsibly | استفادهٔ مسئولانه از هوش مصنوعی
+
+@lesson
+id: creating-high-quality-ai-outputs-in-your-teaching-practice
+en: Creating high quality AI outputs
+fa: ساختن خروجی‌های باکیفیت با هوش مصنوعی
+url: https://academy.claude.com/courses/ai-fluency-for-k-12-educators/creating-high-quality-ai-outputs-in-your-teaching-practice
+
+#explain
+This is the **Description–Discernment loop** in daily teaching, with a focus on **differentiated materials**: the same content at several reading levels, with supports for language learners, and options for students who need a challenge.
+
+Describe: goal, levels, supports, format. Discern: accuracy, level, cultural fit, bias, alignment with your goal. Refine: "make level 1 shorter and add a picture description", "the level 3 version is too easy".
+~~
+این همان **حلقهٔ توصیف و تشخیص** در تدریس روزانه است، با تمرکز روی **مواد آموزشی متمایز**: یک محتوا در چند سطح خواندن، با پشتیبانی برای زبان‌آموزها و گزینه‌هایی برای دانش‌آموزهایی که چالش بیشتری لازم دارند.
+
+توصیف کن: هدف، سطح‌ها، پشتیبانی‌ها، قالب. تشخیص بده: درستی، سطح، تناسب فرهنگی، سوگیری، هماهنگی با هدف. بهترش کن: «سطح ۱ را کوتاه‌تر کن و توصیف یک تصویر اضافه کن»، «نسخهٔ سطح ۳ خیلی آسان است».
+
+#prompt
+Rewrite this paragraph about the water cycle at three reading levels (grade 3, grade 5, grade 7). Keep the science identical across levels. For grade 3, use short sentences and add a glossary of 3 words. For grade 7, add one "why do you think…" question.
+~~
+این پاراگراف دربارهٔ چرخهٔ آب را در سه سطح خواندن بازنویسی کن (پایهٔ سوم، پنجم و هفتم). علم را در همهٔ سطح‌ها یکسان نگه دار. برای پایهٔ سوم جمله‌ها را کوتاه کن و یک واژه‌نامهٔ ۳ کلمه‌ای اضافه کن. برای پایهٔ هفتم یک سؤال «به نظرت چرا…» اضافه کن.
+
+#analogy
+Like cutting the same fruit into different sizes for different ages: everyone eats the same apple, in a size they can handle.
+~~
+مثل بریدن یک میوه در اندازه‌های مختلف برای سن‌های مختلف است: همه همان سیب را می‌خورند، در اندازه‌ای که از پسش برمی‌آیند.
+
+#tip
+Check that differentiation didn't **change the content**: simplifying sometimes introduces errors ("water disappears when it evaporates"). Compare the key facts across all versions.
+~~
+چک کن که متمایز کردن **محتوا را عوض نکرده باشد**: ساده‌سازی گاهی خطا وارد می‌کند («آب وقتی تبخیر می‌شود ناپدید می‌شود»). واقعیت‌های کلیدی را در همهٔ نسخه‌ها مقایسه کن.
+
+@lesson
+id: ethics-and-responsible-ai-use
+en: Ethics and responsible AI use
+fa: اخلاق و استفادهٔ مسئولانه از هوش مصنوعی
+url: https://academy.claude.com/courses/ai-fluency-for-k-12-educators
+
+#explain
+The **Delegation–Diligence loop** for schools: deciding when AI belongs in your work and in students' learning, and doing it responsibly. Key topics:
+
+- **Student data protection**: no names, grades, IEP details, photos or anything identifying in AI tools unless your school has approved that tool for it. Follow your school and local rules.
+- **Equity**: not all students have the same access to AI at home; design so nobody is disadvantaged.
+- **Transparency**: tell students and families how you use AI, and set clear expectations for how they may use it.
+- **Age-appropriateness**: many AI tools have age requirements; check before involving students directly.
+~~
+**حلقهٔ سپردن و مسئولیت‌پذیری** برای مدرسه‌ها: تصمیم دربارهٔ این‌که هوش مصنوعی کی به کار تو و یادگیری دانش‌آموزها تعلق دارد و انجام مسئولانهٔ آن. موضوع‌های کلیدی:
+
+- **حفاظت از دادهٔ دانش‌آموز**: هیچ اسم، نمره، جزئیات برنامهٔ آموزشی فردی، عکس یا هر چیز شناسایی‌کننده‌ای در ابزارهای هوش مصنوعی نه، مگر این‌که مدرسه‌ات آن ابزار را برای همین کار تأیید کرده باشد. از قوانین مدرسه و منطقه‌ات پیروی کن.
+- **برابری**: همهٔ دانش‌آموزها در خانه دسترسی یکسانی به هوش مصنوعی ندارند؛ طوری طراحی کن که هیچ‌کس عقب نماند.
+- **شفافیت**: به دانش‌آموزها و خانواده‌ها بگو چطور از هوش مصنوعی استفاده می‌کنی و انتظارهای روشنی برای نحوهٔ استفادهٔ آن‌ها بگذار.
+- **تناسب سنی**: خیلی از ابزارهای هوش مصنوعی شرط سنی دارند؛ قبل از درگیر کردن مستقیم دانش‌آموزها چک کن.
+
+#example
+Instead of "Write feedback for Reza, who got 12/20 and has dyslexia", write "Write encouraging feedback for a grade 5 student who understood the main idea but made spelling errors; suggest one specific next step." Same help, no personal data.
+~~
+به‌جای «برای رضا که ۱۲ از ۲۰ گرفته و نارساخوانی دارد بازخورد بنویس»، بنویس «برای یک دانش‌آموز پایهٔ پنجم که ایدهٔ اصلی را فهمیده ولی غلط املایی دارد یک بازخورد دلگرم‌کننده بنویس؛ یک قدم بعدی مشخص پیشنهاد بده.» همان کمک، بدون دادهٔ شخصی.
+
+#analogy
+You'd never pin students' report cards on the school gate. Pasting their details into a tool your school hasn't approved can be closer to that than it feels.
+~~
+هرگز کارنامهٔ دانش‌آموزها را روی در مدرسه نمی‌چسبانی. چسباندن جزئیاتشان در ابزاری که مدرسه تأییدش نکرده، ممکن است بیشتر از آنچه به نظر می‌رسد به همان شبیه باشد.
+
+@lesson
+id: ai-s-constitution-pedagogy-and-you
+en: "AI's constitution, pedagogy, and you"
+fa: «قانون اساسی» هوش مصنوعی، تعلیم و تربیت و تو
+url: https://academy.claude.com/courses/ai-fluency-for-k-12-educators/ai-s-constitution-pedagogy-and-you
+
+#explain
+Anthropic shapes Claude's behavior with a written set of values (a "constitution"). This lesson uses that idea as a mirror: if an AI can have written values, so can **your teaching practice with AI**.
+
+You'll write a short **personal AI value document**: what you believe AI should and shouldn't do in your classroom, how it connects to your pedagogy (for example, "students struggle productively before getting help"), and the lines you won't cross.
+~~
+Anthropic رفتار Claude را با مجموعه‌ای نوشته‌شده از ارزش‌ها (یک «قانون اساسی») شکل می‌دهد. این درس از همین ایده به‌عنوان یک آینه استفاده می‌کند: اگر یک هوش مصنوعی می‌تواند ارزش‌های نوشته‌شده داشته باشد، **روش تدریس تو با هوش مصنوعی** هم می‌تواند.
+
+یک **سند کوتاه ارزش‌های شخصی دربارهٔ هوش مصنوعی** می‌نویسی: معتقدی هوش مصنوعی در کلاست چه کاری باید و نباید بکند، چطور به روش تعلیم و تربیت تو وصل است (مثلاً «دانش‌آموزها قبل از کمک گرفتن، کمی کلنجار سازنده می‌روند») و خط قرمزهایی که از آن‌ها نمی‌گذری.
+
+#code markdown My AI values (example)
+1. AI helps me prepare; it never replaces my relationship with students.
+2. Students think first, then use AI to check, question or extend their thinking.
+3. No student data goes into AI tools my school hasn't approved.
+4. I tell families how I use AI, in plain words, every term.
+5. If AI makes a lesson faster but students learn less, I don't use it there.
+#end
+
+#analogy
+It's your **classroom rules poster**, but for yourself and AI: short, visible, and something you can point to when a tricky decision comes up.
+~~
+مثل **پوستر قانون‌های کلاس** است، ولی برای خودت و هوش مصنوعی: کوتاه، جلوی چشم و چیزی که وقتی یک تصمیم سخت پیش می‌آید بتوانی به آن اشاره کنی.
+
+@section Putting it all together | همه‌چیز کنار هم
+
+@lesson
+id: tying-it-all-together
+en: Tying it all together
+fa: گره زدن همه‌چیز به هم
+url: https://academy.claude.com/courses/ai-fluency-for-k-12-educators/tying-it-all-together
+
+#explain
+Apply the full 4D workflow to **one real task from your work**, from start to finish: decide whether and how to use AI (Delegation), write a context-rich request (Description), evaluate and refine the result (Discernment), and handle data, transparency and final responsibility (Diligence). Reflect on what you'd do differently next time.
+~~
+کل روند 4D را روی **یک کار واقعی از کار خودت** از اول تا آخر پیاده کن: تصمیم بگیر آیا و چطور از هوش مصنوعی استفاده کنی (سپردن)، یک درخواست پرزمینه بنویس (توصیف)، نتیجه را ارزیابی و بهتر کن (تشخیص) و دادهٔ دانش‌آموز، شفافیت و مسئولیت نهایی را مدیریت کن (مسئولیت‌پذیری). فکر کن دفعهٔ بعد چه کاری را جور دیگری انجام می‌دهی.
+
+#example
+Task: a unit review game for grade 8 history. Delegation: AI drafts questions, teacher picks and orders them. Description: context document + unit goals + "mix easy and hard, include map questions". Discernment: teacher fixes two inaccurate dates and removes one culturally insensitive example. Diligence: no student data used; the game sheet notes "questions drafted with AI and checked by your teacher".
+~~
+کار: یک بازی مرور فصل برای تاریخ پایهٔ هشتم. سپردن: هوش مصنوعی سؤال‌ها را پیش‌نویس می‌کند، معلم انتخاب و مرتبشان می‌کند. توصیف: سند زمینه + هدف‌های فصل + «آسان و سخت را قاطی کن، سؤال نقشه هم بگذار». تشخیص: معلم دو تاریخ نادرست را اصلاح و یک مثال نامناسب فرهنگی را حذف می‌کند. مسئولیت‌پذیری: هیچ دادهٔ دانش‌آموزی استفاده نشده؛ روی برگهٔ بازی نوشته شده «سؤال‌ها با کمک هوش مصنوعی پیش‌نویس و توسط معلمتان بررسی شده‌اند».
+
+#analogy
+Like the end-of-term project in a science class: you've learned the parts; now you build one complete thing and see how the parts work together.
+~~
+مثل پروژهٔ پایان ترم در کلاس علوم است: تکه‌ها را یاد گرفته‌ای؛ حالا یک چیز کامل می‌سازی و می‌بینی تکه‌ها چطور با هم کار می‌کنند.
+
+@section Conclusion and badge | جمع‌بندی و نشان
+
+@lesson
+id: how-this-course-was-made
+en: Closure, enrichment and how this course was made
+fa: جمع‌بندی، مطالب تکمیلی و این‌که این دوره چطور ساخته شد
+kind: wrap
+url: https://academy.claude.com/courses/ai-fluency-for-k-12-educators/how-this-course-was-made
+
+#explain
+The closing lesson offers enrichment resources and explains **how the course itself was made**, including how AI was used in creating it: an example of the transparency diligence the course teaches. It points to the **Train the Trainer** course if you'd like to lead AI fluency workshops for colleagues.
+~~
+درس پایانی منابع تکمیلی معرفی می‌کند و توضیح می‌دهد **خود دوره چطور ساخته شد**، از جمله این‌که در ساختنش چطور از هوش مصنوعی استفاده شده: نمونه‌ای از همان شفافیتی که دوره یاد می‌دهد. اگر دوست داری کارگاه‌های سواد هوش مصنوعی را برای همکارانت برگزار کنی، تو را به دورهٔ **تربیت مربی** (Train the Trainer) راهنمایی می‌کند.
+
+#tip
+Model the same transparency with your students: tell them, briefly, how you used AI to prepare a lesson. It normalizes honest AI use and makes your expectations credible.
+~~
+همین شفافیت را با دانش‌آموزهایت الگو کن: کوتاه به آن‌ها بگو برای آماده کردن یک درس چطور از هوش مصنوعی استفاده کردی. استفادهٔ صادقانه از هوش مصنوعی را عادی می‌کند و انتظارهای تو را باورپذیر می‌کند.
+
+@lesson
+id: course-quiz
+en: Course quiz
+fa: آزمون دوره
+kind: quiz
+url: https://academy.claude.com/courses/ai-fluency-for-k-12-educators/course-quiz
+
+#explain
+Eight questions revisit what AI Fluency means, where generative AI falls short, what each of the 4Ds looks like in everyday classroom and school scenarios, and how to protect student data. A score of **80% or higher** passes and earns the completion badge.
+~~
+هشت سؤال مرور می‌کنند سواد هوش مصنوعی یعنی چه، هوش مصنوعی مولد کجا کم می‌آورد، هر کدام از 4D در موقعیت‌های روزمرهٔ کلاس و مدرسه چه شکلی است و چطور از دادهٔ دانش‌آموز محافظت کنیم. نمرهٔ **۸۰٪ یا بیشتر** قبولی و نشان پایان دوره را به همراه دارد.
+
+#try
+Before the quiz, rewrite one of your real AI prompts so it contains **zero identifying student information** but gives the same useful context.
+~~
+قبل از آزمون، یکی از پرامپت‌های واقعی‌ات را طوری بازنویسی کن که **هیچ اطلاعات شناسایی‌کنندهٔ دانش‌آموز** نداشته باشد ولی همان زمینهٔ مفید را بدهد.
+
+@cheatsheet
+- Write a **classroom context document** (grade, subject, levels, supports, policies, goals) once.
+- Explore with real classroom tasks to build intuition.
+- Riskiest spots: facts in materials, answer keys, local relevance. Check them yourself.
+- Inner loop for **differentiated materials**; make sure simplifying didn't change the facts.
+- Outer loop: **student data protection**, equity, transparency, age requirements.
+- Describe students by **needs and levels, never by identity**.
+- Write a short **personal AI values document** tied to your pedagogy.
+~~
+- یک بار یک **سند زمینهٔ کلاس** بنویس (پایه، درس، سطح‌ها، پشتیبانی‌ها، سیاست‌ها، هدف‌ها).
+- با کارهای واقعی کلاس کشف کن تا شهود بسازی.
+- پرخطرترین جاها: واقعیت‌های مواد، پاسخ‌نامه‌ها، تناسب محلی. خودت چکشان کن.
+- حلقهٔ درونی برای **مواد متمایز**؛ مطمئن شو ساده‌سازی واقعیت‌ها را عوض نکرده.
+- حلقهٔ بیرونی: **حفاظت از دادهٔ دانش‌آموز**، برابری، شفافیت، شرط‌های سنی.
+- دانش‌آموزها را با **نیاز و سطح توصیف کن، هرگز با هویت**.
+- یک **سند ارزش‌های شخصی دربارهٔ هوش مصنوعی** کوتاه و وصل به روش تدریست بنویس.
+
+@quiz
+Q: How can you get personalized feedback help without sharing student data? || چطور بدون اشتراک دادهٔ دانش‌آموز، برای بازخورد شخصی‌سازی‌شده کمک بگیریم؟
+A: Describe the student's level and needs generically (grade, what they understood, what they struggled with), never names, grades or identifying details. || سطح و نیاز دانش‌آموز را کلی توصیف کن (پایه، چه چیزی را فهمیده، کجا مشکل داشته)، هرگز اسم، نمره یا جزئیات شناسایی‌کننده.
+Q: Which loop covers deciding whether AI belongs in a classroom activity at all? || کدام حلقه تصمیم دربارهٔ این‌که اصلاً هوش مصنوعی به یک فعالیت کلاسی تعلق دارد یا نه را پوشش می‌دهد؟
+A: The outer loop: Delegation and Diligence. || حلقهٔ بیرونی: سپردن و مسئولیت‌پذیری.
+Q: What's a common risk when AI simplifies a text for younger readers? || یک ریسک رایج وقتی هوش مصنوعی متنی را برای خواننده‌های کم‌سن‌تر ساده می‌کند چیست؟
+A: Simplification can introduce factual errors; compare key facts across all versions. || ساده‌سازی ممکن است خطای علمی وارد کند؛ واقعیت‌های کلیدی را در همهٔ نسخه‌ها مقایسه کن.

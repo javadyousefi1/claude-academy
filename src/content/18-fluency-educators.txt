@@ -1,0 +1,171 @@
+@page
+slug: ai-fluency-for-educators
+kind: course
+group: fluency
+order: 6
+en: AI Fluency for educators
+fa: سواد هوش مصنوعی برای مدرس‌ها
+stats: 4 lessons · 1 quiz · 1.5 hr · badge
+url: https://academy.claude.com/courses/ai-fluency-for-educators
+expect: 4
+who_en: Faculty, instructional designers and education leaders. Recommended after AI Fluency: Framework and foundations.
+who_fa: اعضای هیئت علمی، طراحان آموزشی و مدیران آموزشی. پیشنهاد می‌شود بعد از دورهٔ سواد هوش مصنوعی: چارچوب و مبانی.
+blurb_fa: کاربرد 4D در تدریس: سند زمینهٔ تدریس، تقویت به‌جای خودکارسازی، طراحی درس و پیامدهای یادگیری، و ساختن مواد آموزشی و تکلیف‌ها.
+desc_en: Applying the 4D framework to teaching: a reusable teaching-context document, course design, materials and assignments.
+
+@intro
+Teachers use AI in two ways: to **do their own work** (planning, materials, feedback) and to **shape how students learn** with AI. This short edition focuses on the first, applying the 4Ds to course design and teaching practice, while modeling the habits you'll want students to learn. The key principle throughout: in learning contexts, **augmentation beats automation**.
+~~
+معلم‌ها از هوش مصنوعی به دو شکل استفاده می‌کنند: برای **انجام کار خودشان** (برنامه‌ریزی، مواد آموزشی، بازخورد) و برای **شکل دادن به این‌که دانشجوها چطور** با هوش مصنوعی یاد بگیرند. این نسخهٔ کوتاه روی اولی تمرکز دارد؛ یعنی کاربرد 4D در طراحی درس و روش تدریس، درحالی‌که همان عادت‌هایی را که می‌خواهی دانشجوها یاد بگیرند خودت الگو می‌کنی. اصل کلیدی در تمام دوره: در محیط یادگیری، **تقویت از خودکارسازی بهتر است**.
+
+@section Introduction and AI Fluency Framework | مقدمه و چارچوب
+
+@lesson
+id: introduction-to-ai-fluency-for-educators
+en: Introduction to AI Fluency for Educators
+fa: آشنایی با سواد هوش مصنوعی برای مدرس‌ها
+meta: 15 min
+url: https://academy.claude.com/courses/ai-fluency-for-educators/introduction-to-ai-fluency-for-educators
+
+#explain
+The course starts with a practical asset: a **reusable teaching context document**. It describes your course, your students (level, background, common struggles), your teaching philosophy, your institution's AI policy and your constraints. Paste it at the start of any AI conversation (or put it in a project) and every answer starts from *your* classroom instead of a generic one.
+
+An exercise (about 30 minutes) asks you to build a **shared teaching vision** into it: what you want students to be able to do, and what role AI should and shouldn't play in getting there.
+~~
+دوره با یک دارایی عملی شروع می‌شود: یک **سند زمینهٔ تدریس قابل‌استفادهٔ دوباره**. این سند درس تو، دانشجوهایت (سطح، پیش‌زمینه، مشکل‌های رایج)، فلسفهٔ تدریست، سیاست هوش مصنوعی مؤسسه‌ات و محدودیت‌هایت را توصیف می‌کند. آن را اول هر گفت‌وگو با هوش مصنوعی بچسبان (یا در یک پروژه بگذار) تا هر جواب از کلاس *تو* شروع شود، نه از یک کلاس کلی.
+
+یک تمرین (حدود ۳۰ دقیقه) از تو می‌خواهد یک **چشم‌انداز مشترک تدریس** را هم در آن بگذاری: می‌خواهی دانشجوها قادر به انجام چه کاری باشند و هوش مصنوعی در رسیدن به آن چه نقشی باید و نباید داشته باشد.
+
+#code markdown teaching-context.md (example)
+Course: Introduction to Statistics, first-year university, 60 students.
+Students: mixed math backgrounds; many anxious about formulas; Persian first language.
+My approach: intuition first, then formulas; real Iranian datasets; weekly low-stakes quizzes.
+Institution AI policy: AI allowed for practice and explanation, not for graded assignments unless stated.
+Constraints: 2 hours/week class time; slides must work on the old projector (high contrast).
+Vision: students can explain *why* a method fits a question, not just compute it.
+#end
+
+#analogy
+It's the **briefing you'd give a substitute teacher**: who the class is, where they are, what works with them. Without it, even a great substitute starts from zero.
+~~
+مثل **توضیحی است که به یک معلم جانشین می‌دهی**: کلاس چه کسانی‌اند، کجای درس هستند، چه چیزی با آن‌ها جواب می‌دهد. بدون آن، حتی یک جانشین عالی هم از صفر شروع می‌کند.
+
+@lesson
+id: ai-fluency-framework-review
+en: AI Fluency Framework review
+fa: مرور چارچوب سواد هوش مصنوعی
+meta: 10 min
+url: https://academy.claude.com/courses/ai-fluency-for-educators/ai-fluency-framework-review
+
+#explain
+A quick recap of the 4Ds with a teaching lens:
+
+- **Delegation**: what in your teaching work AI can help with (drafting materials, generating practice questions, differentiating texts) and what must stay yours (judging student work fairly, relationships, final grading decisions).
+- **Description**: rich prompts built on your teaching context document.
+- **Discernment**: checking materials for accuracy, level, bias and alignment with learning objectives.
+- **Diligence**: student privacy, transparency with students and colleagues about AI use, and responsibility for everything you put in front of a class.
+
+The emphasis: **augmentation over automation**. AI should strengthen your teaching judgment and students' thinking, not replace either.
+~~
+یک مرور سریع 4D با نگاه تدریس:
+
+- **سپردن**: هوش مصنوعی در کدام کارهای تدریس می‌تواند کمک کند (پیش‌نویس مواد، تولید سؤال تمرینی، ساختن نسخه‌های متفاوت یک متن برای سطح‌های مختلف) و کدام باید مال خودت بماند (قضاوت منصفانهٔ کار دانشجو، رابطه‌ها، تصمیم نهایی نمره).
+- **توصیف**: پرامپت‌های غنی بر پایهٔ سند زمینهٔ تدریست.
+- **تشخیص**: چک کردن مواد از نظر درستی، سطح، سوگیری و هماهنگی با اهداف یادگیری.
+- **مسئولیت‌پذیری**: حریم خصوصی دانشجوها، شفافیت با دانشجوها و همکاران دربارهٔ استفاده از هوش مصنوعی و مسئولیت هر چیزی که جلوی کلاس می‌گذاری.
+
+تأکید: **تقویت به‌جای خودکارسازی**. هوش مصنوعی باید قضاوت آموزشی تو و فکر کردن دانشجوها را قوی‌تر کند، نه این‌که جای هیچ‌کدام را بگیرد.
+
+#analogy
+A calculator in a math class can either help students explore patterns or let them skip learning arithmetic. The tool is the same; the teaching design decides which.
+~~
+ماشین‌حساب در کلاس ریاضی یا می‌تواند به دانش‌آموزها کمک کند الگوها را کشف کنند، یا اجازه بدهد یادگیری حساب را دور بزنند. ابزار یکی است؛ طراحی آموزشی تعیین می‌کند کدام اتفاق بیفتد.
+
+@section AI Fluency applications for educators | کاربردها برای مدرس‌ها
+
+@lesson
+id: applying-ai-fluency-to-course-design-and-learning-outcomes
+en: Applying AI Fluency to course design and learning outcomes
+fa: کاربرد سواد هوش مصنوعی در طراحی درس و پیامدهای یادگیری
+meta: 20 min
+url: https://academy.claude.com/courses/ai-fluency-for-educators/applying-ai-fluency-to-course-design-and-learning-outcomes
+
+#explain
+Use AI as a design partner across three steps of course design:
+
+1. **Identify essential content and concepts**: what must students truly understand? AI can map a field's key ideas and common misconceptions; you decide what matters for *your* students.
+2. **Map the learning journey**: the order of topics, prerequisites, where students usually struggle, and where practice and feedback belong.
+3. **Articulate learning objectives**: clear, measurable statements of what students will be able to do (AI is good at turning fuzzy goals into precise objectives, and at checking alignment between objectives and assessments).
+
+Discernment is crucial: AI tends to produce reasonable, generic course structures; your expertise makes them right for your context.
+~~
+در سه قدم طراحی درس از هوش مصنوعی به‌عنوان شریک طراحی استفاده کن:
+
+1. **محتوا و مفهوم‌های ضروری را مشخص کن**: دانشجوها واقعاً چه چیزی را باید بفهمند؟ هوش مصنوعی می‌تواند ایده‌های کلیدی یک رشته و بدفهمی‌های رایج را نقشه‌برداری کند؛ تو تصمیم می‌گیری چه چیزی برای دانشجوهای *تو* مهم است.
+2. **مسیر یادگیری را نقشه‌برداری کن**: ترتیب موضوع‌ها، پیش‌نیازها، جاهایی که دانشجوها معمولاً گیر می‌کنند و جایی که تمرین و بازخورد باید باشد.
+3. **اهداف یادگیری را بیان کن**: جمله‌های روشن و قابل‌سنجش دربارهٔ این‌که دانشجوها چه کاری را قادر به انجامش خواهند بود (هوش مصنوعی در تبدیل هدف‌های مبهم به اهداف دقیق و در چک کردن هماهنگی بین اهداف و ارزیابی‌ها خوب است).
+
+تشخیص حیاتی است: هوش مصنوعی معمولاً ساختارهای درسی معقول ولی کلی می‌سازد؛ تخصص توست که آن‌ها را برای موقعیت تو درست می‌کند.
+
+#prompt
+Using my teaching context (attached), turn these fuzzy goals into 5 measurable learning objectives using action verbs: "students understand sampling", "students get regression", "students think critically about statistics in the news". Then flag any objective my current weekly quizzes don't actually assess.
+~~
+با استفاده از سند زمینهٔ تدریسم (پیوست)، این هدف‌های مبهم را به ۵ هدف یادگیری قابل‌سنجش با فعل‌های عملی تبدیل کن: «دانشجوها نمونه‌گیری را بفهمند»، «دانشجوها رگرسیون را بگیرند»، «دانشجوها دربارهٔ آمارهای اخبار انتقادی فکر کنند». بعد هر هدفی را که آزمونک‌های هفتگی فعلی‌ام واقعاً نمی‌سنجند علامت بزن.
+
+#analogy
+AI is a **draftsman** who can sketch many floor plans quickly; you're the architect who knows which one suits *this* family.
+~~
+هوش مصنوعی مثل **نقشه‌کشی است** که می‌تواند خیلی سریع چند نقشه بکشد؛ تو معماری هستی که می‌داند کدام به درد *همین* خانواده می‌خورد.
+
+@lesson
+id: applying-ai-fluency-to-learning-materials-and-assignments
+en: Applying AI Fluency to learning materials and assignments
+fa: کاربرد سواد هوش مصنوعی در مواد آموزشی و تکلیف‌ها
+url: https://academy.claude.com/courses/ai-fluency-for-educators/applying-ai-fluency-to-learning-materials-and-assignments
+
+#explain
+Now the materials: lecture slides, study guides, worked examples, practice questions, rubrics and assignments. AI can draft all of them quickly; your job is **accuracy and alignment**: every example correct, every question tied to an objective, every text at the right level.
+
+For assignments, think about AI from the student's side too: design tasks where AI use is either clearly allowed and productive (with reflection on how it was used) or clearly not the point (in-class work, oral explanations, personal application). Ask students for a short **AI use note** when they use it.
+
+The course closes with a quiz and a completion badge.
+~~
+حالا مواد آموزشی: اسلایدهای درس، راهنمای مطالعه، مثال‌های حل‌شده، سؤال‌های تمرینی، معیارهای ارزیابی (روبریک) و تکلیف‌ها. هوش مصنوعی می‌تواند همه را سریع پیش‌نویس کند؛ کار تو **درستی و هماهنگی** است: هر مثال درست باشد، هر سؤال به یک هدف وصل باشد، هر متن در سطح درست باشد.
+
+برای تکلیف‌ها از طرف دانشجو هم به هوش مصنوعی فکر کن: کارهایی طراحی کن که در آن‌ها استفاده از هوش مصنوعی یا به‌روشنی مجاز و مفید است (همراه با تأمل دربارهٔ این‌که چطور استفاده شد) یا به‌روشنی هدف کار نیست (کار سر کلاس، توضیح شفاهی، کاربرد شخصی). وقتی دانشجوها استفاده می‌کنند، از آن‌ها یک **یادداشت کوتاه استفاده از هوش مصنوعی** بخواه.
+
+دوره با یک آزمون و نشان پایان دوره تمام می‌شود.
+
+#example
+A history lecturer asks AI for a study guide on the Constitutional Revolution, then checks every date against her own notes (two were wrong), adds two primary-source excerpts, and builds an assignment where students use AI to generate counter-arguments to their own thesis, then explain which ones they rejected and why.
+~~
+یک مدرس تاریخ از هوش مصنوعی یک راهنمای مطالعه دربارهٔ انقلاب مشروطه می‌خواهد، بعد همهٔ تاریخ‌ها را با یادداشت‌های خودش چک می‌کند (دو تا غلط بود)، دو بخش از منابع دست‌اول اضافه می‌کند و تکلیفی می‌سازد که در آن دانشجوها با هوش مصنوعی برای ادعای خودشان استدلال مخالف تولید می‌کنند و بعد توضیح می‌دهند کدام را رد کردند و چرا.
+
+#analogy
+AI is the photocopier that never runs out of paper; you're still responsible for what's printed on every page handed to the class.
+~~
+هوش مصنوعی مثل دستگاه کپی‌ای است که کاغذش هیچ‌وقت تمام نمی‌شود؛ ولی تو هنوز مسئول چیزی هستی که روی هر برگه‌ای که به کلاس می‌دهی چاپ شده.
+
+#tip
+Ask AI to generate **wrong answers with typical misconceptions** for multiple-choice questions. Good distractors are hard to write by hand and reveal exactly where students' thinking goes off track.
+~~
+از هوش مصنوعی بخواه برای سؤال‌های چندگزینه‌ای **گزینه‌های غلطی بر اساس بدفهمی‌های رایج** بسازد. نوشتن گزینه‌های انحرافی خوب با دست سخت است و دقیقاً نشان می‌دهد فکر دانشجوها کجا از مسیر خارج می‌شود.
+
+@cheatsheet
+- Build a **teaching context document** once; start every AI session with it.
+- In learning, **augmentation beats automation**.
+- Course design with AI: essential concepts → learning journey → measurable objectives; you judge fit.
+- Materials: AI drafts, you guarantee **accuracy and alignment** with objectives.
+- Assignments: make AI use either clearly productive (with reflection) or clearly not the point; ask for an AI use note.
+~~
+- یک بار یک **سند زمینهٔ تدریس** بساز؛ هر جلسهٔ هوش مصنوعی را با آن شروع کن.
+- در یادگیری، **تقویت از خودکارسازی بهتر است**.
+- طراحی درس با هوش مصنوعی: مفهوم‌های ضروری ← مسیر یادگیری ← اهداف قابل‌سنجش؛ تناسب را تو قضاوت می‌کنی.
+- مواد آموزشی: هوش مصنوعی پیش‌نویس می‌کند، تو **درستی و هماهنگی** با اهداف را تضمین می‌کنی.
+- تکلیف‌ها: استفاده از هوش مصنوعی یا به‌روشنی مفید باشد (با تأمل) یا به‌روشنی هدف کار نباشد؛ یادداشت استفاده بخواه.
+
+@quiz
+Q: What goes into a teaching context document? || در سند زمینهٔ تدریس چه چیزهایی می‌آید؟
+A: Your course, students, teaching approach, institutional AI policy, constraints and your teaching vision. || درس تو، دانشجوها، روش تدریس، سیاست هوش مصنوعی مؤسسه، محدودیت‌ها و چشم‌انداز تدریست.
+Q: Why does the course stress augmentation over automation for educators? || چرا این دوره برای مدرس‌ها روی تقویت به‌جای خودکارسازی تأکید می‌کند؟
+A: Because in learning, the goal is to strengthen teacher judgment and student thinking, not to replace them. || چون در یادگیری هدف قوی‌تر کردن قضاوت معلم و فکر کردن دانشجوست، نه جایگزین کردن آن‌ها.
