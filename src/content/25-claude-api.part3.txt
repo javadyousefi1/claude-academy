@@ -1,0 +1,608 @@
+@section Retrieval augmented generation | تولید تقویت‌شده با بازیابی (RAG)
+
+@lesson
+id: introducing-retrieval-augmented-generation
+en: Introducing retrieval augmented generation
+fa: آشنایی با تولید تقویت‌شده با بازیابی (RAG)
+url: https://academy.claude.com/courses/building-with-the-claude-api/introducing-retrieval-augmented-generation
+
+#explain
+You want Claude to answer questions about an 800-page manual. **Option 1:** paste the whole thing into every request. Simple, but slow and expensive per question, and impossible once you have thousands of documents. **Option 2: RAG.** Split the documents into small **chunks** ahead of time, and for each question **retrieve** only the few most relevant chunks and put them in the prompt.
+
+RAG costs more engineering (chunking, search, ranking) but scales to huge libraries and keeps each request small.
+~~
+می‌خواهی Claude دربارهٔ یک دفترچهٔ راهنمای ۸۰۰ صفحه‌ای به سؤال‌ها جواب بدهد. **راه ۱:** کل آن را در هر درخواست بچسبان. ساده است، ولی برای هر سؤال کند و گران است و وقتی هزاران سند داشته باشی، غیرممکن می‌شود. **راه ۲: RAG.** سندها را از قبل به **تکه‌های** کوچک تقسیم کن و برای هر سؤال فقط چند تکهٔ مرتبط‌تر را **بازیابی کن** و در پرامپت بگذار.
+
+RAG مهندسی بیشتری می‌خواهد (تکه‌کردن، جست‌وجو، رتبه‌بندی)، ولی تا کتابخانه‌های عظیم بزرگ می‌شود و هر درخواست را کوچک نگه می‌دارد.
+
+#analogy
+Instead of carrying the **whole library** to the exam, you bring **three index cards** with exactly the pages you need.
+~~
+به جای این‌که **کل کتابخانه** را سر امتحان ببری، **سه کارت یادداشت** می‌بری که دقیقاً صفحه‌های لازم رویشان است.
+
+#tip
+**Cool tip:** current models have **1M-token context windows**, so for a few long documents you can often skip RAG and paste them in, with **prompt caching** to make repeat questions cheap. Reach for RAG when the library is bigger than the window, or when per-request cost and speed matter.
+~~
+**نکتهٔ خفن:** مدل‌های فعلی **پنجرهٔ زمینهٔ یک میلیون توکنی** دارند؛ پس برای چند سند طولانی اغلب می‌توانی RAG را کنار بگذاری و خود سندها را بچسبانی، و با **کش پرامپت** سؤال‌های تکراری را ارزان کنی. وقتی سراغ RAG برو که کتابخانه از پنجره بزرگ‌تر است یا هزینه و سرعت هر درخواست مهم است.
+
+#terms
+RAG (retrieval augmented generation) = تولید تقویت‌شده با بازیابی = پیدا کردن تکه‌های مرتبط از سندها و گذاشتنشان در پرامپت تا مدل بر اساس آن‌ها جواب دهد.
+Chunk = تکه = بخش کوچکی از یک سند که جداگانه ذخیره و جست‌وجو می‌شود.
+
+@lesson
+id: text-chunking-strategies
+en: Text chunking strategies
+fa: راهبردهای تکه‌کردن متن
+url: https://academy.claude.com/courses/building-with-the-claude-api/text-chunking-strategies
+
+#explain
+How you split documents shapes the whole system: bad chunks feed irrelevant or half-sentences into the prompt. Three strategies:
+
+- **Size-based**: every N characters, with some **overlap** so sentences cut at a border appear in both chunks. Works on any text.
+- **Structure-based**: split on headings or sections (e.g., Markdown `##`). Great chunks, but only when the document has reliable structure.
+- **Sentence-based**: group a few whole sentences per chunk. A good middle ground.
+~~
+این‌که سندها را چطور تقسیم کنی، کل سیستم را شکل می‌دهد: تکه‌های بد، متن نامربوط یا نصفه‌جمله را وارد پرامپت می‌کنند. سه راهبرد:
+
+- **بر اساس اندازه**: هر N کاراکتر، با کمی **هم‌پوشانی** تا جمله‌هایی که سر مرز بریده می‌شوند در هر دو تکه بیایند. روی هر متنی کار می‌کند.
+- **بر اساس ساختار**: تقسیم روی سرتیترها یا بخش‌ها (مثلاً `##` در Markdown). تکه‌های عالی می‌دهد، ولی فقط وقتی سند ساختار قابل‌اعتمادی دارد.
+- **بر اساس جمله**: چند جملهٔ کامل در هر تکه. یک حد وسط خوب.
+
+#code python chunking.py
+import re
+
+def chunk_by_char(text, size=150, overlap=20):
+    chunks, start = [], 0
+    while start < len(text):
+        chunks.append(text[start:start + size])
+        start += size - overlap
+    return chunks
+
+def chunk_by_section(text):
+    return [s.strip() for s in re.split(r"\n(?=## )", text) if s.strip()]
+
+def chunk_by_sentence(text, per_chunk=5, overlap=1):
+    sentences = re.split(r"(?<=[.!?])\s+", text)
+    step = per_chunk - overlap
+    return [" ".join(sentences[i:i + per_chunk]) for i in range(0, len(sentences), step)]
+#end
+
+#analogy
+Chunking is **cutting a pizza**: cut randomly and some slices are all crust; cut along the lines and every slice has toppings.
+~~
+تکه‌کردن مثل **بریدن پیتزا** است: اگر شانسی ببری، بعضی تکه‌ها فقط نان‌اند؛ اگر از روی خط‌ها ببری، هر تکه مواد دارد.
+
+@lesson
+id: text-embeddings
+en: Text embeddings
+fa: بردارهای معنایی متن (Embeddings)
+url: https://academy.claude.com/courses/building-with-the-claude-api/text-embeddings
+
+#explain
+To find chunks by **meaning** (not just matching words), convert each chunk into an **embedding**: a long list of numbers that represents its meaning. Texts with similar meanings get similar numbers. Anthropic doesn't make an embedding model; the course uses **Voyage AI**. Embed documents once when indexing, and embed each user question at search time.
+~~
+برای پیدا کردن تکه‌ها بر اساس **معنا** (نه فقط کلمه‌های یکسان)، هر تکه را به یک **embedding** تبدیل کن: فهرستی طولانی از عددها که معنایش را نشان می‌دهد. متن‌هایی با معنای نزدیک، عددهای نزدیک می‌گیرند. Anthropic مدل embedding نمی‌سازد؛ دوره از **Voyage AI** استفاده می‌کند. سندها را یک بار موقع نمایه‌سازی و هر سؤال کاربر را موقع جست‌وجو embed کن.
+
+#code python embed.py
+import voyageai
+
+vo = voyageai.Client()   # reads VOYAGE_API_KEY from the environment
+
+def embed(texts, input_type):
+    # input_type: "document" when indexing, "query" when searching
+    result = vo.embed(texts, model="voyage-3-large", input_type=input_type)
+    return result.embeddings          # one vector (list of floats) per text
+
+doc_vectors = embed(chunks, "document")
+query_vector = embed(["How do I reset my password?"], "query")[0]
+#end
+
+#analogy
+Embeddings are **coordinates on a map of meaning**: "dog" and "puppy" live on the same street, "carburetor" is in another city.
+~~
+embeddingها **مختصات روی نقشهٔ معنا** هستند: «سگ» و «توله‌سگ» در یک خیابان زندگی می‌کنند، «کاربراتور» در شهر دیگری است.
+
+#tip
+Use the same embedding model for documents and queries, and re-embed everything if you switch models: vectors from different models aren't comparable. (Check Voyage's docs for the newest model name.)
+~~
+برای سندها و سؤال‌ها از یک مدل embedding استفاده کن و اگر مدل را عوض کردی، همه‌چیز را دوباره embed کن: بردارهای مدل‌های مختلف با هم قابل‌مقایسه نیستند. (برای اسم جدیدترین مدل، مستندات Voyage را ببین.)
+
+#terms
+Embedding = بردار معنایی = فهرستی از عددها که معنای یک متن را نشان می‌دهد و برای جست‌وجوی معنایی به کار می‌رود.
+Semantic search = جست‌وجوی معنایی = جست‌وجو بر اساس نزدیکی معنا، نه یکسان بودن کلمه‌ها.
+
+@lesson
+id: the-full-rag-flow
+en: The full RAG flow
+fa: جریان کامل RAG
+url: https://academy.claude.com/courses/building-with-the-claude-api/the-full-rag-flow
+
+#explain
+Two phases:
+
+- **Indexing (once):** chunk documents → embed each chunk → store vectors (in a vector database).
+- **Answering (per question):** embed the question → find the chunks with the most similar vectors (usually **cosine similarity**) → put the top few into the prompt → Claude answers from them.
+
+Cosine similarity measures the angle between two vectors: 1 means "pointing the same way" (very similar), 0 means unrelated.
+~~
+دو مرحله:
+
+- **نمایه‌سازی (یک بار):** سندها را تکه کن ← هر تکه را embed کن ← بردارها را ذخیره کن (در یک پایگاه‌دادهٔ برداری).
+- **پاسخ دادن (برای هر سؤال):** سؤال را embed کن ← تکه‌هایی را که بردارشان شبیه‌تر است پیدا کن (معمولاً با **شباهت کسینوسی**) ← چند تکهٔ برتر را در پرامپت بگذار ← Claude بر اساس آن‌ها جواب می‌دهد.
+
+شباهت کسینوسی زاویهٔ بین دو بردار را می‌سنجد: ۱ یعنی «به یک سمت اشاره می‌کنند» (خیلی شبیه)، ۰ یعنی بی‌ربط.
+
+#steps
+1. Chunk the documents.
+2. Embed every chunk and store the vectors.
+3. Embed the user's question.
+4. Rank chunks by cosine similarity; keep the top 3-5.
+5. Send question + chunks to Claude with "answer only from the context".
+~~
+1. سندها را تکه کن.
+2. همهٔ تکه‌ها را embed کن و بردارها را ذخیره کن.
+3. سؤال کاربر را embed کن.
+4. تکه‌ها را با شباهت کسینوسی رتبه‌بندی کن؛ ۳ تا ۵ تای برتر را نگه دار.
+5. سؤال و تکه‌ها را با «فقط از روی زمینه جواب بده» برای Claude بفرست.
+
+#analogy
+It's a **librarian with a great memory for topics**: you ask a question, they walk straight to the right three shelves.
+~~
+مثل **کتابداری است که حافظهٔ عالی برای موضوع‌ها دارد**: سؤالی می‌پرسی و او مستقیم به سمت سه قفسهٔ درست می‌رود.
+
+#terms
+Cosine similarity = شباهت کسینوسی = معیاری برای میزان هم‌جهت بودن دو بردار؛ هرچه به ۱ نزدیک‌تر، شبیه‌تر.
+Vector database = پایگاه‌دادهٔ برداری = پایگاه‌داده‌ای که بردارها را ذخیره و نزدیک‌ترین‌ها را سریع پیدا می‌کند.
+
+@lesson
+id: implementing-the-rag-flow
+en: Implementing the RAG flow
+fa: پیاده‌سازی جریان RAG
+url: https://academy.claude.com/courses/building-with-the-claude-api/implementing-the-rag-flow
+
+#explain
+A tiny in-memory vector index is enough to learn the idea; production systems use a vector database. Put the retrieved chunks in **XML tags** and tell Claude to answer **only** from them, and to say so when the answer isn't there.
+~~
+یک نمایهٔ برداری کوچک داخل حافظه برای یاد گرفتن ایده کافی است؛ سیستم‌های واقعی از یک پایگاه‌دادهٔ برداری استفاده می‌کنند. تکه‌های بازیابی‌شده را در **تگ‌های XML** بگذار و به Claude بگو **فقط** از روی آن‌ها جواب بدهد و اگر جواب آن‌جا نیست، همین را بگوید.
+
+#code python rag.py
+import numpy as np
+
+class VectorIndex:
+    def __init__(self):
+        self.vectors, self.texts = [], []
+
+    def add(self, vector, text):
+        self.vectors.append(np.array(vector)); self.texts.append(text)
+
+    def search(self, query_vector, k=3):
+        q = np.array(query_vector)
+        sims = [v @ q / (np.linalg.norm(v) * np.linalg.norm(q)) for v in self.vectors]
+        best = np.argsort(sims)[::-1][:k]
+        return [self.texts[i] for i in best]
+
+index = VectorIndex()
+for vec, text in zip(doc_vectors, chunks):
+    index.add(vec, text)
+
+question = "What did the Q4 report say about cybersecurity incidents?"
+context = "\n".join(f"<chunk>{c}</chunk>" for c in index.search(embed([question], "query")[0]))
+
+answer = client.messages.create(
+    model="claude-opus-5-5", max_tokens=1500,
+    messages=[{"role": "user", "content":
+        f"<context>\n{context}\n</context>\n\nAnswer using only the context above. "
+        f"If the answer is not there, say so.\n\nQuestion: {question}"}],
+)
+#end
+
+#warn
+"Answer only from the context" reduces, but doesn't eliminate, made-up answers. Show the user the source chunks (or use **citations**, later in this course) so they can check.
+~~
+«فقط از روی زمینه جواب بده» جواب‌های ساختگی را کم می‌کند، ولی از بین نمی‌برد. تکه‌های منبع را به کاربر نشان بده (یا از **ارجاع‌ها** استفاده کن که بعداً در همین دوره می‌آید) تا بتواند چک کند.
+
+@lesson
+id: bm25-lexical-search
+en: BM25 lexical search
+fa: جست‌وجوی واژگانی BM25
+url: https://academy.claude.com/courses/building-with-the-claude-api/bm25-lexical-search
+
+#explain
+Semantic search is great at meaning but weak at **exact terms**: an incident ID like `INC-2023-Q4-011`, a product code, a rare name. **BM25** is a classic keyword ranking method: it scores chunks that contain the query's words, giving extra weight to **rare** words (an ID that appears once matters more than "the"). Use both kinds of search together.
+~~
+جست‌وجوی معنایی در معنا عالی است، ولی در **عبارت‌های دقیق** ضعیف است: شناسهٔ یک رخداد مثل `INC-2023-Q4-011`، کد یک محصول، یک اسم کمیاب. **BM25** یک روش کلاسیک رتبه‌بندی کلیدواژه‌ای است: به تکه‌هایی که کلمه‌های سؤال را دارند امتیاز می‌دهد و به کلمه‌های **کمیاب** وزن بیشتری می‌دهد (شناسه‌ای که فقط یک بار آمده، از «the» مهم‌تر است). هر دو نوع جست‌وجو را با هم به کار ببر.
+
+#code python bm25.py
+from rank_bm25 import BM25Okapi   # pip install rank-bm25
+
+tokenized = [c.lower().split() for c in chunks]
+bm25 = BM25Okapi(tokenized)
+
+def bm25_search(query, k=3):
+    scores = bm25.get_scores(query.lower().split())
+    best = sorted(range(len(chunks)), key=lambda i: scores[i], reverse=True)[:k]
+    return [chunks[i] for i in best]
+
+print(bm25_search("What happened with INC-2023-Q4-011?"))
+#end
+
+#analogy
+Semantic search is a friend who **understands what you mean**; BM25 is a friend who **remembers exact phone numbers**. You want both at the party.
+~~
+جست‌وجوی معنایی دوستی است که **منظورت را می‌فهمد**؛ BM25 دوستی است که **شماره‌تلفن‌ها را دقیق یادش می‌ماند**. هر دو را در مهمانی می‌خواهی.
+
+#terms
+BM25 = BM25 = روشی کلاسیک برای رتبه‌بندی متن‌ها بر اساس تطابق کلیدواژه‌ها با وزن بیشتر برای کلمه‌های کمیاب.
+Lexical search = جست‌وجوی واژگانی = جست‌وجو بر اساس خود کلمه‌ها، نه معنایشان.
+
+@lesson
+id: a-multi-index-rag-pipeline
+en: A multi-index RAG pipeline
+fa: یک خط لولهٔ RAG چندنمایه‌ای
+url: https://academy.claude.com/courses/building-with-the-claude-api/a-multi-index-rag-pipeline
+
+#explain
+Wrap the vector index and the BM25 index in one **Retriever** that queries both and merges the two ranked lists with **reciprocal rank fusion (RRF)**: each chunk gets `1 / (k + rank)` from each list (k is usually 60), and the sums decide the final order. Chunks ranked well by **both** methods rise to the top. This "hybrid search" is a strong default for real RAG systems.
+~~
+نمایهٔ برداری و نمایهٔ BM25 را در یک **بازیاب (Retriever)** بپیچان که از هر دو می‌پرسد و دو فهرست رتبه‌بندی‌شده را با **ادغام رتبهٔ معکوس (RRF)** یکی می‌کند: هر تکه از هر فهرست `1 / (k + rank)` امتیاز می‌گیرد (k معمولاً ۶۰ است) و جمع امتیازها ترتیب نهایی را تعیین می‌کند. تکه‌هایی که در **هر دو** روش رتبهٔ خوبی دارند به بالا می‌آیند. این «جست‌وجوی ترکیبی» یک پیش‌فرض قوی برای سیستم‌های RAG واقعی است.
+
+#code python Reciprocal rank fusion
+def reciprocal_rank_fusion(ranked_lists, k=60):
+    scores = {}
+    for ranked in ranked_lists:
+        for rank, chunk in enumerate(ranked, start=1):
+            scores[chunk] = scores.get(chunk, 0) + 1 / (k + rank)
+    return sorted(scores, key=scores.get, reverse=True)
+
+class Retriever:
+    def __init__(self, vector_index, bm25_search):
+        self.vector_index, self.bm25_search = vector_index, bm25_search
+
+    def search(self, query, k=3):
+        semantic = self.vector_index.search(embed([query], "query")[0], k=10)
+        lexical = self.bm25_search(query, k=10)
+        return reciprocal_rank_fusion([semantic, lexical])[:k]
+#end
+
+#tip
+Two upgrades covered in the Bedrock and Vertex versions of this course: **reranking** (ask Claude to reorder the top 10 candidates by relevance) and **contextual retrieval** (before indexing, ask Claude to write a one-line context for each chunk, like "This chunk is from the Q4 security report, section on incidents", and embed that with the chunk).
+~~
+دو ارتقا که در نسخه‌های Bedrock و Vertex همین دوره آمده: **رتبه‌بندی دوباره (reranking)** (از Claude بخواه ۱۰ کاندیدای برتر را بر اساس ارتباط دوباره مرتب کند) و **بازیابی زمینه‌دار (contextual retrieval)** (قبل از نمایه‌سازی، از Claude بخواه برای هر تکه یک خط زمینه بنویسد، مثل «این تکه از گزارش امنیتی فصل چهارم، بخش رخدادهاست» و آن را همراه تکه embed کن).
+
+#analogy
+RRF is like **combining two judges' rankings at a talent show**: a contestant both judges liked beats one only a single judge adored.
+~~
+RRF مثل **ترکیب رتبه‌بندی دو داور در یک مسابقهٔ استعدادیابی** است: شرکت‌کننده‌ای که هر دو داور دوستش داشتند، از کسی که فقط یک داور عاشقش بود جلو می‌زند.
+
+#terms
+Hybrid search = جست‌وجوی ترکیبی = ترکیب جست‌وجوی معنایی و واژگانی برای گرفتن بهترینِ هر دو.
+Reciprocal rank fusion (RRF) = ادغام رتبهٔ معکوس = روشی برای یکی کردن چند فهرست رتبه‌بندی با جمع امتیاز 1/(k+rank).
+
+@section Features of Claude | قابلیت‌های Claude
+
+@lesson
+id: extended-thinking
+en: Extended thinking
+fa: تفکر گسترده
+url: https://academy.claude.com/courses/building-with-the-claude-api/extended-thinking
+
+#explain
+With **thinking**, Claude reasons step by step before answering, which helps on hard math, planning, tricky code and multi-step analysis. The original course set a fixed thinking budget (`budget_tokens`). **Today:** use **adaptive thinking** (Claude decides how much to think) and control depth with **effort**: `low`, `medium`, `high`, `xhigh` or `max`. On Opus 5.5 thinking is always on, and `budget_tokens` returns a 400 on the newest models. Thinking tokens are billed as output tokens, so higher effort = better answers on hard tasks, at higher cost and latency.
+~~
+با **تفکر**، Claude قبل از جواب دادن قدم به قدم استدلال می‌کند؛ که در ریاضی سخت، برنامه‌ریزی، کد پیچیده و تحلیل چندمرحله‌ای کمک می‌کند. دورهٔ اصلی یک بودجهٔ ثابت برای تفکر می‌گذاشت (`budget_tokens`). **امروز:** از **تفکر تطبیقی (adaptive)** استفاده کن (Claude خودش تصمیم می‌گیرد چقدر فکر کند) و عمقش را با **effort** کنترل کن: `low`، `medium`، `high`، `xhigh` یا `max`. روی Opus 5.5 تفکر همیشه روشن است و `budget_tokens` روی جدیدترین مدل‌ها خطای 400 می‌دهد. توکن‌های تفکر به‌عنوان توکن خروجی حساب می‌شوند؛ پس effort بالاتر = جواب بهتر در کارهای سخت، با هزینه و تأخیر بیشتر.
+
+#code python Adaptive thinking with effort
+response = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=16000,
+    thinking={"type": "adaptive", "display": "summarized"},  # show a summary of the reasoning
+    output_config={"effort": "high"},
+    messages=[{"role": "user", "content":
+        "A train leaves at 9:40 and arrives at 13:05 after two stops of 7 minutes each. "
+        "How long was it actually moving? Show the answer only."}],
+)
+for block in response.content:
+    if block.type == "thinking":
+        print("THINKING SUMMARY:", block.thinking)
+    elif block.type == "text":
+        print("ANSWER:", block.text)
+#end
+
+#warn
+In tool-use loops, pass thinking blocks back **unchanged** (append the whole `response.content`). Editing or dropping them can invalidate the cache or the reasoning on newer models.
+~~
+در حلقه‌های استفاده از ابزار، بلوک‌های تفکر را **بدون تغییر** برگردان (کل `response.content` را اضافه کن). ویرایش یا حذفشان روی مدل‌های جدیدتر می‌تواند کش یا خود استدلال را بی‌اعتبار کند.
+
+#tip
+Don't max out effort by default. Run your eval at `medium` and `high`; use the cheapest level that passes. Many simple tasks (classification, extraction) are best at `low`.
+~~
+effort را به‌طور پیش‌فرض روی بیشینه نگذار. ارزیابی‌ات را با `medium` و `high` اجرا کن؛ ارزان‌ترین سطحی را که قبول می‌شود استفاده کن. خیلی از کارهای ساده (دسته‌بندی، استخراج) با `low` بهترند.
+
+#analogy
+Effort is like telling a student "**quick answer**" vs "**show all your work**" on a test: both can be right, but one takes longer and fills more pages.
+~~
+effort مثل این است که سر امتحان به دانش‌آموز بگویی «**جواب سریع**» یا «**همهٔ راه‌حل را بنویس**»: هر دو ممکن است درست باشند، ولی یکی بیشتر طول می‌کشد و صفحه‌های بیشتری پر می‌کند.
+
+@lesson
+id: image-support
+en: Image support
+fa: پشتیبانی از تصویر
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Claude can read **images**: photos, screenshots, charts, handwriting. Send an `image` block (base64 or a URL) next to a text block. The same prompting rules apply: be specific, give **step-by-step instructions** for the analysis, and add an example if precision matters. Example from real life: estimating fire risk from a satellite photo of a property, by checking tree density near the house, roof material and access for fire trucks, each as a separate step.
+~~
+Claude می‌تواند **تصویر** بخواند: عکس، اسکرین‌شات، نمودار، دست‌خط. یک بلوک `image` (به شکل base64 یا لینک) کنار یک بلوک متن بفرست. همان قانون‌های پرامپت‌نویسی برقرارند: مشخص باش، برای تحلیل **دستور قدم به قدم** بده و اگر دقت مهم است مثال بیاور. مثالی از دنیای واقعی: تخمین خطر آتش‌سوزی از عکس ماهواره‌ای یک ملک، با بررسی تراکم درخت‌های نزدیک خانه، جنس سقف و دسترسی ماشین آتش‌نشانی؛ هر کدام به‌عنوان یک قدم جدا.
+
+#code python image.py
+import base64
+
+with open("property.png", "rb") as f:
+    data = base64.standard_b64encode(f.read()).decode("utf-8")
+
+response = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=2000,
+    messages=[{"role": "user", "content": [
+        {"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": data}},
+        {"type": "text", "text":
+            "Assess wildfire risk for the main house in this satellite image. Steps: "
+            "1) describe trees within ~30 m, 2) roof material if visible, "
+            "3) access roads for fire trucks, 4) give a risk score 1-4 with one-line reasons."},
+    ]}],
+)
+#end
+
+#tip
+Images cost tokens (roughly proportional to their pixel size). Resize big photos before sending if fine detail doesn't matter; keep full resolution for small text or tiny chart labels.
+~~
+تصویرها توکن مصرف می‌کنند (تقریباً متناسب با اندازهٔ پیکسلی‌شان). اگر جزئیات ریز مهم نیست، عکس‌های بزرگ را قبل از فرستادن کوچک کن؛ برای متن‌های ریز یا برچسب‌های کوچک نمودار، وضوح کامل را نگه دار.
+
+#analogy
+An image without instructions is like handing someone a **photo and saying "thoughts?"**; with steps, it's handing a **home inspector a checklist**.
+~~
+تصویر بدون دستور مثل این است که یک **عکس دست کسی بدهی و بگویی «نظرت؟»**؛ با قدم‌ها، مثل دادن **یک چک‌لیست به بازرس ساختمان** است.
+
+@lesson
+id: pdf-support
+en: PDF support
+fa: پشتیبانی از PDF
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Send a PDF as a `document` block and Claude reads its **text, tables, charts and images**, page by page. Great for contracts, reports, scanned forms and research papers.
+~~
+یک PDF را به شکل بلوک `document` بفرست تا Claude **متن، جدول‌ها، نمودارها و تصویرهایش** را صفحه به صفحه بخواند. برای قراردادها، گزارش‌ها، فرم‌های اسکن‌شده و مقاله‌های پژوهشی عالی است.
+
+#code python pdf.py
+import base64
+
+with open("earth_report.pdf", "rb") as f:
+    pdf = base64.standard_b64encode(f.read()).decode("utf-8")
+
+response = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=2000,
+    messages=[{"role": "user", "content": [
+        {"type": "document", "source": {"type": "base64", "media_type": "application/pdf", "data": pdf}},
+        {"type": "text", "text": "Summarize this report in 5 bullets, and list every table it contains."},
+    ]}],
+)
+#end
+
+#tip
+Asking about the same big PDF many times? Upload it once with the **Files API** and reference its `file_id`, and add **prompt caching** so later questions are cheap.
+~~
+دربارهٔ یک PDF بزرگ بارها سؤال می‌پرسی؟ یک بار با **Files API** بارگذاری‌اش کن و به `file_id` آن ارجاع بده و **کش پرامپت** را هم اضافه کن تا سؤال‌های بعدی ارزان شوند.
+
+@lesson
+id: citations
+en: Citations
+fa: ارجاع‌دهی (Citations)
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Turn on **citations** for a document and Claude's answer comes back with **pointers to the exact passages** it used: the cited text and its location (page numbers for PDFs, character ranges for text). Your app can show "source" bubbles users can click to verify. This builds trust far better than "trust me".
+~~
+**ارجاع‌دهی** را برای یک سند روشن کن تا جواب Claude همراه با **اشاره به همان بخش‌هایی** برگردد که استفاده کرده: متن ارجاع‌شده و جایش (شمارهٔ صفحه برای PDF، بازهٔ کاراکتر برای متن). اپ تو می‌تواند حباب‌های «منبع» نشان بدهد که کاربر برای راستی‌آزمایی رویشان بزند. این خیلی بهتر از «به من اعتماد کن» اعتماد می‌سازد.
+
+#code python citations.py
+response = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=2000,
+    messages=[{"role": "user", "content": [
+        {"type": "document",
+         "source": {"type": "base64", "media_type": "application/pdf", "data": pdf},
+         "title": "Earth report",
+         "citations": {"enabled": True}},
+        {"type": "text", "text": "How did Earth's atmosphere form?"},
+    ]}],
+)
+for block in response.content:
+    if block.type == "text":
+        print(block.text)
+        for c in (block.citations or []):
+            print(f'   ↳ "{c.cited_text}" (pages {c.start_page_number}-{c.end_page_number})')
+#end
+
+#warn
+Citations can't be combined with structured outputs (that returns a 400). Choose: verifiable prose with sources, or strict JSON.
+~~
+ارجاع‌دهی را نمی‌شود با خروجی ساختاریافته ترکیب کرد (خطای 400 می‌دهد). انتخاب کن: متن قابل‌راستی‌آزمایی با منبع، یا JSON سخت‌گیرانه.
+
+#analogy
+Citations are **footnotes in a school report**: the teacher can flip to page 42 and see you didn't make it up.
+~~
+ارجاع‌ها مثل **پانویس‌های یک گزارش مدرسه** هستند: معلم می‌تواند صفحهٔ ۴۲ را باز کند و ببیند از خودت نساخته‌ای.
+
+@lesson
+id: prompt-caching
+en: Prompt caching
+fa: کش پرامپت
+url: https://academy.claude.com/courses/building-with-the-claude-api/prompt-caching
+
+#explain
+Every request makes Claude process the whole prompt from scratch, even if 95% of it (a long system prompt, a big document, tool definitions) is the same as last time. **Prompt caching** saves the processed **prefix** for a while, so the next request that starts with the same bytes reuses it: **cache reads cost about a tenth** of normal input (even less on some newest models) and come back faster. Writing to the cache costs a bit more (1.25× for the default 5-minute cache, 2× for the 1-hour option).
+~~
+هر درخواست باعث می‌شود Claude کل پرامپت را از صفر پردازش کند، حتی اگر ۹۵٪ آن (یک پرامپت سیستمی طولانی، یک سند بزرگ، تعریف ابزارها) با دفعهٔ قبل یکی باشد. **کش پرامپت** **پیشوند** پردازش‌شده را مدتی نگه می‌دارد تا درخواست بعدی که با همان بایت‌ها شروع می‌شود دوباره از آن استفاده کند: **خواندن از کش حدود یک‌دهم** ورودی معمولی هزینه دارد (روی بعضی جدیدترین مدل‌ها حتی کمتر) و سریع‌تر برمی‌گردد. نوشتن در کش کمی گران‌تر است (۱٫۲۵ برابر برای کش پیش‌فرض ۵ دقیقه‌ای، ۲ برابر برای گزینهٔ یک‌ساعته).
+
+#code python Mark the end of the stable part
+response = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=1000,
+    system=[{
+        "type": "text",
+        "text": LONG_STYLE_GUIDE,                 # thousands of tokens, never changes
+        "cache_control": {"type": "ephemeral"},   # cache everything up to here
+    }],
+    messages=[{"role": "user", "content": "Rewrite this headline in our style: ..."}],
+)
+#end
+
+#analogy
+Caching is like a **chef's mise en place**: chop the onions once in the morning; every order that needs onions is faster all day.
+~~
+کش مثل **آماده‌سازی مواد آشپز (میزانپلاس)** است: صبح یک بار پیازها را خرد کن؛ تمام روز هر سفارشی که پیاز لازم دارد سریع‌تر آماده می‌شود.
+
+#terms
+Prompt caching = کش پرامپت = نگه داشتن پیشوند پردازش‌شدهٔ پرامپت برای استفادهٔ دوباره با هزینه و تأخیر کمتر.
+Cache breakpoint = نقطهٔ کش = جایی در پرامپت که با cache_control علامت می‌خورد و همه‌چیزِ قبلش کش می‌شود.
+
+@lesson
+id: rules-of-prompt-caching
+en: Rules of prompt caching
+fa: قانون‌های کش پرامپت
+url: https://academy.claude.com/courses/building-with-the-claude-api/rules-of-prompt-caching
+
+#explain
+The rules that decide whether you get a cache hit:
+
+- **Exact prefix match.** The cache key is the exact content up to the breakpoint. Change one character earlier in the prompt and everything after it misses.
+- **Order:** tools → system → messages. A breakpoint on the last system block caches tools and system together.
+- **Up to 4 breakpoints** per request; or use the top-level automatic `cache_control` to let the API place one for you.
+- **Minimum length:** prefixes shorter than a model-specific minimum (512 tokens on the newest models, up to 4,096 on some older ones) silently don't cache.
+- **Lifetime:** 5 minutes by default, refreshed on every hit; 1 hour if you ask (`"ttl": "1h"`).
+~~
+قانون‌هایی که تعیین می‌کنند از کش استفاده می‌شود یا نه:
+
+- **تطابق دقیق پیشوند.** کلید کش، محتوای دقیق تا نقطهٔ کش است. یک کاراکتر را جایی جلوتر در پرامپت عوض کن تا همه‌چیزِ بعد از آن از کش نخورد.
+- **ترتیب:** ابزارها ← سیستم ← پیام‌ها. نقطهٔ کش روی آخرین بلوک سیستم، ابزارها و سیستم را با هم کش می‌کند.
+- **حداکثر ۴ نقطهٔ کش** در هر درخواست؛ یا از `cache_control` خودکار در سطح بالا استفاده کن تا API خودش یکی بگذارد.
+- **حداقل طول:** پیشوندهای کوتاه‌تر از یک حداقلِ مخصوص هر مدل (۵۱۲ توکن روی جدیدترین مدل‌ها و تا ۴٬۰۹۶ روی بعضی مدل‌های قدیمی‌تر) بی‌صدا کش نمی‌شوند.
+- **عمر:** به‌طور پیش‌فرض ۵ دقیقه که با هر استفاده تازه می‌شود؛ اگر بخواهی ۱ ساعت (`"ttl": "1h"`).
+
+#warn
+**Silent cache killers:** a timestamp or random ID in the system prompt, tools listed in a different order, JSON with unsorted keys. They make every request a "new" prompt. Keep the stable part truly stable and put changing details **after** the breakpoint.
+~~
+**قاتل‌های بی‌صدای کش:** یک برچسب زمان یا شناسهٔ تصادفی در پرامپت سیستمی، ابزارهایی که با ترتیب متفاوت فهرست شده‌اند، JSON با کلیدهای نامرتب. این‌ها هر درخواست را به یک پرامپت «تازه» تبدیل می‌کنند. بخش ثابت را واقعاً ثابت نگه دار و جزئیات متغیر را **بعد از** نقطهٔ کش بگذار.
+
+#analogy
+The cache is a **coat check**: you get your coat back only with the **exact same ticket**. A ticket with one digit changed gets you nothing.
+~~
+کش مثل **رخت‌کن** است: فقط با **همان بلیت دقیق** کتت را پس می‌گیری. بلیتی که یک رقمش عوض شده هیچ چیزی به تو نمی‌دهد.
+
+@lesson
+id: prompt-caching-in-action
+en: Prompt caching in action
+fa: کش پرامپت در عمل
+url: https://academy.claude.com/courses/building-with-the-claude-api/prompt-caching-in-action
+
+#explain
+Measure, don't assume. The response's `usage` tells you exactly what happened: `cache_creation_input_tokens` (written to cache this time), `cache_read_input_tokens` (served from cache) and `input_tokens` (the uncached tail). Send the same long prefix twice: the first call writes, the second reads.
+~~
+اندازه بگیر، فرض نکن. `usage` در پاسخ دقیقاً می‌گوید چه اتفاقی افتاده: `cache_creation_input_tokens` (این بار در کش نوشته شد)، `cache_read_input_tokens` (از کش خوانده شد) و `input_tokens` (دنبالهٔ کش‌نشده). یک پیشوند طولانی را دو بار بفرست: فراخوانی اول می‌نویسد، دومی می‌خواند.
+
+#code python See the cache work
+def ask(question):
+    r = client.messages.create(
+        model="claude-opus-5-5", max_tokens=500,
+        tools=TOOLS,                                             # stable
+        system=[{"type": "text", "text": BIG_SYSTEM_PROMPT,
+                 "cache_control": {"type": "ephemeral"}}],      # breakpoint
+        messages=[{"role": "user", "content": question}],        # changes
+    )
+    u = r.usage
+    print(f"write={u.cache_creation_input_tokens} read={u.cache_read_input_tokens} new={u.input_tokens}")
+
+ask("Summarize section 2.")   # write=6200 read=0    new=12
+ask("Summarize section 5.")   # write=0    read=6200 new=12
+#end
+
+#tip
+If `cache_read_input_tokens` stays at 0 on repeated calls, something in the prefix changes every time. Log two request bodies and diff them; the culprit is usually a date or an unordered dictionary.
+~~
+اگر `cache_read_input_tokens` در فراخوانی‌های تکراری روی ۰ می‌ماند، چیزی در پیشوند هر بار عوض می‌شود. بدنهٔ دو درخواست را ثبت کن و با هم مقایسه کن؛ مقصر معمولاً یک تاریخ یا یک دیکشنری بی‌ترتیب است.
+
+@lesson
+id: code-execution-and-the-files-api
+en: Code execution and the Files API
+fa: اجرای کد و Files API
+url: https://academy.claude.com/courses/building-with-the-claude-api/code-execution-and-the-files-api
+
+#explain
+Two features that work beautifully together:
+
+- The **Files API** uploads a file once (CSV, PDF, image) and gives you a `file_id` to reference in later requests, instead of re-sending the bytes.
+- **Code execution** is a server tool: Claude writes and runs Python in a **sandboxed container** (with pandas, matplotlib and friends, no internet). It can compute real numbers, make charts and produce files you download afterwards.
+
+Together: "upload sales.csv, find trends, and make a chart", with numbers that are **calculated**, not guessed.
+~~
+دو قابلیت که با هم عالی کار می‌کنند:
+
+- **Files API** یک فایل را یک بار بارگذاری می‌کند (CSV، PDF، تصویر) و یک `file_id` می‌دهد که در درخواست‌های بعدی به آن ارجاع بدهی، به جای این‌که بایت‌ها را دوباره بفرستی.
+- **اجرای کد** یک ابزار سمت سرور است: Claude در یک **کانتینر ایزوله** (با pandas، matplotlib و دوستانشان، بدون اینترنت) پایتون می‌نویسد و اجرا می‌کند. می‌تواند عددهای واقعی حساب کند، نمودار بکشد و فایل‌هایی بسازد که بعداً دانلودشان می‌کنی.
+
+با هم: «sales.csv را بارگذاری کن، روندها را پیدا کن و نمودار بکش»، با عددهایی که **محاسبه** شده‌اند، نه حدس زده.
+
+#code python Analyze a CSV in a sandbox
+from pathlib import Path
+
+uploaded = client.files.upload(file=Path("sales.csv"))     # Files API (no longer beta)
+
+response = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=8000,
+    tools=[{"type": "code_execution_20260521", "name": "code_execution"}],
+    messages=[{"role": "user", "content": [
+        {"type": "text", "text": "Find the 3 strongest monthly trends and save a line chart as chart.png."},
+        {"type": "container_upload", "file_id": uploaded.id},
+    ]}],
+)
+for block in response.content:
+    if block.type == "text":
+        print(block.text)
+    elif block.type == "bash_code_execution_tool_result":
+        result = block.content
+        if result.type == "bash_code_execution_result":
+            print(result.stdout)
+            for i, f in enumerate(result.content):          # files the code created
+                if f.type == "bash_code_execution_output":
+                    client.files.download(f.file_id).write_to_file(f"output_{i}.png")
+#end
+
+#warn
+The Files API isn't available on Amazon Bedrock or Google Vertex AI. And sanitize any filename you write to disk (use only the base name) so a generated file can't escape your output folder.
+~~
+Files API روی Amazon Bedrock و Google Vertex AI در دسترس نیست. و هر اسم فایلی را که روی دیسک می‌نویسی پاک‌سازی کن (فقط اسم پایه را استفاده کن) تا یک فایل تولیدشده نتواند از پوشهٔ خروجی‌ات بیرون بزند.
+
+#analogy
+Code execution gives Claude a **calculator and a lab bench** instead of asking it to do long division in its head.
+~~
+اجرای کد به Claude **یک ماشین‌حساب و یک میز آزمایشگاه** می‌دهد، به جای این‌که از او بخواهی تقسیم‌های طولانی را ذهنی حساب کند.
+
+@lesson
+id: quiz-on-features-of-claude
+en: Quiz on features of Claude
+fa: آزمونک قابلیت‌های Claude
+kind: quiz
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Checks: adaptive thinking and effort, image and PDF inputs, citations, prompt caching (how it works, its rules, measuring hits), code execution and the Files API.
+~~
+می‌سنجد: تفکر تطبیقی و effort، ورودی‌های تصویر و PDF، ارجاع‌دهی، کش پرامپت (چطور کار می‌کند، قانون‌هایش، اندازه‌گیری استفاده از کش)، اجرای کد و Files API.
+
+#try
+Take a PDF you know well. Ask one question with citations on, and check whether every cited page really says what Claude claims.
+~~
+یک PDF را که خوب می‌شناسی بردار. با ارجاع‌دهی روشن یک سؤال بپرس و چک کن آیا هر صفحه‌ای که ارجاع داده شده واقعاً همان چیزی را می‌گوید که Claude ادعا می‌کند.

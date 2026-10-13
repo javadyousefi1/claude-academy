@@ -1,0 +1,630 @@
+@page
+slug: building-with-the-claude-api
+kind: course
+group: api
+order: 1
+en: Building with the Claude API
+fa: ساختن با Claude API (رابط برنامه‌نویسی Claude)
+stats: 67 lessons · 8 quizzes · ~9 hr · certificate
+url: https://academy.claude.com/courses/building-with-the-claude-api
+expect: 75
+who_en: Developers who know some Python and want to build real applications on Claude: requests, evaluation, prompt engineering, tools, RAG, Claude's features, MCP and agents.
+who_fa: برنامه‌نویس‌هایی که کمی پایتون بلدند و می‌خواهند روی Claude اپلیکیشن واقعی بسازند: درخواست زدن، ارزیابی، مهندسی پرامپت، ابزارها، RAG، قابلیت‌های Claude، MCP و ایجنت‌ها.
+blurb_fa: کامل‌ترین دورهٔ برنامه‌نویسی: از اولین درخواست تا ارزیابی پرامپت، ابزارها، RAG ترکیبی، تفکر، کش پرامپت، اجرای کد، MCP، Claude Code و الگوهای ایجنت؛ با کدهای به‌روز برای جدیدترین مدل‌ها.
+desc_en: The full developer course: requests, evals, prompt engineering, tool use, RAG, features, MCP, Claude Code and agent patterns, with code updated for current models.
+
+@intro
+This is the big one: the complete path from "I have an API key" to "I shipped an agent". You'll learn to call Claude from code, measure prompt quality with **evals**, improve prompts with proven techniques, give Claude **tools**, build **retrieval (RAG)** over your documents, use Claude's special features (thinking, images, PDFs, citations, caching, code execution), connect services with **MCP**, and design **workflows and agents**.
+
+**Important note about the code in this handout.** The API moves fast. Some techniques taught in the original course (assistant **prefill**, **temperature**, forced **tool_choice**, thinking **budget_tokens**) are now rejected with an error on the newest models. Every lesson here teaches the original idea **and** shows the code that works today, using `claude-opus-5-5` unless a lesson needs something else. When in doubt, the official docs at platform.claude.com win.
+~~
+این همان دورهٔ بزرگ است: مسیر کامل از «یک کلید API دارم» تا «یک ایجنت منتشر کردم». یاد می‌گیری از داخل کد Claude را صدا بزنی، کیفیت پرامپت را با **ارزیابی (eval)** اندازه بگیری، پرامپت‌ها را با تکنیک‌های امتحان‌پس‌داده بهتر کنی، به Claude **ابزار** بدهی، روی سندهایت **بازیابی (RAG)** بسازی، از قابلیت‌های ویژهٔ Claude استفاده کنی (تفکر، تصویر، PDF، ارجاع، کش، اجرای کد)، سرویس‌ها را با **MCP** وصل کنی و **گردش‌کارها و ایجنت‌ها** را طراحی کنی.
+
+**نکتهٔ مهم دربارهٔ کدهای این جزوه.** API سریع عوض می‌شود. بعضی تکنیک‌هایی که دورهٔ اصلی یاد می‌دهد (**پیش‌پرکردن** پاسخ دستیار، **temperature**، اجبار **tool_choice**، **budget_tokens** برای تفکر) روی جدیدترین مدل‌ها با خطا رد می‌شوند. هر درس این‌جا هم ایدهٔ اصلی را یاد می‌دهد **و** هم کدی را نشان می‌دهد که امروز کار می‌کند؛ با `claude-opus-5-5`، مگر درسی چیز دیگری لازم داشته باشد. هر جا شک داشتی، مستندات رسمی در platform.claude.com حرف آخر را می‌زند.
+
+@section Accessing Claude with the API | دسترسی به Claude از طریق API
+
+@lesson
+id: accessing-the-api
+en: Accessing the API
+fa: دسترسی به API
+url: https://academy.claude.com/courses/building-with-the-claude-api/accessing-the-api
+
+#explain
+What happens when a user types into your app and Claude answers? Five steps:
+
+1. Your **app** (web page, mobile app) sends the user's text to **your server**, never straight to Anthropic, because the request needs your secret API key.
+2. Your server calls the **Claude API** with the SDK: model name, messages, `max_tokens`.
+3. The text is split into **tokens** (small pieces of words) and the model generates the reply **one token at a time**, each new token predicted from everything before it.
+4. Generation stops when the model is done (`end_turn`), hits your `max_tokens` limit, hits a stop sequence, or wants to use a tool.
+5. The API returns the reply plus **usage** (input and output tokens, which is what you pay for) and a **stop_reason**.
+~~
+وقتی کاربر در اپ تو چیزی تایپ می‌کند و Claude جواب می‌دهد، چه اتفاقی می‌افتد؟ پنج قدم:
+
+1. **اپ** تو (صفحهٔ وب، اپ موبایل) متن کاربر را به **سرور خودت** می‌فرستد، نه مستقیم به Anthropic؛ چون درخواست به کلید مخفی API تو نیاز دارد.
+2. سرورت با SDK به **Claude API** درخواست می‌دهد: اسم مدل، پیام‌ها، `max_tokens`.
+3. متن به **توکن‌ها** (تکه‌های کوچک کلمه) شکسته می‌شود و مدل جواب را **توکن به توکن** تولید می‌کند؛ هر توکن تازه از روی همهٔ چیزهای قبلش پیش‌بینی می‌شود.
+4. تولید وقتی متوقف می‌شود که مدل کارش تمام شده (`end_turn`)، به سقف `max_tokens` تو رسیده، به یک دنبالهٔ توقف خورده یا می‌خواهد از ابزاری استفاده کند.
+5. API جواب را همراه با **مصرف** (توکن‌های ورودی و خروجی؛ همان چیزی که پولش را می‌دهی) و **stop_reason** (دلیل توقف) برمی‌گرداند.
+
+#analogy
+Your server is the **restaurant waiter**: customers (the app) never walk into the kitchen (the API) themselves; the waiter carries orders in and dishes out, and only the waiter has the kitchen key.
+~~
+سرور تو مثل **گارسون رستوران** است: مشتری‌ها (اپ) هیچ‌وقت خودشان وارد آشپزخانه (API) نمی‌شوند؛ گارسون سفارش را می‌برد و غذا را می‌آورد و فقط او کلید آشپزخانه را دارد.
+
+#warn
+Never put your API key in front-end code (JavaScript in the browser, a mobile app bundle). Anyone can open DevTools, copy it, and spend your money.
+~~
+هیچ‌وقت کلید API را در کد سمت کاربر نگذار (جاوااسکریپت داخل مرورگر، بستهٔ اپ موبایل). هر کسی می‌تواند DevTools را باز کند، کلید را بردارد و پول تو را خرج کند.
+
+#tip
+Which model? Today's lineup (check the models page for updates): **Claude Opus 5.5** (`claude-opus-5-5`) as the strong default, **Claude Sonnet 5.5** for high-volume work, **Claude Haiku 5.5** for fast, cheap, simple tasks, and **Claude Fable 5.1** when you need the most capable model. Start with the best, then try a cheaper model once you have evals that prove it's good enough.
+~~
+کدام مدل؟ ردیف فعلی (برای به‌روزرسانی‌ها صفحهٔ مدل‌ها را ببین): **Claude Opus 5.5** (`claude-opus-5-5`) به‌عنوان پیش‌فرض قوی، **Claude Sonnet 5.5** برای کارهای پرحجم، **Claude Haiku 5.5** برای کارهای ساده، سریع و ارزان، و **Claude Fable 5.1** وقتی تواناترین مدل را لازم داری. با بهترین شروع کن، بعد وقتی ارزیابی‌هایی داشتی که ثابت کنند مدل ارزان‌تر کافی است، امتحانش کن.
+
+#terms
+Token = توکن = تکهٔ کوچکی از متن (بخشی از یک کلمه) که مدل با آن کار می‌کند و هزینه بر اساس آن حساب می‌شود.
+stop_reason = دلیل توقف = فیلدی در پاسخ API که می‌گوید چرا تولید متن تمام شد.
+
+@lesson
+id: getting-an-api-key
+en: Getting an API key
+fa: گرفتن کلید API
+url: https://academy.claude.com/courses/building-with-the-claude-api/getting-an-api-key
+
+#explain
+Create a key in the **Claude Console** (platform.claude.com → API keys). Treat it like a password:
+
+- Store it in an environment variable named `ANTHROPIC_API_KEY`, or in a `.env` file loaded at startup.
+- Add `.env` to `.gitignore` **before** your first commit.
+- Use separate keys (and workspaces) for development and production, and set **spend limits** in the Console.
+~~
+یک کلید در **کنسول Claude** بساز (platform.claude.com ← API keys). مثل رمز عبور با آن رفتار کن:
+
+- آن را در یک متغیر محیطی به اسم `ANTHROPIC_API_KEY` یا در یک فایل `.env` نگه دار که موقع اجرا بارگذاری می‌شود.
+- `.env` را **قبل از** اولین کامیت به `.gitignore` اضافه کن.
+- برای توسعه و محیط واقعی، کلیدها (و فضاهای کاری) جدا داشته باش و در کنسول **سقف هزینه** بگذار.
+
+#code bash Setup in a fresh project
+pip install anthropic python-dotenv
+echo 'ANTHROPIC_API_KEY=sk-ant-...' > .env
+echo '.env' >> .gitignore
+#end
+
+#code python Load the key (the SDK finds it automatically)
+from dotenv import load_dotenv
+import anthropic
+
+load_dotenv()                    # puts ANTHROPIC_API_KEY into the environment
+client = anthropic.Anthropic()   # no key in the code
+#end
+
+#warn
+If a key ever lands in a public repo, **revoke it immediately** in the Console and create a new one. Deleting the commit is not enough: bots scan GitHub for keys within minutes.
+~~
+اگر کلیدی حتی یک بار وارد یک مخزن عمومی شد، **فوراً در کنسول باطلش کن** و کلید تازه بساز. پاک کردن کامیت کافی نیست: ربات‌ها ظرف چند دقیقه گیت‌هاب را برای پیدا کردن کلید می‌گردند.
+
+#analogy
+An API key is your **house key**: you'd never tape it to the front door (front-end code) or post a photo of it online (a public repo).
+~~
+کلید API مثل **کلید خانه‌ات** است: هیچ‌وقت آن را روی در ورودی نمی‌چسبانی (کد سمت کاربر) یا عکسش را در اینترنت نمی‌گذاری (مخزن عمومی).
+
+@lesson
+id: making-a-request
+en: Making a request
+fa: فرستادن یک درخواست
+url: https://academy.claude.com/courses/building-with-the-claude-api/making-a-request
+
+#explain
+Every request needs three things: `model`, `max_tokens` (a safety cap on the reply length, not a target) and `messages` (a list of `{"role": ..., "content": ...}` turns, starting with `user`). The reply's `content` is a **list of blocks**: text, and on newer models also thinking blocks or tool calls.
+~~
+هر درخواست سه چیز لازم دارد: `model`، `max_tokens` (سقف ایمنی برای طول جواب، نه هدف) و `messages` (فهرستی از نوبت‌ها به شکل `{"role": ..., "content": ...}` که با `user` شروع می‌شود). `content` پاسخ یک **فهرست از بلوک‌ها** است: متن، و در مدل‌های جدیدتر بلوک‌های تفکر یا فراخوانی ابزار هم.
+
+#code python first_request.py
+import anthropic
+
+client = anthropic.Anthropic()
+
+message = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=1000,
+    messages=[{"role": "user", "content": "What is quantum computing? Answer in one sentence."}],
+)
+
+# Read text blocks by type: on new models the first block may be a thinking block
+text = "".join(b.text for b in message.content if b.type == "text")
+print(text)
+print(message.stop_reason, message.usage.input_tokens, message.usage.output_tokens)
+#end
+
+#tip
+**Cool tip:** the original course reads `message.content[0].text`. On models where thinking is always on (like Opus 5.5), the first block can be a **thinking** block, so `content[0].text` breaks. Always pick blocks by `type`, as above. Small helper, big headache saved.
+~~
+**نکتهٔ خفن:** دورهٔ اصلی `message.content[0].text` را می‌خواند. روی مدل‌هایی که تفکرشان همیشه روشن است (مثل Opus 5.5)، اولین بلوک ممکن است یک بلوک **تفکر** باشد؛ پس `content[0].text` خراب می‌شود. همیشه بلوک‌ها را بر اساس `type` انتخاب کن، مثل کد بالا. یک تابع کمکی کوچک، یک سردرد بزرگ کمتر.
+
+#analogy
+The request is a **form you fill in**: who should answer (model), the question (messages) and "reply in at most this many lines" (max_tokens).
+~~
+درخواست مثل **فرمی است که پر می‌کنی**: چه کسی جواب بدهد (model)، سؤال چیست (messages) و «حداکثر در این‌قدر خط جواب بده» (max_tokens).
+
+@lesson
+id: multi-turn-conversations
+en: Multi-turn conversations
+fa: گفت‌وگوهای چندنوبتی
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+The API is **stateless**: it remembers nothing between requests. To have a conversation, **you** keep the history and send all of it every time: user, assistant, user, assistant... Three tiny helpers make this painless.
+~~
+API **بی‌حافظه (stateless)** است: بین درخواست‌ها هیچ چیز یادش نمی‌ماند. برای داشتن گفت‌وگو، **خودت** تاریخچه را نگه می‌داری و هر بار همه‌اش را می‌فرستی: کاربر، دستیار، کاربر، دستیار... سه تابع کمکی کوچک این کار را بی‌دردسر می‌کنند.
+
+#code python chat.py
+import anthropic
+
+client = anthropic.Anthropic()
+MODEL = "claude-opus-5-5"
+
+def add_user_message(messages, text):
+    messages.append({"role": "user", "content": text})
+
+def add_assistant_message(messages, text):
+    messages.append({"role": "assistant", "content": text})
+
+def chat(messages, system=None):
+    params = {"model": MODEL, "max_tokens": 1000, "messages": messages}
+    if system:
+        params["system"] = system
+    response = client.messages.create(**params)
+    return "".join(b.text for b in response.content if b.type == "text")
+
+messages = []
+add_user_message(messages, "Define quantum computing in one sentence.")
+answer = chat(messages)
+add_assistant_message(messages, answer)
+
+add_user_message(messages, "Now give me an example a 10-year-old would get.")
+print(chat(messages))   # Claude sees the whole history, so "now" makes sense
+#end
+
+#analogy
+Talking to the API is like talking to a **goldfish with a notebook**: it forgets everything instantly, so before each question you hand it the notebook with the whole conversation so far.
+~~
+حرف زدن با API مثل حرف زدن با **یک ماهی قرمز دفترچه‌به‌دست** است: همه‌چیز را فوراً فراموش می‌کند؛ پس قبل از هر سؤال، دفترچه‌ای را که کل گفت‌وگوی تا این‌جا در آن نوشته شده دستش می‌دهی.
+
+#tip
+Long chats get expensive because the whole history is resent each turn. Two fixes from later lessons: **prompt caching** (pay ~10% for the repeated part) and **compaction** (the API summarizes old turns for you).
+~~
+گفت‌وگوهای طولانی گران می‌شوند، چون کل تاریخچه هر نوبت دوباره فرستاده می‌شود. دو راه‌حل از درس‌های بعدی: **کش پرامپت** (برای بخش تکراری حدود ۱۰٪ هزینه بده) و **فشرده‌سازی (compaction)** (API خودش نوبت‌های قدیمی را خلاصه می‌کند).
+
+@lesson
+id: system-prompts
+en: System prompts
+fa: پرامپت‌های سیستمی
+url: https://academy.claude.com/courses/building-with-the-claude-api/system-prompts
+
+#explain
+The **system prompt** sets *how* Claude should behave for the whole conversation: its role, tone, rules and format. It's passed separately from `messages`. A good system prompt describes the job like a briefing for an expert: who the users are, what good help looks like, what to avoid.
+~~
+**پرامپت سیستمی** تعیین می‌کند Claude در کل گفت‌وگو *چطور* رفتار کند: نقشش، لحنش، قانون‌هایش و قالب جواب‌هایش. جدا از `messages` فرستاده می‌شود. یک پرامپت سیستمی خوب، کار را مثل توجیه یک متخصص توصیف می‌کند: کاربرها چه کسانی‌اند، کمک خوب چه شکلی است، از چه چیزی باید دوری کرد.
+
+#code python A tutor that gives hints, not answers
+system = """You are a patient math tutor for high-school students.
+Do not give final answers directly. Guide the student with one hint
+or one question at a time, and check their reasoning at each step.
+If they are stuck after three hints, show the next step only."""
+
+response = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=1000,
+    system=system,
+    messages=[{"role": "user", "content": "How do I solve 5x + 3 = 2x + 9?"}],
+)
+#end
+
+#analogy
+The system prompt is the **job description pinned above the desk**; the messages are the customers walking in.
+~~
+پرامپت سیستمی **شرح وظایفی است که بالای میز کار سنجاق شده**؛ پیام‌ها مشتری‌هایی هستند که وارد می‌شوند.
+
+#tip
+Explain the **why** behind rules ("keep answers under 100 words because users read on their phones"). Modern Claude models follow reasons better than SHOUTED RULES, and ALL-CAPS "MUST" language can make them overly rigid.
+~~
+**دلیل** پشت قانون‌ها را توضیح بده («جواب‌ها را زیر ۱۰۰ کلمه نگه دار چون کاربرها روی گوشی می‌خوانند»). مدل‌های جدید Claude دلیل را بهتر از قانون‌های فریادزده دنبال می‌کنند و زبان «حتماً» با حروف بزرگ ممکن است آن‌ها را بیش از حد خشک کند.
+
+@lesson
+id: temperature
+en: Temperature
+fa: دما (Temperature)
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+When generating each token, the model has a probability for every possible next token. **Temperature** (0 to 1) reshapes those odds: near **0**, it almost always picks the most likely token (predictable, good for extraction); near **1**, less likely tokens get a real chance (varied, good for brainstorming).
+
+**What changed:** the newest models (Opus 5.5, Fable 5.1, Opus 4.7+) **reject** `temperature` with a 400 error, and Sonnet 5.5 / Haiku 5.5 reject non-default values. These models are steered by your **prompt** and the `effort` setting instead. You can still see temperature at work on models that support it, such as Claude Haiku 4.5.
+~~
+موقع تولید هر توکن، مدل برای هر توکن ممکنِ بعدی یک احتمال دارد. **دما (temperature)** (از ۰ تا ۱) این شانس‌ها را تغییر شکل می‌دهد: نزدیک **۰** تقریباً همیشه محتمل‌ترین توکن را انتخاب می‌کند (قابل‌پیش‌بینی؛ خوب برای استخراج داده)؛ نزدیک **۱** توکن‌های کم‌احتمال‌تر هم شانس واقعی پیدا می‌کنند (متنوع؛ خوب برای ایده‌پردازی).
+
+**چه چیزی عوض شده:** جدیدترین مدل‌ها (Opus 5.5، Fable 5.1، Opus 4.7 به بعد) `temperature` را با خطای 400 **رد می‌کنند** و Sonnet 5.5 و Haiku 5.5 مقدارهای غیرپیش‌فرض را رد می‌کنند. این مدل‌ها به جایش با **پرامپت** تو و تنظیم `effort` هدایت می‌شوند. هنوز می‌توانی اثر دما را روی مدل‌هایی که پشتیبانی‌اش می‌کنند، مثل Claude Haiku 4.5، ببینی.
+
+#code python Temperature on a model that supports it
+for t in (0.0, 1.0):
+    r = client.messages.create(
+        model="claude-haiku-4-5",      # still accepts temperature
+        max_tokens=50,
+        temperature=t,
+        messages=[{"role": "user", "content": "Invent a name for a cat café. Name only."}],
+    )
+    print(t, r.content[0].text)          # Haiku 4.5 without thinking: first block is text
+#end
+
+#code python The modern way to get variety: ask for it
+r = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=500,
+    messages=[{"role": "user", "content":
+        "Invent 5 names for a cat café. Make each one a different style: "
+        "pun, elegant, cozy, futuristic, and Persian-inspired."}],
+)
+#end
+
+#analogy
+Temperature is like a **music playlist**: at 0 it plays your #1 favorite song every time; at 1 it shuffles and sometimes surprises you. Newer models removed the shuffle knob, so you just **ask for the kind of mix you want**.
+~~
+دما مثل **فهرست پخش موسیقی** است: روی ۰ هر بار آهنگ شمارهٔ یکِ محبوبت را پخش می‌کند؛ روی ۱ قاطی پخش می‌کند و گاهی غافلگیرت می‌کند. مدل‌های جدیدتر دکمهٔ قاطی‌پخش را برداشته‌اند؛ پس فقط **بگو چه جور ترکیبی می‌خواهی**.
+
+#terms
+Temperature = دما = پارامتری که میزان تصادفی بودن انتخاب توکن‌ها را تنظیم می‌کند؛ روی جدیدترین مدل‌ها حذف شده.
+Effort = تلاش = تنظیمی در output_config که مشخص می‌کند مدل چقدر عمیق فکر کند و چقدر توکن خرج کند.
+
+@lesson
+id: response-streaming
+en: Response streaming
+fa: پخش زندهٔ پاسخ (Streaming)
+url: https://academy.claude.com/courses/building-with-the-claude-api/response-streaming
+
+#explain
+A long answer can take many seconds. Without streaming, the user stares at a spinner; with **streaming**, text appears chunk by chunk as it's generated. The SDK's `messages.stream()` gives you a `text_stream` for the easy case and the raw **events** (`message_start`, `content_block_delta`, `message_stop`, ...) when you need them. At the end, `get_final_message()` returns the complete message to store in your history.
+
+Streaming also matters for reliability: for large `max_tokens` (roughly above 16K), non-streaming requests can hit HTTP timeouts.
+~~
+یک جواب طولانی ممکن است چند ثانیه طول بکشد. بدون استریم، کاربر به یک چرخندهٔ انتظار خیره می‌ماند؛ با **استریم**، متن همان‌طور که تولید می‌شود تکه‌تکه ظاهر می‌شود. `messages.stream()` در SDK برای حالت ساده یک `text_stream` می‌دهد و هر وقت لازم داشتی، **رویدادهای** خام (`message_start`، `content_block_delta`، `message_stop`، ...) را. در پایان، `get_final_message()` پیام کامل را برمی‌گرداند تا در تاریخچه‌ات ذخیره کنی.
+
+استریم برای پایداری هم مهم است: برای `max_tokens`های بزرگ (تقریباً بالای ۱۶ هزار)، درخواست‌های بدون استریم ممکن است به محدودیت زمانی HTTP بخورند.
+
+#code python stream.py
+with client.messages.stream(
+    model="claude-opus-5-5",
+    max_tokens=4000,
+    messages=[{"role": "user", "content": "Write a 3-paragraph story about a robot learning to paint."}],
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)    # appears word by word
+
+final = stream.get_final_message()          # full Message: save it to history
+print("\n", final.usage.output_tokens, "output tokens")
+#end
+
+#analogy
+Without streaming it's like waiting for a whole **letter** to arrive; with streaming it's a **phone call**: you hear the words as they're spoken.
+~~
+بدون استریم مثل منتظر ماندن برای رسیدن یک **نامهٔ کامل** است؛ با استریم مثل **تماس تلفنی** است: کلمه‌ها را همان لحظه‌ای که گفته می‌شوند می‌شنوی.
+
+#tip
+In a web app, forward the stream to the browser with **Server-Sent Events (SSE)**, so your server stays the only place that holds the API key.
+~~
+در یک وب‌اپ، استریم را با **Server-Sent Events (SSE)** به مرورگر برسان تا سرورت همچنان تنها جایی باشد که کلید API را نگه می‌دارد.
+
+@lesson
+id: structured-data
+en: Structured data
+fa: دادهٔ ساختاریافته
+url: https://academy.claude.com/courses/building-with-the-claude-api/structured-data
+
+#explain
+Apps often need **pure data** (JSON, a code snippet, a CSV row) with no chatty "Here's your JSON!" around it. The original course taught a clever trick: **prefill** the assistant's reply with an opening code fence (three backticks followed by `json`) and set the closing fence (three backticks) as a **stop sequence**, so the output is exactly the JSON.
+
+**What changed:** prefilling the last assistant turn now returns a 400 error on Opus 4.6+ / Sonnet 4.6+ / Haiku 5.5 and newer. The modern replacement is better anyway: **structured outputs**, where you give a JSON schema (or a Pydantic model) and the API **guarantees** valid output.
+~~
+اپ‌ها اغلب **دادهٔ خالص** لازم دارند (JSON، یک تکه کد، یک ردیف CSV)، بدون جمله‌های پرحرف مثل «این هم JSON تو!» دورش. دورهٔ اصلی یک ترفند زیرکانه یاد می‌داد: جواب دستیار را با شروع یک بلوک کد (سه بک‌تیک و بعد `json`) **پیش‌پر** کن و پایان بلوک (سه بک‌تیک) را **دنبالهٔ توقف** بگذار تا خروجی دقیقاً همان JSON باشد.
+
+**چه چیزی عوض شده:** پیش‌پر کردن آخرین نوبت دستیار حالا روی Opus 4.6 به بعد، Sonnet 4.6 به بعد و Haiku 5.5 و جدیدتر خطای 400 می‌دهد. جایگزین امروزی به هر حال بهتر است: **خروجی ساختاریافته (structured outputs)**؛ یک اسکیمای JSON (یا یک مدل Pydantic) می‌دهی و API خروجی معتبر را **تضمین می‌کند**.
+
+#code python The original trick (only on models that allow prefill, e.g. Haiku 4.5)
+r = client.messages.create(
+    model="claude-haiku-4-5",
+    max_tokens=500,
+    messages=[
+        {"role": "user", "content": "Generate a JSON rule for an AWS EventBridge event."},
+        {"role": "assistant", "content": "```json"},   # prefill
+    ],
+    stop_sequences=["```"],                              # stop at the closing fence
+)
+rule_json = r.content[0].text
+#end
+
+#code python Today: structured outputs with Pydantic
+from pydantic import BaseModel
+
+class Recipe(BaseModel):
+    title: str
+    minutes: int
+    ingredients: list[str]
+    vegetarian: bool
+
+r = client.messages.parse(
+    model="claude-opus-5-5",
+    max_tokens=2000,
+    messages=[{"role": "user", "content": "A quick lentil soup recipe for two."}],
+    output_format=Recipe,
+)
+recipe = r.parsed_output        # a validated Recipe object
+print(recipe.title, recipe.minutes)
+#end
+
+#tip
+**Stop sequences** themselves are still useful on every model: e.g. `stop_sequences=["</answer>"]` to end exactly at a closing tag.
+~~
+خود **دنباله‌های توقف** هنوز روی همهٔ مدل‌ها به درد می‌خورند: مثلاً `stop_sequences=["</answer>"]` تا تولید دقیقاً سر یک تگ پایانی تمام شود.
+
+#analogy
+Prefill was like **writing the first words on the answer sheet** so the student continues in your format. Structured outputs are a **form with fixed boxes**: there's simply no space to write anything else.
+~~
+پیش‌پر کردن مثل این بود که **کلمه‌های اول را روی برگهٔ جواب بنویسی** تا دانش‌آموز با قالب تو ادامه بدهد. خروجی ساختاریافته **یک فرم با خانه‌های ثابت** است: اصلاً جایی برای نوشتن چیز دیگری نیست.
+
+#terms
+Prefill = پیش‌پر کردن پاسخ = نوشتن شروع جواب دستیار در درخواست تا مدل از همان‌جا ادامه دهد؛ روی مدل‌های جدید پشتیبانی نمی‌شود.
+Structured outputs = خروجی ساختاریافته = قابلیتی که خروجی را مطابق یک اسکیمای JSON تضمین می‌کند.
+Stop sequence = دنبالهٔ توقف = رشته‌ای که وقتی مدل تولیدش کند، تولید همان‌جا متوقف می‌شود.
+
+@lesson
+id: quiz-on-accessing-claude-with-the-api
+en: Quiz on accessing Claude with the API
+fa: آزمونک دسترسی به Claude با API
+kind: quiz
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Checks: why requests go through your server, what `max_tokens` and `stop_reason` mean, how multi-turn history works, what system prompts and temperature do, why streaming helps, and how to get clean structured data.
+~~
+می‌سنجد: چرا درخواست‌ها از سرور خودت رد می‌شوند، `max_tokens` و `stop_reason` یعنی چه، تاریخچهٔ چندنوبتی چطور کار می‌کند، پرامپت سیستمی و دما چه می‌کنند، استریم چرا کمک می‌کند و چطور دادهٔ ساختاریافتهٔ تمیز بگیری.
+
+#try
+Without looking: write the three required request fields, and explain in one sentence why `content[0].text` can fail on Opus 5.5.
+~~
+بدون نگاه کردن: سه فیلد لازم یک درخواست را بنویس و در یک جمله توضیح بده چرا `content[0].text` روی Opus 5.5 ممکن است خراب شود.
+
+@section Prompt evaluation | ارزیابی پرامپت
+
+@lesson
+id: prompt-evaluation
+en: Prompt evaluation
+fa: ارزیابی پرامپت
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+After writing a prompt, most people try it once or twice, it looks fine, and they ship it. Then real users send inputs nobody imagined. **Prompt evaluation (evals)** means testing a prompt **systematically**: many inputs, an objective score, and a way to compare version A against version B. **Prompt engineering** improves the prompt; **evaluation** tells you whether it actually improved.
+~~
+بیشتر آدم‌ها بعد از نوشتن یک پرامپت، یکی دو بار امتحانش می‌کنند، خوب به نظر می‌رسد و منتشرش می‌کنند. بعد کاربرهای واقعی ورودی‌هایی می‌فرستند که هیچ‌کس تصورش را نکرده بود. **ارزیابی پرامپت (eval)** یعنی آزمودن پرامپت **به‌شکل نظام‌مند**: ورودی‌های زیاد، یک نمرهٔ عینی و راهی برای مقایسهٔ نسخهٔ الف با نسخهٔ ب. **مهندسی پرامپت** پرامپت را بهتر می‌کند؛ **ارزیابی** به تو می‌گوید واقعاً بهتر شده یا نه.
+
+#analogy
+Trying a prompt twice is like **tasting one spoonful and declaring the whole pot perfect**. An eval tastes the soup with 50 spoons, from the top, the bottom, and the burnt corner.
+~~
+دو بار امتحان کردن یک پرامپت مثل این است که **یک قاشق بچشی و بگویی کل دیگ عالی است**. ارزیابی سوپ را با ۵۰ قاشق می‌چشد؛ از رو، از ته و از گوشهٔ سوخته.
+
+#tip
+Start small: **20 good test cases** beat zero. You can grow the set every time a real user finds a bug: each bug becomes a new test case, forever.
+~~
+کوچک شروع کن: **۲۰ مورد آزمون خوب** از صفر بهتر است. هر بار که یک کاربر واقعی باگی پیدا کرد، مجموعه را بزرگ‌تر کن: هر باگ برای همیشه یک مورد آزمون تازه می‌شود.
+
+@lesson
+id: a-typical-eval-workflow
+en: A typical eval workflow
+fa: یک گردش‌کار معمول ارزیابی
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+The loop has five steps:
+
+1. **Draft** a prompt.
+2. **Create a dataset** of test inputs (by hand or generated by Claude).
+3. **Run** the prompt on every input.
+4. **Grade** each output (with code, a model, or humans) and average the scores.
+5. **Change** the prompt, rerun, and compare scores. Keep the version that wins.
+~~
+این حلقه پنج قدم دارد:
+
+1. یک پرامپت **پیش‌نویس** کن.
+2. یک **مجموعه‌دادهٔ آزمون** از ورودی‌ها بساز (دستی یا با کمک Claude).
+3. پرامپت را روی همهٔ ورودی‌ها **اجرا کن**.
+4. هر خروجی را **نمره بده** (با کد، با یک مدل یا با آدم‌ها) و میانگین بگیر.
+5. پرامپت را **تغییر بده**، دوباره اجرا کن و نمره‌ها را مقایسه کن. نسخهٔ برنده را نگه دار.
+
+#example
+**Version 1:** "Answer the user's AWS question." → average 6.2/10. **Version 2** adds "Answer with exactly one of: Python code, JSON or a regex, and nothing else" → 7.9/10. Without the eval you'd only have a feeling; now you have a number.
+~~
+**نسخهٔ ۱:** «به سؤال AWS کاربر جواب بده.» ← میانگین ۶٫۲ از ۱۰. **نسخهٔ ۲** اضافه می‌کند «دقیقاً با یکی از این‌ها جواب بده: کد پایتون، JSON یا یک regex، و هیچ چیز دیگر» ← ۷٫۹ از ۱۰. بدون ارزیابی فقط یک حس داشتی؛ حالا یک عدد داری.
+
+#analogy
+It's the **science fair method**: change one thing, measure, compare to the control.
+~~
+این همان **روش نمایشگاه علمی** است: یک چیز را عوض کن، اندازه بگیر، با گروه کنترل مقایسه کن.
+
+@lesson
+id: generating-test-datasets
+en: Generating test datasets
+fa: ساختن مجموعه‌دادهٔ آزمون
+url: https://academy.claude.com/courses/building-with-the-claude-api/generating-test-datasets
+
+#explain
+Writing 50 test cases by hand is slow, so ask a **fast, cheap model** to generate them. Describe the task, ask for variety (easy, tricky, edge cases), and get the cases as JSON. With structured outputs, the dataset arrives already valid.
+~~
+نوشتن دستی ۵۰ مورد آزمون کند است؛ پس از یک **مدل سریع و ارزان** بخواه بسازدشان. کار را توصیف کن، تنوع بخواه (آسان، فریبنده، موارد مرزی) و موردها را به شکل JSON بگیر. با خروجی ساختاریافته، مجموعه‌داده از همان اول معتبر می‌رسد.
+
+#code python generate_dataset.py
+import json
+from pydantic import BaseModel
+
+class TestCase(BaseModel):
+    task: str            # e.g. "Write a regex that matches AWS S3 bucket ARNs"
+    expected_format: str # "python" | "json" | "regex"
+
+class Dataset(BaseModel):
+    cases: list[TestCase]
+
+r = client.messages.parse(
+    model="claude-haiku-5-5",
+    max_tokens=4000,
+    messages=[{"role": "user", "content":
+        "Generate 10 varied tasks a developer might ask about AWS that can be "
+        "answered with a single Python function, a JSON object, or a regex. "
+        "Include 2 tricky edge cases."}],
+    output_format=Dataset,
+)
+with open("dataset.json", "w") as f:
+    json.dump([c.model_dump() for c in r.parsed_output.cases], f, indent=2)
+#end
+
+#warn
+Generated datasets inherit the model's blind spots. Read through them, delete duplicates, and **add a few real user inputs** by hand.
+~~
+مجموعه‌داده‌های ساخته‌شده نقطه‌کورهای خود مدل را به ارث می‌برند. بخوانشان، تکراری‌ها را پاک کن و **چند ورودی واقعی کاربر** را دستی اضافه کن.
+
+@lesson
+id: running-the-eval
+en: Running the eval
+fa: اجرای ارزیابی
+url: https://academy.claude.com/courses/building-with-the-claude-api/running-the-eval
+
+#explain
+The runner is a simple loop: for each test case, merge the case into your prompt template, call Claude, grade the output, and store `{case, output, score}`. At the end, print the **average score**. Keep the code boring and the results saved to a file, so you can compare runs later.
+~~
+اجراکننده یک حلقهٔ ساده است: برای هر مورد آزمون، مورد را داخل قالب پرامپتت بگذار، Claude را صدا بزن، خروجی را نمره بده و `{case, output, score}` را ذخیره کن. در پایان **میانگین نمره** را چاپ کن. کد را ساده و حوصله‌سربر نگه دار و نتیجه‌ها را در یک فایل ذخیره کن تا بعداً اجراها را مقایسه کنی.
+
+#code python run_eval.py
+import json, statistics
+
+PROMPT = """Please solve the following task:
+<task>{task}</task>
+Respond only with Python, JSON or a plain regex. No explanation."""
+
+def run_prompt(case):
+    r = client.messages.create(
+        model="claude-opus-5-5", max_tokens=1000,
+        messages=[{"role": "user", "content": PROMPT.format(task=case["task"])}],
+    )
+    return "".join(b.text for b in r.content if b.type == "text")
+
+def run_eval(dataset, grade):
+    results = []
+    for case in dataset:
+        output = run_prompt(case)
+        results.append({"case": case, "output": output, "score": grade(case, output)})
+    print("average:", statistics.mean(r["score"] for r in results))
+    return results
+
+dataset = json.load(open("dataset.json"))
+#end
+
+#tip
+Run the cases **in parallel** (threads or async) once the loop works; 50 sequential calls are slow. And for big nightly evals, the **Message Batches API** costs about half price.
+~~
+وقتی حلقه درست کار کرد، موردها را **موازی** اجرا کن (با threadها یا async)؛ ۵۰ فراخوانی پشت سر هم کند است. برای ارزیابی‌های بزرگ شبانه هم **Message Batches API** تقریباً نصف قیمت درمی‌آید.
+
+@lesson
+id: model-based-grading
+en: Model-based grading
+fa: نمره‌دهی با مدل
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Some qualities (helpfulness, correctness of reasoning, tone) are hard to check with code, so a **grader model** scores them. A good grader prompt asks for **strengths, weaknesses and reasoning first, then a score** (1-10), because a score written before reasoning tends to be arbitrary. Structured outputs keep the grade machine-readable.
+~~
+بعضی کیفیت‌ها (مفید بودن، درستی استدلال، لحن) با کد سخت سنجیده می‌شوند؛ پس یک **مدل نمره‌دهنده** نمره‌شان می‌دهد. یک پرامپت نمره‌دهی خوب **اول نقطه‌های قوت، نقطه‌های ضعف و استدلال را می‌خواهد، بعد نمره** (۱ تا ۱۰)؛ چون نمره‌ای که قبل از استدلال نوشته شود معمولاً دلبخواهی است. خروجی ساختاریافته نمره را برای ماشین قابل‌خواندن نگه می‌دارد.
+
+#code python grader.py
+from pydantic import BaseModel
+
+class Grade(BaseModel):
+    strengths: list[str]
+    weaknesses: list[str]
+    reasoning: str
+    score: int          # 1-10
+
+def grade_by_model(case, output):
+    r = client.messages.parse(
+        model="claude-opus-5-5",
+        max_tokens=2000,
+        messages=[{"role": "user", "content": f"""You are an expert AWS code reviewer.
+Evaluate this AI-generated solution.
+<task>{case['task']}</task>
+<solution>{output}</solution>
+List strengths and weaknesses, explain your reasoning, then give a score
+from 1 (useless) to 10 (production-ready)."""}],
+        output_format=Grade,
+    )
+    return r.parsed_output.score
+#end
+
+#warn
+Graders can be biased (for example, toward longer answers). Spot-check a sample of grades by hand, and give the grader a **rubric** with concrete criteria.
+~~
+نمره‌دهنده‌ها ممکن است سوگیری داشته باشند (مثلاً به نفع جواب‌های طولانی‌تر). نمونه‌ای از نمره‌ها را دستی چک کن و به نمره‌دهنده یک **روبریک** با معیارهای مشخص بده.
+
+#analogy
+A model grader is a **teaching assistant with a rubric**: fast and consistent, but the professor still checks some papers.
+~~
+نمره‌دهندهٔ مدلی مثل **دستیار آموزشی با روبریک** است: سریع و یکنواخت، ولی استاد هنوز چند برگه را خودش چک می‌کند.
+
+@lesson
+id: code-based-grading
+en: Code-based grading
+fa: نمره‌دهی با کد
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Whatever *can* be checked by code *should* be: it's free, fast and perfectly consistent. Typical checks: is the JSON valid (`json.loads`)? Does the Python parse (`ast.parse`)? Does the regex compile (`re.compile`)? Is the answer under 100 words? Combine a code score with the model score for a fuller picture.
+~~
+هر چیزی که *می‌شود* با کد چک کرد، *باید* با کد چک شود: رایگان، سریع و کاملاً یکنواخت است. چک‌های معمول: JSON معتبر است (`json.loads`)؟ کد پایتون تجزیه می‌شود (`ast.parse`)؟ regex کامپایل می‌شود (`re.compile`)؟ جواب زیر ۱۰۰ کلمه است؟ برای تصویر کامل‌تر، نمرهٔ کد را با نمرهٔ مدل ترکیب کن.
+
+#code python Syntax checks as a score
+import ast, json, re
+
+def validate(output, fmt):
+    try:
+        if fmt == "json":
+            json.loads(output)
+        elif fmt == "python":
+            ast.parse(output)
+        elif fmt == "regex":
+            re.compile(output)
+        return 10
+    except Exception:
+        return 0
+
+def grade(case, output):
+    syntax = validate(output.strip(), case["expected_format"])
+    quality = grade_by_model(case, output)
+    return (syntax + quality) / 2
+#end
+
+#tip
+Code graders catch **regressions** instantly: if a prompt change makes 3 of 50 outputs invalid JSON, you'll know before your users do.
+~~
+نمره‌دهنده‌های کدی **پسرفت‌ها** را فوراً می‌گیرند: اگر یک تغییر پرامپت باعث شود ۳ خروجی از ۵۰ خروجی JSON نامعتبر شوند، قبل از کاربرهایت خبردار می‌شوی.
+
+@lesson
+id: quiz-on-prompt-evaluation
+en: Quiz on prompt evaluation
+fa: آزمونک ارزیابی پرامپت
+kind: quiz
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Checks the eval loop, dataset generation, model-based vs code-based grading, and why reasoning should come before the score.
+~~
+حلقهٔ ارزیابی، ساختن مجموعه‌داده، نمره‌دهی با مدل در برابر نمره‌دهی با کد و این‌که چرا استدلال باید قبل از نمره بیاید را می‌سنجد.
+
+#try
+Pick one prompt you use at work. Write 10 test inputs (3 of them nasty), run them, and score each 1-10 by hand. That's your first eval.
+~~
+یک پرامپت را که سر کار استفاده می‌کنی انتخاب کن. ۱۰ ورودی آزمون بنویس (۳ تایشان بدقلق)، اجرایشان کن و هر کدام را دستی از ۱ تا ۱۰ نمره بده. این اولین ارزیابی توست.

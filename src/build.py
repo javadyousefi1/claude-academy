@@ -3,7 +3,8 @@
 
 Usage:  python3 src/build.py
 
-Content format (one file per page):
+Content format (one file per page; a long page may be split into
+"name.part1.txt", "name.part2.txt", ... which are joined in order):
 
   @page                      page metadata as "key: value" lines
   @intro                     bilingual text (English, a line with ~~, then Persian)
@@ -16,7 +17,8 @@ Content format (one file per page):
   @cheatsheet                bilingual bullet lists
   @quiz                      lines "Q: en || fa" and "A: en || fa"
 
-Inline markup inside text: **bold**, ==highlight==, `code`, [label](https://url)
+Inline markup inside text: **bold**, ==highlight==, `code`, [label](https://url),
+and links inside the handout: [label](page:slug) or [label](page:slug#lesson-id)
 Lines starting with "- " form bullet lists, "1. " numbered lists, "> " a side quote.
 """
 from __future__ import annotations
@@ -91,6 +93,19 @@ INLINE_CODE = re.compile(r"`([^`]+)`")
 LINK = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+)\)")
 BOLD = re.compile(r"\*\*(.+?)\*\*")
 MARK = re.compile(r"==(.+?)==")
+INTERNAL = re.compile(r"\[([^\]]+)\]\(page:([a-z0-9-]+)(?:#([a-z0-9-]+))?\)")
+PAGE_PATHS: dict[str, str] = {}      # slug -> output path, filled in main() before rendering
+ITEM_IDS: dict[str, set[str]] = {}   # slug -> lesson ids, to validate page:slug#id links
+
+
+def internal_link(m: re.Match) -> str:
+    label, slug, item = m.group(1), m.group(2), m.group(3)
+    if slug not in PAGE_PATHS:
+        raise BuildError(f"link to unknown page '{slug}'")
+    if item and item not in ITEM_IDS[slug]:
+        raise BuildError(f"link to unknown lesson '{slug}#{item}'")
+    href = "../" + PAGE_PATHS[slug] + (f"#{slug}--{item}" if item else "")
+    return f'<a class="xref" href="{html.escape(href)}">{label}</a>'
 
 
 def inline(text: str) -> str:
@@ -103,6 +118,7 @@ def inline(text: str) -> str:
     text = INLINE_CODE.sub(keep_code, text)
     text = html.escape(text, quote=False)
     text = LINK.sub(lambda m: f'<a href="{html.escape(m.group(2))}" target="_blank" rel="noopener">{m.group(1)}</a>', text)
+    text = INTERNAL.sub(internal_link, text)
     text = BOLD.sub(r"<strong>\1</strong>", text)
     text = MARK.sub(r"<mark>\1</mark>", text)
     text = re.sub(r"\u0000(\d+)\u0000",
@@ -229,8 +245,24 @@ def parse_meta_lines(lines: list[str], where: str) -> dict:
     return meta
 
 
-def parse_file(path: Path) -> Page:
-    lines = path.read_text(encoding="utf-8").split("\n")
+PART = re.compile(r"^(?P<base>.+?)\.part(?P<n>\d+)\.txt$")
+
+
+def gather_sources(files: list[Path]) -> list[tuple[Path, str]]:
+    """Join "name.part1.txt", "name.part2.txt", ... into one page source (long courses)."""
+    groups: dict[str, list[tuple[int, Path]]] = {}
+    for f in files:
+        m = PART.match(f.name)
+        base, n = (m.group("base") + ".txt", int(m.group("n"))) if m else (f.name, 0)
+        groups.setdefault(base, []).append((n, f))
+    return [(CONTENT / base, "\n".join(f.read_text(encoding="utf-8") for _, f in sorted(parts)))
+            for base, parts in groups.items()]
+
+
+def parse_file(path: Path, text: str | None = None) -> Page:
+    if text is None:
+        text = path.read_text(encoding="utf-8")
+    lines = text.split("\n")
     page: Page | None = None
     cur_top = None          # 'page' | 'intro' | 'lesson' | 'cheatsheet' | 'quiz' | 'section'
     cur_item: Item | None = None
@@ -677,7 +709,7 @@ def main() -> int:
         print("no content files", file=sys.stderr)
         return 1
     try:
-        pages = [parse_file(f) for f in files]
+        pages = [parse_file(path, text) for path, text in gather_sources(files)]
     except BuildError as e:
         print(f"BUILD ERROR: {e}", file=sys.stderr)
         return 1
@@ -687,6 +719,8 @@ def main() -> int:
     if dupes:
         print(f"BUILD ERROR: duplicate page slugs {dupes}", file=sys.stderr)
         return 1
+    PAGE_PATHS.update({p.slug: p.out_rel for p in pages})
+    ITEM_IDS.update({p.slug: {it.meta["id"] for it in p.items} for p in pages})
     terms = collect_terms(pages)
     try:
         for p in pages:

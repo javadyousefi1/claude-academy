@@ -1,0 +1,647 @@
+@section Model Context Protocol | پروتکل زمینهٔ مدل (MCP)
+
+@lesson
+id: introducing-mcp
+en: Introducing MCP
+fa: آشنایی با MCP
+url: https://academy.claude.com/courses/building-with-the-claude-api/introducing-mcp
+
+#explain
+In the tool-use section you wrote every tool yourself. Imagine integrating GitHub: dozens of tools (issues, pull requests, repos...), each needing a schema and a function. **MCP (Model Context Protocol)** moves that work into an **MCP server** that someone writes once and everyone reuses. Your app becomes an **MCP client** that asks the server "what tools do you have?" and calls them. MCP servers offer three things: **tools**, **resources** (read-only data) and **prompts** (ready-made instructions).
+
+This section mirrors the separate course; for full step-by-step code, see [Introduction to MCP in this handout](page:introduction-to-model-context-protocol).
+~~
+در بخش استفاده از ابزار، همهٔ ابزارها را خودت نوشتی. حالا تصور کن می‌خواهی GitHub را وصل کنی: ده‌ها ابزار (issueها، pull requestها، مخزن‌ها...)، که هر کدام اسکیما و تابع لازم دارد. **MCP (پروتکل زمینهٔ مدل)** این کار را به یک **سرور MCP** منتقل می‌کند که یک نفر یک بار می‌نویسد و همه دوباره استفاده‌اش می‌کنند. اپ تو یک **کلاینت MCP** می‌شود که از سرور می‌پرسد «چه ابزارهایی داری؟» و صدایشان می‌زند. سرورهای MCP سه چیز ارائه می‌دهند: **ابزارها**، **منابع** (دادهٔ فقط‌خواندنی) و **پرامپت‌ها** (دستورهای آماده).
+
+این بخش با دورهٔ جداگانه‌اش یکی است؛ برای کد کامل قدم به قدم، [دورهٔ آشنایی با MCP در همین جزوه](page:introduction-to-model-context-protocol) را ببین.
+
+#analogy
+MCP is the **USB port for AI**: instead of a custom cable for every device, one standard plug works with any device that supports it.
+~~
+MCP **درگاه USB هوش مصنوعی** است: به جای یک کابل اختصاصی برای هر دستگاه، یک دوشاخهٔ استاندارد با هر دستگاهی که پشتیبانی‌اش کند کار می‌کند.
+
+#terms
+MCP server = سرور MCP = برنامه‌ای که ابزارها، منابع و پرامپت‌ها را با پروتکل استاندارد MCP در اختیار کلاینت‌ها می‌گذارد.
+MCP client = کلاینت MCP = بخشی از اپ تو که به سرور MCP وصل می‌شود و قابلیت‌هایش را صدا می‌زند.
+
+@lesson
+id: mcp-clients
+en: MCP clients
+fa: کلاینت‌های MCP
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+The **client** sits inside your app and talks to the server over a **transport**: standard input/output (`stdio`) for a server running on the same machine, or HTTP for remote servers. The flow for one question: your app asks the server for its tool list → sends the question + tools to Claude → Claude returns `tool_use` → the client asks the server to run that tool → the result goes back to Claude → final answer.
+~~
+**کلاینت** داخل اپ تو می‌نشیند و از طریق یک **ترابری (transport)** با سرور حرف می‌زند: ورودی/خروجی استاندارد (`stdio`) برای سروری که روی همان دستگاه اجرا می‌شود، یا HTTP برای سرورهای دور. جریان یک سؤال: اپ از سرور فهرست ابزارهایش را می‌گیرد ← سؤال و ابزارها را برای Claude می‌فرستد ← Claude یک `tool_use` برمی‌گرداند ← کلاینت از سرور می‌خواهد آن ابزار را اجرا کند ← نتیجه به Claude برمی‌گردد ← جواب نهایی.
+
+#tip
+Your app still runs the **Claude** side of the conversation. MCP only standardizes how tools are **discovered and executed**; the tool-use loop you learned stays the same.
+~~
+سمت **Claude**ِ گفت‌وگو را هنوز اپ تو اجرا می‌کند. MCP فقط استاندارد می‌کند که ابزارها چطور **کشف و اجرا** شوند؛ حلقهٔ استفاده از ابزار که یاد گرفتی همان می‌ماند.
+
+@lesson
+id: project-setup
+en: Project setup
+fa: راه‌اندازی پروژه
+url: https://academy.claude.com/courses/building-with-the-claude-api/project-setup
+
+#explain
+The course project is a small **command-line chat app** over a set of in-memory "documents". It has two halves you'll fill in: an **MCP server** (`mcp_server.py`) that exposes document tools, resources and prompts, and an **MCP client** (`mcp_client.py`) that connects to it. The Python MCP SDK (`mcp` package) provides the building blocks.
+~~
+پروژهٔ دوره یک **اپ گفت‌وگوی خط فرمان** کوچک روی مجموعه‌ای از «سندهای» داخل حافظه است. دو نیمه دارد که پرشان می‌کنی: یک **سرور MCP** (`mcp_server.py`) که ابزارها، منابع و پرامپت‌های سند را ارائه می‌دهد، و یک **کلاینت MCP** (`mcp_client.py`) که به آن وصل می‌شود. SDK پایتونِ MCP (بستهٔ `mcp`) قطعه‌های اصلی را فراهم می‌کند.
+
+#code bash Starter setup
+pip install anthropic "mcp[cli]"
+export ANTHROPIC_API_KEY="sk-ant-..."
+python main.py          # starts the chat; the client launches the server over stdio
+#end
+
+#analogy
+It's a **two-person walkie-talkie project**: you build both handsets, then check they can hear each other.
+~~
+مثل **پروژهٔ بی‌سیم دونفره** است: هر دو دستگاه را خودت می‌سازی، بعد چک می‌کنی صدای همدیگر را می‌شنوند.
+
+@lesson
+id: defining-tools-with-mcp
+en: Defining tools with MCP
+fa: تعریف ابزار با MCP
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+With the Python SDK's **FastMCP**, a tool is just a decorated function. Type hints and `Field` descriptions become the JSON schema automatically, so there's no hand-written schema like in the tool-use section.
+~~
+با **FastMCP** در SDK پایتون، یک ابزار فقط یک تابع با دکوراتور است. نوع‌ها و توضیح‌های `Field` خودکار به اسکیمای JSON تبدیل می‌شوند؛ پس دیگر خبری از اسکیمای دست‌نویس مثل بخش استفاده از ابزار نیست.
+
+#code python mcp_server.py
+from mcp.server.fastmcp import FastMCP
+from pydantic import Field
+
+mcp = FastMCP("DocumentMCP")
+docs = {"plan.md": "Launch on May 1. Budget: $20k.", "report.pdf": "Q3 revenue grew 12%."}
+
+@mcp.tool(name="read_doc_contents", description="Read the contents of a document and return it as a string.")
+def read_document(doc_id: str = Field(description="Id of the document to read")):
+    if doc_id not in docs:
+        raise ValueError(f"Doc with id {doc_id} not found")
+    return docs[doc_id]
+
+@mcp.tool(name="edit_document", description="Edit a document by replacing a string with a new string.")
+def edit_document(
+    doc_id: str = Field(description="Id of the document to edit"),
+    old_str: str = Field(description="Exact text to replace, including whitespace"),
+    new_str: str = Field(description="Replacement text"),
+):
+    if doc_id not in docs:
+        raise ValueError(f"Doc with id {doc_id} not found")
+    docs[doc_id] = docs[doc_id].replace(old_str, new_str)
+
+if __name__ == "__main__":
+    mcp.run(transport="stdio")
+#end
+
+#tip
+Compare with the hand-written `get_current_datetime_schema` earlier: same result, a quarter of the code. More in [Defining tools with MCP](page:introduction-to-model-context-protocol#defining-tools-with-mcp).
+~~
+با `get_current_datetime_schema` دست‌نویسِ قبلی مقایسه کن: همان نتیجه، با یک‌چهارم کد. بیشتر در [تعریف ابزار با MCP](page:introduction-to-model-context-protocol#defining-tools-with-mcp).
+
+@lesson
+id: the-server-inspector
+en: The server inspector
+fa: بازرس سرور
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Before writing a client, test your server with the **MCP Inspector**, a browser-based tester bundled with the Python SDK. Run it, open the local address it prints, connect, and use the **Tools**, **Resources** and **Prompts** tabs to call things by hand and see exactly what a client would receive.
+~~
+قبل از نوشتن کلاینت، سرورت را با **بازرس MCP (MCP Inspector)** امتحان کن؛ یک ابزار آزمایش مبتنی بر مرورگر که همراه SDK پایتون می‌آید. اجرایش کن، نشانی محلی‌ای را که چاپ می‌کند باز کن، وصل شو و با زبانه‌های **Tools**، **Resources** و **Prompts** چیزها را دستی صدا بزن و دقیقاً ببین یک کلاینت چه چیزی دریافت می‌کند.
+
+#code bash Open the inspector
+mcp dev mcp_server.py
+# then open the printed local URL (for example http://127.0.0.1:6274) and click Connect
+#end
+
+#analogy
+The inspector is a **test bench for an engine**: you start the engine and check every gauge before putting it in a car.
+~~
+بازرس مثل **میز آزمایش موتور** است: موتور را روشن می‌کنی و همهٔ عقربه‌ها را چک می‌کنی، قبل از این‌که داخل ماشین بگذاری‌اش.
+
+@lesson
+id: implementing-a-client
+en: Implementing a client
+fa: پیاده‌سازی کلاینت
+url: https://academy.claude.com/courses/building-with-the-claude-api/implementing-a-client
+
+#explain
+The client opens a session to the server and exposes simple methods your app uses: `list_tools()` (to pass to Claude as `tools`) and `call_tool(name, input)` (when Claude returns `tool_use`). The SDK's `ClientSession` does the protocol work; you wrap it.
+~~
+کلاینت یک نشست با سرور باز می‌کند و متدهای ساده‌ای در اختیار اپ می‌گذارد: `list_tools()` (برای دادن به Claude به‌عنوان `tools`) و `call_tool(name, input)` (وقتی Claude یک `tool_use` برمی‌گرداند). `ClientSession` در SDK کار پروتکل را انجام می‌دهد؛ تو فقط دورش را می‌پیچی.
+
+#code python mcp_client.py (core)
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+async def run():
+    params = StdioServerParameters(command="python", args=["mcp_server.py"])
+    async with stdio_client(params) as (read, write):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
+            tools = (await session.list_tools()).tools
+            claude_tools = [{"name": t.name, "description": t.description,
+                             "input_schema": t.inputSchema} for t in tools]
+            result = await session.call_tool("read_doc_contents", {"doc_id": "plan.md"})
+            print(result.content[0].text)
+#end
+
+#tip
+**Cool tip:** the Anthropic Python SDK has MCP helpers (`pip install "anthropic[mcp]"`) that convert MCP tools straight into tool-runner tools, and the API's **MCP connector** can even connect Claude to a *remote* MCP server with no client code at all.
+~~
+**نکتهٔ خفن:** SDK پایتون Anthropic ابزارهای کمکی MCP دارد (`pip install "anthropic[mcp]"`) که ابزارهای MCP را مستقیم به ابزارهای tool runner تبدیل می‌کنند، و **MCP connector** خود API حتی می‌تواند Claude را بدون هیچ کد کلاینتی به یک سرور MCP *دور* وصل کند.
+
+@lesson
+id: defining-resources
+en: Defining resources
+fa: تعریف منابع
+url: https://academy.claude.com/courses/building-with-the-claude-api/defining-resources
+
+#explain
+**Resources** are read-only data the server exposes, like GET endpoints in a web API. A **direct** resource has a fixed URI (`docs://documents` → the list of document ids); a **templated** resource has parameters in the URI (`docs://documents/{doc_id}` → one document). Resources are typically used by the **app** (e.g., to fill an autocomplete or attach a document to the prompt), while tools are chosen by **Claude**.
+~~
+**منابع** داده‌های فقط‌خواندنی‌اند که سرور ارائه می‌دهد، مثل نقطه‌های GET در یک وب API. یک منبع **مستقیم** URI ثابت دارد (`docs://documents` ← فهرست شناسهٔ سندها)؛ یک منبع **الگودار** در URI پارامتر دارد (`docs://documents/{doc_id}` ← یک سند). منابع معمولاً به دست **اپ** استفاده می‌شوند (مثلاً برای پر کردن تکمیل خودکار یا پیوست کردن یک سند به پرامپت)، در حالی که ابزارها را **Claude** انتخاب می‌کند.
+
+#code python Resources in mcp_server.py
+@mcp.resource("docs://documents", mime_type="application/json")
+def list_docs() -> list[str]:
+    return list(docs.keys())
+
+@mcp.resource("docs://documents/{doc_id}", mime_type="text/plain")
+def fetch_doc(doc_id: str) -> str:
+    if doc_id not in docs:
+        raise ValueError(f"Doc with id {doc_id} not found")
+    return docs[doc_id]
+#end
+
+#analogy
+Tools are **buttons Claude can press**; resources are **files on a shelf your app can grab** and hand over.
+~~
+ابزارها **دکمه‌هایی‌اند که Claude می‌تواند فشار دهد**؛ منابع **پرونده‌هایی روی قفسه‌اند که اپ تو می‌تواند بردارد** و تحویل بدهد.
+
+@lesson
+id: accessing-resources
+en: Accessing resources
+fa: دسترسی به منابع
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+In the client, `read_resource(uri)` fetches a resource; check its MIME type to decide how to parse it (JSON → `json.loads`, text → use as is). In the course app, typing `@plan.md` in a message makes the app read that document resource and include it in the prompt, so Claude doesn't have to spend a tool call to fetch it.
+~~
+در کلاینت، `read_resource(uri)` یک منبع را می‌گیرد؛ نوع MIME آن را چک کن تا بفهمی چطور تجزیه‌اش کنی (JSON ← `json.loads`، متن ← همان‌طور استفاده کن). در اپ دوره، تایپ کردن `@plan.md` در یک پیام باعث می‌شود اپ منبع آن سند را بخواند و در پرامپت بگذارد؛ پس Claude لازم نیست برای گرفتنش یک فراخوانی ابزار خرج کند.
+
+#code python Reading a resource
+import json
+from pydantic import AnyUrl
+
+async def read_resource(session, uri):
+    result = await session.read_resource(AnyUrl(uri))
+    item = result.contents[0]
+    if item.mimeType == "application/json":
+        return json.loads(item.text)
+    return item.text
+#end
+
+#tip
+Mentions like `@file` are a great UX pattern: the **user** decides what context to include, which is faster and cheaper than letting the model search for it.
+~~
+اشاره‌هایی مثل `@file` یک الگوی تجربهٔ کاربری عالی‌اند: **کاربر** تصمیم می‌گیرد چه زمینه‌ای اضافه شود؛ که از گشتن خود مدل سریع‌تر و ارزان‌تر است.
+
+@lesson
+id: defining-prompts
+en: Defining prompts
+fa: تعریف پرامپت‌ها
+url: https://academy.claude.com/courses/building-with-the-claude-api/defining-prompts
+
+#explain
+**Prompts** are reusable, well-tested instruction templates that the server offers, so users don't have to write expert prompts themselves. Example: a `format` prompt that rewrites a document in clean Markdown. The server author (who knows the domain) writes it once; every client can use it, often as a slash command like `/format plan.md`.
+~~
+**پرامپت‌ها** قالب‌های دستوریِ قابل‌استفادهٔ دوباره و خوب‌آزموده‌اند که سرور ارائه می‌دهد تا کاربرها مجبور نباشند خودشان پرامپت حرفه‌ای بنویسند. مثال: پرامپت `format` که یک سند را به Markdown تمیز بازنویسی می‌کند. نویسندهٔ سرور (که حوزه را می‌شناسد) یک بار می‌نویسدش؛ هر کلاینتی می‌تواند استفاده‌اش کند، اغلب به شکل یک فرمان اسلش مثل `/format plan.md`.
+
+#code python A server prompt
+from mcp.server.fastmcp.prompts import base
+
+@mcp.prompt(name="format", description="Rewrites the contents of a document in Markdown format.")
+def format_document(doc_id: str = Field(description="Id of the document to format")) -> list[base.Message]:
+    return [base.UserMessage(f"""Reformat the document <document_id>{doc_id}</document_id>
+in clean Markdown: headings, lists and tables where useful. Use the edit_document
+tool to save the result. Do not change the meaning.""")]
+#end
+
+#analogy
+A server prompt is a **chef's signature recipe card**: customers just order "the special" and get the expert version every time.
+~~
+پرامپت سرور مثل **کارت دستور پخت مخصوص سرآشپز** است: مشتری فقط «غذای مخصوص» را سفارش می‌دهد و هر بار نسخهٔ حرفه‌ای را می‌گیرد.
+
+@lesson
+id: prompts-in-the-client
+en: Prompts in the client
+fa: پرامپت‌ها در کلاینت
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+The client lists prompts (`list_prompts()`), shows them to the user (for example as `/` commands), and when one is chosen calls `get_prompt(name, arguments)`. The result is a list of messages you add to the conversation and send to Claude.
+~~
+کلاینت پرامپت‌ها را فهرست می‌کند (`list_prompts()`)، آن‌ها را به کاربر نشان می‌دهد (مثلاً به شکل فرمان‌های `/`) و وقتی یکی انتخاب شد، `get_prompt(name, arguments)` را صدا می‌زند. نتیجه فهرستی از پیام‌هاست که به گفت‌وگو اضافه می‌کنی و برای Claude می‌فرستی.
+
+#code python Using a server prompt
+prompts = (await session.list_prompts()).prompts          # show as /commands
+result = await session.get_prompt("format", {"doc_id": "plan.md"})
+messages = [{"role": m.role, "content": m.content.text} for m in result.messages]
+# now run the usual tool-use loop with these messages
+#end
+
+@lesson
+id: mcp-review
+en: MCP review
+fa: مرور MCP
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Who controls what? This is the key summary of MCP:
+
+- **Tools** are **model-controlled**: Claude decides when to call them.
+- **Resources** are **app-controlled**: your code decides when to fetch and include them.
+- **Prompts** are **user-controlled**: the user picks them (often as slash commands).
+
+When designing a server, ask "who should trigger this?" and you'll know which primitive to use.
+~~
+چه کسی چه چیزی را کنترل می‌کند؟ این خلاصهٔ کلیدی MCP است:
+
+- **ابزارها** **در کنترل مدل‌اند**: Claude تصمیم می‌گیرد کی صدایشان بزند.
+- **منابع** **در کنترل اپ‌اند**: کد تو تصمیم می‌گیرد کی بگیردشان و اضافه‌شان کند.
+- **پرامپت‌ها** **در کنترل کاربرند**: کاربر انتخابشان می‌کند (اغلب به شکل فرمان اسلش).
+
+موقع طراحی یک سرور بپرس «چه کسی باید این را راه بیندازد؟» تا بفهمی از کدام قطعه استفاده کنی.
+
+#analogy
+In a restaurant: the **chef** (Claude) decides which kitchen tools to use, the **manager** (your app) decides what's on the table, and the **customer** (user) picks from the menu.
+~~
+در یک رستوران: **سرآشپز** (Claude) تصمیم می‌گیرد از کدام وسایل آشپزخانه استفاده کند، **مدیر** (اپ تو) تصمیم می‌گیرد چه چیزی روی میز باشد و **مشتری** (کاربر) از منو انتخاب می‌کند.
+
+#try
+For an app you'd like to build, list one tool, one resource and one prompt an MCP server could offer, and say who triggers each.
+~~
+برای اپی که دوست داری بسازی، یک ابزار، یک منبع و یک پرامپت که یک سرور MCP می‌تواند ارائه دهد فهرست کن و بگو هر کدام را چه کسی راه می‌اندازد.
+
+@section Anthropic apps | اپ‌های Anthropic
+
+@lesson
+id: anthropic-apps
+en: Anthropic apps
+fa: اپ‌های Anthropic
+url: https://academy.claude.com/courses/building-with-the-claude-api/anthropic-apps
+
+#explain
+After building pieces yourself, see how Anthropic packages them into ready **agents**: **Claude Code**, a coding agent in your terminal and IDE, and **computer use**, a set of tools that lets Claude operate a desktop by looking at screenshots and sending mouse and keyboard actions. Both are the same ideas you've learned (tools, loops, context) assembled into products, and both point to the agents section at the end of this course.
+~~
+بعد از ساختن قطعه‌ها به دست خودت، ببین Anthropic چطور آن‌ها را در **ایجنت‌های** آماده بسته‌بندی کرده: **Claude Code**، یک ایجنت برنامه‌نویسی در ترمینال و محیط توسعه‌ات، و **استفاده از کامپیوتر (computer use)**، مجموعه‌ای از ابزارها که به Claude اجازه می‌دهد با نگاه کردن به اسکرین‌شات‌ها و فرستادن کارهای ماوس و صفحه‌کلید، یک دسکتاپ را بچرخاند. هر دو همان ایده‌هایی‌اند که یاد گرفتی (ابزار، حلقه، زمینه) که در قالب محصول سرهم شده‌اند، و هر دو به بخش ایجنت‌ها در آخر همین دوره اشاره می‌کنند.
+
+#tip
+Computer use on the newest models (Opus 5.5, Sonnet 5.5, Haiku 5.5) uses a newer **computer toolset** declaration; check the computer-use docs before reusing older examples.
+~~
+استفاده از کامپیوتر روی جدیدترین مدل‌ها (Opus 5.5، Sonnet 5.5، Haiku 5.5) از یک اعلان تازه‌تر به اسم **computer toolset** استفاده می‌کند؛ قبل از استفادهٔ دوباره از مثال‌های قدیمی‌تر، مستندات computer use را چک کن.
+
+#analogy
+You've been building a **bicycle from parts**; now you get to ride two **factory-made motorcycles** and see how the parts fit together at scale.
+~~
+تا حالا **دوچرخه را از قطعه‌ها** می‌ساختی؛ حالا سوار دو **موتورسیکلت کارخانه‌ای** می‌شوی و می‌بینی قطعه‌ها در مقیاس بزرگ چطور کنار هم قرار می‌گیرند.
+
+@lesson
+id: claude-code-setup
+en: Claude Code setup
+fa: راه‌اندازی Claude Code
+url: https://academy.claude.com/courses/building-with-the-claude-api/claude-code-setup
+
+#explain
+Claude Code is a terminal-based coding assistant: it can read and edit files, run commands, search the web and use MCP servers. It runs on macOS, Linux and Windows. Install it, open your project folder, type `claude`, and run `/init` once so it writes a **CLAUDE.md** describing your project for future sessions.
+~~
+Claude Code یک دستیار برنامه‌نویسی مبتنی بر ترمینال است: می‌تواند فایل‌ها را بخواند و ویرایش کند، فرمان اجرا کند، در وب بگردد و از سرورهای MCP استفاده کند. روی macOS، لینوکس و ویندوز اجرا می‌شود. نصبش کن، پوشهٔ پروژه‌ات را باز کن، `claude` را تایپ کن و یک بار `/init` را اجرا کن تا یک **CLAUDE.md** بنویسد که پروژه‌ات را برای جلسه‌های بعدی توصیف می‌کند.
+
+#code bash Install and start
+curl -fsSL https://claude.ai/install.sh | bash   # or: npm install -g @anthropic-ai/claude-code
+cd my-project
+claude
+> /init
+#end
+
+#tip
+Full walkthroughs: [Claude Code 101](page:claude-code-101#installing-claude-code) and [Claude Code in Action](page:claude-code-in-action) in this handout.
+~~
+راهنمای کامل: [Claude Code 101](page:claude-code-101#installing-claude-code) و [Claude Code در عمل](page:claude-code-in-action) در همین جزوه.
+
+@lesson
+id: claude-code-in-action
+en: Claude Code in action
+fa: Claude Code در عمل
+url: https://academy.claude.com/courses/building-with-the-claude-api/claude-code-in-action
+
+#explain
+The course demo builds a feature with Claude Code the professional way: **explore** (read the relevant files), **plan** (agree on an approach before coding), **code**, and **commit**, with tests as the feedback loop. Giving Claude a way to check its own work (run tests, open the app, compare a screenshot) is the single biggest quality boost.
+~~
+دموی دوره یک قابلیت را با Claude Code به روش حرفه‌ای می‌سازد: **کشف** (خواندن فایل‌های مرتبط)، **برنامه‌ریزی** (توافق روی روش قبل از کدنویسی)، **کدنویسی** و **کامیت**، با تست‌ها به‌عنوان حلقهٔ بازخورد. دادن راهی به Claude برای چک کردن کار خودش (اجرای تست، باز کردن اپ، مقایسهٔ اسکرین‌شات) بزرگ‌ترین جهش کیفیت را می‌سازد.
+
+#prompt
+Read the files involved in user signup and explain the current flow. Don't write code yet. Then propose a plan to add email verification, including the tests you'd add first.
+~~
+فایل‌هایی را که در ثبت‌نام کاربر نقش دارند بخوان و جریان فعلی را توضیح بده. هنوز کد ننویس. بعد برای اضافه کردن تأیید ایمیل یک برنامه پیشنهاد بده، همراه با تست‌هایی که اول اضافه می‌کنی.
+
+#analogy
+Explore-plan-code-commit is **measure twice, cut once**, the carpenter's rule, applied to code.
+~~
+کشف-برنامه-کد-کامیت همان **دو بار اندازه بگیر، یک بار ببر** است؛ قانون نجارها، روی کد.
+
+@lesson
+id: enhancements-with-mcp-servers
+en: Enhancements with MCP servers
+fa: تقویت با سرورهای MCP
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Claude Code is an **MCP client**, so every MCP server you add gives it new abilities: a browser it can drive (to test your web app), your issue tracker, your database, your docs. This is where everything in the course connects: the MCP server you wrote earlier can plug straight into Claude Code.
+~~
+Claude Code یک **کلاینت MCP** است؛ پس هر سرور MCP که اضافه کنی توانایی‌های تازه‌ای به آن می‌دهد: مرورگری که می‌تواند بچرخاند (برای آزمودن وب‌اپت)، سامانهٔ مدیریت کارهایت، پایگاه‌داده‌ات، مستنداتت. این‌جاست که همه‌چیزِ دوره به هم وصل می‌شود: سرور MCP که قبلاً نوشتی می‌تواند مستقیم به Claude Code وصل شود.
+
+#code bash Add MCP servers to Claude Code
+claude mcp add documents -- python mcp_server.py        # your own server from this course
+claude mcp add playwright -- npx @playwright/mcp@latest  # a browser Claude can control
+claude mcp list
+#end
+
+#tip
+With a browser MCP server, ask Claude Code to "open the page, take a screenshot, and fix any layout problems you see": it closes the loop by **looking at its own work**.
+~~
+با یک سرور MCP مرورگر، از Claude Code بخواه «صفحه را باز کن، اسکرین‌شات بگیر و هر مشکل چیدمانی که می‌بینی درست کن»: با **نگاه کردن به کار خودش** حلقه را می‌بندد.
+
+@section Agents and workflows | ایجنت‌ها و گردش‌کارها
+
+@lesson
+id: agents-and-workflows
+en: Agents and workflows
+fa: ایجنت‌ها و گردش‌کارها
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Two ways to build with LLMs:
+
+- **Workflows**: you know the steps in advance, so **your code** orchestrates a fixed sequence of Claude calls. Predictable and easy to test.
+- **Agents**: you give Claude tools and a goal, and **Claude decides** the steps in a loop. Flexible, for problems whose steps you can't predict.
+
+The next lessons cover the classic workflow patterns, then what makes agents work.
+~~
+دو راه برای ساختن با مدل‌های زبانی:
+
+- **گردش‌کارها (workflows)**: قدم‌ها را از قبل می‌دانی؛ پس **کد تو** یک دنبالهٔ ثابت از فراخوانی‌های Claude را هماهنگ می‌کند. قابل‌پیش‌بینی و آسان برای آزمودن.
+- **ایجنت‌ها (agents)**: به Claude ابزار و هدف می‌دهی و **Claude تصمیم می‌گیرد** قدم‌ها چه باشند، در یک حلقه. انعطاف‌پذیر، برای مسئله‌هایی که قدم‌هایشان را نمی‌توانی پیش‌بینی کنی.
+
+درس‌های بعدی الگوهای کلاسیک گردش‌کار را پوشش می‌دهند و بعد این‌که چه چیزی ایجنت‌ها را کارآمد می‌کند.
+
+#analogy
+A workflow is a **train on rails**: fast and reliable, but only goes where the tracks go. An agent is a **taxi driver**: can go anywhere, but you trust their judgment on the route.
+~~
+گردش‌کار مثل **قطار روی ریل** است: سریع و قابل‌اعتماد، ولی فقط جایی می‌رود که ریل هست. ایجنت مثل **راننده تاکسی** است: هر جایی می‌تواند برود، ولی باید به قضاوتش دربارهٔ مسیر اعتماد کنی.
+
+#terms
+Workflow = گردش‌کار = دنباله‌ای از فراخوانی‌های مدل که کد تو از قبل مسیرش را تعیین کرده.
+Agent = ایجنت (عامل) = سیستمی که در آن مدل با ابزارها و در یک حلقه، خودش قدم‌های رسیدن به هدف را انتخاب می‌کند.
+
+@lesson
+id: parallelization-workflows
+en: Parallelization workflows
+fa: گردش‌کارهای موازی
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Split a task into **independent subtasks**, run them **at the same time** (separate Claude calls), then **aggregate** the results in a final call. Each call gets a small, focused prompt, which is usually more accurate than one giant prompt doing everything.
+~~
+یک کار را به **زیرکارهای مستقل** تقسیم کن، **همزمان** اجرایشان کن (فراخوانی‌های جدای Claude) و بعد نتیجه‌ها را در یک فراخوانی نهایی **جمع‌بندی** کن. هر فراخوانی یک پرامپت کوچک و متمرکز می‌گیرد که معمولاً از یک پرامپت غول‌پیکر که همه‌کار می‌کند دقیق‌تر است.
+
+#example
+**Choosing a material for a bike frame:** four parallel calls each evaluate one option (aluminum, steel, carbon fiber, titanium) against weight, cost and durability; a fifth call compares the four reports and recommends one.
+~~
+**انتخاب جنس برای بدنهٔ دوچرخه:** چهار فراخوانی موازی، هر کدام یک گزینه را (آلومینیوم، فولاد، فیبر کربن، تیتانیوم) از نظر وزن، هزینه و دوام ارزیابی می‌کنند؛ فراخوانی پنجم چهار گزارش را مقایسه می‌کند و یکی را پیشنهاد می‌دهد.
+
+#code python Parallel calls with asyncio
+import asyncio, anthropic
+
+aclient = anthropic.AsyncAnthropic()
+
+async def evaluate(material):
+    r = await aclient.messages.create(
+        model="claude-opus-5-5", max_tokens=1500,
+        messages=[{"role": "user", "content":
+            f"Evaluate {material} for a commuter bike frame: weight, cost, durability. 5 bullets."}],
+    )
+    return material, "".join(b.text for b in r.content if b.type == "text")
+
+async def main():
+    reports = await asyncio.gather(*(evaluate(m) for m in ["aluminum", "steel", "carbon fiber", "titanium"]))
+    combined = "\n\n".join(f"<report material='{m}'>{t}</report>" for m, t in reports)
+    final = await aclient.messages.create(
+        model="claude-opus-5-5", max_tokens=1500,
+        messages=[{"role": "user", "content": f"{combined}\n\nRecommend one material and explain why."}],
+    )
+    print("".join(b.text for b in final.content if b.type == "text"))
+
+asyncio.run(main())
+#end
+
+#analogy
+It's a **group project done right**: everyone researches one country at the same time, then one person writes the summary.
+~~
+مثل **یک کار گروهی درست و حسابی** است: همه همزمان دربارهٔ یک کشور تحقیق می‌کنند، بعد یک نفر جمع‌بندی را می‌نویسد.
+
+@lesson
+id: chaining-workflows
+en: Chaining workflows
+fa: گردش‌کارهای زنجیره‌ای
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+**Chaining** breaks a big task into **sequential steps**, each a separate call whose output feeds the next. It shines when one prompt has too many requirements and Claude keeps missing some: do the main job first, then fix specific issues in focused follow-up calls. You can also put **code checks between steps** (e.g., "is the output under 280 characters?").
+~~
+**زنجیره کردن** یک کار بزرگ را به **قدم‌های پشت سر هم** تقسیم می‌کند؛ هر قدم یک فراخوانی جداست که خروجی‌اش ورودی قدم بعد می‌شود. وقتی می‌درخشد که یک پرامپت نیازمندی‌های خیلی زیادی دارد و Claude مدام چندتایشان را جا می‌اندازد: اول کار اصلی را انجام بده، بعد مشکل‌های مشخص را در فراخوانی‌های پیگیریِ متمرکز درست کن. می‌توانی **بین قدم‌ها چک‌های کدی** هم بگذاری (مثلاً «خروجی زیر ۲۸۰ کاراکتر است؟»).
+
+#example
+1) Research a topic → 2) write an article from the research → 3) **separate call:** "Rewrite this article: remove any mention of being an AI, avoid emojis, and replace jargon with plain words." Step 3 succeeds far more often than putting all those rules into step 2.
+~~
+۱) دربارهٔ یک موضوع تحقیق کن ← ۲) از روی تحقیق یک مقاله بنویس ← ۳) **فراخوانی جدا:** «این مقاله را بازنویسی کن: هر اشاره‌ای به هوش مصنوعی بودن را حذف کن، از ایموجی استفاده نکن و اصطلاحات فنی را با کلمه‌های ساده عوض کن.» قدم ۳ خیلی بیشتر از وقتی که همهٔ آن قانون‌ها را در قدم ۲ بگذاری موفق می‌شود.
+
+#analogy
+Chaining is an **assembly line**: one station welds, the next paints, the next inspects. No single worker has to remember everything.
+~~
+زنجیره کردن مثل **خط مونتاژ** است: یک ایستگاه جوش می‌دهد، بعدی رنگ می‌زند، بعدی بازرسی می‌کند. هیچ کارگری مجبور نیست همه‌چیز را یادش بماند.
+
+@lesson
+id: routing-workflows
+en: Routing workflows
+fa: گردش‌کارهای مسیریابی
+url: https://academy.claude.com/courses/building-with-the-claude-api/routing-workflows
+
+#explain
+**Routing** first **classifies** the input, then sends it to a **specialized** prompt or pipeline for that category. Example: a video-script app classifies a topic as *educational*, *entertainment* or *product review*, and each category has its own expert prompt with the right tone and structure. Use a fast model for the classification step.
+~~
+**مسیریابی** اول ورودی را **دسته‌بندی** می‌کند، بعد آن را به یک پرامپت یا خط لولهٔ **تخصصی** برای همان دسته می‌فرستد. مثال: یک اپ فیلم‌نامهٔ ویدئو موضوع را *آموزشی*، *سرگرمی* یا *نقد محصول* دسته‌بندی می‌کند و هر دسته پرامپت متخصص خودش را با لحن و ساختار مناسب دارد. برای قدم دسته‌بندی از یک مدل سریع استفاده کن.
+
+#code python Classify with structured outputs, then route
+from typing import Literal
+from pydantic import BaseModel
+
+class Route(BaseModel):
+    category: Literal["educational", "entertainment", "product_review"]
+
+def route(topic):
+    r = client.messages.parse(
+        model="claude-haiku-5-5", max_tokens=200,
+        messages=[{"role": "user", "content": f"Classify this video topic: {topic}"}],
+        output_format=Route,
+    )
+    return r.parsed_output.category
+
+PROMPTS = {
+    "educational": "Write a clear, step-by-step educational script about: {t}",
+    "entertainment": "Write a funny, fast-paced script with a twist about: {t}",
+    "product_review": "Write an honest review script with pros, cons and a verdict about: {t}",
+}
+category = route("How volcanoes form")
+script_prompt = PROMPTS[category].format(t="How volcanoes form")
+#end
+
+#analogy
+Routing is the **hospital triage desk**: a quick check decides whether you go to cardiology, orthopedics or the pharmacy.
+~~
+مسیریابی مثل **میز تریاژ بیمارستان** است: یک بررسی سریع تصمیم می‌گیرد به بخش قلب بروی، ارتوپدی یا داروخانه.
+
+@lesson
+id: agents-and-tools
+en: Agents and tools
+fa: ایجنت‌ها و ابزارها
+url: https://academy.claude.com/courses/building-with-the-claude-api/agents-and-tools
+
+#explain
+Agents are only as capable as their tools. The lesson's key insight: give agents **abstract, general-purpose tools** (read a file, write a file, run a command, search) rather than dozens of hyper-specific ones. Claude can **combine** simple tools in creative ways to solve problems you never planned for, which is exactly how Claude Code works with a handful of tools.
+~~
+ایجنت‌ها فقط به اندازهٔ ابزارهایشان توانا هستند. بینش کلیدی این درس: به ایجنت‌ها **ابزارهای انتزاعی و همه‌منظوره** بده (خواندن فایل، نوشتن فایل، اجرای فرمان، جست‌وجو)، نه ده‌ها ابزار بیش از حد خاص. Claude می‌تواند ابزارهای ساده را به شکل‌های خلاقانه **ترکیب کند** تا مسئله‌هایی را حل کند که هیچ‌وقت برایشان برنامه نریخته بودی؛ دقیقاً همان‌طور که Claude Code با چند ابزار انگشت‌شمار کار می‌کند.
+
+#example
+Instead of a `create_weekly_sales_chart` tool, give `run_python` and `read_file`. Now the same agent can make weekly charts, monthly charts, or a chart nobody thought of.
+~~
+به جای ابزار `create_weekly_sales_chart`، ابزارهای `run_python` و `read_file` را بده. حالا همان ایجنت می‌تواند نمودار هفتگی بسازد، نمودار ماهانه، یا نموداری که به فکر هیچ‌کس نرسیده بود.
+
+#analogy
+**LEGO bricks vs a finished toy**: the toy does one thing; the bricks build anything.
+~~
+**آجرهای لگو در برابر یک اسباب‌بازی آماده**: اسباب‌بازی یک کار می‌کند؛ آجرها هر چیزی می‌سازند.
+
+@lesson
+id: environment-inspection
+en: Environment inspection
+fa: وارسی محیط
+url: https://academy.claude.com/courses/building-with-the-claude-api/environment-inspection
+
+#explain
+An agent must **see the results of its actions**, or it's working blindfolded. Computer use returns a **screenshot after every action** so Claude knows what happened. Coding agents **read a file before editing it** and **run tests after**. When you design an agent, ask: after each action, how does the agent find out whether it worked?
+~~
+یک ایجنت باید **نتیجهٔ کارهایش را ببیند**، وگرنه با چشم‌بند کار می‌کند. استفاده از کامپیوتر **بعد از هر کار یک اسکرین‌شات** برمی‌گرداند تا Claude بفهمد چه اتفاقی افتاد. ایجنت‌های برنامه‌نویسی **قبل از ویرایش، فایل را می‌خوانند** و **بعدش تست اجرا می‌کنند**. وقتی ایجنتی طراحی می‌کنی بپرس: بعد از هر کار، ایجنت چطور می‌فهمد جواب داده یا نه؟
+
+#example
+A video-editing agent cuts a clip, then extracts **frames** at the cut points and checks them, and runs a **speech-to-text** pass to confirm no sentence was cut in half.
+~~
+یک ایجنت تدوین ویدئو یک کلیپ را می‌برد، بعد سر نقطه‌های برش چند **فریم** بیرون می‌کشد و چکشان می‌کند و یک دور **تبدیل گفتار به متن** اجرا می‌کند تا مطمئن شود هیچ جمله‌ای نصفه بریده نشده.
+
+#analogy
+Like **painting a wall in a dark room vs with the lights on**: same brush, very different result.
+~~
+مثل **رنگ زدن دیوار در اتاق تاریک در برابر اتاق روشن**: همان قلم‌مو، نتیجه‌ای کاملاً متفاوت.
+
+@lesson
+id: workflows-vs-agents
+en: Workflows vs agents
+fa: گردش‌کار در برابر ایجنت
+url: https://academy.claude.com/courses/building-with-the-claude-api/workflows-vs-agents
+
+#explain
+The course's advice: **prefer workflows when you can, use agents when you must.** Workflows are easier to test, cheaper, more predictable and complete tasks more reliably. Agents are more flexible and handle open-ended problems, but they're harder to evaluate and can wander. Users want products that **work**, not the most "agentic" design.
+~~
+توصیهٔ دوره: **هر جا می‌توانی گردش‌کار، هر جا مجبوری ایجنت.** گردش‌کارها آسان‌تر آزموده می‌شوند، ارزان‌ترند، قابل‌پیش‌بینی‌ترند و کارها را مطمئن‌تر تمام می‌کنند. ایجنت‌ها انعطاف‌پذیرترند و مسئله‌های باز را حل می‌کنند، ولی ارزیابی‌شان سخت‌تر است و ممکن است سرگردان شوند. کاربرها محصولی می‌خواهند که **کار کند**، نه «ایجنتی‌ترین» طراحی را.
+
+#tip
+**Cool tip:** if you need a hosted agent (long-running, with a sandbox, files and tools) without writing the loop yourself, look at **Claude Managed Agents** (beta), covered in [Claude Platform 101](page:claude-platform-101) in this handout.
+~~
+**نکتهٔ خفن:** اگر یک ایجنت میزبانی‌شده لازم داری (طولانی‌مدت، با محیط ایزوله، فایل و ابزار) بدون این‌که حلقه را خودت بنویسی، سراغ **Claude Managed Agents** (بتا) برو که در [Claude Platform 101](page:claude-platform-101) همین جزوه آمده.
+
+#analogy
+Don't hire a **detective** to deliver a pizza. Use a delivery route (workflow) for known jobs, and the detective (agent) for mysteries.
+~~
+برای رساندن پیتزا **کارآگاه** استخدام نکن. برای کارهای شناخته‌شده از مسیر پیک (گردش‌کار) استفاده کن و برای معماها از کارآگاه (ایجنت).
+
+@lesson
+id: quiz-on-agents-and-workflows
+en: Quiz on agents and workflows
+fa: آزمونک ایجنت‌ها و گردش‌کارها
+kind: quiz
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Checks: when to use parallelization, chaining and routing; why agents need general tools and ways to inspect their environment; and how to choose between a workflow and an agent.
+~~
+می‌سنجد: کی از موازی‌سازی، زنجیره کردن و مسیریابی استفاده کنیم؛ چرا ایجنت‌ها ابزارهای عمومی و راه‌هایی برای وارسی محیطشان لازم دارند؛ و چطور بین گردش‌کار و ایجنت انتخاب کنیم.
+
+@lesson
+id: final-assessment
+en: Final assessment
+fa: ارزیابی پایانی
+kind: quiz
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+The final assessment covers the whole course: API basics, evaluation, prompt engineering, tool use, RAG, Claude's features, MCP, Claude Code and agent patterns. Passing it earns the course certificate.
+~~
+ارزیابی پایانی کل دوره را پوشش می‌دهد: مبانی API، ارزیابی، مهندسی پرامپت، استفاده از ابزار، RAG، قابلیت‌های Claude، MCP، Claude Code و الگوهای ایجنت. با قبول شدن، گواهی دوره را می‌گیری.
+
+#try
+Final project idea: a **"homework helper"** that routes questions by subject (routing), retrieves from your class notes (RAG), uses a calculator tool (tool use), caches the notes (caching), and has an eval set of 20 questions. You've learned every piece.
+~~
+ایدهٔ پروژهٔ پایانی: یک **«کمک‌تکلیف»** که سؤال‌ها را بر اساس درس مسیریابی می‌کند (مسیریابی)، از یادداشت‌های کلاست بازیابی می‌کند (RAG)، از یک ابزار ماشین‌حساب استفاده می‌کند (استفاده از ابزار)، یادداشت‌ها را کش می‌کند (کش) و یک مجموعهٔ ارزیابی ۲۰ سؤالی دارد. همهٔ قطعه‌هایش را یاد گرفته‌ای.
+
+@cheatsheet
+- Request = `model` + `max_tokens` + `messages`; read blocks **by type**; the API is **stateless**.
+- No prefill, no temperature, no forced `tool_choice`, no `budget_tokens` on the newest models → use **structured outputs**, prompting, `strict: true`, **adaptive thinking + effort**.
+- Evals: dataset → run → grade (code first, model second) → compare versions.
+- Prompting: clear first line, specific guidelines + steps, XML tags, varied examples.
+- Tools: schema with prescriptive description → `tool_use` → your code → `tool_result` (same id) → loop until no tool call. Or the **tool runner**.
+- Server tools (web search, code execution) run at Anthropic; client tools run in your code; confine file paths.
+- RAG: chunk → embed → hybrid search (vectors + BM25) → RRF → answer from context with citations.
+- Caching: stable prefix first, breakpoint after it, check `cache_read_input_tokens`.
+- MCP: tools = model-controlled, resources = app-controlled, prompts = user-controlled.
+- Prefer **workflows** (parallel, chain, route); use **agents** with general tools and ways to inspect results.
+~~
+- درخواست = `model` + `max_tokens` + `messages`؛ بلوک‌ها را **بر اساس نوع** بخوان؛ API **بی‌حافظه** است.
+- روی جدیدترین مدل‌ها: نه پیش‌پر کردن، نه temperature، نه اجبار `tool_choice`، نه `budget_tokens` ← به جایش **خروجی ساختاریافته**، پرامپت، `strict: true`، **تفکر تطبیقی + effort**.
+- ارزیابی: مجموعه‌داده ← اجرا ← نمره (اول کد، بعد مدل) ← مقایسهٔ نسخه‌ها.
+- پرامپت: خط اول روشن، رهنمودهای مشخص + قدم‌ها، تگ‌های XML، مثال‌های متنوع.
+- ابزارها: اسکیما با توضیح دستوری ← `tool_use` ← کد تو ← `tool_result` (با همان شناسه) ← تکرار تا وقتی فراخوانی ابزاری نماند. یا **tool runner**.
+- ابزارهای سمت سرور (جست‌وجوی وب، اجرای کد) در Anthropic اجرا می‌شوند؛ ابزارهای سمت تو در کد خودت؛ مسیر فایل‌ها را محدود کن.
+- RAG: تکه کن ← embed کن ← جست‌وجوی ترکیبی (بردار + BM25) ← RRF ← جواب از روی زمینه با ارجاع.
+- کش: اول پیشوند ثابت، نقطهٔ کش بعد از آن، `cache_read_input_tokens` را چک کن.
+- MCP: ابزارها در کنترل مدل، منابع در کنترل اپ، پرامپت‌ها در کنترل کاربر.
+- **گردش‌کارها** را ترجیح بده (موازی، زنجیره، مسیریابی)؛ **ایجنت‌ها** را با ابزارهای عمومی و راه‌هایی برای دیدن نتیجه به کار ببر.
+
+@quiz
+Q: Why can `response.content[0].text` crash on Claude Opus 5.5? || چرا `response.content[0].text` ممکن است روی Claude Opus 5.5 خطا بدهد؟
+A: Thinking is always on, so the first block can be a thinking block; select text blocks by type. || چون تفکر همیشه روشن است و اولین بلوک ممکن است بلوک تفکر باشد؛ بلوک‌های متن را بر اساس نوع انتخاب کن.
+Q: Your prompt starts with the current timestamp and caching never hits. Why? || پرامپتت با برچسب زمان فعلی شروع می‌شود و کش هیچ‌وقت استفاده نمی‌شود. چرا؟
+A: Caching needs an identical prefix; the timestamp changes the first bytes every time. Move it after the cache breakpoint. || کش به پیشوند یکسان نیاز دارد؛ برچسب زمان هر بار بایت‌های اول را عوض می‌کند. آن را بعد از نقطهٔ کش ببر.
+Q: Semantic search misses an exact ticket ID. What do you add? || جست‌وجوی معنایی یک شناسهٔ دقیق تیکت را پیدا نمی‌کند. چه چیزی اضافه می‌کنی؟
+A: A lexical index such as BM25, merged with the vector results using reciprocal rank fusion. || یک نمایهٔ واژگانی مثل BM25 که با ادغام رتبهٔ معکوس با نتیجه‌های برداری یکی شود.
+Q: You need JSON from Claude Sonnet 5.5. Prefill fails with a 400. What now? || از Claude Sonnet 5.5 JSON لازم داری. پیش‌پر کردن با خطای 400 شکست می‌خورد. حالا چه؟
+A: Use structured outputs: `client.messages.parse(output_format=Model)` or `output_config.format` with a JSON schema. || از خروجی ساختاریافته استفاده کن: `client.messages.parse(output_format=Model)` یا `output_config.format` با یک اسکیمای JSON.
+Q: Workflow or agent for "turn each support ticket into a summary and a priority label"? || برای «تبدیل هر تیکت پشتیبانی به یک خلاصه و یک برچسب اولویت» گردش‌کار یا ایجنت؟
+A: A workflow: the steps are known and fixed, so it's cheaper, more reliable and easier to evaluate. || گردش‌کار: قدم‌ها معلوم و ثابت‌اند؛ پس ارزان‌تر، مطمئن‌تر و آسان‌تر برای ارزیابی است.

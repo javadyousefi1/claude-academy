@@ -130,6 +130,8 @@ p { margin: 0; }
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
+/* anchors land below the sticky bar (two rows on phones) */
+[id] { scroll-margin-top: calc(var(--topbar-h) + 16px); }
 .crumbs { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; font-size: .95rem; }
 .crumbs a { text-decoration: none; color: var(--ink-2); }
 .crumbs a:hover { color: var(--pen); }
@@ -280,8 +282,8 @@ figure.code figcaption { display: flex; align-items: center; gap: 10px; padding:
 .code-lang { text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
 .code-cap { font-family: var(--f-en); color: var(--code-fg); opacity: .85; }
 figure.code .copy { margin-left: auto; background: transparent; color: var(--code-dim); border-color: color-mix(in srgb, var(--code-dim) 40%, transparent); font-family: var(--f-fa); }
-figure.code pre { margin: 0; padding: 14px 16px; overflow-x: auto; max-width: 100%; }
-figure.code code { background: none; border: 0; padding: 0; color: var(--code-fg); font-size: .84rem; line-height: 1.65; white-space: pre; overflow-wrap: normal; }
+figure.code pre { margin: 0; padding: 14px 16px; overflow-x: auto; max-width: 100%; font-size: .84rem; line-height: 1.65; }
+figure.code code { background: none; border: 0; padding: 0; color: var(--code-fg); font-size: 1em; line-height: inherit; white-space: pre; overflow-wrap: normal; }
 .hljs-comment, .hljs-quote { color: var(--code-dim); font-style: italic; }
 .hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-type { color: var(--code-key); }
 .hljs-string, .hljs-regexp, .hljs-template-variable { color: var(--code-str); }
@@ -368,6 +370,7 @@ details.q .a { padding: 12px 14px 14px; background: var(--green-soft); border-ra
 }
 @media (max-width: 560px) {
   body { font-size: 1rem; }
+  [id] { scroll-margin-top: calc(var(--topbar-h) + 64px); }
   .item-head { padding: 14px 14px 12px; gap: 10px; }
   .item-body { padding: 14px; }
   .item-num { font-size: 1.8rem; }

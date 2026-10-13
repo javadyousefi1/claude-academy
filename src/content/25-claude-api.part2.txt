@@ -1,0 +1,611 @@
+@section Prompt engineering techniques | تکنیک‌های مهندسی پرامپت
+
+@lesson
+id: prompt-engineering
+en: Prompt engineering
+fa: مهندسی پرامپت
+url: https://academy.claude.com/courses/building-with-the-claude-api/prompt-engineering
+
+#explain
+Prompt engineering is improving a prompt **step by step, with an eval as your scoreboard**: set a goal, write a first prompt, measure it, apply one technique, measure again. The running example in this section is a prompt that creates a **one-day meal plan for an athlete** from their height, weight, goal and dietary restrictions. A naive first version scores poorly; each technique below raises the score.
+~~
+مهندسی پرامپت یعنی بهتر کردن پرامپت **قدم به قدم، با یک ارزیابی به‌عنوان تابلوی امتیاز**: هدف بگذار، اولین پرامپت را بنویس، اندازه‌اش بگیر، یک تکنیک را اعمال کن، دوباره اندازه بگیر. مثال سراسری این بخش پرامپتی است که از روی قد، وزن، هدف و محدودیت‌های غذایی یک ورزشکار، **برنامهٔ غذایی یک‌روزه** می‌سازد. نسخهٔ اول ساده‌لوحانه نمرهٔ کمی می‌گیرد؛ هر تکنیک زیر نمره را بالا می‌برد.
+
+#code text Version 1 (naive): average score 2.3/10
+What should this person eat?
+- Height: 180 cm  - Weight: 82 kg  - Goal: build muscle
+- Restrictions: lactose intolerant
+#end
+
+#analogy
+It's like **tuning a guitar with a tuner**: you don't guess, you adjust one string and watch the needle.
+~~
+مثل **کوک کردن گیتار با دستگاه تیونر** است: حدس نمی‌زنی؛ یک سیم را تنظیم می‌کنی و عقربه را نگاه می‌کنی.
+
+@lesson
+id: being-clear-and-direct
+en: Being clear and direct
+fa: روشن و مستقیم بودن
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+The first line of a prompt matters most. Open with a **clear action verb and the exact task**: not "What should this person eat?" but "Generate a one-day meal plan for an athlete that meets their dietary restrictions." Claude should know from line one what it's producing.
+~~
+خط اول پرامپت از همه مهم‌تر است. با یک **فعل عملی روشن و خود کار دقیق** شروع کن: نه «این آدم چه بخورد؟»، بلکه «برای یک ورزشکار یک برنامهٔ غذایی یک‌روزه بساز که محدودیت‌های غذایی‌اش را رعایت کند.» Claude باید از همان خط اول بداند چه چیزی تولید می‌کند.
+
+#prompt
+Generate a one-day meal plan for an athlete that meets their dietary restrictions.
+~~
+برای یک ورزشکار یک برنامهٔ غذایی یک‌روزه بساز که محدودیت‌های غذایی‌اش را رعایت کند.
+
+#tip
+Test: if you showed only the first sentence to a smart colleague, would they know what to deliver? If not, rewrite it.
+~~
+آزمون: اگر فقط جملهٔ اول را به یک همکار باهوش نشان بدهی، می‌فهمد چه چیزی باید تحویل بدهد؟ اگر نه، بازنویسی‌اش کن.
+
+@lesson
+id: being-specific
+en: Being specific
+fa: مشخص بودن
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Add **guidelines**. Two kinds help most:
+
+- **Qualities of the output**: length, format, what to include (e.g., total calories, protein per meal, a shopping list).
+- **Steps to follow**: the process Claude should use (e.g., "first estimate daily calories, then split them across meals, then check every item against the restrictions").
+
+Specific guidelines usually produce the biggest jump in eval score.
+~~
+**رهنمود** اضافه کن. دو نوعش بیشتر از همه کمک می‌کند:
+
+- **ویژگی‌های خروجی**: طول، قالب، چه چیزهایی باشد (مثلاً کالری کل، پروتئین هر وعده، فهرست خرید).
+- **قدم‌هایی که باید دنبال شود**: فرایندی که Claude باید به کار ببرد (مثلاً «اول کالری روزانه را تخمین بزن، بعد بین وعده‌ها تقسیمش کن، بعد هر قلم را با محدودیت‌ها چک کن»).
+
+رهنمودهای مشخص معمولاً بیشترین جهش را در نمرهٔ ارزیابی ایجاد می‌کنند.
+
+#code text Guidelines added: average score 7.1/10
+Guidelines:
+1. Include accurate daily calories and macros (protein, carbs, fat).
+2. Give each meal exact portions in grams.
+3. Respect every dietary restriction; suggest swaps.
+Steps:
+1. Estimate daily calories from height, weight and goal.
+2. Split calories across 4-5 meals around training.
+3. Check every ingredient against the restrictions.
+#end
+
+#analogy
+"Make me a cake" vs "a chocolate cake for 8 people, not too sweet, ready by 6 pm": the second baker can't really get it wrong.
+~~
+«برایم کیک درست کن» در برابر «یک کیک شکلاتی برای ۸ نفر، نه خیلی شیرین، تا ساعت ۶ عصر»: نانوای دوم واقعاً نمی‌تواند اشتباه کند.
+
+@lesson
+id: structure-with-xml-tags
+en: Structure with XML tags
+fa: ساختاردهی با تگ‌های XML
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+When a prompt contains data (athlete info, a long document, sales records), wrap each piece in **XML-style tags** like `<athlete_information>` or `<sales_records>`. Tags separate *instructions* from *content*, make clear what each block is, and let you refer to them ("using the data in `<sales_records>`..."). The tag names don't need to be special; descriptive is enough.
+~~
+وقتی پرامپت داده دارد (اطلاعات ورزشکار، یک سند طولانی، سوابق فروش)، هر تکه را در **تگ‌هایی به سبک XML** بپیچان، مثل `<athlete_information>` یا `<sales_records>`. تگ‌ها *دستور* را از *محتوا* جدا می‌کنند، روشن می‌کنند هر بلوک چیست و اجازه می‌دهند به آن‌ها ارجاع بدهی («با استفاده از داده‌های داخل `<sales_records>`...»). اسم تگ‌ها لازم نیست خاص باشد؛ توصیفی بودن کافی است.
+
+#code text Tags make the boundaries obvious
+<athlete_information>
+- Height: 180 cm
+- Weight: 82 kg
+- Goal: build muscle
+- Dietary restrictions: lactose intolerant
+</athlete_information>
+
+Generate a one-day meal plan for the athlete described in <athlete_information>.
+#end
+
+#analogy
+XML tags are **labeled boxes when moving house**: "KITCHEN – fragile" tells everyone what's inside without opening it.
+~~
+تگ‌های XML مثل **جعبه‌های برچسب‌دار موقع اسباب‌کشی** هستند: «آشپزخانه – شکستنی» به همه می‌گوید داخلش چیست، بدون باز کردنش.
+
+#tip
+Put **long documents first** and your question **at the end**. With very long context, a question placed after the material usually gets better answers.
+~~
+**سندهای طولانی را اول** و سؤالت را **در آخر** بگذار. در زمینه‌های خیلی طولانی، سؤالی که بعد از مطالب می‌آید معمولاً جواب‌های بهتری می‌گیرد.
+
+@lesson
+id: providing-examples
+en: Providing examples
+fa: آوردن مثال
+url: https://academy.claude.com/courses/building-with-the-claude-api/providing-examples
+
+#explain
+Examples are one of the strongest tools you have. **One-shot** = one example; **multi-shot** = several. Wrap them in tags such as `<sample_input>` and `<ideal_output>`, include **tricky cases** (sarcasm in a sentiment task, an empty field in an extraction task), and say **why** the example is good. A great trick: take the **highest-scoring output from your eval** and use it as the example.
+~~
+مثال یکی از قوی‌ترین ابزارهای توست. **تک‌مثالی (one-shot)** = یک مثال؛ **چندمثالی (multi-shot)** = چند مثال. آن‌ها را در تگ‌هایی مثل `<sample_input>` و `<ideal_output>` بپیچان، **موردهای فریبنده** را هم بیاور (کنایه در یک کار تشخیص احساس، یک فیلد خالی در یک کار استخراج) و بگو مثال **چرا** خوب است. یک ترفند عالی: **بهترین خروجی ارزیابی‌ات** را بردار و به‌عنوان مثال استفاده کن.
+
+#code text An example that teaches sarcasm
+<sample_input>Oh great, my flight is delayed AGAIN. Just perfect.</sample_input>
+<ideal_output>negative</ideal_output>
+This example is sarcastic: positive words ("great", "perfect") with a
+clearly negative meaning. Judge the meaning, not the words.
+#end
+
+#warn
+Claude copies examples closely. If all your examples are about running, the meal plans may all become runner-ish. Vary them, or say "these are illustrations, not templates".
+~~
+Claude مثال‌ها را از نزدیک تقلید می‌کند. اگر همهٔ مثال‌هایت دربارهٔ دویدن باشند، شاید همهٔ برنامه‌های غذایی دونده‌مآب شوند. تنوعشان بده یا بگو «این‌ها نمونه‌اند، نه قالب».
+
+#analogy
+Showing an example is like **showing a photo to the barber**: a hundred words about "short on the sides" can't beat one picture.
+~~
+نشان دادن مثال مثل **نشان دادن عکس به آرایشگر** است: صد کلمه دربارهٔ «کناره‌ها کوتاه» به پای یک عکس نمی‌رسد.
+
+@lesson
+id: quiz-on-prompt-engineering-techniques
+en: Quiz on prompt engineering techniques
+fa: آزمونک تکنیک‌های مهندسی پرامپت
+kind: quiz
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Checks: the iterate-and-measure loop, a clear first line, specific guidelines (output qualities + steps), XML tags for structure, and how to choose good examples.
+~~
+می‌سنجد: حلقهٔ «تکرار کن و اندازه بگیر»، خط اول روشن، رهنمودهای مشخص (ویژگی‌های خروجی + قدم‌ها)، تگ‌های XML برای ساختار و انتخاب مثال‌های خوب.
+
+#try
+Take the naive meal-plan prompt and apply all four techniques. Then ask Claude to grade both versions with the rubric from the model-grading lesson.
+~~
+پرامپت ساده‌لوحانهٔ برنامهٔ غذایی را بردار و هر چهار تکنیک را رویش اعمال کن. بعد از Claude بخواه با روبریک درس نمره‌دهی با مدل، هر دو نسخه را نمره بدهد.
+
+@section Tool use with Claude | استفاده از ابزار با Claude
+
+@lesson
+id: introducing-tool-use
+en: Introducing tool use
+fa: آشنایی با استفاده از ابزار
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Claude only knows its training data and what's in the prompt. It can't check today's weather, read your database or send an email, **unless you give it tools**. The flow:
+
+1. You send the user's message **plus tool definitions** (name, description, input schema).
+2. Claude decides a tool would help and replies with a **`tool_use`** block: the tool name and arguments.
+3. **Your code** runs the real function.
+4. You send back a **`tool_result`**.
+5. Claude uses the result to write its final answer (or asks for another tool).
+~~
+Claude فقط دادهٔ آموزشی‌اش و چیزی را که داخل پرامپت است می‌شناسد. نمی‌تواند هوای امروز را چک کند، پایگاه‌دادهٔ تو را بخواند یا ایمیل بفرستد، **مگر این‌که به آن ابزار بدهی**. جریان کار:
+
+1. پیام کاربر را **همراه با تعریف ابزارها** (اسم، توضیح، اسکیمای ورودی) می‌فرستی.
+2. Claude تصمیم می‌گیرد یک ابزار کمک می‌کند و با یک بلوک **`tool_use`** جواب می‌دهد: اسم ابزار و آرگومان‌ها.
+3. **کد تو** تابع واقعی را اجرا می‌کند.
+4. یک **`tool_result`** برمی‌گردانی.
+5. Claude با آن نتیجه جواب نهایی‌اش را می‌نویسد (یا ابزار دیگری می‌خواهد).
+
+#analogy
+Claude is a **brilliant manager with no hands**: it decides "call the warehouse and check stock", but your code is the assistant who actually picks up the phone and reports back.
+~~
+Claude مثل **یک مدیر باهوش بی‌دست** است: تصمیم می‌گیرد «به انبار زنگ بزن و موجودی را چک کن»، ولی کد تو همان دستیاری است که واقعاً تلفن را برمی‌دارد و خبر می‌آورد.
+
+#terms
+Tool use = استفاده از ابزار = قابلیتی که Claude با آن درخواست اجرای تابع‌های تعریف‌شده را می‌دهد و نتیجه را در جوابش به کار می‌برد.
+tool_result = نتیجهٔ ابزار = بلوکی که خروجی اجرای ابزار را به Claude برمی‌گرداند.
+
+@lesson
+id: project-overview
+en: Project overview
+fa: معرفی پروژه
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+The section builds a small assistant that can **set reminders**: "Remind me to renew my passport in 3 weeks." To do that, Claude needs tools it doesn't have: **get the current date and time**, **add a duration to a date**, and **set a reminder**. You'll write the functions, describe them with schemas, and run the loop that lets Claude chain them.
+~~
+این بخش یک دستیار کوچک می‌سازد که می‌تواند **یادآوری تنظیم کند**: «سه هفتهٔ دیگر یادم بینداز گذرنامه‌ام را تمدید کنم.» برای این کار Claude ابزارهایی لازم دارد که ندارد: **گرفتن تاریخ و ساعت فعلی**، **اضافه کردن یک مدت به یک تاریخ** و **ثبت یادآوری**. تابع‌ها را می‌نویسی، با اسکیما توصیفشان می‌کنی و حلقه‌ای را اجرا می‌کنی که به Claude اجازه می‌دهد آن‌ها را پشت هم صدا بزند.
+
+#tip
+Why does Claude need a clock tool? Its knowledge has a **cutoff** and it can't see your computer's clock. Without the tool, "in 3 weeks" from *when*? It would have to guess.
+~~
+چرا Claude ابزار ساعت لازم دارد؟ دانشش **تاریخ برش** دارد و ساعت کامپیوتر تو را نمی‌بیند. بدون این ابزار، «سه هفتهٔ دیگر» از *کِی*؟ مجبور است حدس بزند.
+
+@lesson
+id: tool-functions
+en: Tool functions
+fa: تابع‌های ابزار
+url: https://academy.claude.com/courses/building-with-the-claude-api/tool-functions
+
+#explain
+A tool function is a normal function your code runs. Good tool functions have **descriptive names and arguments**, **validate inputs**, and **raise clear error messages**, because the error text goes back to Claude, which can then correct itself and try again.
+~~
+تابع ابزار یک تابع معمولی است که کد تو اجرایش می‌کند. تابع‌های ابزار خوب **اسم و آرگومان توصیفی** دارند، **ورودی را اعتبارسنجی می‌کنند** و **پیام خطای روشن** می‌دهند؛ چون متن خطا به Claude برمی‌گردد و او می‌تواند خودش را اصلاح کند و دوباره امتحان کند.
+
+#code python tools.py
+from datetime import datetime, timedelta
+
+def get_current_datetime(date_format="%Y-%m-%d %H:%M:%S"):
+    if not date_format:
+        raise ValueError("date_format cannot be empty")
+    return datetime.now().strftime(date_format)
+
+def add_duration_to_datetime(datetime_str, duration=0, unit="days",
+                             input_format="%Y-%m-%d"):
+    date = datetime.strptime(datetime_str, input_format)
+    units = {"seconds", "minutes", "hours", "days", "weeks"}
+    if unit not in units:
+        raise ValueError(f"unit must be one of {sorted(units)}")
+    return (date + timedelta(**{unit: duration})).strftime("%A, %B %d, %Y")
+
+def set_reminder(content, timestamp):
+    print(f"--- Reminder set for {timestamp}: {content}")
+    return "ok"
+#end
+
+#analogy
+A good error message is like a **GPS saying "recalculating: turn left at the next street"** instead of just beeping.
+~~
+یک پیام خطای خوب مثل **مسیریابی است که می‌گوید «در حال محاسبهٔ دوباره: در خیابان بعدی به چپ بپیچ»**، به جای این‌که فقط بوق بزند.
+
+@lesson
+id: tool-schemas
+en: Tool schemas
+fa: اسکیمای ابزارها
+url: https://academy.claude.com/courses/building-with-the-claude-api/tool-schemas
+
+#explain
+Claude never sees your Python. It sees a **schema**: `name`, `description` and `input_schema` (JSON Schema for the arguments). The description is the most important part: 3–4 sentences on **what the tool does, when to use it, and what it returns**. Each parameter gets its own description too. Tip from the course: ask Claude to write the schema for your function, then review it.
+~~
+Claude هیچ‌وقت کد پایتون تو را نمی‌بیند. یک **اسکیما** می‌بیند: `name`، `description` و `input_schema` (اسکیمای JSON برای آرگومان‌ها). توضیح مهم‌ترین بخش است: ۳ تا ۴ جمله دربارهٔ این‌که **ابزار چه می‌کند، کی باید استفاده شود و چه برمی‌گرداند**. هر پارامتر هم توضیح خودش را می‌گیرد. نکتهٔ دوره: از Claude بخواه برای تابعت اسکیما بنویسد، بعد بازبینی‌اش کن.
+
+#code python get_current_datetime_schema
+get_current_datetime_schema = {
+    "name": "get_current_datetime",
+    "description": (
+        "Returns the current local date and time as a formatted string. "
+        "Call this whenever the user mentions relative times like 'today', "
+        "'tomorrow' or 'in 3 weeks', because you cannot know the current date. "
+        "Returns a string such as '2026-10-13 14:30:00'."
+    ),
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "date_format": {
+                "type": "string",
+                "description": "Python strftime format, e.g. '%Y-%m-%d %H:%M:%S'.",
+            }
+        },
+        "required": ["date_format"],
+        "additionalProperties": False,
+    },
+    "strict": True,   # guarantees Claude's arguments match the schema
+}
+#end
+
+#tip
+**Cool tip:** add `"strict": True` (with `additionalProperties: false`) and the API **guarantees** the arguments match your schema: no missing fields, no wrong types. And write the description **prescriptively** ("Call this whenever...") because recent models decide when to call tools from it.
+~~
+**نکتهٔ خفن:** `"strict": True` را اضافه کن (همراه با `additionalProperties: false`) تا API **تضمین کند** آرگومان‌ها با اسکیمایت جورند: بدون فیلد جاافتاده، بدون نوع اشتباه. و توضیح را **دستوری** بنویس («هر وقت ... صدایش بزن»)، چون مدل‌های جدید از روی آن تصمیم می‌گیرند کی ابزار را صدا بزنند.
+
+#analogy
+The schema is the **menu description**, not the recipe: the diner (Claude) decides what to order from the description alone.
+~~
+اسکیما **توضیح منوی رستوران** است، نه دستور پخت: مشتری (Claude) فقط از روی توضیح تصمیم می‌گیرد چه سفارش بدهد.
+
+@lesson
+id: handling-message-blocks
+en: Handling message blocks
+fa: کار با بلوک‌های پیام
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+When Claude wants a tool, its reply contains **multiple blocks**: often a short text ("Let me check the date") and one or more `tool_use` blocks, each with an `id`, `name` and `input`. Two rules: append the **entire** `response.content` to your history as the assistant turn (not just the text), and check `stop_reason == "tool_use"` to know tools are waiting.
+~~
+وقتی Claude ابزاری می‌خواهد، جوابش **چند بلوک** دارد: اغلب یک متن کوتاه («بگذار تاریخ را چک کنم») و یک یا چند بلوک `tool_use` که هر کدام `id`، `name` و `input` دارند. دو قانون: **کل** `response.content` را به‌عنوان نوبت دستیار به تاریخچه اضافه کن (نه فقط متن را)، و `stop_reason == "tool_use"` را چک کن تا بفهمی ابزارها منتظرند.
+
+#code python Inspecting a tool request
+messages = [{"role": "user", "content": "What's the exact time right now?"}]
+response = client.messages.create(
+    model="claude-opus-5-5", max_tokens=1000,
+    messages=messages, tools=[get_current_datetime_schema],
+)
+messages.append({"role": "assistant", "content": response.content})  # keep ALL blocks
+
+for block in response.content:
+    if block.type == "tool_use":
+        print(block.id, block.name, block.input)   # toolu_01..., get_current_datetime, {...}
+#end
+
+#warn
+If you keep only the text and drop the `tool_use` block, your next request breaks: every `tool_result` must point to a `tool_use` id that exists in the previous assistant turn.
+~~
+اگر فقط متن را نگه داری و بلوک `tool_use` را بیندازی، درخواست بعدی‌ات خراب می‌شود: هر `tool_result` باید به شناسهٔ یک `tool_use` اشاره کند که در نوبت قبلی دستیار وجود دارد.
+
+@lesson
+id: sending-tool-results
+en: Sending tool results
+fa: فرستادن نتیجهٔ ابزار
+url: https://academy.claude.com/courses/building-with-the-claude-api/sending-tool-results
+
+#explain
+Run the function, then send a **user** message containing a `tool_result` block for each `tool_use`: its `tool_use_id`, the output as `content`, and `is_error: True` if it failed. Claude reads the result and continues.
+~~
+تابع را اجرا کن، بعد یک پیام **کاربر** بفرست که برای هر `tool_use` یک بلوک `tool_result` دارد: `tool_use_id` آن، خروجی به‌عنوان `content`، و اگر شکست خورد `is_error: True`. Claude نتیجه را می‌خواند و ادامه می‌دهد.
+
+#code python Answering a tool_use
+def run_tool(name, tool_input):
+    if name == "get_current_datetime":
+        return get_current_datetime(**tool_input)
+    if name == "add_duration_to_datetime":
+        return add_duration_to_datetime(**tool_input)
+    if name == "set_reminder":
+        return set_reminder(**tool_input)
+    raise ValueError(f"unknown tool {name}")
+
+results = []
+for block in response.content:
+    if block.type == "tool_use":
+        try:
+            results.append({"type": "tool_result", "tool_use_id": block.id,
+                            "content": str(run_tool(block.name, block.input))})
+        except Exception as e:
+            results.append({"type": "tool_result", "tool_use_id": block.id,
+                            "content": f"Error: {e}", "is_error": True})
+messages.append({"role": "user", "content": results})
+#end
+
+#analogy
+`tool_use_id` is the **ticket number at a deli counter**: when your order is ready, they call *your* number, so nothing gets mixed up.
+~~
+`tool_use_id` مثل **شمارهٔ نوبت پشت پیشخوان اغذیه‌فروشی** است: وقتی سفارشت آماده شد، *شمارهٔ تو* را صدا می‌زنند تا چیزی قاطی نشود.
+
+@lesson
+id: multi-turn-conversations-with-tools
+en: Multi-turn conversations with tools
+fa: گفت‌وگوهای چندنوبتی با ابزار
+url: https://academy.claude.com/courses/building-with-the-claude-api/multi-turn-conversations-with-tools
+
+#explain
+Real requests often need **several tool calls in a row**. "Set a reminder for my doctor's appointment 177 days from today" → Claude calls `get_current_datetime`, then `add_duration_to_datetime` with that date, then `set_reminder` with the result, then answers. Each round trip is: Claude asks → you run → you send results → Claude continues, until `stop_reason` is no longer `"tool_use"`.
+~~
+درخواست‌های واقعی اغلب **چند فراخوانی ابزار پشت سر هم** لازم دارند. «برای نوبت دکترم ۱۷۷ روز بعد از امروز یادآوری بگذار» ← Claude اول `get_current_datetime` را صدا می‌زند، بعد `add_duration_to_datetime` را با آن تاریخ، بعد `set_reminder` را با نتیجه، و بعد جواب می‌دهد. هر رفت‌وبرگشت این است: Claude می‌خواهد ← تو اجرا می‌کنی ← نتیجه را می‌فرستی ← Claude ادامه می‌دهد؛ تا وقتی `stop_reason` دیگر `"tool_use"` نباشد.
+
+#analogy
+It's like a **treasure hunt**: each clue (tool result) tells Claude where to go next, until it reaches the treasure (the final answer).
+~~
+مثل **گنج‌یابی** است: هر سرنخ (نتیجهٔ ابزار) به Claude می‌گوید بعدش کجا برود، تا به گنج (جواب نهایی) برسد.
+
+@lesson
+id: implementing-multiple-turns
+en: Implementing multiple turns
+fa: پیاده‌سازی چند نوبت
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Put the round trips in a **loop**. The loop ends when Claude stops asking for tools. Today the SDK also offers a **tool runner** (beta) that runs this loop for you, generating schemas from typed Python functions. Know both: the manual loop teaches how things work; the runner saves code.
+~~
+رفت‌وبرگشت‌ها را در یک **حلقه** بگذار. حلقه وقتی تمام می‌شود که Claude دیگر ابزار نخواهد. امروز SDK یک **اجراکنندهٔ ابزار (tool runner)** (بتا) هم دارد که این حلقه را برایت اجرا می‌کند و اسکیماها را از تابع‌های پایتونِ نوع‌دار می‌سازد. هر دو را بلد باش: حلقهٔ دستی نشان می‌دهد چیزها چطور کار می‌کنند؛ اجراکننده کد را کم می‌کند.
+
+#code python The manual loop
+def run_conversation(messages, tools):
+    while True:
+        response = client.messages.create(
+            model="claude-opus-5-5", max_tokens=4000,
+            messages=messages, tools=tools,
+        )
+        messages.append({"role": "assistant", "content": response.content})
+        if response.stop_reason != "tool_use":
+            return response
+        results = []
+        for b in response.content:
+            if b.type == "tool_use":
+                try:
+                    out, err = str(run_tool(b.name, b.input)), False
+                except Exception as e:
+                    out, err = f"Error: {e}", True
+                results.append({"type": "tool_result", "tool_use_id": b.id,
+                                "content": out, "is_error": err})
+        messages.append({"role": "user", "content": results})
+#end
+
+#code python The same with the tool runner (beta)
+from anthropic import beta_tool
+
+@beta_tool
+def get_current_datetime(date_format: str = "%Y-%m-%d %H:%M:%S") -> str:
+    """Return the current local date and time. Call this for any relative date.
+
+    Args:
+        date_format: Python strftime format string.
+    """
+    return datetime.now().strftime(date_format)
+
+runner = client.beta.messages.tool_runner(
+    model="claude-opus-5-5", max_tokens=4000,
+    tools=[get_current_datetime],
+    messages=[{"role": "user", "content": "What day of the week is it?"}],
+)
+for message in runner:          # each iteration is one assistant turn
+    print(message.stop_reason)
+#end
+
+#warn
+Always add a **safety limit** (e.g., max 20 iterations) to hand-written loops. A confused agent calling the same tool forever is a real, expensive bug.
+~~
+به حلقه‌های دست‌نویس همیشه یک **سقف ایمنی** اضافه کن (مثلاً حداکثر ۲۰ دور). ایجنت گیج‌شده‌ای که تا ابد یک ابزار را صدا می‌زند، یک باگ واقعی و گران است.
+
+@lesson
+id: using-multiple-tools
+en: Using multiple tools (and the batch tool)
+fa: استفاده از چند ابزار (و ابزار دسته‌ای)
+url: https://academy.claude.com/courses/building-with-the-claude-api/using-multiple-tools
+
+#explain
+Give Claude several tools and it picks the right one per step. When steps are independent, Claude can request **several tools in one response** (parallel tool use): for example, two `set_reminder` calls at once. Run them all and return **all the results in one user message**. Older courses taught a "batch tool" workaround (a tool that takes a list of other tool calls) to encourage this; current models do parallel calls natively. To force one call at a time, set `tool_choice={"type": "auto", "disable_parallel_tool_use": True}`.
+~~
+به Claude چند ابزار بده تا در هر قدم ابزار درست را انتخاب کند. وقتی قدم‌ها مستقل‌اند، Claude می‌تواند **در یک جواب چند ابزار را درخواست کند** (استفادهٔ موازی): مثلاً دو فراخوانی `set_reminder` با هم. همه را اجرا کن و **همهٔ نتیجه‌ها را در یک پیام کاربر** برگردان. دوره‌های قدیمی‌تر یک راه‌حل «ابزار دسته‌ای» (ابزاری که فهرستی از فراخوانی‌های ابزارهای دیگر را می‌گیرد) یاد می‌دادند تا این کار تشویق شود؛ مدل‌های فعلی فراخوانی موازی را خودشان انجام می‌دهند. برای اجبار به یک فراخوانی در هر نوبت، `tool_choice={"type": "auto", "disable_parallel_tool_use": True}` بگذار.
+
+#example
+User: "Remind me to call mom tomorrow at 6 pm and to pay rent on the 1st." → one response with **two** `tool_use` blocks → you return **two** `tool_result` blocks in a single message.
+~~
+کاربر: «فردا ساعت ۶ عصر یادم بینداز به مامان زنگ بزنم و اول ماه اجاره را بدهم.» ← یک جواب با **دو** بلوک `tool_use` ← تو **دو** بلوک `tool_result` را در یک پیام برمی‌گردانی.
+
+#warn
+`tool_choice` with `{"type": "any"}` or `{"type": "tool", "name": ...}` (forcing a call) returns a **400 on Opus 5.5, Sonnet 5.5 and Fable 5.1**. Use `auto`, say "use the X tool" in the prompt, keep `strict: true`, and check that a call actually came back.
+~~
+`tool_choice` با `{"type": "any"}` یا `{"type": "tool", "name": ...}` (اجبار به فراخوانی) روی **Opus 5.5، Sonnet 5.5 و Fable 5.1 خطای 400 می‌دهد**. از `auto` استفاده کن، در پرامپت بگو «از ابزار X استفاده کن»، `strict: true` را نگه دار و چک کن واقعاً فراخوانی‌ای برگشته باشد.
+
+#analogy
+Parallel tool use is **ordering all your dishes at once** instead of one course at a time: the kitchen (your code) can cook them together.
+~~
+استفادهٔ موازی از ابزار مثل **سفارش دادن همهٔ غذاها با هم** است به جای یکی‌یکی: آشپزخانه (کد تو) می‌تواند همه را با هم بپزد.
+
+@lesson
+id: fine-grained-tool-calling
+en: Fine-grained tool calling
+fa: فراخوانی ریزدانهٔ ابزار (استریم ورودی ابزار)
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+When you **stream** a response that calls a tool, the tool's arguments arrive as `input_json_delta` events: pieces of JSON. By default the API buffers and validates each argument before sending it, which can mean a long pause for big inputs (like a whole file). **Fine-grained (eager) streaming** sends the pieces as soon as they're generated: set `eager_input_streaming: true` on the tool. The price: the server no longer validates them, so **you** must check the final JSON is complete and valid before running the tool.
+~~
+وقتی جوابی را که ابزار صدا می‌زند **استریم** می‌کنی، آرگومان‌های ابزار به شکل رویدادهای `input_json_delta` می‌رسند: تکه‌هایی از JSON. به‌طور پیش‌فرض API هر آرگومان را قبل از فرستادن نگه می‌دارد و اعتبارسنجی می‌کند؛ که برای ورودی‌های بزرگ (مثل یک فایل کامل) می‌تواند مکث طولانی‌ای بسازد. **استریم ریزدانه (مشتاق)** تکه‌ها را همان لحظه‌ای که تولید می‌شوند می‌فرستد: روی ابزار `eager_input_streaming: true` بگذار. بهایش: سرور دیگر اعتبارسنجی‌شان نمی‌کند؛ پس **خودت** باید قبل از اجرای ابزار مطمئن شوی JSON نهایی کامل و معتبر است.
+
+#code python Watching tool arguments stream in
+tool = {
+    "name": "save_article",
+    "description": "Save a finished article. Call this once the article is written.",
+    "input_schema": {
+        "type": "object",
+        "properties": {"title": {"type": "string"}, "body": {"type": "string"}},
+        "required": ["title", "body"],
+    },
+    "eager_input_streaming": True,   # stream the arguments as they are generated
+}
+
+with client.messages.stream(
+    model="claude-opus-5-5", max_tokens=8000,
+    tools=[tool],
+    messages=[{"role": "user", "content": "Write a 600-word article about bees and save it."}],
+) as stream:
+    for event in stream:
+        if event.type == "content_block_delta" and event.delta.type == "input_json_delta":
+            print(event.delta.partial_json, end="", flush=True)
+    final = stream.get_final_message()
+
+if final.stop_reason == "max_tokens":
+    raise RuntimeError("tool input was cut off; do not run the tool")
+#end
+
+#tip
+This is how coding agents show a file being written **live**. For a short `{"city": "Paris"}` input you'll never notice the difference; for a 5,000-line file you will.
+~~
+ایجنت‌های برنامه‌نویسی همین‌طوری نوشته شدن یک فایل را **زنده** نشان می‌دهند. برای یک ورودی کوتاه مثل `{"city": "Paris"}` هیچ‌وقت فرقی حس نمی‌کنی؛ برای یک فایل ۵٬۰۰۰ خطی حس می‌کنی.
+
+@lesson
+id: the-text-edit-tool
+en: The text edit tool
+fa: ابزار ویرایش متن
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Some tools are **defined by Anthropic**: Claude is already trained on them, so you declare them by type and name only, with no schema. The **text editor tool** lets Claude `view` files, `create` files, `str_replace` exact text, and `insert` lines: the core of a coding assistant. It's **client-executed**: Claude sends the command; **your code** performs it on disk.
+~~
+بعضی ابزارها را **Anthropic تعریف کرده**: Claude از قبل روی آن‌ها آموزش دیده؛ پس فقط با نوع و اسم اعلامشان می‌کنی، بدون اسکیما. **ابزار ویرایشگر متن** به Claude اجازه می‌دهد فایل‌ها را `view` کند، فایل `create` کند، متن دقیقی را `str_replace` کند و خط `insert` کند: هستهٔ یک دستیار برنامه‌نویسی. این ابزار **سمت تو اجرا می‌شود**: Claude فرمان را می‌فرستد؛ **کد تو** آن را روی دیسک انجام می‌دهد.
+
+#code python Declaring it and confining paths
+from pathlib import Path
+
+tools = [{"type": "text_editor_20250728", "name": "str_replace_based_edit_tool"}]
+ROOT = Path("./workspace").resolve()
+
+def safe_path(p):
+    full = (ROOT / p).resolve()
+    if not full.is_relative_to(ROOT):          # block ../../etc/passwd tricks
+        raise ValueError("path outside workspace")
+    return full
+
+def run_editor(cmd):
+    path = safe_path(cmd["path"])
+    if cmd["command"] == "view":
+        return path.read_text()
+    if cmd["command"] == "create":
+        path.write_text(cmd["file_text"]); return "created"
+    if cmd["command"] == "str_replace":
+        text = path.read_text()
+        if text.count(cmd["old_str"]) != 1:
+            raise ValueError("old_str must match exactly once")
+        path.write_text(text.replace(cmd["old_str"], cmd["new_str"])); return "replaced"
+    if cmd["command"] == "insert":
+        lines = path.read_text().splitlines(keepends=True)
+        lines.insert(cmd["insert_line"], cmd["insert_text"] + "\n")
+        path.write_text("".join(lines)); return "inserted"
+#end
+
+#warn
+The `path` comes from the model: treat it as **untrusted input**. Confine every file operation to one project folder, as above. Note: the old `str_replace_editor` name and `undo_edit` command are gone; both the type **and** the name changed together.
+~~
+`path` از مدل می‌آید: آن را **ورودی غیرقابل‌اعتماد** حساب کن. هر عملیات فایل را به یک پوشهٔ پروژه محدود کن، مثل کد بالا. توجه: اسم قدیمی `str_replace_editor` و فرمان `undo_edit` حذف شده‌اند؛ نوع **و** اسم با هم عوض شده‌اند.
+
+#analogy
+It's like giving a contractor **keys to one room only**: they can renovate the kitchen, but the door to the bedroom stays locked.
+~~
+مثل این است که به یک پیمانکار **فقط کلید یک اتاق** را بدهی: می‌تواند آشپزخانه را بازسازی کند، ولی در اتاق‌خواب قفل می‌ماند.
+
+@lesson
+id: the-web-search-tool
+en: The web search tool
+fa: ابزار جست‌وجوی وب
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+**Web search** is a **server tool**: Anthropic runs it, so there's no function to write and no loop to manage. Add it to `tools`, and Claude searches, reads results and answers with **citations**. Options like `max_uses` and `allowed_domains` keep it focused and affordable.
+~~
+**جست‌وجوی وب** یک **ابزار سمت سرور** است: Anthropic اجرایش می‌کند؛ پس نه تابعی برای نوشتن هست و نه حلقه‌ای برای مدیریت. به `tools` اضافه‌اش کن تا Claude جست‌وجو کند، نتیجه‌ها را بخواند و با **ارجاع** جواب بدهد. گزینه‌هایی مثل `max_uses` و `allowed_domains` آن را متمرکز و کم‌هزینه نگه می‌دارند.
+
+#code python Search limited to trusted sites
+response = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=4000,
+    tools=[{
+        "type": "web_search_20260209",
+        "name": "web_search",
+        "max_uses": 5,
+        "allowed_domains": ["nih.gov", "who.int"],
+    }],
+    messages=[{"role": "user", "content": "What are current recommendations for daily exercise for adults?"}],
+)
+for block in response.content:
+    if block.type == "text":
+        print(block.text)
+        for c in (block.citations or []):
+            print("   source:", c.url)
+#end
+
+#tip
+**Cool tip:** the `_20260209` versions do **dynamic filtering**: Claude writes code to filter search results before they enter its context, so answers get more accurate and cheaper. On Google Vertex AI only the basic `web_search_20250305` is available. Long searches can end with `stop_reason: "pause_turn"`: send the conversation back to let it continue.
+~~
+**نکتهٔ خفن:** نسخه‌های `_20260209` **فیلتر پویا** دارند: Claude کدی می‌نویسد که نتیجه‌های جست‌وجو را قبل از ورود به زمینه‌اش فیلتر کند؛ پس جواب‌ها دقیق‌تر و ارزان‌تر می‌شوند. روی Google Vertex AI فقط نسخهٔ پایهٔ `web_search_20250305` در دسترس است. جست‌وجوهای طولانی ممکن است با `stop_reason: "pause_turn"` تمام شوند: گفت‌وگو را برگردان تا ادامه بدهد.
+
+#analogy
+A server tool is a **hotel concierge**: you just ask, and they make the calls themselves. A client tool is a **phone they hand you**: you do the calling.
+~~
+ابزار سمت سرور مثل **مسئول پذیرش هتل** است: فقط می‌پرسی و خودش تلفن‌ها را می‌زند. ابزار سمت تو مثل **تلفنی است که دستت می‌دهد**: زنگ زدن با خودت است.
+
+#terms
+Server tool = ابزار سمت سرور = ابزاری که Anthropic اجرایش می‌کند، مثل جست‌وجوی وب و اجرای کد.
+Client tool = ابزار سمت کاربر = ابزاری که کد خودِ تو اجرایش می‌کند، مثل تابع‌های خودت یا ویرایشگر متن.
+
+@lesson
+id: quiz-on-tool-use-with-claude
+en: Quiz on tool use with Claude
+fa: آزمونک استفاده از ابزار با Claude
+kind: quiz
+url: https://academy.claude.com/courses/building-with-the-claude-api
+
+#explain
+Checks: the tool-use flow, writing schemas, `tool_use`/`tool_result` pairing, multi-turn loops, parallel calls, streaming tool input, Anthropic-defined tools (text editor) and server tools (web search).
+~~
+می‌سنجد: جریان استفاده از ابزار، نوشتن اسکیما، جفت شدن `tool_use` با `tool_result`، حلقه‌های چندنوبتی، فراخوانی موازی، استریم ورودی ابزار، ابزارهای تعریف‌شدهٔ Anthropic (ویرایشگر متن) و ابزارهای سمت سرور (جست‌وجوی وب).
+
+#try
+Build the reminder assistant end to end with the manual loop, then rewrite it with the tool runner and compare line counts.
+~~
+دستیار یادآوری را از اول تا آخر با حلقهٔ دستی بساز، بعد با اجراکنندهٔ ابزار بازنویسی‌اش کن و تعداد خط‌ها را مقایسه کن.
