@@ -1,0 +1,455 @@
+@page
+slug: introduction-to-claude-tag
+kind: course
+group: start
+order: 4
+en: Introduction to Claude Tag
+fa: آشنایی با Claude Tag؛ Claude به‌عنوان هم‌تیمی در اسلک
+stats: 11 lessons · 1 quiz · 2.5 hr · badge
+url: https://academy.claude.com/courses/introduction-to-claude-tag
+expect: 11
+who_en: Teams on Claude Team or Enterprise who work in Slack and want Claude as a shared teammate.
+who_fa: تیم‌هایی با پلن Team یا Enterprise که در اسلک کار می‌کنند و Claude را به‌عنوان هم‌تیمی مشترک می‌خواهند.
+blurb_fa: تگ کردن @Claude در اسلک: پیام خصوصی یا کانال عمومی و خصوصی، حافظه و دستورهای کانال، پاسخ پیش‌دستانه، کارهای زمان‌بندی‌شده و سپردن مسئولیت‌های ادامه‌دار.
+desc_en: Work with @Claude inside Slack: where to ask, how to shape it per channel, routines, and handing it ongoing responsibilities.
+
+@intro
+**Claude Tag** brings Claude into Slack as a teammate. You type **@Claude** in a thread or channel, the way you'd tag a colleague, and it reads the conversation, understands the context everyone already shares, and does the work right there: summarizes, pulls numbers, files a ticket, drafts a fix.
+
+What makes it different from a personal chatbot: Claude works **in the open** with the whole team, it **remembers** across threads and days, it can act **without being tagged** (watching a channel, running a weekly digest), and it acts under **its own identity** in your company's systems, so admins control and log exactly what it can reach.
+
+The course has four parts: where to work with it, how to shape it per channel, how to run one task well, and how to hand it bigger, ongoing work.
+~~
+**Claude Tag** Claude را به‌عنوان یک هم‌تیمی به اسلک می‌آورد. در یک رشته‌پیام یا کانال می‌نویسی **@Claude**، درست همان‌طور که یک همکار را تگ می‌کنی، و او گفت‌وگو را می‌خواند، زمینه‌ای را که همه در آن شریک‌اند می‌فهمد و کار را همان‌جا انجام می‌دهد: خلاصه می‌کند، عدد درمی‌آورد، تیکت ثبت می‌کند، راه‌حل پیش‌نویس می‌کند.
+
+فرقش با یک چت‌بات شخصی: Claude **جلوی چشم** همهٔ تیم کار می‌کند، بین رشته‌پیام‌ها و روزهای مختلف **چیزها را به خاطر می‌سپارد**، می‌تواند **بدون تگ شدن** کار کند (زیر نظر گرفتن یک کانال، اجرای خلاصهٔ هفتگی) و در سیستم‌های شرکت با **هویت خودش** کار می‌کند؛ پس ادمین‌ها دقیقاً کنترل می‌کنند و ثبت می‌کنند به چه چیزهایی دسترسی دارد.
+
+دوره چهار بخش دارد: کجا با آن کار کنی، چطور برای هر کانال شکلش بدهی، چطور یک کار را خوب اجرا کنی و چطور کارهای بزرگ‌تر و ادامه‌دار را به آن بسپاری.
+
+@section Get started with Claude Tag | شروع کار با Claude Tag
+
+@lesson
+id: tag-claude-and-see-what-happens
+en: Tag Claude to see what you can do
+fa: Claude را تگ کن و ببین چه کارهایی می‌شود کرد
+url: https://academy.claude.com/courses/introduction-to-claude-tag/tag-claude-and-see-what-happens
+
+#explain
+The fastest way to understand Claude Tag is to **tag it in a real thread**. Pick a long, messy conversation and ask: "@Claude what got decided here and what's still open?" Claude reads the whole thread and posts the answer **in the thread**, where everyone can see it and keep asking questions.
+
+Things to try in your first five minutes: catch up on a long thread, turn a chaotic discussion into action items with owners, ask for a quick number from a connected data source, or ask it to draft a reply.
+
+If tagging returns an access message, your organization may limit Claude Tag by role or channel. Ask your admin; that's a normal part of rollout, not a bug.
+~~
+سریع‌ترین راه فهمیدن Claude Tag این است که **در یک رشته‌پیام واقعی تگش کنی**. یک گفت‌وگوی طولانی و شلوغ را انتخاب کن و بپرس: «‎@Claude این‌جا چه تصمیمی گرفته شد و چه چیزی هنوز باز است؟» Claude کل رشته را می‌خواند و جواب را **داخل همان رشته** می‌گذارد، جایی که همه می‌بینند و می‌توانند سؤال‌های بعدی را بپرسند.
+
+چیزهایی که در پنج دقیقهٔ اول امتحان کنی: به‌روز شدن از یک رشته‌پیام طولانی، تبدیل یک بحث درهم به فهرست کارها با مسئول هر کار، گرفتن یک عدد سریع از یک منبع دادهٔ وصل‌شده، یا پیش‌نویس کردن یک جواب.
+
+اگر بعد از تگ کردن پیام «دسترسی ندارید» دیدی، ممکن است سازمانت Claude Tag را بر اساس نقش یا کانال محدود کرده باشد. از ادمین بپرس؛ این بخش عادی راه‌اندازی است، نه خرابی.
+
+#prompt
+@Claude What got decided in this thread, what's still open, and who is each open item waiting on? Keep it to 6 bullets.
+~~
+‎@Claude در این رشته‌پیام چه تصمیم‌هایی گرفته شد، چه چیزهایی هنوز باز است و هر مورد باز منتظر چه کسی است؟ در ۶ بولت.
+
+#analogy
+It's like a new colleague who joined the meeting late but read every message in the room in five seconds, and now answers out loud so everybody hears.
+~~
+مثل همکار تازه‌ای است که دیر به جلسه رسیده ولی در پنج ثانیه همهٔ پیام‌های اتاق را خوانده و حالا بلند جواب می‌دهد تا همه بشنوند.
+
+#tip
+Ask your first questions in a **thread**, not a busy channel. The answer stays attached to its context, and the channel doesn't fill with noise.
+~~
+اولین سؤال‌هایت را داخل یک **رشته‌پیام** بپرس، نه در یک کانال شلوغ. جواب به زمینه‌اش چسبیده می‌ماند و کانال هم شلوغ نمی‌شود.
+
+#terms
+Thread = رشته‌پیام = زنجیرهٔ جواب‌هایی که زیر یک پیام در اسلک جمع می‌شوند.
+@-mention (tag) = تگ کردن = صدا زدن یک نفر یا Claude با نوشتن @ و اسمش.
+
+@lesson
+id: claude-in-a-dm
+en: Claude in a DM
+fa: Claude در پیام خصوصی (DM)
+url: https://academy.claude.com/courses/introduction-to-claude-tag/claude-in-a-dm
+
+#explain
+A **direct message** with Claude is your private workspace inside Slack. Use it for things that are just for you: drafting a tricky message before you post it, preparing for a meeting, thinking through a decision, or asking a question you'd rather not ask in front of everyone.
+
+What Claude learns in a DM **stays in that DM**; it doesn't flow into public channels. That makes DMs a safe place to experiment with how you like to work before you bring Claude into team spaces.
+~~
+**پیام خصوصی** (DM) با Claude فضای کاری شخصی تو داخل اسلک است. برای چیزهایی که فقط مال خودت است از آن استفاده کن: پیش‌نویس یک پیام حساس قبل از فرستادنش، آماده شدن برای یک جلسه، سبک‌سنگین کردن یک تصمیم، یا پرسیدن سؤالی که ترجیح می‌دهی جلوی همه نپرسی.
+
+چیزی که Claude در DM یاد می‌گیرد **در همان DM می‌ماند** و به کانال‌های عمومی نمی‌رود. همین DM را جای امنی می‌کند برای آزمایش این‌که دوست داری چطور کار کنی، قبل از این‌که Claude را به فضاهای تیمی بیاوری.
+
+#example
+"Here's my draft reply to the client who is angry about the delay. Make it calmer, keep the facts, offer two options, and keep it under 120 words." Then you post the polished version yourself.
+~~
+«این پیش‌نویس جواب من به مشتری‌ای است که از تأخیر عصبانی است. آرام‌ترش کن، واقعیت‌ها را نگه دار، دو گزینه پیشنهاد بده و زیر ۱۲۰ کلمه نگهش دار.» بعد نسخهٔ صیقل‌خورده را خودت می‌فرستی.
+
+#analogy
+A DM is the **quiet office with the door closed**. Channels are the open-plan floor where everyone hears the conversation.
+~~
+DM همان **دفتر ساکت با در بسته** است. کانال‌ها سالن باز اداره‌اند که همه گفت‌وگو را می‌شنوند.
+
+#tip
+Use the DM to build your "how I like it" notes (tone, format, length). Once they work well, copy them into a channel's instructions so the whole team benefits.
+~~
+از DM برای ساختن یادداشت‌های «من این‌طوری دوست دارم» استفاده کن (لحن، قالب، طول). وقتی خوب جواب داد، آن‌ها را در دستورهای یک کانال کپی کن تا کل تیم سود ببرد.
+
+@lesson
+id: claude-in-a-public-channel
+en: Claude in a public channel
+fa: Claude در کانال عمومی
+url: https://academy.claude.com/courses/introduction-to-claude-tag
+
+#explain
+In a **public channel**, Claude becomes a **shared resource**: whatever it posts is visible to everyone, and anyone can build on it. One person asks for the weekly numbers; the whole team sees the chart and asks follow-ups in the same thread.
+
+Public channels are great for work that benefits from visibility: project updates, incident catch-ups, answering repeated questions, triaging requests. Remember that memory follows visibility: what Claude learns in a public channel can be available across the workspace.
+~~
+در یک **کانال عمومی**، Claude یک **منبع مشترک** می‌شود: هر چه می‌گذارد همه می‌بینند و هر کسی می‌تواند ادامه‌اش بدهد. یک نفر عددهای هفته را می‌خواهد؛ کل تیم نمودار را می‌بیند و در همان رشته سؤال‌های بعدی را می‌پرسد.
+
+کانال‌های عمومی برای کارهایی عالی‌اند که از دیده شدن سود می‌برند: به‌روزرسانی پروژه، به‌روز شدن دربارهٔ یک حادثه، جواب دادن به سؤال‌های تکراری، دسته‌بندی درخواست‌ها. یادت باشد حافظه دنبال دیده شدن می‌رود: چیزی که Claude در کانال عمومی یاد می‌گیرد ممکن است در کل فضای کاری در دسترس باشد.
+
+#analogy
+It's the **whiteboard in the team room**: anyone can write on it, everyone can read it, and the work stays visible after the meeting.
+~~
+مثل **تختهٔ وایت‌برد اتاق تیم** است: هر کسی می‌تواند رویش بنویسد، همه می‌توانند بخوانند و کار بعد از جلسه هم دیده می‌شود.
+
+#prompt
+@Claude Top 10 customers by revenue this month vs last month, as a small table. Flag any customer whose revenue dropped more than 20%.
+~~
+‎@Claude ده مشتری اول از نظر درآمد در این ماه در مقایسه با ماه قبل، در یک جدول کوچک. هر مشتری‌ای که درآمدش بیش از ۲۰٪ افت کرده علامت بزن.
+
+#warn
+Never paste secrets, salaries or private customer data into a public channel just because Claude is there. The channel's audience doesn't change because an AI is answering.
+~~
+هیچ‌وقت رمزها، حقوق‌ها یا اطلاعات خصوصی مشتری را فقط چون Claude آن‌جاست در کانال عمومی نگذار. مخاطبان کانال به خاطر جواب دادن یک هوش مصنوعی عوض نمی‌شوند.
+
+@lesson
+id: claude-in-a-private-channel
+en: Claude in a private channel
+fa: Claude در کانال خصوصی
+url: https://academy.claude.com/courses/introduction-to-claude-tag
+
+#explain
+A **private channel** is for a smaller group and more sensitive work: leadership planning, HR, legal, a confidential deal, an incident with customer data. What Claude learns there **stays in that channel**.
+
+Admins can also confine powerful or sensitive connectors (for example the finance database) to one private channel, so Claude can use them only there. That's how a team gets the benefits of AI on sensitive work without spreading access everywhere.
+~~
+**کانال خصوصی** برای یک گروه کوچک‌تر و کار حساس‌تر است: برنامه‌ریزی مدیریت، منابع انسانی، حقوقی، یک معاملهٔ محرمانه، یک حادثه که با داده‌های مشتری سروکار دارد. چیزی که Claude آن‌جا یاد می‌گیرد **در همان کانال می‌ماند**.
+
+ادمین‌ها می‌توانند کانکتورهای قدرتمند یا حساس (مثلاً دیتابیس مالی) را فقط به یک کانال خصوصی محدود کنند تا Claude فقط همان‌جا از آن‌ها استفاده کند. این‌طوری تیم از مزیت هوش مصنوعی روی کار حساس بهره می‌برد بدون این‌که دسترسی همه‌جا پخش شود.
+
+#analogy
+A private channel is the **locked meeting room** with the confidential files on the table. Claude can read them in there, but the files never leave the room.
+~~
+کانال خصوصی **اتاق جلسهٔ قفل‌دار** است که پرونده‌های محرمانه روی میزش است. Claude آن‌جا می‌تواند بخواندشان، ولی پرونده‌ها هرگز از اتاق بیرون نمی‌روند.
+
+#example
+The finance team has a private channel where Claude can query the accounting system. "@Claude reconcile last month's card transactions against invoices and list anything that doesn't match." The results never appear in the company-wide channels.
+~~
+تیم مالی یک کانال خصوصی دارد که Claude آن‌جا می‌تواند از سیستم حسابداری پرس‌وجو کند. «‎@Claude تراکنش‌های کارت ماه قبل را با فاکتورها تطبیق بده و هر چیزی را که نمی‌خواند فهرست کن.» نتیجه هرگز در کانال‌های عمومی شرکت دیده نمی‌شود.
+
+#tip
+Before adding Claude to a private channel, agree as a group on **what it may access there**. Writing that down in the channel's instructions makes it clear for everyone.
+~~
+قبل از اضافه کردن Claude به یک کانال خصوصی، با گروه توافق کنید **آن‌جا به چه چیزهایی دسترسی داشته باشد**. نوشتنش در دستورهای کانال، موضوع را برای همه روشن می‌کند.
+
+@lesson
+id: picking-the-right-place-for-the-work
+en: Picking the right place for the work
+fa: انتخاب جای درست برای هر کار
+url: https://academy.claude.com/courses/introduction-to-claude-tag
+
+#explain
+Three places, three jobs:
+
+- **DM**: personal and private. Drafts, prep, thinking out loud. Memory stays in the DM.
+- **Public channel**: shared, visible work that benefits from many eyes. Memory can be available workspace-wide.
+- **Private channel**: sensitive work for a small group, often with restricted tools. Memory stays in the channel.
+
+Ask two questions: **Who should see the result?** and **What data does the task need?** The answers almost always point to the right place.
+~~
+سه جا، سه کار:
+
+- **DM:** شخصی و خصوصی. پیش‌نویس، آمادگی، بلند فکر کردن. حافظه در همان DM می‌ماند.
+- **کانال عمومی:** کار مشترک و دیدنی که از چشم‌های زیاد سود می‌برد. حافظه ممکن است در کل فضای کاری در دسترس باشد.
+- **کانال خصوصی:** کار حساس برای یک گروه کوچک، اغلب با ابزارهای محدودشده. حافظه در همان کانال می‌ماند.
+
+دو سؤال بپرس: **چه کسی باید نتیجه را ببیند؟** و **کار به چه داده‌ای نیاز دارد؟** جواب‌ها تقریباً همیشه جای درست را نشان می‌دهند.
+
+#analogy
+At home you have your bedroom (DM), the living room (public channel) and the study with a lock (private channel). You don't do your taxes in the living room or host a party in the study.
+~~
+در خانه اتاق خوابت را داری (DM)، پذیرایی را (کانال عمومی) و اتاق کار قفل‌دار را (کانال خصوصی). کارهای مالیاتی‌ات را در پذیرایی انجام نمی‌دهی و مهمانی را در اتاق کار نمی‌گیری.
+
+#try
+List five things you'd like Claude's help with this week and label each one DM, public or private. If you can't decide, ask "would I be fine if the whole company read this?"
+~~
+پنج کاری را که این هفته می‌خواهی Claude کمکت کند فهرست کن و کنار هر کدام بنویس DM، عمومی یا خصوصی. اگر نتوانستی تصمیم بگیری بپرس: «اگر کل شرکت این را بخواند، مشکلی دارم؟»
+
+@section Shape how Claude works in your channels | شکل دادن به کار Claude در کانال‌ها
+
+@lesson
+id: refining-claudes-work-through-memory-and-instructions
+en: Refining Claude's work through memory and instructions
+fa: بهتر کردن کار Claude با حافظه و دستورها
+url: https://academy.claude.com/courses/introduction-to-claude-tag
+
+#explain
+Claude improves in a channel in two ways:
+
+- **Memory**: Claude keeps what it learns from corrections and conversations, across threads and days. What happened in Monday's stand-up is still there on Thursday. Memory is **scoped by channel**: public-channel learning can be used across the workspace; private-channel and DM learning stays put. Anyone on the team can ask Claude what it remembers, add to it, or tell it to forget something out of date.
+- **Channel instructions**: each channel can have its own written instructions, such as tone, format, which sources to trust, and who owns what. They shape every answer in that channel.
+
+Use instructions for rules you know in advance; let memory capture the small corrections you discover along the way.
+~~
+Claude در یک کانال از دو راه بهتر می‌شود:
+
+- **حافظه:** Claude چیزهایی را که از اصلاح‌ها و گفت‌وگوها یاد می‌گیرد، بین رشته‌پیام‌ها و روزهای مختلف نگه می‌دارد. اتفاق‌های جلسهٔ دوشنبه پنج‌شنبه هم یادش است. حافظه **به کانال محدود است**: یادگرفته‌های کانال عمومی ممکن است در کل فضای کاری استفاده شوند؛ یادگرفته‌های کانال خصوصی و DM همان‌جا می‌مانند. هر عضو تیم می‌تواند بپرسد Claude چه چیزهایی یادش است، چیزی اضافه کند یا بگوید چیز کهنه‌ای را فراموش کند.
+- **دستورهای کانال:** هر کانال می‌تواند دستورهای نوشتهٔ خودش را داشته باشد؛ مثل لحن، قالب، منبع‌های قابل‌اعتماد و این‌که مسئول هر چیز کیست. این‌ها روی همهٔ جواب‌ها در آن کانال اثر می‌گذارند.
+
+برای قانون‌هایی که از قبل می‌دانی از دستورها استفاده کن؛ بگذار حافظه اصلاح‌های کوچکی را که در مسیر کشف می‌کنی ثبت کند.
+
+#prompt
+@Claude What do you remember about how this channel works? Forget the old rule about posting in #support-old; that channel is archived. From now on, link Linear tickets instead of describing them.
+~~
+‎@Claude دربارهٔ روش کار این کانال چه چیزهایی یادت است؟ قانون قدیمی فرستادن پیام به #support-old را فراموش کن؛ آن کانال بایگانی شده. از این به بعد به‌جای توضیح دادن تیکت‌های Linear، لینکشان را بگذار.
+
+#analogy
+Instructions are the **rules posted on the classroom wall**. Memory is what the teacher learns about this particular class over the year: who likes examples, which topic confused everyone last week.
+~~
+دستورها **قانون‌هایی‌اند که روی دیوار کلاس نصب شده**. حافظه چیزی است که معلم در طول سال دربارهٔ همین کلاس خاص یاد می‌گیرد: چه کسی مثال دوست دارد، کدام موضوع هفتهٔ پیش همه را گیج کرد.
+
+#tip
+When Claude gets something wrong, correct it **in the thread** where it happened ("we report revenue in EUR, not USD"). Corrections in context are the ones Claude remembers best.
+~~
+وقتی Claude چیزی را اشتباه گفت، **در همان رشته‌پیام** اصلاحش کن («ما درآمد را به یورو گزارش می‌کنیم، نه دلار»). اصلاح‌هایی که در زمینهٔ خودشان انجام شوند بهتر از همه در یاد Claude می‌مانند.
+
+@lesson
+id: proactive-replies-without-a-tag
+en: Proactive replies without a tag
+fa: پاسخ پیش‌دستانه، بدون تگ شدن
+url: https://academy.claude.com/courses/introduction-to-claude-tag
+
+#explain
+Claude doesn't always have to wait to be tagged. With **proactivity** turned on for a channel, it can speak up when it can help: answer a question that has sat unanswered, notice a thread that went quiet, post when a deploy is live, or flag a decision that needs someone's call. It can even **tag you back**.
+
+Proactivity is **set per channel**. A help channel might want Claude to answer quickly; a planning channel might want it silent except for a scheduled update. Choose the level that matches the channel's culture.
+~~
+لازم نیست Claude همیشه منتظر تگ شدن بماند. اگر **حالت پیش‌دستانه** (proactivity) برای یک کانال روشن باشد، هر وقت بتواند کمک کند وارد می‌شود: به سؤالی که بی‌جواب مانده جواب می‌دهد، متوجه رشته‌پیامی می‌شود که ساکت مانده، وقتی یک نسخهٔ جدید منتشر شد خبر می‌دهد یا تصمیمی را که منتظر نظر کسی است علامت می‌زند. حتی می‌تواند **تو را تگ کند**.
+
+حالت پیش‌دستانه **برای هر کانال جدا** تنظیم می‌شود. یک کانال پشتیبانی ممکن است بخواهد Claude سریع جواب بدهد؛ یک کانال برنامه‌ریزی ممکن است بخواهد جز یک گزارش زمان‌بندی‌شده ساکت بماند. سطحی را انتخاب کن که با فرهنگ آن کانال جور است.
+
+#analogy
+A good teammate doesn't only answer when called. They notice the question nobody answered and say "I can take this one". Proactivity is giving Claude permission to be that teammate, in the channels where it's welcome.
+~~
+یک هم‌تیمی خوب فقط وقتی صدایش می‌کنند جواب نمی‌دهد. سؤالی را که کسی جواب نداده می‌بیند و می‌گوید «این یکی با من». حالت پیش‌دستانه یعنی به Claude اجازه بدهی همان هم‌تیمی باشد، در کانال‌هایی که حضورش خوشایند است.
+
+#example
+In #it-help, a question about VPN setup sits unanswered for 20 minutes. Claude replies with the steps from the internal wiki and tags the IT on-call person in case the steps don't work.
+~~
+در کانال #it-help سؤالی دربارهٔ تنظیم VPN بیست دقیقه بی‌جواب مانده. Claude با قدم‌های ویکی داخلی جواب می‌دهد و نفر کشیک IT را تگ می‌کند که اگر قدم‌ها جواب نداد، رسیدگی کند.
+
+#warn
+Too much proactivity becomes noise, and people start muting the channel. Start conservative and turn it up only where the team asks for it.
+~~
+پیش‌دستی بیش از حد سروصدا می‌شود و مردم کانال را بی‌صدا می‌کنند. محافظه‌کارانه شروع کن و فقط جایی بیشترش کن که خود تیم بخواهد.
+
+@lesson
+id: put-recurring-work-on-a-schedule
+en: Put recurring work on a schedule
+fa: کارهای تکراری را زمان‌بندی کن
+url: https://academy.claude.com/courses/introduction-to-claude-tag/put-recurring-work-on-a-schedule
+
+#explain
+**Routines** are tasks Claude runs on a set schedule and posts to the channel, no tag needed. Write **one message** that says four things:
+
+1. **What to read** (channels, tools, data),
+2. **What to look for**,
+3. **What to post** (format, length, who to tag),
+4. **When** (every Monday 9:00, every weekday at 17:00).
+
+Routines are **visible to the whole channel**, and they keep running even if the person who set them up leaves the channel or the company, so they belong to the team, not to one person. Typical routines: weekly digests, daily checks that post **only when something needs attention**, and lists of overdue or at-risk items.
+~~
+**روتین‌ها** (Routines) کارهایی‌اند که Claude طبق زمان‌بندی مشخص اجرا می‌کند و نتیجه را در کانال می‌گذارد؛ بدون نیاز به تگ. **یک پیام** بنویس که چهار چیز را بگوید:
+
+1. **چه چیزی را بخواند** (کانال‌ها، ابزارها، داده‌ها)،
+2. **دنبال چه بگردد**،
+3. **چه چیزی بگذارد** (قالب، طول، چه کسی را تگ کند)،
+4. **کی** (هر دوشنبه ۹ صبح، هر روز کاری ساعت ۵ عصر).
+
+روتین‌ها **برای کل کانال قابل‌دیدن‌اند** و حتی اگر کسی که راهشان انداخته از کانال یا شرکت برود، همچنان اجرا می‌شوند؛ پس مال تیم‌اند، نه یک نفر. روتین‌های رایج: خلاصهٔ هفتگی، بررسی روزانه‌ای که **فقط وقتی چیزی نیاز به توجه دارد** پیام می‌گذارد و فهرست کارهای عقب‌افتاده یا در خطر.
+
+#prompt
+@Claude Every Monday at 9:00, read last week's messages in this channel, the meeting notes in the "Team Meetings" Drive folder and our open Asana tasks. Post a recap: decisions made, open action items with owners and due dates, and anything overdue. Keep it under 15 lines.
+~~
+‎@Claude هر دوشنبه ساعت ۹، پیام‌های هفتهٔ قبل این کانال، صورت‌جلسه‌های پوشهٔ «Team Meetings» در درایو و تسک‌های باز ما در آسانا را بخوان. یک جمع‌بندی بگذار: تصمیم‌های گرفته‌شده، کارهای باز با مسئول و تاریخ سررسید و هر چیزی که عقب افتاده. کمتر از ۱۵ خط.
+
+#analogy
+A routine is the **school bell**: nobody has to remember to ring it, and everyone knows what it means when it rings.
+~~
+روتین مثل **زنگ مدرسه** است: لازم نیست کسی یادش بماند بزندش و وقتی به صدا درمی‌آید همه می‌دانند یعنی چه.
+
+#tip
+The best daily routines are **quiet by default**: "Post only if something is overdue or blocked." A routine that posts "all good" every day trains people to ignore it.
+~~
+بهترین روتین‌های روزانه **به‌طور پیش‌فرض ساکت‌اند**: «فقط اگر چیزی عقب افتاده یا گیر کرده پیام بگذار.» روتینی که هر روز «همه‌چیز خوب است» می‌فرستد، به مردم یاد می‌دهد نادیده‌اش بگیرند.
+
+#terms
+Routine = روتین = کاری که Claude طبق زمان‌بندی خودش اجرا می‌کند و نتیجه را در کانال می‌گذارد.
+
+@section Run one task well | یک کار را خوب انجام بده
+
+@lesson
+id: run-one-task-well
+en: "Run one task well: choose, request, let it work, review"
+fa: یک کار را خوب اجرا کن: انتخاب، درخواست، کار کردن Claude، بازبینی
+url: https://academy.claude.com/courses/introduction-to-claude-tag
+
+#explain
+Before handing Claude big responsibilities, practice the full cycle on **one real task**:
+
+1. **Choose** a task that is real, bounded and checkable, such as "summarize customer feedback from this week" rather than "improve our product".
+2. **Write the request**: goal, sources, format, audience, and how you'll judge it. Mention what it should not do.
+3. **Let Claude work.** Bigger tasks can take a while; Claude may ask for input or come back when it's done. Answer its questions in the thread.
+4. **Review** the result against your criteria. Correct it in the thread so the lesson sticks.
+
+This one cycle teaches the team what Claude needs, where it shines and where it needs a human check.
+~~
+قبل از سپردن مسئولیت‌های بزرگ به Claude، کل چرخه را روی **یک کار واقعی** تمرین کن:
+
+1. **انتخاب:** کاری را انتخاب کن که واقعی، محدود و قابل‌سنجش باشد؛ مثل «بازخورد مشتری‌های این هفته را خلاصه کن»، نه «محصولمان را بهتر کن».
+2. **نوشتن درخواست:** هدف، منبع‌ها، قالب، مخاطب و این‌که با چه معیاری قضاوتش می‌کنی. بگو چه کاری نباید بکند.
+3. **بگذار Claude کار کند.** کارهای بزرگ‌تر ممکن است کمی طول بکشند؛ Claude ممکن است سؤال بپرسد یا وقتی تمام شد برگردد. جواب سؤال‌هایش را در همان رشته بده.
+4. **بازبینی:** نتیجه را با معیارهایت بسنج. در همان رشته اصلاحش کن تا درس در حافظه بماند.
+
+همین یک چرخه به تیم یاد می‌دهد Claude چه چیزی لازم دارد، کجا می‌درخشد و کجا بررسی انسانی لازم است.
+
+#prompt
+@Claude Goal: a one-page summary of this week's customer feedback for Thursday's product meeting. Sources: #customer-feedback and the "Support tickets" export in Drive. Format: top 5 themes with 2 real quotes each and a count. Don't suggest solutions; we'll discuss those in the meeting.
+~~
+‎@Claude هدف: خلاصهٔ یک‌صفحه‌ای بازخورد مشتری‌های این هفته برای جلسهٔ محصول پنج‌شنبه. منبع‌ها: کانال #customer-feedback و خروجی «Support tickets» در درایو. قالب: ۵ موضوع اصلی، هر کدام با ۲ نقل‌قول واقعی و تعداد تکرار. راه‌حل پیشنهاد نده؛ آن را در جلسه بحث می‌کنیم.
+
+#analogy
+It's the driving lesson in an empty parking lot before the highway: same car, same skills, much lower stakes.
+~~
+مثل تمرین رانندگی در یک پارکینگ خالی قبل از رفتن به اتوبان است: همان ماشین، همان مهارت‌ها، با ریسک خیلی کمتر.
+
+#tip
+Write the **"how I'll judge it"** line before you see the result. Deciding your criteria afterwards makes it too easy to accept whatever came back.
+~~
+خط **«با چه معیاری قضاوتش می‌کنم»** را قبل از دیدن نتیجه بنویس. اگر معیار را بعداً تعیین کنی، خیلی راحت هر چه برگشته را قبول می‌کنی.
+
+@section Expand Claude's ownership | بزرگ‌تر کردن مسئولیت Claude
+
+@lesson
+id: expand-what-claude-owns
+en: Expand what Claude owns
+fa: گسترش دادن چیزهایی که Claude مسئولشان است
+url: https://academy.claude.com/courses/introduction-to-claude-tag/expand-what-claude-owns
+
+#explain
+The big step: from "Claude helps when asked" to "**Claude owns a responsibility**". You give it a standing job in a channel, for example:
+
+> "You're responsible for keeping this channel's open questions answered. Check daily, answer what you can, and tag whoever is right for the rest."
+
+Other examples: triaging every incoming bug report (reproduce, check logs, propose a fix or route it), chasing follow-ups after events, keeping a backlog groomed, or being the first responder for build failures.
+
+Claude can run tasks that take **days**: it follows up, asks for input and comes back when it's done. To make ownership work, give it the **tools and access** it needs (configured by admins), a **definition of done**, and clear rules for when to hand off to a human.
+~~
+قدم بزرگ: از «Claude وقتی بخواهیم کمک می‌کند» به «**Claude مسئول یک کار است**». یک وظیفهٔ همیشگی در یک کانال به آن می‌دهی؛ مثلاً:
+
+> «تو مسئولی سؤال‌های باز این کانال جواب بگیرند. هر روز سر بزن، هر چه می‌توانی جواب بده و برای بقیه، نفر درست را تگ کن.»
+
+مثال‌های دیگر: دسته‌بندی هر گزارش باگ تازه (بازتولید، چک کردن لاگ‌ها، پیشنهاد راه‌حل یا ارجاع)، پیگیری کارهای بعد از رویدادها، مرتب نگه داشتن فهرست کارهای عقب‌مانده، یا اولین واکنش‌دهنده بودن به خطاهای build.
+
+Claude می‌تواند کارهایی را اجرا کند که **چند روز** طول می‌کشند: پیگیری می‌کند، از آدم‌ها ورودی می‌خواهد و وقتی تمام شد برمی‌گردد. برای این‌که این مسئولیت درست کار کند، **ابزار و دسترسی** لازم را (که ادمین‌ها تنظیم می‌کنند)، **تعریف «تمام شد»** و قانون روشن برای این‌که کی کار را به یک انسان بسپارد، به آن بده.
+
+#analogy
+It's the difference between asking a babysitter to "watch the kids for a minute" and making them **responsible for bedtime every Tuesday**: with a routine, the house rules and a phone number to call if something goes wrong.
+~~
+فرقش مثل فرق بین «یک دقیقه حواست به بچه‌ها باشد» و **مسئول کردن پرستار برای وقت خواب هر سه‌شنبه** است: با یک برنامهٔ منظم، قانون‌های خانه و شماره‌ای برای تماس اگر مشکلی پیش آمد.
+
+#example
+An engineering team makes Claude the first responder in #internal-bugs. For each report it reads the screenshots, checks the monitoring and ticket tools it has access to, rules out user errors, traces the likely cause and often opens a draft fix for a human to review.
+~~
+یک تیم مهندسی Claude را اولین واکنش‌دهنده در کانال #internal-bugs می‌کند. برای هر گزارش، اسکرین‌شات‌ها را می‌خواند، ابزارهای مانیتورینگ و تیکتی را که به آن‌ها دسترسی دارد چک می‌کند، خطاهای کاربر را کنار می‌گذارد، علت احتمالی را ردگیری می‌کند و اغلب یک پیش‌نویس اصلاح برای بازبینی انسانی باز می‌کند.
+
+#warn
+Give ownership **one task type at a time**. Widen what Claude may do only after it has handled that type well several times in a row.
+~~
+مسئولیت را **هر بار برای یک نوع کار** بده. فقط وقتی دامنهٔ کار Claude را بیشتر کن که آن نوع کار را چند بار پشت سر هم خوب انجام داده باشد.
+
+#terms
+Standing responsibility = مسئولیت همیشگی = وظیفه‌ای که Claude به‌طور مداوم در یک کانال بر عهده دارد، بدون نیاز به درخواست تازه.
+Agent identity = هویت ایجنت = حساب مخصوص Claude در سیستم‌های شرکت که همهٔ کارهایش با آن ثبت می‌شود.
+
+@lesson
+id: review-how-your-team-works-with-claude
+en: Review how your team works with Claude
+fa: بازبینی شیوهٔ کار تیم با Claude
+url: https://academy.claude.com/courses/introduction-to-claude-tag
+
+#explain
+Once Claude is part of the team, check in on the partnership the way you would with any teammate. Every week or two, ask:
+
+- **What did Claude own, and how did it go?** Which routines are read, which are ignored?
+- **Where did humans have to correct it?** Turn repeated corrections into channel instructions.
+- **What should it own next?** Is there a task the team keeps dropping?
+- **Is access right-sized?** Does it have tools it doesn't need, or lack one it does?
+
+Because Claude acts under its own identity and every use of a credential is logged, you can always answer "what did Claude do, and who asked for it?". That transparency is what lets trust grow.
+~~
+وقتی Claude بخشی از تیم شد، مثل هر هم‌تیمی دیگری به این همکاری سر بزن. هر یکی دو هفته بپرس:
+
+- **Claude مسئول چه بود و چطور پیش رفت؟** کدام روتین‌ها خوانده می‌شوند و کدام نادیده گرفته می‌شوند؟
+- **کجا آدم‌ها مجبور شدند اصلاحش کنند؟** اصلاح‌های تکراری را به دستورهای کانال تبدیل کن.
+- **از این به بعد مسئول چه چیزی شود؟** کاری هست که تیم مدام از دستش می‌افتد؟
+- **دسترسی‌ها به‌اندازه است؟** ابزاری دارد که لازم ندارد، یا ابزاری کم دارد که لازم است؟
+
+چون Claude با هویت خودش کار می‌کند و هر استفاده از یک اعتبارنامه ثبت می‌شود، همیشه می‌توانی جواب بدهی «Claude چه کرد و چه کسی خواسته بود؟». همین شفافیت است که اجازه می‌دهد اعتماد رشد کند.
+
+#analogy
+It's the **team retro**, with Claude at the table: what went well, what didn't, what we change next week.
+~~
+مثل **جلسهٔ مرور تیمی** (retro) است، با حضور Claude سر میز: چه چیزی خوب پیش رفت، چه چیزی نه، هفتهٔ بعد چه چیزی را عوض کنیم.
+
+#try
+Run a 15-minute retro this week with three questions: "What did Claude save us time on? Where did it get things wrong? What should it own next?" Write the answers into the channel instructions.
+~~
+این هفته یک جلسهٔ مرور ۱۵ دقیقه‌ای با سه سؤال بگذار: «Claude در چه چیزهایی وقتمان را ذخیره کرد؟ کجا اشتباه کرد؟ از این به بعد مسئول چه باشد؟» جواب‌ها را در دستورهای کانال بنویس.
+
+@cheatsheet
+- **@Claude** in a thread = it reads the whole context and answers where everyone can see.
+- Places: **DM** (private, memory stays) · **public channel** (shared, memory can spread) · **private channel** (sensitive, memory and tools confined).
+- Choose by: who should see the result? what data does it need?
+- Shape it: **channel instructions** (known rules) + **memory** (learned corrections; ask what it remembers, tell it to forget).
+- **Proactivity** is per channel: start quiet.
+- **Routines**: what to read · what to look for · what to post · when. Quiet by default.
+- One task well: choose · request · let it work · review (criteria first).
+- Ownership: one task type at a time, right-sized access, definition of done, handoff rules.
+- Claude acts under its **own identity**; every action is logged.
+~~
+- **‎@Claude** در یک رشته‌پیام = کل زمینه را می‌خواند و جایی جواب می‌دهد که همه ببینند.
+- جاها: **DM** (خصوصی، حافظه همان‌جا می‌ماند) · **کانال عمومی** (مشترک، حافظه ممکن است پخش شود) · **کانال خصوصی** (حساس، حافظه و ابزارها محدود).
+- معیار انتخاب: چه کسی باید نتیجه را ببیند؟ چه داده‌ای لازم است؟
+- شکل دادن: **دستورهای کانال** (قانون‌های معلوم) + **حافظه** (اصلاح‌های یادگرفته؛ بپرس چه یادش است، بگو چه را فراموش کند).
+- **پیش‌دستی** برای هر کانال جداست: ساکت شروع کن.
+- **روتین‌ها:** چه بخواند · دنبال چه بگردد · چه بگذارد · کی. به‌طور پیش‌فرض ساکت.
+- یک کار خوب: انتخاب · درخواست · کار کردن Claude · بازبینی (اول معیار).
+- مسئولیت: هر بار یک نوع کار، دسترسی به‌اندازه، تعریف «تمام شد»، قانون واگذاری به انسان.
+- Claude با **هویت خودش** کار می‌کند؛ همهٔ کارهایش ثبت می‌شود.
+
+@quiz
+Q: You want help rewriting a sensitive message to your manager. DM, public or private channel? || می‌خواهی کمک بگیری یک پیام حساس به مدیرت را بازنویسی کنی. DM، کانال عمومی یا خصوصی؟
+A: A DM: it's personal, and what Claude learns there stays in the DM. || DM؛ چون شخصی است و چیزی که Claude آن‌جا یاد می‌گیرد در همان DM می‌ماند.
+Q: Name the four things a routine message should say. || چهار چیزی که پیام یک روتین باید بگوید کدام‌اند؟
+A: What to read, what to look for, what to post, and when. || چه چیزی را بخواند، دنبال چه بگردد، چه چیزی بگذارد و کی.
+Q: Who does a routine belong to if its creator leaves the company? || اگر سازندهٔ یک روتین از شرکت برود، روتین مال کیست؟
+A: The channel/team: routines are visible to the whole channel and keep running. || مال کانال و تیم: روتین‌ها برای کل کانال دیده می‌شوند و به اجرا ادامه می‌دهند.
+Q: Why should proactivity start conservative? || چرا حالت پیش‌دستانه باید محافظه‌کارانه شروع شود؟
+A: Because too many unsolicited posts become noise and people mute the channel; increase it only where the team wants it. || چون پیام‌های ناخواستهٔ زیاد سروصدا می‌شوند و مردم کانال را بی‌صدا می‌کنند؛ فقط جایی بیشترش کن که تیم بخواهد.
+Q: How do you safely widen what Claude owns? || چطور با خیال راحت مسئولیت Claude را بیشتر کنیم؟
+A: One task type at a time, after it has handled that type well several times, with right-sized access and clear handoff rules. || هر بار یک نوع کار، بعد از این‌که چند بار پشت سر هم خوب انجامش داد، با دسترسی به‌اندازه و قانون روشن برای واگذاری به انسان.

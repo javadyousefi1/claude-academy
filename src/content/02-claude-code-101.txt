@@ -1,0 +1,628 @@
+@page
+slug: claude-code-101
+kind: course
+group: start
+order: 2
+en: Claude Code 101
+fa: Claude Code 101؛ برنامه‌نویسی همراه با Claude
+stats: 12 lessons · 1 quiz · 1.5 hr · badge
+url: https://academy.claude.com/courses/claude-code-101
+expect: 12
+who_en: Developers (or curious beginners) who want Claude to work directly in their code: terminal, IDE, desktop or web.
+who_fa: برنامه‌نویس‌ها (یا تازه‌کارهای کنجکاو) که می‌خواهند Claude مستقیم داخل کدشان کار کند: ترمینال، IDE، دسکتاپ یا وب.
+blurb_fa: از نصب تا اولین پرامپت، روال «بگرد، برنامه بریز، بنویس، ثبت کن»، مدیریت کانتکست، CLAUDE.md، ساب‌ایجنت، اسکیل، MCP و هوک.
+desc_en: A hands-on intro to Claude Code, from installing it to customizing it with CLAUDE.md, subagents, skills, MCP and hooks.
+
+@intro
+Claude Code is Claude that can **work inside your project**: it reads your files, runs commands, edits code, runs the tests and checks its own work. You talk to it like a teammate sitting at your keyboard.
+
+This course takes you from zero to a comfortable daily workflow: install it, write a good first prompt, follow a safe step-by-step workflow, keep long sessions clean, get a second opinion with code review, and then shape Claude Code to fit your team with CLAUDE.md, subagents, skills, MCP servers and hooks.
+~~
+Claude Code همان Claude است که می‌تواند **داخل پروژهٔ تو کار کند**: فایل‌هایت را می‌خواند، دستور اجرا می‌کند، کد را ویرایش می‌کند، تست‌ها را اجرا می‌کند و کار خودش را چک می‌کند. با آن مثل هم‌تیمی‌ای حرف می‌زنی که پشت کیبورد تو نشسته.
+
+این دوره تو را از صفر به یک روال کاری راحت روزانه می‌رساند: نصبش می‌کنی، یک پرامپت اول خوب می‌نویسی، یک روال امن قدم‌به‌قدم را دنبال می‌کنی، جلسه‌های طولانی را تمیز نگه می‌داری، با بازبینی کد یک نظر دوم می‌گیری و بعد با CLAUDE.md، ساب‌ایجنت‌ها، اسکیل‌ها، سرورهای MCP و هوک‌ها، Claude Code را به اندازهٔ تیمت درمی‌آوری.
+
+@section What is Claude Code? | Claude Code چیست؟
+
+@lesson
+id: what-is-claude-code
+en: What is Claude Code?
+fa: Claude Code چیست؟
+url: https://academy.claude.com/courses/claude-code-101/what-is-claude-code
+
+#explain
+A normal chatbot can only **talk** about your code: you copy code in, it suggests changes, you copy them back. **Claude Code is an agent**: it can *do* the work. In your project it can:
+
+- read and search files to understand the codebase,
+- edit files and create new ones,
+- run terminal commands (tests, builds, git),
+- look at the results and fix what went wrong.
+
+You can use it where you already work: the terminal, VS Code, JetBrains IDEs, the Claude desktop app (Code tab) and the web. Typical jobs: build a feature from a description, debug from an error message, write tests, explain an unfamiliar codebase, and handle chores like lint fixes and merge conflicts.
+~~
+یک چت‌بات معمولی فقط می‌تواند **دربارهٔ** کدت حرف بزند: تو کد را کپی می‌کنی داخلش، او پیشنهاد می‌دهد، تو پیشنهاد را برمی‌گردانی. **Claude Code یک ایجنت (agent) است**: خودش کار را *انجام می‌دهد*. داخل پروژه‌ات می‌تواند:
+
+- فایل‌ها را بخواند و بگردد تا ساختار کد را بفهمد،
+- فایل‌ها را ویرایش کند و فایل تازه بسازد،
+- دستورهای ترمینال اجرا کند (تست، build، git)،
+- نتیجه را ببیند و چیزی را که خراب شده درست کند.
+
+می‌توانی همان‌جا که کار می‌کنی استفاده‌اش کنی: ترمینال، VS Code، IDEهای JetBrains، اپ دسکتاپ Claude (تب Code) و وب. کارهای معمول: ساختن یک قابلیت از روی توضیح، پیدا کردن باگ از روی پیام خطا، نوشتن تست، توضیح دادن کدی که نمی‌شناسی و کارهای روتین مثل رفع خطاهای lint و حل تداخل‌های merge.
+
+#analogy
+A chatbot is a friend on the phone who gives advice while you fix the bike. Claude Code is a friend who **comes over, picks up the tools and fixes it with you**, while you watch and say "yes", "no" or "careful there".
+~~
+چت‌بات مثل دوستی است که پشت تلفن راهنمایی‌ات می‌کند تا خودت دوچرخه را درست کنی. Claude Code دوستی است که **می‌آید خانه‌تان، آچار را برمی‌دارد و با تو درستش می‌کند**، و تو تماشا می‌کنی و می‌گویی «آره»، «نه» یا «مواظب باش».
+
+#example
+Reza opens a 3-year-old project he has never seen. He asks: "Explain how a user logs in, from the button click to the database. List the files involved." Claude Code searches the code, opens the right files and gives him a map in two minutes, a job that would have taken him an afternoon.
+~~
+رضا پروژهٔ سه‌ساله‌ای را باز می‌کند که تا حالا ندیده. می‌پرسد: «توضیح بده کاربر چطور لاگین می‌کند؛ از کلیک روی دکمه تا دیتابیس. فایل‌های درگیر را هم فهرست کن.» Claude Code کد را می‌گردد، فایل‌های درست را باز می‌کند و در دو دقیقه یک نقشه تحویلش می‌دهد؛ کاری که یک بعدازظهر از رضا وقت می‌گرفت.
+
+#tip
+Your first sessions should be **read-only questions** about your codebase ("how does X work?", "where is Y handled?"). It's the fastest way to build trust and to learn what Claude Code is good at, with zero risk.
+~~
+اولین جلسه‌هایت را با **سؤال‌های فقط‌خواندنی** دربارهٔ کدت شروع کن («X چطور کار می‌کند؟»، «Y کجا مدیریت می‌شود؟»). سریع‌ترین و بی‌خطرترین راه برای اعتماد کردن و فهمیدن این است که Claude Code در چه چیزی خوب است.
+
+#terms
+Agent = ایجنت (عامل) = هوش مصنوعی‌ای که علاوه بر حرف زدن، با ابزارها کار انجام می‌دهد و نتیجه را بررسی می‌کند.
+Codebase = کدبیس = کل کدهای یک پروژه.
+
+@lesson
+id: how-claude-code-works
+en: How Claude Code works
+fa: Claude Code چطور کار می‌کند؟
+url: https://academy.claude.com/courses/claude-code-101/how-claude-code-works
+
+#explain
+Claude Code runs in a loop called the **agentic loop**:
+
+1. **Gather context**: read files, search, look around.
+2. **Take action**: edit a file or run a command.
+3. **Verify**: check whether the result matches what you asked (did the tests pass? does it build?).
+
+If not, it loops back and tries again. You can jump in at any time: add context, interrupt (press Esc), or steer it in a new direction.
+
+How much Claude may do without asking is set by **permission modes**:
+
+- **Manual** (ask every time): Claude asks before every file edit or shell command.
+- **Auto-accept edits**: file edits happen without asking, but commands still need your OK.
+- **Plan mode**: Claude only uses read-only tools and writes a plan before touching anything.
+- **Auto mode**: no permission prompts; a safety classifier checks each action in the background and blocks irreversible, destructive or out-of-scope actions. When something is blocked, Claude looks for a safer way or asks you.
+
+You can switch modes during a session (Shift+Tab in the terminal), and the starting mode is configurable in your settings.
+~~
+Claude Code در یک چرخه کار می‌کند که اسمش **چرخهٔ ایجنتی** (agentic loop) است:
+
+1. **جمع کردن زمینه:** فایل‌ها را می‌خواند، جست‌وجو می‌کند، اطراف را نگاه می‌کند.
+2. **انجام کار:** یک فایل را ویرایش می‌کند یا یک دستور اجرا می‌کند.
+3. **بررسی:** چک می‌کند نتیجه با خواستهٔ تو جور است یا نه (تست‌ها پاس شدند؟ build می‌شود؟).
+
+اگر نه، برمی‌گردد اول چرخه و دوباره تلاش می‌کند. تو هر لحظه می‌توانی وارد شوی: زمینهٔ بیشتر بدهی، متوقفش کنی (کلید Esc) یا مسیرش را عوض کنی.
+
+این‌که Claude بدون پرسیدن چقدر کار کند را **حالت‌های مجوز** (permission modes) تعیین می‌کنند:
+
+- **دستی (Manual):** قبل از هر ویرایش فایل یا دستور ترمینال اجازه می‌گیرد.
+- **پذیرش خودکار ویرایش‌ها (Auto-accept):** فایل‌ها را بی‌اجازه ویرایش می‌کند، ولی برای دستورها هنوز تأیید تو لازم است.
+- **حالت برنامه‌ریزی (Plan mode):** فقط از ابزارهای فقط‌خواندنی استفاده می‌کند و قبل از دست زدن به هر چیزی، یک برنامه می‌نویسد.
+- **حالت خودکار (Auto mode):** بدون پنجرهٔ اجازه کار می‌کند؛ یک طبقه‌بند ایمنی در پس‌زمینه هر کار را بررسی می‌کند و کارهای برگشت‌ناپذیر، مخرب یا بیرون از محدوده را متوقف می‌کند. اگر چیزی بلاک شود، Claude دنبال راه امن‌تری می‌گردد یا از تو می‌پرسد.
+
+وسط جلسه می‌توانی حالت را عوض کنی (در ترمینال با Shift+Tab) و حالت شروع را هم در تنظیمات می‌شود تعیین کرد.
+
+#analogy
+The loop is how a good cook works: **look** in the fridge, **cook** something, **taste** it, adjust the salt, taste again. Permission modes are like deciding how much the new cook may do alone: ask before every step, only ask before using the oven, or cook freely while a head chef quietly watches for danger.
+~~
+این چرخه همان روش کار یک آشپز خوب است: داخل یخچال را **نگاه می‌کند**، چیزی **می‌پزد**، **می‌چشد**، نمکش را تنظیم می‌کند و دوباره می‌چشد. حالت‌های مجوز مثل این است که تصمیم بگیری آشپز تازه‌کار چقدر خودش کار کند: قبل از هر قدم بپرسد، فقط قبل از روشن کردن فر بپرسد، یا آزادانه بپزد درحالی‌که سرآشپز بی‌صدا مراقب خطرهاست.
+
+#tip
+Match the mode to the risk, not to your patience. New codebase or production config: Manual or Plan. Well-tested side project: Auto-accept or Auto. You can always switch back with Shift+Tab.
+~~
+حالت را با میزان ریسک تنظیم کن، نه با میزان حوصله‌ات. کدبیس ناآشنا یا تنظیمات محیط اصلی (production): دستی یا برنامه‌ریزی. پروژهٔ شخصی‌ای که تست خوب دارد: پذیرش خودکار یا خودکار. هر وقت خواستی با Shift+Tab برگرد.
+
+#warn
+Skipping permissions removes your chance to catch a mistake **before** it happens. If you let Claude run freely, make sure your work is committed in git first, so any change can be undone.
+~~
+رد کردن مجوزها فرصت تو برای گرفتن اشتباه **قبل از** وقوعش را از بین می‌برد. اگر به Claude اجازهٔ کار آزاد می‌دهی، اول مطمئن شو کارت در git ثبت (commit) شده تا هر تغییری قابل برگشت باشد.
+
+#terms
+Agentic loop = چرخهٔ ایجنتی = تکرار «جمع کردن زمینه، انجام کار، بررسی نتیجه» تا وقتی کار درست انجام شود.
+Permission mode = حالت مجوز = تنظیمی که مشخص می‌کند Claude برای چه کارهایی باید از تو اجازه بگیرد.
+Plan mode = حالت برنامه‌ریزی = حالتی که Claude فقط می‌خواند و برنامه می‌نویسد، بدون تغییر دادن چیزی.
+
+@section Your first prompt | اولین پرامپت
+
+@lesson
+id: installing-claude-code
+en: Installing Claude Code
+fa: نصب Claude Code
+url: https://academy.claude.com/courses/claude-code-101/installing-claude-code
+
+#explain
+You can run Claude Code in several places. Pick the one that matches how you already work:
+
+- **Terminal** (macOS, Linux, WSL on Windows): one install command, then type `claude` inside your project folder. Homebrew also works, but that route doesn't auto-update.
+- **VS Code** (and forks like Cursor): install the Claude Code extension; it opens a panel next to your editor and shows changes as diffs.
+- **JetBrains** (IntelliJ, PyCharm, WebStorm…): install the plugin from the JetBrains Marketplace, restart the IDE, then click the Claude icon to open a terminal-style pane beside the editor.
+- **Claude desktop app**: open the **Code** tab and point it at a local folder.
+- **Web**: run sessions in the cloud on a connected GitHub repository, no local install needed.
+
+The first time you run it, you sign in with your Claude account (or an API key / company login).
+~~
+Claude Code را جاهای مختلفی می‌شود اجرا کرد. همانی را انتخاب کن که با روش کار فعلی‌ات جور است:
+
+- **ترمینال** (مک، لینوکس، WSL روی ویندوز): یک دستور نصب، بعد داخل پوشهٔ پروژه بنویس `claude`. با Homebrew هم می‌شود، ولی آن روش خودکار به‌روز نمی‌شود.
+- **VS Code** (و نسخه‌های مشابه مثل Cursor): افزونهٔ Claude Code را نصب کن؛ پنلی کنار ویرایشگر باز می‌کند و تغییرها را به شکل diff نشان می‌دهد.
+- **JetBrains** (IntelliJ، PyCharm، WebStorm و…): پلاگین را از JetBrains Marketplace نصب کن، IDE را ری‌استارت کن، بعد روی آیکون Claude بزن تا یک پنل شبیه ترمینال کنار ویرایشگر باز شود.
+- **اپ دسکتاپ Claude**: تب **Code** را باز کن و یک پوشهٔ محلی را به آن بده.
+- **وب**: جلسه‌ها را روی ابر و روی یک مخزن گیت‌هاب وصل‌شده اجرا کن؛ نصب محلی لازم نیست.
+
+بار اول که اجرایش می‌کنی، با حساب Claude (یا کلید API / ورود سازمانی) وارد می‌شوی.
+
+#code bash Terminal install (macOS, Linux, WSL)
+curl -fsSL https://claude.ai/install.sh | bash
+
+# then, inside your project:
+cd my-project
+claude
+#end
+
+#code powershell Windows PowerShell
+irm https://claude.ai/install.ps1 | iex
+#end
+
+#analogy
+It's the same helper with different doors into your house: the terminal is the back door developers love, the IDE is the kitchen door right next to where you cook, the desktop app is the front door, and the web is visiting from anywhere.
+~~
+همان یک دستیار است با درهای مختلف برای ورود به خانه‌ات: ترمینال در پشتی‌ای است که برنامه‌نویس‌ها دوستش دارند، IDE درِ آشپزخانه درست کنار جایی که آشپزی می‌کنی، اپ دسکتاپ درِ اصلی و وب یعنی از هر جای دنیا سر بزنی.
+
+#tip
+Always start Claude Code **from the root folder of your project**. That folder becomes its workspace, so it can find your config files, tests and CLAUDE.md.
+~~
+Claude Code را همیشه **از پوشهٔ اصلی (ریشهٔ) پروژه** شروع کن. همان پوشه فضای کارش می‌شود و از آن‌جا فایل‌های تنظیمات، تست‌ها و CLAUDE.md را پیدا می‌کند.
+
+#try
+Install it in the place you spend most of your day, open a small project and ask: "Give me a 10-line tour of this project: what it does, how to run it, how to test it."
+~~
+آن را همان جایی نصب کن که بیشتر روزت آن‌جاست، یک پروژهٔ کوچک باز کن و بپرس: «یک معرفی ۱۰ خطی از این پروژه بده: چه کار می‌کند، چطور اجرایش کنم، چطور تستش کنم.»
+
+@lesson
+id: your-first-prompt
+en: Your first prompt
+fa: اولین پرامپت
+url: https://academy.claude.com/courses/claude-code-101/your-first-prompt
+
+#explain
+A good Claude Code prompt describes **the outcome**, not the keystrokes. Include:
+
+- **What** you want, in plain words ("add a `--version` flag that prints the version from package.json").
+- **Where** to look, if you know (file names, folders, a function name). You can mention files with `@`.
+- **How to know it's done**: "add a test", "make sure `npm test` passes".
+
+For anything bigger than a small fix, start in **Plan Mode**. Claude explores the code with read-only tools, asks questions and proposes a plan. You read it, adjust it, and only then let it write code. This lets Claude dig into the details of what you want before it changes anything.
+~~
+یک پرامپت خوب برای Claude Code **نتیجه** را توصیف می‌کند، نه تک‌تک دکمه‌ها را. این‌ها را بگو:
+
+- **چه** می‌خواهی، با زبان ساده («یک فلگ `--version` اضافه کن که نسخه را از package.json چاپ کند»).
+- **کجا** را نگاه کند، اگر می‌دانی (اسم فایل، پوشه، اسم تابع). می‌توانی با `@` به فایل‌ها اشاره کنی.
+- **از کجا بفهمیم تمام شده:** «یک تست اضافه کن»، «مطمئن شو `npm test` پاس می‌شود».
+
+برای هر کاری بزرگ‌تر از یک اصلاح کوچک، با **حالت برنامه‌ریزی** (Plan Mode) شروع کن. Claude با ابزارهای فقط‌خواندنی کد را می‌گردد، سؤال می‌پرسد و برنامه پیشنهاد می‌دهد. تو می‌خوانی، اصلاحش می‌کنی و فقط بعد اجازه می‌دهی کد بنویسد. این‌طوری Claude قبل از تغییر دادن هر چیزی، جزئیات خواستهٔ تو را درمی‌آورد.
+
+#prompt
+Add a dark mode toggle to the settings page. Look at @src/settings/SettingsPage.tsx and how we store user preferences. Save the choice so it survives a page reload. Add a test for the toggle and make sure `npm test` passes. Start with a plan; don't edit anything until I approve it.
+~~
+به صفحهٔ تنظیمات یک کلید حالت تاریک اضافه کن. @src/settings/SettingsPage.tsx و روش ذخیرهٔ ترجیحات کاربر را نگاه کن. انتخاب کاربر را ذخیره کن تا با رفرش صفحه از بین نرود. برای این کلید یک تست بنویس و مطمئن شو `npm test` پاس می‌شود. با یک برنامه شروع کن؛ تا تأیید نکرده‌ام هیچ چیزی را ویرایش نکن.
+
+#analogy
+Asking for a plan first is like a builder showing you a **drawing of the kitchen** before knocking down walls. Changing a line on paper is free; moving a wall is not.
+~~
+برنامه خواستن قبل از کار مثل این است که بنا قبل از خراب کردن دیوارها، **نقشهٔ آشپزخانه** را نشانت بدهد. عوض کردن یک خط روی کاغذ مجانی است؛ جابه‌جا کردن دیوار نه.
+
+#tip
+Tell Claude **how to check its own work**. "Run the tests", "start the dev server and check the page loads", "run the linter". A verifiable goal is the single biggest quality boost in agentic coding.
+~~
+به Claude بگو **چطور کار خودش را بسنجد**: «تست‌ها را اجرا کن»، «سرور را بالا بیاور و ببین صفحه باز می‌شود»، «linter را اجرا کن». هدفی که قابل‌بررسی باشد بزرگ‌ترین عامل بالا بردن کیفیت در کدنویسی ایجنتی است.
+
+#terms
+@-mention = اشاره با @ = آوردن اسم فایل با @ در پرامپت تا Claude دقیقاً همان فایل را بخواند.
+Verifiable goal = هدف قابل‌بررسی = هدفی که با یک بررسی عینی (مثل پاس شدن تست) معلوم می‌شود محقق شده یا نه.
+
+@section Daily workflows | روال‌های روزانه
+
+@lesson
+id: the-explore-plan-code-commit-workflow
+en: "The explore → plan → code → commit workflow"
+fa: روال «بگرد ← برنامه بریز ← کد بزن ← ثبت کن»
+url: https://academy.claude.com/courses/claude-code-101/the-explore-plan-code-commit-workflow
+
+#explain
+The most reliable daily rhythm has four steps:
+
+1. **Explore**: ask Claude to read the relevant code and explain it. No edits yet. "Read the payment module and tell me how refunds work."
+2. **Plan**: ask for a step-by-step plan (Plan Mode is perfect). Push back on anything you don't like. This is the cheapest moment to fix a misunderstanding.
+3. **Code**: let Claude implement the plan, run the tests, and fix failures.
+4. **Commit**: review the diff, then ask Claude to commit with a clear message (and open a pull request if your team uses them).
+
+Skipping straight to "code" is the most common beginner mistake: Claude may solve the wrong problem very confidently.
+~~
+قابل‌اعتمادترین ریتم روزانه چهار قدم دارد:
+
+1. **بگرد (Explore):** از Claude بخواه کد مرتبط را بخواند و توضیح بدهد. هنوز ویرایشی در کار نیست. «ماژول پرداخت را بخوان و بگو برگشت وجه چطور کار می‌کند.»
+2. **برنامه بریز (Plan):** یک برنامهٔ قدم‌به‌قدم بخواه (Plan Mode برای این عالی است). با هر چیزی که دوستش نداری مخالفت کن. ارزان‌ترین لحظه برای رفع یک سوءتفاهم همین‌جاست.
+3. **کد بزن (Code):** بگذار Claude برنامه را پیاده کند، تست‌ها را اجرا کند و خطاها را درست کند.
+4. **ثبت کن (Commit):** تغییرات (diff) را مرور کن و بعد از Claude بخواه با یک پیام روشن commit کند (و اگر تیمت از pull request استفاده می‌کند، یکی باز کند).
+
+پریدن مستقیم به مرحلهٔ «کد» رایج‌ترین اشتباه تازه‌کارهاست: ممکن است Claude با اطمینان کامل، مسئلهٔ اشتباهی را حل کند.
+
+#analogy
+It's how you'd write a school essay: **read** the sources, **outline** the essay, **write** it, then **hand it in**. Nobody gets a good grade by writing the final version before reading the sources.
+~~
+درست مثل نوشتن یک انشای مدرسه: منابع را **می‌خوانی**، **طرح کلی** می‌ریزی، **می‌نویسی** و بعد **تحویل می‌دهی**. هیچ‌کس با نوشتن نسخهٔ نهایی قبل از خواندن منابع نمرهٔ خوب نمی‌گیرد.
+
+#example
+Explore: "How do we send emails today? Which library, which files?"
+Plan: "Plan how to add a weekly digest email. Don't code yet."
+Code: "Go ahead with steps 1-3 of the plan. Run the tests after each step."
+Commit: "Commit with a message that explains why, not just what."
+~~
+بگرد: «الان ایمیل‌ها را چطور می‌فرستیم؟ با کدام کتابخانه و در کدام فایل‌ها؟»
+برنامه: «برای اضافه کردن یک ایمیل خلاصهٔ هفتگی برنامه بریز. هنوز کد ننویس.»
+کد: «قدم‌های ۱ تا ۳ برنامه را انجام بده. بعد از هر قدم تست‌ها را اجرا کن.»
+ثبت: «با پیامی commit کن که «چرا» را توضیح بدهد، نه فقط «چه» را.»
+
+#tip
+For a big feature, ask Claude to **save the plan into a file** (for example `plan.md`). If the session gets long or you start a fresh one, you can say "continue from plan.md" and nothing is lost.
+~~
+برای یک قابلیت بزرگ، از Claude بخواه **برنامه را در یک فایل ذخیره کند** (مثلاً `plan.md`). اگر جلسه طولانی شد یا یک جلسهٔ تازه باز کردی، کافی است بگویی «از روی plan.md ادامه بده» و هیچ چیزی گم نمی‌شود.
+
+@lesson
+id: context-management
+en: Context management
+fa: مدیریت کانتکست (زمینه)
+url: https://academy.claude.com/courses/claude-code-101/context-management
+
+#explain
+Everything in the current session (your messages, files Claude read, command outputs) sits in the **context window**: Claude's working memory. It is big but not infinite, and a cluttered context makes answers worse. Three commands keep it healthy:
+
+- `/context` shows how full the context is and which categories (files, tools, conversation) take the most space.
+- `/compact` summarizes the session so far and continues with that summary. You can steer what to keep: `/compact Focus on the --version flag implementation`. The risk: a detail can get dropped and Claude may drift, so add instructions when it matters.
+- `/clear` wipes the conversation for a fresh start. Use it when you begin a new, unrelated task, so old context doesn't bias the new work.
+
+Knowledge that should survive every session (build commands, conventions) belongs in **CLAUDE.md**, not in the chat.
+~~
+هر چیزی که در جلسهٔ فعلی هست (پیام‌های تو، فایل‌هایی که Claude خوانده، خروجی دستورها) در **پنجرهٔ کانتکست** (context window) می‌نشیند: حافظهٔ کاری Claude. بزرگ است ولی بی‌نهایت نیست، و کانتکست شلوغ جواب‌ها را بدتر می‌کند. سه دستور سالم نگهش می‌دارند:
+
+- `/context` نشان می‌دهد کانتکست چقدر پر است و کدام بخش‌ها (فایل‌ها، ابزارها، گفت‌وگو) بیشترین جا را گرفته‌اند.
+- `/compact` جلسه را تا این‌جا خلاصه می‌کند و با همان خلاصه ادامه می‌دهد. می‌توانی بگویی چه چیزی را نگه دارد: `/compact Focus on the --version flag implementation`. خطرش این است که یک جزئیات جا بیفتد و Claude از مسیر منحرف شود؛ پس وقتی مهم است، دستور اضافه بده.
+- `/clear` گفت‌وگو را کامل پاک می‌کند تا از نو شروع کنی. وقتی کار تازه و بی‌ربطی را شروع می‌کنی از آن استفاده کن تا زمینهٔ قبلی روی کار جدید اثر نگذارد.
+
+دانشی که باید در همهٔ جلسه‌ها بماند (دستورهای build، قراردادهای کدنویسی) جایش در **CLAUDE.md** است، نه در گفت‌وگو.
+
+#analogy
+The context window is a **desk**. `/context` is looking at how messy the desk is. `/compact` is replacing the pile of papers with one neat page of notes. `/clear` is clearing the whole desk for a new project. CLAUDE.md is the poster on the wall that stays no matter what.
+~~
+پنجرهٔ کانتکست یک **میز کار** است. `/context` یعنی نگاه کنی میز چقدر شلوغ است. `/compact` یعنی کوه کاغذها را با یک صفحه یادداشت مرتب عوض کنی. `/clear` یعنی کل میز را برای یک پروژهٔ تازه خالی کنی. CLAUDE.md پوستر روی دیوار است که هر اتفاقی بیفتد سر جایش می‌ماند.
+
+#tip
+A clean habit: **one task, one session**. Finish the feature, commit, `/clear`, start the next. Long "do everything" sessions are where quality quietly drops.
+~~
+یک عادت تمیز: **یک کار، یک جلسه**. قابلیت را تمام کن، commit کن، `/clear` بزن و بعدی را شروع کن. جلسه‌های طولانیِ «همه‌کار با هم» همان جایی‌اند که کیفیت بی‌سروصدا پایین می‌آید.
+
+#terms
+Context window = پنجرهٔ کانتکست = مقدار متنی که مدل در یک لحظه می‌تواند «جلوی چشمش» داشته باشد؛ حافظهٔ کاری‌اش.
+Compaction = فشرده‌سازی = خلاصه کردن گفت‌وگوی طولانی تا جا برای ادامهٔ کار باز شود.
+
+@lesson
+id: code-review
+en: Code review
+fa: بازبینی کد (Code review)
+url: https://academy.claude.com/courses/claude-code-101/code-review
+
+#explain
+The agent that wrote the code is not the best judge of it: it remembers its own reasoning and tends to agree with itself. So get a **second opinion in a fresh context**.
+
+In Claude Code, `/code-review` runs a separate review in a clean context. It looks for bugs, risky changes and missed cases, and reports findings without editing anything unless you ask it to. Then you decide which findings to fix.
+
+For teams there are two bigger options (covered in "Claude Code in action"): Anthropic's managed **Code Review** that comments on GitHub pull requests once an admin enables it, and the **Claude GitHub Action** for custom jobs in your CI.
+~~
+ایجنتی که کد را نوشته بهترین داور آن نیست: استدلال‌های خودش یادش است و معمولاً با خودش موافق است. پس یک **نظر دوم در یک کانتکست تازه** بگیر.
+
+در Claude Code، دستور `/code-review` یک بازبینی جداگانه در یک کانتکست تمیز اجرا می‌کند. دنبال باگ‌ها، تغییرهای پرخطر و حالت‌های جاافتاده می‌گردد و یافته‌ها را گزارش می‌دهد؛ بدون این‌که چیزی را ویرایش کند، مگر خودت بخواهی. بعد تو تصمیم می‌گیری کدام را درست کنی.
+
+برای تیم‌ها دو گزینهٔ بزرگ‌تر هم هست (در دورهٔ «Claude Code در عمل» آمده): سرویس مدیریت‌شدهٔ **Code Review** از Anthropic که بعد از فعال شدن توسط ادمین، روی pull requestهای گیت‌هاب نظر می‌گذارد، و **Claude GitHub Action** برای کارهای سفارشی در CI.
+
+#analogy
+You never proofread your own essay as well as a friend does, because your brain reads what you *meant*, not what you *wrote*. A fresh-context review is that friend.
+~~
+هیچ‌وقت انشای خودت را به خوبیِ یک دوست غلط‌گیری نمی‌کنی، چون مغزت چیزی را که *منظورت* بوده می‌خواند، نه چیزی را که *نوشته‌ای*. بازبینی در کانتکست تازه همان دوست است.
+
+#tip
+Ask the reviewer to **rank findings by severity** and to say how confident it is about each one. Fix the high-severity, high-confidence items first; treat low-confidence ones as questions, not orders.
+~~
+از بازبین بخواه **یافته‌ها را بر اساس شدت مرتب کند** و بگوید دربارهٔ هر کدام چقدر مطمئن است. اول موارد شدید و مطمئن را درست کن؛ موارد کم‌اطمینان را به چشم سؤال ببین، نه دستور.
+
+#warn
+A review that finds nothing is not proof the code is correct. Reviews catch many bugs, but your tests and your own reading of the diff are still part of the job.
+~~
+بازبینی‌ای که چیزی پیدا نکرده دلیل درست بودن کد نیست. بازبینی خیلی از باگ‌ها را می‌گیرد، ولی تست‌هایت و خواندن diff توسط خودت هنوز بخشی از کارند.
+
+@section Customizing Claude Code | شخصی‌سازی Claude Code
+
+@lesson
+id: the-claude-md-file
+en: The CLAUDE.md file
+fa: فایل CLAUDE.md
+url: https://academy.claude.com/courses/claude-code-101/the-claude-md-file
+
+#explain
+**CLAUDE.md** is a plain Markdown file that Claude Code reads at the start of every session. It's where you write the things you'd otherwise repeat every day: how to build and test, coding conventions, project-specific patterns, "don't touch" areas.
+
+- Run `/init` and Claude scans the codebase and writes a first CLAUDE.md with build commands, guidelines and patterns it found.
+- A **project** CLAUDE.md (in the repo root) is shared with your team through git.
+- A **user-level** CLAUDE.md (in `~/.claude/`) applies only to you, across all your projects.
+
+Keep it short and true. CLAUDE.md is **guidance, not enforced configuration**: Claude follows it well, but for rules that must *never* be broken, use hooks or permissions.
+~~
+**CLAUDE.md** یک فایل Markdown ساده است که Claude Code اول هر جلسه می‌خواند. همان جایی است که چیزهایی را می‌نویسی که وگرنه باید هر روز تکرارشان کنی: روش build و تست، قراردادهای کدنویسی، الگوهای مخصوص پروژه، بخش‌هایی که «نباید دست بخورند».
+
+- دستور `/init` را بزن تا Claude کدبیس را بگردد و یک CLAUDE.md اولیه با دستورهای build، رهنمودها و الگوهایی که پیدا کرده بنویسد.
+- CLAUDE.md **پروژه** (در ریشهٔ مخزن) از طریق git با تیمت به اشتراک گذاشته می‌شود.
+- CLAUDE.md **کاربری** (در `~/.claude/`) فقط برای خود توست و روی همهٔ پروژه‌هایت اثر دارد.
+
+کوتاه و درست نگهش دار. CLAUDE.md **راهنماست، نه تنظیمات اجباری**: Claude خوب دنبالش می‌کند، ولی برای قانون‌هایی که *هرگز* نباید شکسته شوند، از هوک‌ها یا مجوزها استفاده کن.
+
+#code markdown A small, useful CLAUDE.md
+# Project: Shop API
+
+## Commands
+- Install: `pnpm install`
+- Test all: `pnpm test` · one file: `pnpm test path/to/file.test.ts`
+- Lint + types: `pnpm lint && pnpm typecheck` (run before every commit)
+
+## Conventions
+- TypeScript strict; no `any`.
+- Money is stored in cents (integers), never floats.
+- New endpoints need a test in `tests/api/`.
+
+## Don't
+- Don't edit files in `src/generated/` (they are rebuilt by `pnpm codegen`).
+#end
+
+#analogy
+CLAUDE.md is the **"welcome to the team" note** you leave on a new colleague's desk: where the coffee is, how we name things, which printer is broken. Short notes get read; ten-page manuals get skimmed.
+~~
+CLAUDE.md همان **یادداشت «به تیم خوش آمدی»** است که روی میز همکار تازه می‌گذاری: قهوه کجاست، اسم‌ها را چطور می‌گذاریم، کدام پرینتر خراب است. یادداشت کوتاه خوانده می‌شود؛ دفترچه‌های ده‌صفحه‌ای فقط ورق می‌خورند.
+
+#tip
+Every time you catch yourself correcting Claude about the same thing twice ("we use pnpm, not npm"), add one line to CLAUDE.md. Your CLAUDE.md should grow from **real mistakes**, not from imagination.
+~~
+هر بار دیدی دو بار سر یک چیز Claude را اصلاح کرده‌ای («ما از pnpm استفاده می‌کنیم، نه npm»)، یک خط به CLAUDE.md اضافه کن. CLAUDE.md باید از **اشتباه‌های واقعی** رشد کند، نه از خیال‌پردازی.
+
+#terms
+CLAUDE.md = فایل CLAUDE.md = فایل راهنمایی که Claude Code اول هر جلسه می‌خواند تا قواعد پروژه را بداند.
+/init = دستور init = دستوری که کدبیس را بررسی می‌کند و یک CLAUDE.md اولیه می‌سازد.
+
+@lesson
+id: subagents
+en: Subagents
+fa: ساب‌ایجنت‌ها (زیرعامل‌ها)
+url: https://academy.claude.com/courses/claude-code-101/subagents
+
+#explain
+A **subagent** is a helper that Claude Code can send off to do one focused job **in its own separate context window**. It works, and then returns only a short summary to the main conversation.
+
+Why this matters: exploring a big codebase or reading 40 log files fills the context with noise. A subagent does the messy reading in its own space and hands back just the answer, so your main session stays clean and focused.
+
+Claude Code has built-in subagents (for example one for exploring code) and you can create your own: a code reviewer, a test writer, a documentation checker. Each is a Markdown file with a name, a description of when to use it, which tools it may use and which model it runs on. Manage them with `/agents`.
+~~
+**ساب‌ایجنت** (subagent) دستیاری است که Claude Code می‌تواند برای انجام یک کار متمرکز بفرستد، **در پنجرهٔ کانتکست جداگانهٔ خودش**. کار را انجام می‌دهد و فقط یک خلاصهٔ کوتاه به گفت‌وگوی اصلی برمی‌گرداند.
+
+چرا مهم است؟ گشتن در یک کدبیس بزرگ یا خواندن ۴۰ فایل لاگ، کانتکست را پر از شلوغی می‌کند. ساب‌ایجنت آن خواندن شلوغ را در فضای خودش انجام می‌دهد و فقط جواب را تحویل می‌دهد، پس جلسهٔ اصلی‌ات تمیز و متمرکز می‌ماند.
+
+Claude Code ساب‌ایجنت‌های داخلی دارد (مثلاً یکی برای گشتن در کد) و خودت هم می‌توانی بسازی: یک بازبین کد، یک تست‌نویس، یک بررسی‌کنندهٔ مستندات. هر کدام یک فایل Markdown است با اسم، توضیح این‌که کی استفاده شود، ابزارهایی که اجازه دارد و مدلی که با آن اجرا می‌شود. با دستور `/agents` مدیریتشان کن.
+
+#code markdown .claude/agents/test-writer.md
+---
+name: test-writer
+description: Writes and runs unit tests for code that was just changed. Use after a feature or bug fix is implemented.
+tools: Read, Grep, Glob, Edit, Bash
+model: sonnet
+---
+You write focused unit tests. Read the changed files, find untested behavior,
+add tests next to existing ones using the same style, run them, and report:
+which tests you added, which pass, and anything you could not test.
+#end
+
+#analogy
+You are the head chef. Instead of leaving the stove to count every potato in the storeroom, you send an assistant. They come back and say "42 potatoes, 3 are bad". You got the answer without the storeroom mess in your kitchen.
+~~
+تو سرآشپزی. به‌جای این‌که اجاق را ول کنی و بروی همهٔ سیب‌زمینی‌های انبار را بشماری، یک دستیار می‌فرستی. برمی‌گردد و می‌گوید «۴۲ تا سیب‌زمینی، ۳ تایش خراب است». جواب را گرفتی، بدون این‌که شلوغی انبار به آشپزخانه‌ات بیاید.
+
+#tip
+Use a subagent when **the intermediate work doesn't matter** to the main thread, only the result does (research, log digging, reviews). If you need to see and steer every step, do it in the main session instead.
+~~
+وقتی از ساب‌ایجنت استفاده کن که **کارهای میانی برای رشتهٔ اصلی مهم نیست** و فقط نتیجه مهم است (تحقیق، گشتن در لاگ‌ها، بازبینی). اگر باید تک‌تک قدم‌ها را ببینی و هدایت کنی، همان در جلسهٔ اصلی انجامش بده.
+
+#terms
+Subagent = ساب‌ایجنت = دستیاری با کانتکست جداگانه که یک کار متمرکز را انجام می‌دهد و فقط خلاصه برمی‌گرداند.
+
+@lesson
+id: skills
+en: Skills
+fa: اسکیل‌ها (Skills)
+url: https://academy.claude.com/courses/claude-code-101/skills
+
+#explain
+A **skill** is a folder with a `SKILL.md` file: a name, a description, and instructions (plus optional scripts or templates). Claude Code sees only the short descriptions at first; when your request matches one, it **loads that skill on demand**. So you can have many skills without filling the context window.
+
+Good skill ideas: "how we write database migrations", "how to release a new version", "our PR description format", "how to debug the payment service". Put personal skills in `~/.claude/skills/` and project skills in `.claude/skills/` so your team gets them through git. You can also call a skill directly with a slash command, like `/release`.
+~~
+**اسکیل** پوشه‌ای است با یک فایل `SKILL.md`: یک اسم، یک توضیح و دستورالعمل‌ها (به‌علاوهٔ اسکریپت یا قالب، اگر لازم باشد). Claude Code اول فقط توضیح‌های کوتاه را می‌بیند؛ وقتی درخواست تو با یکی جور شد، **همان اسکیل را در لحظهٔ نیاز بار می‌کند**. پس می‌توانی کلی اسکیل داشته باشی بدون این‌که پنجرهٔ کانتکست پر شود.
+
+ایده‌های خوب برای اسکیل: «چطور migration دیتابیس می‌نویسیم»، «چطور نسخهٔ جدید منتشر کنیم»، «قالب توضیح PR ما»، «چطور سرویس پرداخت را دیباگ کنیم». اسکیل‌های شخصی را در `~/.claude/skills/` و اسکیل‌های پروژه را در `.claude/skills/` بگذار تا تیمت از طریق git داشته باشد. می‌توانی یک اسکیل را مستقیم با دستور اسلشی هم صدا بزنی؛ مثل `/release`.
+
+#code markdown .claude/skills/release/SKILL.md
+---
+name: release
+description: Prepares and publishes a new version. Use when the user asks to release, cut a version, or publish to npm.
+---
+1. Make sure the working tree is clean and `pnpm test` passes.
+2. Read CHANGELOG.md and propose the next semver version with a reason.
+3. After the user agrees: update package.json and CHANGELOG.md, commit "release: vX.Y.Z", tag it.
+4. Never run `npm publish` yourself; print the command for the user to run.
+#end
+
+#analogy
+Skills are like the **apps on a phone's home screen**. They take almost no space while closed, and you only open the one you need right now.
+~~
+اسکیل‌ها مثل **اپ‌های صفحهٔ اول گوشی‌اند**. وقتی بسته‌اند تقریباً جایی نمی‌گیرند و فقط همانی را باز می‌کنی که همین حالا لازم داری.
+
+#tip
+CLAUDE.md is for facts Claude needs **every** session; skills are for procedures it needs **sometimes**. If a section of your CLAUDE.md is only relevant once a week, move it into a skill.
+~~
+CLAUDE.md برای دانسته‌هایی است که Claude در **همهٔ** جلسه‌ها لازم دارد؛ اسکیل‌ها برای روش‌هایی‌اند که **گاهی** لازم می‌شوند. اگر بخشی از CLAUDE.md فقط هفته‌ای یک بار به کار می‌آید، آن را به یک اسکیل منتقل کن.
+
+@lesson
+id: mcp
+en: MCP
+fa: MCP (وصل کردن ابزارهای بیرونی)
+url: https://academy.claude.com/courses/claude-code-101/mcp
+
+#explain
+**MCP servers** give Claude Code new tools that live outside your project: your issue tracker, a database, the browser, design files, error monitoring, documentation search and more.
+
+- Add a server with `claude mcp add` (for example a remote server over HTTP, or a local one that runs as a command).
+- See and manage connected servers inside a session with `/mcp`.
+- Share a server with your team by putting it in the project's `.mcp.json` file (checked into git).
+
+Each connected server adds tool descriptions to the context, so **disable servers you aren't using**. Fewer, well-chosen servers keep Claude sharp.
+~~
+**سرورهای MCP** ابزارهای تازه‌ای به Claude Code می‌دهند که بیرون از پروژه‌ات هستند: سیستم مدیریت تسک‌ها، دیتابیس، مرورگر، فایل‌های طراحی، مانیتورینگ خطا، جست‌وجو در مستندات و خیلی چیزهای دیگر.
+
+- با `claude mcp add` یک سرور اضافه کن (مثلاً یک سرور راه‌دور از طریق HTTP، یا یک سرور محلی که به شکل یک دستور اجرا می‌شود).
+- داخل جلسه با `/mcp` سرورهای وصل را ببین و مدیریت کن.
+- برای اشتراک با تیم، سرور را در فایل `.mcp.json` پروژه بگذار (که در git ثبت می‌شود).
+
+هر سرور وصل‌شده توضیح ابزارهایش را به کانتکست اضافه می‌کند، پس **سرورهایی را که استفاده نمی‌کنی خاموش کن**. سرورهای کمتر و حساب‌شده‌تر، Claude را تیزتر نگه می‌دارند.
+
+#code bash Adding MCP servers
+# a remote server over HTTP
+claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
+
+# a local server that runs as a command (everything after -- is the command)
+claude mcp add playwright -- npx @playwright/mcp@latest
+
+# share with the team: writes to .mcp.json in the repo
+claude mcp add --scope project --transport http linear https://mcp.linear.app/mcp
+#end
+
+#analogy
+MCP is a **universal plug adapter**. Instead of a different cable for every country, one standard plug lets Claude connect to many different tools in the same way.
+~~
+MCP مثل یک **مبدل برق همه‌کاره** است. به‌جای یک کابل جدا برای هر کشور، یک دوشاخهٔ استاندارد اجازه می‌دهد Claude به ابزارهای مختلف به یک شکل وصل شود.
+
+#example
+With an error-tracking MCP server connected: "Look at the top 3 new errors from the last 24 hours, find the code that causes each one, and propose fixes." Claude reads the real error reports, opens the right files and suggests patches, no copy-pasting stack traces.
+~~
+با یک سرور MCP ردیابی خطا: «سه خطای جدید پرتکرار ۲۴ ساعت گذشته را نگاه کن، کدی را که هر کدام را ایجاد می‌کند پیدا کن و راه‌حل پیشنهاد بده.» Claude گزارش‌های واقعی خطا را می‌خواند، فایل‌های درست را باز می‌کند و اصلاحیه پیشنهاد می‌دهد؛ بدون کپی‌پیست کردن stack trace.
+
+#warn
+An MCP server can read data and take actions with the credentials you give it. Install servers only from sources you trust, and give them the smallest access that does the job.
+~~
+یک سرور MCP با اعتبارنامه‌هایی که به آن می‌دهی می‌تواند داده بخواند و کار انجام دهد. سرورها را فقط از منبع‌های مطمئن نصب کن و کمترین دسترسی‌ای را بده که کار را راه بیندازد.
+
+#terms
+MCP server = سرور MCP = برنامه‌ای که با استاندارد MCP ابزار یا داده در اختیار هوش مصنوعی می‌گذارد.
+.mcp.json = فایل .mcp.json = فایل تنظیمات سرورهای MCP یک پروژه که با تیم به اشتراک گذاشته می‌شود.
+
+@lesson
+id: hooks
+en: Hooks
+fa: هوک‌ها (Hooks)
+url: https://academy.claude.com/courses/claude-code-101/hooks
+
+#explain
+Everything so far *asks* Claude to behave. **Hooks make it happen.** A hook is a command that runs automatically at a fixed moment in Claude Code's loop, for example:
+
+- **PreToolUse**: just before Claude uses a tool (can **block** the action, for example editing `.env` files).
+- **PostToolUse**: right after a tool ran (for example, auto-format every file Claude edited).
+- **Stop**: when Claude is about to finish its turn (for example, run the tests and refuse to stop while they fail).
+
+Hooks are **deterministic**: they run every single time, unlike instructions that Claude follows most of the time. They live in settings files, so a team can check them into the repo and everyone gets the same guardrails. Manage them with `/hooks`.
+~~
+همهٔ چیزهایی که تا حالا دیدیم از Claude *خواهش* می‌کنند درست رفتار کند. **هوک‌ها مطمئن می‌شوند که اتفاق بیفتد.** هوک دستوری است که در یک لحظهٔ مشخص از چرخهٔ Claude Code خودکار اجرا می‌شود؛ مثلاً:
+
+- **PreToolUse:** درست قبل از این‌که Claude از ابزاری استفاده کند (می‌تواند کار را **بلاک** کند؛ مثلاً ویرایش فایل‌های `.env`).
+- **PostToolUse:** درست بعد از اجرای یک ابزار (مثلاً هر فایلی که Claude ویرایش کرد خودکار مرتب و فرمت شود).
+- **Stop:** وقتی Claude می‌خواهد نوبتش را تمام کند (مثلاً تست‌ها را اجرا کن و تا وقتی شکست می‌خورند اجازهٔ تمام کردن نده).
+
+هوک‌ها **قطعی** (deterministic) هستند: برخلاف دستورالعمل‌هایی که Claude بیشتر وقت‌ها رعایت می‌کند، هوک هر بار اجرا می‌شود. در فایل‌های تنظیمات می‌نشینند، پس تیم می‌تواند آن‌ها را در مخزن ثبت کند و همه همان نرده‌های ایمنی را داشته باشند. با `/hooks` مدیریتشان کن.
+
+#code json .claude/settings.json: format every file Claude edits
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          { "type": "command", "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write" }
+        ]
+      }
+    ]
+  }
+}
+#end
+
+#analogy
+CLAUDE.md is a **sign** that says "please wipe your feet". A hook is an **automatic door mat** that cleans every shoe, whether anyone remembers the sign or not.
+~~
+CLAUDE.md مثل **تابلویی** است که می‌گوید «لطفاً کفش‌هایتان را پاک کنید». هوک یک **پادری خودکار** است که همهٔ کفش‌ها را تمیز می‌کند، چه کسی تابلو یادش باشد چه نه.
+
+#tip
+A PreToolUse hook that exits with code **2** blocks the tool call, and its error message is shown to Claude, so Claude can understand *why* and choose another way. Write that message like advice: "Don't edit .env; ask the user to change secrets."
+~~
+هوک PreToolUse اگر با کد خروج **۲** تمام شود، ابزار را بلاک می‌کند و پیام خطایش به Claude نشان داده می‌شود؛ پس Claude می‌فهمد *چرا* و راه دیگری انتخاب می‌کند. آن پیام را مثل یک توصیه بنویس: «فایل .env را ویرایش نکن؛ از کاربر بخواه رمزها را عوض کند.»
+
+#warn
+Hooks run with **your** permissions on your machine. Read any hook (and any plugin that ships hooks) before enabling it, just like you'd read a script before running it.
+~~
+هوک‌ها با دسترسی‌های **خود تو** روی کامپیوترت اجرا می‌شوند. قبل از فعال کردن هر هوکی (و هر پلاگینی که هوک دارد) بخوانش؛ درست مثل این‌که قبل از اجرای یک اسکریپت آن را می‌خوانی.
+
+#terms
+Hook = هوک = دستوری که در یک رویداد مشخص (قبل یا بعد از ابزار، موقع تمام شدن) خودکار اجرا می‌شود.
+Deterministic = قطعی = رفتاری که هر بار دقیقاً به همان شکل تکرار می‌شود.
+
+@cheatsheet
+- Claude Code = Claude that **reads, edits, runs and verifies** inside your project.
+- Loop: **gather context → act → verify**. Interrupt with Esc anytime.
+- Modes: Manual · Auto-accept edits · **Plan** · Auto (classifier-checked). Switch with Shift+Tab.
+- Prompt = outcome + where to look (`@file`) + how to verify.
+- Workflow: **explore → plan → code → commit**.
+- Context: `/context` to inspect · `/compact <what to keep>` · `/clear` between tasks.
+- `/code-review` = second opinion in a fresh context.
+- **CLAUDE.md** = always-on notes (`/init` to start). **Skills** = on-demand procedures.
+- **Subagents** = separate context, return a summary. **MCP** = outside tools (`claude mcp add`, `/mcp`, `.mcp.json`).
+- **Hooks** = guaranteed automation (PreToolUse can block, PostToolUse can format, Stop can test).
+~~
+- Claude Code = Claudeای که داخل پروژه‌ات **می‌خواند، ویرایش می‌کند، اجرا می‌کند و می‌سنجد**.
+- چرخه: **جمع کردن زمینه ← انجام کار ← بررسی**. هر لحظه با Esc متوقفش کن.
+- حالت‌ها: دستی · پذیرش خودکار ویرایش · **برنامه‌ریزی** · خودکار (با بررسی طبقه‌بند). تعویض با Shift+Tab.
+- پرامپت = نتیجهٔ دلخواه + کجا را نگاه کند (`@file`) + چطور بسنجد.
+- روال: **بگرد ← برنامه بریز ← کد بزن ← ثبت کن**.
+- کانتکست: `/context` برای دیدن · `/compact <چه بماند>` · `/clear` بین کارها.
+- `/code-review` = نظر دوم در کانتکست تازه.
+- **CLAUDE.md** = یادداشت همیشه‌روشن (`/init` برای شروع). **اسکیل‌ها** = روش‌های هنگام نیاز.
+- **ساب‌ایجنت‌ها** = کانتکست جدا، برگرداندن خلاصه. **MCP** = ابزارهای بیرونی (`claude mcp add`، `/mcp`، `.mcp.json`).
+- **هوک‌ها** = خودکارسازی تضمینی (PreToolUse بلاک می‌کند، PostToolUse فرمت می‌کند، Stop تست می‌گیرد).
+
+@quiz
+Q: What are the three steps of the agentic loop? || سه قدم چرخهٔ ایجنتی کدام‌اند؟
+A: Gather context, take action, verify the result, and repeat until the goal is met. || جمع کردن زمینه، انجام کار، بررسی نتیجه؛ و تکرار تا وقتی هدف محقق شود.
+Q: In which permission mode can Claude only use read-only tools? || در کدام حالت مجوز Claude فقط می‌تواند از ابزارهای فقط‌خواندنی استفاده کند؟
+A: Plan mode. It explores and writes a plan before changing anything. || حالت برنامه‌ریزی (Plan mode). اول می‌گردد و برنامه می‌نویسد، بعد چیزی را تغییر می‌دهد.
+Q: You finished a feature and want to start an unrelated bug fix. Which command? || یک قابلیت را تمام کرده‌ای و می‌خواهی سراغ رفع یک باگ بی‌ربط بروی. کدام دستور؟
+A: /clear, so the old conversation doesn't bias the new task. || /clear؛ تا گفت‌وگوی قبلی روی کار تازه اثر نگذارد.
+Q: A rule must never be broken: "never edit files in /secrets". CLAUDE.md or a hook? || قانونی هرگز نباید شکسته شود: «هیچ‌وقت فایل‌های /secrets را ویرایش نکن». CLAUDE.md یا هوک؟
+A: A hook (PreToolUse that blocks), because hooks are deterministic while CLAUDE.md is guidance. || هوک (یک PreToolUse که بلاک می‌کند)؛ چون هوک قطعی است ولی CLAUDE.md فقط راهنماست.
+Q: Why do subagents help keep the main session clean? || چرا ساب‌ایجنت‌ها کمک می‌کنند جلسهٔ اصلی تمیز بماند؟
+A: They do their work in a separate context window and return only a summary. || چون کارشان را در یک پنجرهٔ کانتکست جدا انجام می‌دهند و فقط خلاصه برمی‌گردانند.

@@ -20,5 +20,91 @@
    "other-ways-to-work-with-claude",
    "what-s-next"
   ]
+ },
+ {
+  "slug": "claude-code-101",
+  "kind": "course",
+  "group": "start",
+  "en": "Claude Code 101",
+  "fa": "Claude Code 101؛ برنامه‌نویسی همراه با Claude",
+  "items": [
+   "what-is-claude-code",
+   "how-claude-code-works",
+   "installing-claude-code",
+   "your-first-prompt",
+   "the-explore-plan-code-commit-workflow",
+   "context-management",
+   "code-review",
+   "the-claude-md-file",
+   "subagents",
+   "skills",
+   "mcp",
+   "hooks"
+  ]
+ },
+ {
+  "slug": "introduction-to-claude-cowork",
+  "kind": "course",
+  "group": "start",
+  "en": "Introduction to Claude Cowork",
+  "fa": "آشنایی با Claude Cowork؛ کار را بسپار، نتیجه را تحویل بگیر",
+  "items": [
+   "what-is-cowork",
+   "getting-set-up",
+   "scheduled-tasks",
+   "hand-claude-cowork-your-first-task",
+   "research-analysis-at-scale",
+   "giving-cowork-context",
+   "file-document-tasks",
+   "plugins-cowork-as-a-specialist",
+   "claude-in-chrome",
+   "claude-for-microsoft-365",
+   "permissions-usage-choosing-your-model",
+   "validating-skills-for-plugins",
+   "share-what-you-build-with-your-team",
+   "troubleshooting-next-steps"
+  ]
+ },
+ {
+  "slug": "introduction-to-claude-tag",
+  "kind": "course",
+  "group": "start",
+  "en": "Introduction to Claude Tag",
+  "fa": "آشنایی با Claude Tag؛ Claude به‌عنوان هم‌تیمی در اسلک",
+  "items": [
+   "tag-claude-and-see-what-happens",
+   "claude-in-a-dm",
+   "claude-in-a-public-channel",
+   "claude-in-a-private-channel",
+   "picking-the-right-place-for-the-work",
+   "refining-claudes-work-through-memory-and-instructions",
+   "proactive-replies-without-a-tag",
+   "put-recurring-work-on-a-schedule",
+   "run-one-task-well",
+   "expand-what-claude-owns",
+   "review-how-your-team-works-with-claude"
+  ]
+ },
+ {
+  "slug": "claude-platform-101",
+  "kind": "course",
+  "group": "start",
+  "en": "Claude Platform 101",
+  "fa": "Claude Platform 101؛ ساختن ایجنت با API از صفر",
+  "items": [
+   "what-is-the-claude-platform",
+   "your-first-api-call",
+   "choosing-the-right-model",
+   "the-agent-loop-explained",
+   "what-is-tool-use",
+   "what-is-thinking",
+   "built-in-tools",
+   "skills",
+   "mcp",
+   "context-management",
+   "what-are-managed-agents",
+   "building-your-first-managed-agent",
+   "building-with-claude-code"
+  ]
  }
 ]

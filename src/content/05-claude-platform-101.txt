@@ -1,0 +1,701 @@
+@page
+slug: claude-platform-101
+kind: course
+group: start
+order: 5
+en: Claude Platform 101
+fa: Claude Platform 101؛ ساختن ایجنت با API از صفر
+stats: 13 lessons · 1 quiz · 1.5 hr · badge
+url: https://academy.claude.com/courses/claude-platform-101
+expect: 13
+who_en: Developers comfortable reading code in one language and using a command line. No agent experience needed.
+who_fa: برنامه‌نویس‌هایی که خواندن کد در یک زبان و کار با خط فرمان را بلدند. تجربهٔ ساختن ایجنت لازم نیست.
+blurb_fa: اولین درخواست API، انتخاب مدل، چرخهٔ ایجنت، ابزارها و تفکر، ابزارهای داخلی، اسکیل‌ها، MCP، مدیریت کانتکست، ایجنت‌های مدیریت‌شده و ساختن با Claude Code.
+desc_en: Build on the Claude Platform from the ground up: the first API call, the agent loop, tools, thinking, skills, MCP, context and Managed Agents.
+
+@intro
+The **Claude Platform** is everything a developer uses to build with Claude: the **Messages API** (one endpoint for talking to Claude), the **SDKs** (Python, TypeScript and more), the **Console** at platform.claude.com (keys, usage, testing), built-in **tools**, **Agent Skills**, the **MCP connector**, context-management features, and **Managed Agents**, where Anthropic runs the whole agent for you.
+
+This course builds the picture in four steps: make your first call and pick a model, understand the agent loop with tools and thinking, extend the agent with built-in tools, skills, MCP and good context habits, then hand the loop to Anthropic with Managed Agents and use Claude Code to build faster. Most demos use the Python SDK (`pip install anthropic`).
+~~
+**پلتفرم Claude** همهٔ چیزهایی است که یک برنامه‌نویس برای ساختن با Claude استفاده می‌کند: **Messages API** (یک endpoint برای حرف زدن با Claude)، **SDKها** (پایتون، تایپ‌اسکریپت و زبان‌های دیگر)، **کنسول** در platform.claude.com (کلیدها، میزان مصرف، آزمایش)، **ابزارهای** داخلی، **Agent Skills**، **کانکتور MCP**، قابلیت‌های مدیریت کانتکست و **Managed Agents** که در آن Anthropic کل ایجنت را برایت اجرا می‌کند.
+
+این دوره تصویر را در چهار قدم می‌سازد: اولین درخواست را بفرست و مدل انتخاب کن، چرخهٔ ایجنت را با ابزارها و «تفکر» بفهم، ایجنت را با ابزارهای داخلی، اسکیل‌ها، MCP و عادت‌های خوب کانتکست گسترش بده و بعد چرخه را با Managed Agents به Anthropic بسپار و با Claude Code سریع‌تر بساز. بیشتر نمونه‌ها با SDK پایتون است (`pip install anthropic`).
+
+@section Platform basics | مبانی پلتفرم
+
+@lesson
+id: what-is-the-claude-platform
+en: What is the Claude Platform?
+fa: پلتفرم Claude چیست؟
+url: https://academy.claude.com/courses/claude-platform-101/what-is-the-claude-platform
+
+#explain
+Think of the platform in **layers**:
+
+- **The model layer**: Claude models (Haiku, Sonnet, Opus, Fable) that you reach through the **Messages API**. Everything, including tools, goes through one endpoint: `POST /v1/messages`.
+- **The capability layer**: features you switch on in a request: tool use, extended thinking, vision and PDFs, citations, prompt caching, structured outputs, web search, code execution, Agent Skills, the MCP connector.
+- **The infrastructure layer**: services around the API: Files, Batches, the Console for keys and usage, and **Managed Agents**, where Anthropic hosts the agent loop and a sandbox for you.
+
+You choose how much to own: a single API call, your own agent loop, or a fully managed agent.
+~~
+پلتفرم را به شکل **لایه‌ها** ببین:
+
+- **لایهٔ مدل:** مدل‌های Claude (Haiku، Sonnet، Opus، Fable) که از طریق **Messages API** به آن‌ها می‌رسی. همه‌چیز، حتی ابزارها، از یک endpoint می‌گذرد: `POST /v1/messages`.
+- **لایهٔ قابلیت‌ها:** قابلیت‌هایی که در یک درخواست روشن می‌کنی: استفاده از ابزار، تفکر گسترده، تصویر و PDF، ارجاع به منبع، کش پرامپت، خروجی ساختاریافته، جست‌وجوی وب، اجرای کد، Agent Skills، کانکتور MCP.
+- **لایهٔ زیرساخت:** سرویس‌های اطراف API: فایل‌ها (Files)، پردازش دسته‌ای (Batches)، کنسول برای کلید و مصرف، و **Managed Agents** که در آن Anthropic چرخهٔ ایجنت و یک محیط ایزوله (sandbox) را برایت میزبانی می‌کند.
+
+خودت انتخاب می‌کنی چقدرش مال خودت باشد: یک درخواست ساده، چرخهٔ ایجنت خودت، یا یک ایجنت کاملاً مدیریت‌شده.
+
+#analogy
+It's like cooking. You can buy **ingredients** (the API) and cook yourself, use a **meal kit** with recipes and tools (the SDK helpers and built-in tools), or order from a **restaurant kitchen** that cooks and serves for you (Managed Agents).
+~~
+مثل آشپزی است. می‌توانی **مواد اولیه** بخری (API) و خودت بپزی، از **بستهٔ آمادهٔ غذا** با دستور و ابزار استفاده کنی (کمک‌های SDK و ابزارهای داخلی)، یا از **آشپزخانهٔ یک رستوران** سفارش بدهی که برایت می‌پزد و سرو می‌کند (Managed Agents).
+
+#tip
+**Start simple.** Most real features are one well-written API call or a small fixed workflow. Reach for a full agent only when the task is open-ended and the steps can't be known in advance.
+~~
+**ساده شروع کن.** بیشتر قابلیت‌های واقعی یک درخواست API خوش‌نوشته یا یک روال ثابت کوچک‌اند. فقط وقتی سراغ ایجنت کامل برو که کار باز است و قدم‌هایش از قبل معلوم نیست.
+
+#terms
+Messages API = Messages API = نقطهٔ اصلی ارتباط با Claude؛ پیام‌ها را می‌فرستی و جواب می‌گیری.
+SDK = SDK (کیت توسعه) = کتابخانهٔ رسمی هر زبان برنامه‌نویسی که کار با API را آسان می‌کند.
+Console = کنسول = پنل وب platform.claude.com برای ساختن کلید، دیدن مصرف و آزمایش پرامپت‌ها.
+
+@lesson
+id: your-first-api-call
+en: Your first API call
+fa: اولین درخواست API
+url: https://academy.claude.com/courses/claude-platform-101/your-first-api-call
+
+#explain
+Every request needs four things: **an API key**, **a model**, **a list of messages** (starting with the user's), and **`max_tokens`** (a cap on how long the answer may be). The response gives you the **content** (a list of blocks, usually text), **usage** (input and output tokens, which is how you're billed) and a **stop reason** (why Claude stopped: finished, hit the token cap, wants a tool…).
+
+Get a key from the Console at platform.claude.com. Store it in an environment variable, **never in your code**, and never call the API from a browser or mobile app directly: anyone could copy the key. Put a small server in between.
+~~
+هر درخواست چهار چیز لازم دارد: **کلید API**، **یک مدل**، **فهرست پیام‌ها** (که با پیام کاربر شروع می‌شود) و **`max_tokens`** (سقف طول جواب). جواب به تو این‌ها را می‌دهد: **محتوا** (فهرستی از بلوک‌ها، معمولاً متن)، **مصرف** (توکن‌های ورودی و خروجی؛ هزینه بر همین اساس حساب می‌شود) و **دلیل توقف** (چرا Claude ایستاد: تمام شد، به سقف توکن خورد، ابزار می‌خواهد و…).
+
+کلید را از کنسول در platform.claude.com بگیر. آن را در یک متغیر محیطی نگه دار، **هرگز داخل کد نه**، و هرگز مستقیم از مرورگر یا اپ موبایل API را صدا نزن: هر کسی می‌تواند کلید را کپی کند. یک سرور کوچک وسط بگذار.
+
+#code bash Setup
+pip install anthropic
+export ANTHROPIC_API_KEY="sk-ant-..."   # from platform.claude.com
+#end
+
+#code python first_call.py
+import anthropic
+
+client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from the environment
+
+response = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Explain a black hole to a 10-year-old in 3 sentences."}],
+)
+
+for block in response.content:          # content is a list of blocks
+    if block.type == "text":
+        print(block.text)
+
+print(response.usage.input_tokens, response.usage.output_tokens)  # what you pay for
+print(response.stop_reason)             # e.g. "end_turn"
+#end
+
+#analogy
+An API call is like **sending a letter with a prepaid envelope**: you write who you're writing to (model), the letter (messages), how many pages the reply may have (max_tokens), and you sign with your key. The reply comes back with a receipt (usage) and a note on why it ended.
+~~
+یک درخواست API مثل **فرستادن نامه با پاکت جواب‌پیش‌پرداخت** است: می‌نویسی به چه کسی (مدل)، خود نامه (پیام‌ها)، جواب حداکثر چند صفحه باشد (max_tokens) و با کلیدت امضا می‌کنی. جواب با یک رسید (مصرف) و یادداشتی دربارهٔ این‌که چرا تمام شد برمی‌گردد.
+
+#tip
+Always check `stop_reason` before trusting the text. `max_tokens` means the answer was cut off (raise the limit or stream). `refusal` means a safety system declined the request; production apps should handle it, and the API offers an opt-in fallback that can retry on another model.
+~~
+همیشه قبل از اعتماد به متن، `stop_reason` را چک کن. `max_tokens` یعنی جواب نصفه بریده شده (سقف را بالا ببر یا از stream استفاده کن). `refusal` یعنی یک سامانهٔ ایمنی درخواست را رد کرده؛ اپ‌های جدی باید این حالت را مدیریت کنند و API یک گزینهٔ اختیاری fallback هم دارد که می‌تواند با مدل دیگری دوباره تلاش کند.
+
+#warn
+A leaked key can be used by anyone until you revoke it. If you ever paste a key into code, a screenshot or a public repo, revoke it in the Console immediately and create a new one.
+~~
+کلید لورفته را هر کسی می‌تواند تا وقتی باطلش نکرده‌ای استفاده کند. اگر یک بار کلید را در کد، اسکرین‌شات یا مخزن عمومی گذاشتی، فوراً در کنسول باطلش کن و یک کلید تازه بساز.
+
+#terms
+API key = کلید API = رمزی که نشان می‌دهد درخواست از طرف حساب توست و هزینه‌اش به حساب تو نوشته می‌شود.
+Token = توکن = تکه‌های کوچک متن (معمولاً بخشی از یک کلمه) که مدل با آن‌ها می‌خواند و می‌نویسد و هزینه بر اساسشان حساب می‌شود.
+max_tokens = سقف توکن خروجی = بیشترین تعداد توکنی که جواب می‌تواند داشته باشد.
+stop_reason = دلیل توقف = فیلدی در جواب که می‌گوید چرا مدل نوشتن را تمام کرد.
+
+@lesson
+id: choosing-the-right-model
+en: Choosing the right model
+fa: انتخاب مدل مناسب
+url: https://academy.claude.com/courses/claude-platform-101/choosing-the-right-model
+
+#explain
+Claude comes in tiers. Roughly: **Haiku** is the fastest and cheapest, **Sonnet** balances speed and capability for everyday production work, **Opus** is the strong default for hard reasoning and agents, and **Fable** is the most capable for the most demanding, long-horizon work, at the highest price.
+
+The course recommends a **tiered, evidence-based approach**: build a small test set of real inputs, run it on the **cheapest** model first, and move up only if quality falls short. **Stop at the cheapest model whose output you would actually ship.** Within a model you can also tune **effort** (how much thinking and token spend it uses): low for simple jobs, higher for hard ones.
+~~
+Claude چند رده دارد. به طور خلاصه: **Haiku** سریع‌ترین و ارزان‌ترین است، **Sonnet** بین سرعت و توانایی برای کارهای روزمرهٔ محصول تعادل برقرار می‌کند، **Opus** انتخاب پیش‌فرض قوی برای استدلال سخت و ایجنت‌هاست و **Fable** توانمندترین مدل برای سخت‌ترین و طولانی‌ترین کارهاست، با بالاترین قیمت.
+
+دوره یک **روش پله‌ای و مبتنی بر شواهد** پیشنهاد می‌دهد: یک مجموعهٔ آزمایشی کوچک از ورودی‌های واقعی بساز، اول آن را روی **ارزان‌ترین** مدل اجرا کن و فقط اگر کیفیت کم بود یک پله بالا برو. **روی ارزان‌ترین مدلی بایست که حاضری خروجی‌اش را واقعاً تحویل بدهی.** داخل یک مدل هم می‌توانی **effort** (میزان فکر کردن و مصرف توکن) را تنظیم کنی: کم برای کارهای ساده، بیشتر برای کارهای سخت.
+
+#code python Tiered evaluation (sketch)
+CANDIDATES = ["claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5"]  # cheapest first
+
+for model in CANDIDATES:
+    scores = [grade(run(model, case), case) for case in TEST_CASES]  # your own run() and grade()
+    passed = sum(scores) / len(scores)
+    print(model, passed)
+    if passed >= 0.95:            # your quality bar
+        print("Ship with", model)
+        break
+#end
+
+#analogy
+You don't hire a surgeon to put on a plaster. Match the **expertise** (and the price) to the job, and keep the expensive expert for the operations that really need them.
+~~
+برای چسباندن یک چسب‌زخم جراح استخدام نمی‌کنی. **تخصص** (و قیمت) را با کار جور کن و متخصص گران را برای عمل‌هایی نگه دار که واقعاً لازمش دارند.
+
+#example
+A support app classifies 50,000 tickets a day into 8 categories. Haiku at low effort scores 97% on the test set, the same as Opus. Choosing Haiku costs a small fraction of the price, with no loss in quality. The same company uses Opus for the agent that writes replies to complicated complaints.
+~~
+یک اپ پشتیبانی روزی ۵۰ هزار تیکت را در ۸ دسته طبقه‌بندی می‌کند. Haiku با effort کم روی مجموعهٔ آزمایشی ۹۷٪ می‌گیرد؛ درست هم‌اندازهٔ Opus. انتخاب Haiku بخش کوچکی از هزینه را دارد، بدون افت کیفیت. همان شرکت برای ایجنتی که به شکایت‌های پیچیده جواب می‌نویسد از Opus استفاده می‌کند.
+
+#tip
+Judge **cost per finished task**, not cost per request. A cheap model that needs three retries, or more agent turns, can end up more expensive than a stronger model that gets it right the first time.
+~~
+**هزینه به ازای هر کار تمام‌شده** را بسنج، نه هزینه به ازای هر درخواست. مدل ارزانی که سه بار تلاش دوباره یا نوبت‌های بیشتر ایجنت لازم دارد، ممکن است از مدل قوی‌تری که بار اول درست انجام می‌دهد گران‌تر تمام شود.
+
+#terms
+Effort = سطح تلاش (effort) = تنظیمی که میزان فکر کردن و مصرف توکن مدل را کم یا زیاد می‌کند.
+Eval = ارزیابی = سنجیدن خروجی مدل روی مجموعه‌ای از ورودی‌های نمونه با یک معیار مشخص.
+
+@section Teaching your agent | آموزش دادن به ایجنت
+
+@lesson
+id: the-agent-loop-explained
+en: The agent loop explained
+fa: چرخهٔ ایجنت به زبان ساده
+url: https://academy.claude.com/courses/claude-platform-101/the-agent-loop-explained
+
+#explain
+**An agent is Claude in a loop: observe, decide, act, repeat.** In code, it looks like this:
+
+1. You send the conversation and the list of tools.
+2. Claude replies. If it wants a tool, the `stop_reason` is `tool_use` and the reply contains `tool_use` blocks (tool name + inputs).
+3. **Your code runs the tool** and sends the result back as a `tool_result`.
+4. Repeat until the `stop_reason` is `end_turn`: Claude has its final answer.
+
+Claude never runs your functions directly. It *asks*, your code *does*, and the result goes back into the conversation. That's what keeps you in control: you can validate inputs, ask a human for approval, or refuse.
+~~
+**ایجنت یعنی Claude در یک چرخه: ببین، تصمیم بگیر، انجام بده، تکرار کن.** در کد این شکلی است:
+
+1. گفت‌وگو و فهرست ابزارها را می‌فرستی.
+2. Claude جواب می‌دهد. اگر ابزاری بخواهد، `stop_reason` برابر `tool_use` است و جواب بلوک‌های `tool_use` دارد (اسم ابزار + ورودی‌ها).
+3. **کد تو ابزار را اجرا می‌کند** و نتیجه را به شکل `tool_result` برمی‌گرداند.
+4. تکرار تا وقتی `stop_reason` برابر `end_turn` شود: Claude جواب نهایی‌اش را دارد.
+
+Claude هیچ‌وقت مستقیم تابع‌های تو را اجرا نمی‌کند. او *درخواست می‌کند*، کد تو *انجام می‌دهد* و نتیجه به گفت‌وگو برمی‌گردد. همین است که کنترل را دست تو نگه می‌دارد: می‌توانی ورودی‌ها را چک کنی، از یک انسان تأیید بگیری یا رد کنی.
+
+#code python The loop, by hand
+messages = [{"role": "user", "content": "Do I need an umbrella in Tabriz today?"}]
+
+while True:
+    response = client.messages.create(
+        model="claude-opus-5-5", max_tokens=4096, tools=TOOLS, messages=messages,
+    )
+    messages.append({"role": "assistant", "content": response.content})  # keep the whole reply
+
+    if response.stop_reason != "tool_use":
+        break                                         # end_turn: final answer is ready
+
+    results = []
+    for block in response.content:
+        if block.type == "tool_use":
+            output = run_tool(block.name, block.input)   # YOUR code does the work
+            results.append({"type": "tool_result", "tool_use_id": block.id, "content": output})
+    messages.append({"role": "user", "content": results})  # all results in ONE user message
+
+print(next(b.text for b in response.content if b.type == "text"))
+#end
+
+#analogy
+Claude is a **chef who can't leave the kitchen**. It writes an order slip ("bring me 2 tomatoes"), a helper (your code) fetches them, and the chef continues cooking. The chef decides *what* is needed; the helper decides whether to actually hand it over.
+~~
+Claude مثل **آشپزی است که نمی‌تواند از آشپزخانه بیرون برود**. یک برگهٔ سفارش می‌نویسد («۲ تا گوجه بیاور»)، یک کمک‌آشپز (کد تو) آن‌ها را می‌آورد و آشپز به پختن ادامه می‌دهد. آشپز تصمیم می‌گیرد *چه* لازم است؛ کمک‌آشپز تصمیم می‌گیرد واقعاً تحویلش بدهد یا نه.
+
+#tip
+The SDKs include a **tool runner** helper that writes this loop for you: you define tools as decorated functions and it calls the API, runs the tools and feeds results back until Claude is done. Write the loop by hand once to understand it, then let the helper do it.
+~~
+SDKها یک کمک‌کار به اسم **tool runner** دارند که همین چرخه را برایت می‌نویسد: ابزارها را به شکل تابع‌های دکوریت‌شده تعریف می‌کنی و او API را صدا می‌زند، ابزارها را اجرا می‌کند و نتیجه‌ها را برمی‌گرداند تا Claude کارش تمام شود. یک بار چرخه را دستی بنویس تا بفهمی‌اش، بعد بگذار کمک‌کار انجامش بدهد.
+
+#terms
+Agent loop = چرخهٔ ایجنت = تکرار «درخواست به مدل، اجرای ابزار، برگرداندن نتیجه» تا رسیدن به جواب نهایی.
+tool_use / tool_result = درخواست ابزار / نتیجهٔ ابزار = بلوکی که Claude با آن ابزار می‌خواهد و بلوکی که تو نتیجه را با آن برمی‌گردانی.
+
+@lesson
+id: what-is-tool-use
+en: What is tool use?
+fa: استفاده از ابزار (Tool use) یعنی چه؟
+url: https://academy.claude.com/courses/claude-platform-101
+
+#explain
+Out of the box, Claude only knows what it learned in training and what's in the conversation. **Tools** let it reach the outside world: check today's weather, look up an order, query a database, send an email.
+
+You describe each tool with three things:
+
+- a **name** (`get_weather`),
+- a **description** that says what it does and *when to use it*: this is what Claude reads to decide,
+- an **input schema** (JSON Schema) that lists the inputs and their types.
+
+Add `"strict": true` to guarantee Claude's inputs match the schema exactly. Good descriptions are the secret: Claude chooses tools the way a person chooses from a toolbox, by reading the labels.
+~~
+Claude به‌تنهایی فقط چیزی را می‌داند که در آموزش دیده و چیزی که در گفت‌وگوست. **ابزارها** دستش را به دنیای بیرون می‌رسانند: هوای امروز را چک کند، یک سفارش را پیدا کند، از دیتابیس پرس‌وجو کند، ایمیل بفرستد.
+
+هر ابزار را با سه چیز توصیف می‌کنی:
+
+- یک **اسم** (`get_weather`)،
+- یک **توضیح** که می‌گوید چه کار می‌کند و *کی باید استفاده شود*؛ Claude همین را می‌خواند تا تصمیم بگیرد،
+- یک **طرح‌وارهٔ ورودی** (JSON Schema) که ورودی‌ها و نوعشان را فهرست می‌کند.
+
+با `"strict": true` تضمین می‌کنی ورودی‌هایی که Claude می‌فرستد دقیقاً با طرح‌واره جور باشد. راز کار، توضیح خوب است: Claude ابزار را همان‌طور انتخاب می‌کند که یک آدم از جعبه‌ابزار انتخاب می‌کند؛ با خواندن برچسب‌ها.
+
+#code python A tool definition
+TOOLS = [{
+    "name": "get_weather",
+    "description": "Get today's forecast for a city. Use when the user asks about weather, rain, or what to wear.",
+    "strict": True,
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "city": {"type": "string", "description": "City name in English, e.g. 'Tabriz'"},
+            "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]},
+        },
+        "required": ["city", "unit"],
+        "additionalProperties": False,
+    },
+}]
+#end
+
+#analogy
+Tools are **apps on Claude's phone**. Claude can't fly to the airport to check flights, but it can open the "flights" app, if you installed it and wrote a clear label on the icon.
+~~
+ابزارها **اپ‌های روی گوشی Claude‌اند**. Claude نمی‌تواند تا فرودگاه برود و پروازها را ببیند، ولی می‌تواند اپ «پروازها» را باز کند؛ به شرطی که نصبش کرده باشی و روی آیکونش برچسب روشن نوشته باشی.
+
+#tip
+When a tool fails, return a **helpful error** as the tool result (with `is_error: true`): "City 'Tabriz, IR' not found; try just 'Tabriz'". Claude reads errors and retries sensibly, so a clear message is better than a crash.
+~~
+وقتی ابزاری خطا می‌دهد، یک **خطای راهنما** به‌عنوان نتیجه برگردان (با `is_error: true`): «شهر 'Tabriz, IR' پیدا نشد؛ فقط 'Tabriz' را امتحان کن». Claude خطاها را می‌خواند و منطقی دوباره تلاش می‌کند؛ پس یک پیام روشن از کرش کردن بهتر است.
+
+#warn
+On the newest models (such as Opus 5.5), forcing a specific tool with `tool_choice` is no longer accepted. Keep `tool_choice` on auto, say in the prompt which tool to use, and use `strict: true` (or structured outputs) when you need guaranteed JSON.
+~~
+در جدیدترین مدل‌ها (مثل Opus 5.5) دیگر نمی‌شود با `tool_choice` استفاده از یک ابزار خاص را اجباری کرد. `tool_choice` را روی auto نگه دار، در پرامپت بگو از کدام ابزار استفاده کند و هر وقت JSON تضمینی لازم داشتی از `strict: true` (یا خروجی ساختاریافته) استفاده کن.
+
+#terms
+Tool = ابزار = تابعی که Claude می‌تواند درخواست اجرایش را بدهد تا اطلاعات بگیرد یا کاری انجام دهد.
+JSON Schema = طرح‌وارهٔ JSON = روشی استاندارد برای توصیف این‌که یک دادهٔ JSON چه فیلدهایی با چه نوعی دارد.
+
+@lesson
+id: what-is-thinking
+en: What is thinking?
+fa: «تفکر» (Thinking) چیست؟
+url: https://academy.claude.com/courses/claude-platform-101/what-is-thinking
+
+#explain
+**Thinking** lets Claude reason step by step *before* writing its final answer. It helps a lot with math, multi-step logic, debugging and comparing trade-offs. For simple classification, extraction or boilerplate it mostly adds time and cost.
+
+On current models thinking is **adaptive**: Claude decides when and how much to think. You steer it with **effort** (`low`, `medium`, `high`, `xhigh`, `max`): lower effort means fewer thinking tokens and terser work, higher effort means deeper reasoning. A good habit: get the prompt right first, then raise effort only if accuracy still falls short.
+
+By default you get the answer without the reasoning text. You can ask for a readable **summary** of the reasoning (`display: "summarized"`), which is great for debugging and for showing progress to users.
+~~
+**تفکر** (thinking) به Claude اجازه می‌دهد *قبل از* نوشتن جواب نهایی، قدم‌به‌قدم فکر کند. در ریاضی، منطق چندمرحله‌ای، پیدا کردن باگ و سبک‌سنگین کردن گزینه‌ها خیلی کمک می‌کند. در طبقه‌بندی ساده، استخراج اطلاعات یا متن‌های تکراری بیشتر فقط زمان و هزینه اضافه می‌کند.
+
+در مدل‌های فعلی تفکر **تطبیقی** (adaptive) است: Claude خودش تصمیم می‌گیرد کی و چقدر فکر کند. تو با **effort** هدایتش می‌کنی (`low`، `medium`، `high`، `xhigh`، `max`): effort کمتر یعنی توکن تفکر کمتر و کار جمع‌وجورتر، effort بیشتر یعنی استدلال عمیق‌تر. یک عادت خوب: اول پرامپت را درست کن، بعد فقط اگر دقت هنوز کم بود effort را بالا ببر.
+
+به‌طور پیش‌فرض جواب را بدون متن استدلال می‌گیری. می‌توانی یک **خلاصهٔ خواندنی** از استدلال بخواهی (`display: "summarized"`) که برای دیباگ و نشان دادن پیشرفت به کاربر عالی است.
+
+#code python Adaptive thinking with effort
+response = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=16000,
+    thinking={"type": "adaptive", "display": "summarized"},
+    output_config={"effort": "high"},          # low | medium | high | xhigh | max
+    messages=[{"role": "user", "content": "A train leaves at 9:40 and arrives at 13:05 ... how long was the trip?"}],
+)
+for block in response.content:
+    if block.type == "thinking":
+        print("[reasoning summary]", block.thinking)
+    elif block.type == "text":
+        print(block.text)
+#end
+
+#analogy
+Thinking is the **scrap paper** in a math exam. For "2 + 2" you don't need it. For a long word problem, the scrap paper is where the right answer comes from.
+~~
+تفکر همان **کاغذ چرک‌نویس** سر جلسهٔ امتحان ریاضی است. برای «۲ + ۲» لازمش نداری. برای یک مسئلهٔ داستانی طولانی، جواب درست از همان چرک‌نویس بیرون می‌آید.
+
+#warn
+Old code may use `thinking={"type": "enabled", "budget_tokens": N}`. On the newest models that form is rejected; use adaptive thinking plus effort instead. Also note that Opus 5.5 defaults to `medium` effort, so set it explicitly when quality matters.
+~~
+کدهای قدیمی ممکن است از `thinking={"type": "enabled", "budget_tokens": N}` استفاده کنند. در جدیدترین مدل‌ها این شکل رد می‌شود؛ به‌جایش از تفکر تطبیقی به‌همراه effort استفاده کن. حواست باشد effort پیش‌فرض Opus 5.5 روی `medium` است؛ پس وقتی کیفیت مهم است، صریح تنظیمش کن.
+
+#terms
+Adaptive thinking = تفکر تطبیقی = حالتی که مدل خودش تصمیم می‌گیرد کی و چقدر قبل از جواب فکر کند.
+
+@section Extending your agent | گسترش دادن ایجنت
+
+@lesson
+id: built-in-tools
+en: Built-in tools
+fa: ابزارهای داخلی (Built-in tools)
+url: https://academy.claude.com/courses/claude-platform-101/built-in-tools
+
+#explain
+Some tools you don't have to build. **Server tools** run on Anthropic's infrastructure: you only declare them in the request, and the results arrive in the **same response**, with no loop on your side. The main ones:
+
+- **Web search**: Claude searches the web and cites sources (`max_uses` limits how many searches; your organization must enable it in the Console).
+- **Web fetch**: Claude reads the full content of a URL that appears in the conversation.
+- **Code execution**: Claude writes and runs code (Python and shell) in an isolated sandbox: great for data analysis, charts and file generation.
+
+In the response you'll see new block types such as `server_tool_use` and the matching result blocks next to normal text.
+
+There are also **client tools** whose schemas are built into Claude but which **your code** executes, such as **bash**, the **text editor** and **memory**. Claude already knows how to use them well; you just provide the implementation.
+~~
+بعضی ابزارها را لازم نیست خودت بسازی. **ابزارهای سمت سرور** روی زیرساخت Anthropic اجرا می‌شوند: فقط در درخواست اعلامشان می‌کنی و نتیجه‌ها در **همان جواب** می‌آیند؛ بدون چرخه‌ای در سمت تو. مهم‌ترین‌ها:
+
+- **جست‌وجوی وب:** Claude در وب می‌گردد و منبع می‌آورد (`max_uses` تعداد جست‌وجوها را محدود می‌کند؛ سازمانت باید آن را در کنسول فعال کند).
+- **خواندن صفحهٔ وب (web fetch):** Claude محتوای کامل نشانی‌ای را که در گفت‌وگو آمده می‌خواند.
+- **اجرای کد:** Claude در یک محیط ایزوله کد (پایتون و شل) می‌نویسد و اجرا می‌کند؛ برای تحلیل داده، نمودار و ساختن فایل عالی است.
+
+در جواب، نوع‌های تازه‌ای از بلوک می‌بینی، مثل `server_tool_use` و بلوک‌های نتیجهٔ مربوط به آن، کنار متن معمولی.
+
+یک دسته **ابزار سمت کلاینت** هم هست که طرح‌واره‌شان داخل Claude تعبیه شده ولی **کد تو** اجرایشان می‌کند؛ مثل **bash**، **ویرایشگر متن** و **حافظه**. Claude از قبل خوب بلد است با آن‌ها کار کند؛ تو فقط پیاده‌سازی را فراهم می‌کنی.
+
+#code python Web search, no loop needed
+response = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=4096,
+    tools=[{"type": "web_search_20260209", "name": "web_search", "max_uses": 5}],
+    messages=[{"role": "user", "content": "What changed in Iran's daylight saving time rules recently? Cite sources."}],
+)
+for block in response.content:
+    if block.type == "text":
+        print(block.text)
+#end
+
+#analogy
+Your own tools are **tools you bring from home**. Server tools are the **equipment the gym already has**: you just walk up and use them, and someone else maintains them.
+~~
+ابزارهای خودت مثل **وسایلی‌اند که از خانه می‌آوری**. ابزارهای سمت سرور **دستگاه‌هایی‌اند که باشگاه از قبل دارد**: فقط می‌روی و استفاده می‌کنی و کس دیگری نگهداری‌شان می‌کند.
+
+#tip
+Use `allowed_domains` on web search when you only trust certain sources (official docs, your own site). Fewer, better sources give more reliable answers and fewer surprises.
+~~
+وقتی فقط به منبع‌های خاصی اعتماد داری (مستندات رسمی، سایت خودت)، روی جست‌وجوی وب از `allowed_domains` استفاده کن. منبع‌های کمتر و بهتر، جواب‌های قابل‌اعتمادتر و غافلگیری کمتر می‌دهند.
+
+#terms
+Server tool = ابزار سمت سرور = ابزاری که Anthropic اجرایش می‌کند؛ نتیجه در همان جواب می‌آید.
+Sandbox = محیط ایزوله (sandbox) = محیط جدا و امنی که کد در آن اجرا می‌شود بدون دسترسی به سیستم‌های دیگر.
+
+@lesson
+id: skills
+en: Skills
+fa: اسکیل‌ها روی پلتفرم
+url: https://academy.claude.com/courses/claude-platform-101/skills
+
+#explain
+**Agent Skills** work on the API too. A skill is a folder of instructions, scripts and resources that Claude loads **only when a task needs it**: at first it sees just each skill's short description, so you can offer many skills without filling the context.
+
+Anthropic provides ready-made skills for real documents: **PowerPoint (pptx), Excel (xlsx), Word (docx) and PDF**. You can also upload your own custom skills (your report format, your company's slide style). On the Messages API, skills run inside the **code execution** container: you list the skills in the `container` parameter and add the code execution tool. The files Claude creates come back as file IDs that you download with the Files API.
+~~
+**Agent Skills** روی API هم کار می‌کنند. اسکیل پوشه‌ای از دستورالعمل‌ها، اسکریپت‌ها و منابع است که Claude **فقط وقتی کار لازمش داشته باشد** بارش می‌کند: اول فقط توضیح کوتاه هر اسکیل را می‌بیند، پس می‌توانی کلی اسکیل در اختیارش بگذاری بدون این‌که کانتکست پر شود.
+
+Anthropic اسکیل‌های آماده‌ای برای سندهای واقعی دارد: **پاورپوینت (pptx)، اکسل (xlsx)، ورد (docx) و PDF**. می‌توانی اسکیل‌های سفارشی خودت را هم آپلود کنی (قالب گزارش تو، سبک اسلاید شرکتت). در Messages API، اسکیل‌ها داخل کانتینر **اجرای کد** اجرا می‌شوند: اسکیل‌ها را در پارامتر `container` فهرست می‌کنی و ابزار اجرای کد را اضافه می‌کنی. فایل‌هایی که Claude می‌سازد به شکل شناسهٔ فایل برمی‌گردند که با Files API دانلودشان می‌کنی.
+
+#code python Make a real .pptx with the built-in skill
+response = client.beta.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=16000,
+    betas=["code-execution-2025-08-25"],
+    container={"skills": [{"type": "anthropic", "skill_id": "pptx", "version": "latest"}]},
+    tools=[{"type": "code_execution_20260521", "name": "code_execution"}],
+    messages=[{"role": "user", "content": "Create a 3-slide deck introducing our bakery's new saffron cake."}],
+)
+# The response carries file IDs for created files; download them with client.files.download(file_id)
+#end
+
+#analogy
+A skill is a **specialist's handbook** sitting on the shelf. Claude only takes it down when the job matches the cover: "Making PowerPoint decks" or "Our quarterly report format".
+~~
+اسکیل مثل **دفترچهٔ راهنمای یک متخصص** روی قفسه است. Claude فقط وقتی برش می‌دارد که کار با عنوان روی جلد جور باشد: «ساختن ارائهٔ پاورپوینت» یا «قالب گزارش فصلی ما».
+
+#tip
+The same skill format works in the Claude apps, Claude Code and the API. Write a skill once, test it in Claude Code, then reuse it in your product.
+~~
+همان قالب اسکیل در اپ‌های Claude، در Claude Code و در API کار می‌کند. یک بار اسکیل را بنویس، در Claude Code امتحانش کن و بعد در محصولت دوباره از آن استفاده کن.
+
+@lesson
+id: mcp
+en: MCP
+fa: MCP روی پلتفرم
+url: https://academy.claude.com/courses/claude-platform-101/mcp
+
+#explain
+The **Model Context Protocol (MCP)** is an open standard for connecting AI to tools and data. Many companies publish **remote MCP servers** for their products (issue trackers, CRMs, payment systems, documentation).
+
+With the **MCP connector**, the Messages API can talk to a remote MCP server **directly**: you give the server's URL (and a token if needed) in `mcp_servers`, add an `mcp_toolset` entry to `tools` that points to it by name, and Claude can call that server's tools without you writing any glue code. For local servers or more control, the SDKs also have helpers to convert MCP tools into normal tools.
+~~
+**پروتکل MCP** (Model Context Protocol) یک استاندارد باز برای وصل کردن هوش مصنوعی به ابزارها و داده‌هاست. خیلی از شرکت‌ها برای محصولاتشان **سرور MCP راه‌دور** منتشر می‌کنند (سیستم‌های مدیریت تسک، CRMها، سیستم‌های پرداخت، مستندات).
+
+با **کانکتور MCP**، Messages API می‌تواند **مستقیم** با یک سرور MCP راه‌دور حرف بزند: نشانی سرور (و اگر لازم است یک توکن) را در `mcp_servers` می‌دهی، یک مورد `mcp_toolset` به `tools` اضافه می‌کنی که با اسم به آن سرور اشاره کند و Claude می‌تواند ابزارهای آن سرور را صدا بزند، بدون این‌که تو کد واسطی بنویسی. برای سرورهای محلی یا کنترل بیشتر، SDKها کمک‌کارهایی هم دارند که ابزارهای MCP را به ابزارهای معمولی تبدیل می‌کنند.
+
+#code python MCP connector: both halves are required
+response = client.beta.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=4096,
+    betas=["mcp-client-2025-11-20"],
+    mcp_servers=[{"type": "url", "url": "https://mcp.example.com/mcp", "name": "tickets",
+                  "authorization_token": TICKETS_TOKEN}],
+    tools=[{"type": "mcp_toolset", "mcp_server_name": "tickets"}],   # must match the name above
+    messages=[{"role": "user", "content": "List my open high-priority tickets and summarize each in one line."}],
+)
+#end
+
+#analogy
+Without MCP, every tool needs its own custom cable. With MCP, every tool has the **same USB-C port**, so Claude can plug into any of them.
+~~
+بدون MCP هر ابزار کابل اختصاصی خودش را لازم دارد. با MCP همهٔ ابزارها **یک پورت USB-C یکسان** دارند، پس Claude می‌تواند به هر کدامشان وصل شود.
+
+#warn
+An MCP server's tool descriptions and results flow into Claude's context. Only connect servers you trust, and give their tokens the smallest permissions that work.
+~~
+توضیح ابزارها و نتیجه‌های یک سرور MCP وارد کانتکست Claude می‌شوند. فقط سرورهای مطمئن را وصل کن و به توکن‌هایشان کمترین دسترسی‌ای را بده که کار را راه می‌اندازد.
+
+@lesson
+id: context-management
+en: Context management
+fa: مدیریت کانتکست
+url: https://academy.claude.com/courses/claude-platform-101/context-management
+
+#explain
+Long-running agents fill their context window with tool results, files and old turns. The lesson teaches **four patterns**, and real apps usually combine all of them:
+
+1. **Just-in-time context**: don't preload everything; give the agent tools to fetch what it needs when it needs it.
+2. **Compaction**: when the conversation passes a threshold, the API summarizes older turns server-side (opt-in through `context_management`). You must append the **full** response content each turn so the compaction block is kept.
+3. **Caching**: mark the stable prefix (tools, system prompt, big documents) with `cache_control`, so repeated requests reuse it at a fraction of the cost.
+4. **Memory**: the memory tool lets Claude read and write a memory directory through tool calls; you build the storage behind it. Notes survive across sessions.
+
+There is also **context editing**, which clears old tool results instead of summarizing them. Managed Agents turn on caching and compaction by default.
+~~
+ایجنت‌هایی که طولانی کار می‌کنند پنجرهٔ کانتکستشان را با نتیجهٔ ابزارها، فایل‌ها و نوبت‌های قدیمی پر می‌کنند. درس **چهار الگو** یاد می‌دهد و اپ‌های واقعی معمولاً همه‌شان را با هم استفاده می‌کنند:
+
+1. **کانتکست به‌موقع (just-in-time):** همه‌چیز را از اول بار نکن؛ به ایجنت ابزار بده تا هر چه لازم دارد را وقتی لازم دارد بیاورد.
+2. **فشرده‌سازی (compaction):** وقتی گفت‌وگو از یک آستانه گذشت، API نوبت‌های قدیمی را در سمت سرور خلاصه می‌کند (با `context_management` فعال می‌شود). باید هر نوبت **کل** محتوای جواب را به پیام‌ها اضافه کنی تا بلوک فشرده‌سازی حفظ شود.
+3. **کش (caching):** پیشوند ثابت (ابزارها، پرامپت سیستم، اسناد بزرگ) را با `cache_control` علامت بزن تا درخواست‌های تکراری با کسری از هزینه دوباره از آن استفاده کنند.
+4. **حافظه (memory):** ابزار حافظه به Claude اجازه می‌دهد از طریق فراخوانی ابزار، یک پوشهٔ حافظه را بخواند و بنویسد؛ ذخیره‌سازی پشتش را تو می‌سازی. یادداشت‌ها بین جلسه‌ها باقی می‌مانند.
+
+یک روش دیگر هم هست به اسم **ویرایش کانتکست** (context editing) که نتیجه‌های قدیمی ابزارها را پاک می‌کند به‌جای این‌که خلاصه‌شان کند. Managed Agents کش و فشرده‌سازی را به‌طور پیش‌فرض روشن دارند.
+
+#code python Compaction (beta): keep the whole response
+response = client.beta.messages.create(
+    betas=["compact-2026-01-12"],
+    model="claude-opus-5-5",
+    max_tokens=16000,
+    context_management={"edits": [{"type": "compact_20260112"}]},
+    messages=messages,
+)
+messages.append({"role": "assistant", "content": response.content})  # NOT just the text
+#end
+
+#analogy
+Just-in-time is **ordering ingredients when you need them** instead of filling the kitchen. Compaction is **replacing yesterday's notes with a one-page summary**. Caching is **keeping the oven warm** so the next dish cooks faster. Memory is **the recipe notebook** you keep for next week.
+~~
+کانتکست به‌موقع یعنی **مواد را وقتی لازم شد سفارش بدهی**، نه این‌که آشپزخانه را پر کنی. فشرده‌سازی یعنی **یادداشت‌های دیروز را با یک خلاصهٔ یک‌صفحه‌ای عوض کنی**. کش یعنی **فر را گرم نگه داری** تا غذای بعدی سریع‌تر بپزد. حافظه همان **دفترچهٔ دستور پختی** است که برای هفتهٔ بعد نگه می‌داری.
+
+#tip
+Check `usage.cache_read_input_tokens` in responses. If it stays at zero for requests that should share a prefix, something in your prefix changes every time (a timestamp in the system prompt is the classic culprit).
+~~
+`usage.cache_read_input_tokens` را در جواب‌ها چک کن. اگر برای درخواست‌هایی که باید پیشوند مشترک داشته باشند صفر می‌ماند، چیزی در پیشوندت هر بار عوض می‌شود (کلاسیک‌ترین مقصر: ساعت و تاریخ داخل پرامپت سیستم).
+
+#terms
+Compaction = فشرده‌سازی = خلاصه کردن نوبت‌های قدیمی گفت‌وگو برای باز کردن جا در کانتکست.
+Prompt caching = کش پرامپت = ذخیرهٔ موقت بخش ثابت درخواست تا تکرارش ارزان‌تر و سریع‌تر شود.
+Context editing = ویرایش کانتکست = پاک کردن نتیجه‌های قدیمی ابزارها از گفت‌وگو قبل از ارسال به مدل.
+
+@section Managed Agents and building with Claude Code | ایجنت‌های مدیریت‌شده و ساختن با Claude Code
+
+@lesson
+id: what-are-managed-agents
+en: What are managed agents?
+fa: ایجنت‌های مدیریت‌شده (Managed Agents) چیستند؟
+url: https://academy.claude.com/courses/claude-platform-101/what-are-managed-agents
+
+#explain
+So far **you** ran the agent loop. **Managed Agents** is a set of APIs where **Anthropic runs the loop and hosts a sandbox** for each run: the agent reasons, calls tools, reads results and repeats on Anthropic's infrastructure, with bash, files and code execution happening inside a per-session container.
+
+Four building blocks:
+
+- **Agent**: the reusable, versioned configuration: model, system prompt, tools, skills, MCP servers.
+- **Environment**: where it runs (for example a cloud container with limited networking).
+- **Session**: one run of the agent in an environment.
+- **Events**: the messages that flow in and out (your messages, the agent's messages, tool calls, status changes), streamed live.
+
+When to choose it: you want long-running work, a workspace with files, schedules, or simply less infrastructure to own. When to run your own loop: you need your own compute, custom runtime or full control of every step.
+~~
+تا این‌جا **خودت** چرخهٔ ایجنت را اجرا می‌کردی. **Managed Agents** مجموعه‌ای از APIهاست که در آن **Anthropic چرخه را اجرا می‌کند و برای هر اجرا یک محیط ایزوله میزبانی می‌کند**: ایجنت روی زیرساخت Anthropic استدلال می‌کند، ابزار صدا می‌زند، نتیجه می‌خواند و تکرار می‌کند؛ و bash، فایل‌ها و اجرای کد داخل یک کانتینر مخصوص همان جلسه انجام می‌شوند.
+
+چهار جزء اصلی:
+
+- **Agent (ایجنت):** پیکربندی قابل‌استفادهٔ دوباره و نسخه‌دار: مدل، پرامپت سیستم، ابزارها، اسکیل‌ها، سرورهای MCP.
+- **Environment (محیط):** جایی که اجرا می‌شود (مثلاً یک کانتینر ابری با دسترسی شبکهٔ محدود).
+- **Session (جلسه):** یک بار اجرای ایجنت در یک محیط.
+- **Events (رویدادها):** پیام‌هایی که می‌روند و می‌آیند (پیام‌های تو، پیام‌های ایجنت، فراخوانی ابزارها، تغییر وضعیت)، به شکل زنده.
+
+کی انتخابش کنی: کار طولانی‌مدت، فضای کاری با فایل، زمان‌بندی، یا فقط وقتی می‌خواهی زیرساخت کمتری را خودت نگه داری. کی چرخهٔ خودت را اجرا کنی: وقتی منابع محاسباتی خودت، محیط اجرای سفارشی یا کنترل کامل روی هر قدم لازم داری.
+
+#analogy
+Running your own loop is **driving your own car**. Managed Agents is **a taxi company**: you say where to go (agent + session), they own the cars, the drivers and the fuel (loop + sandbox), and you watch the trip on the map (events).
+~~
+اجرای چرخهٔ خودت یعنی **رانندگی با ماشین خودت**. Managed Agents مثل **یک شرکت تاکسی‌رانی** است: تو می‌گویی کجا برود (ایجنت + جلسه)، ماشین و راننده و سوخت مال آن‌هاست (چرخه + محیط ایزوله) و تو مسیر را روی نقشه تماشا می‌کنی (رویدادها).
+
+#tip
+**Create an agent once and reuse its ID.** The agent is a stored, versioned object; creating a new one on every request is a classic beginner mistake. Each run is a new *session* that points to the same agent.
+~~
+**ایجنت را یک بار بساز و شناسه‌اش را دوباره استفاده کن.** ایجنت یک شیء ذخیره‌شده و نسخه‌دار است؛ ساختن ایجنت تازه در هر درخواست یک اشتباه کلاسیک تازه‌کارهاست. هر اجرا یک *جلسهٔ* تازه است که به همان ایجنت اشاره می‌کند.
+
+#terms
+Managed Agents = ایجنت‌های مدیریت‌شده = سرویسی که Anthropic در آن چرخهٔ ایجنت و محیط اجرای ابزارها را برایت میزبانی می‌کند.
+Session = جلسه = یک بار اجرای یک ایجنت در یک محیط، با رویدادهای زنده.
+
+@lesson
+id: building-your-first-managed-agent
+en: Building your first managed agent
+fa: ساختن اولین ایجنت مدیریت‌شده
+url: https://academy.claude.com/courses/claude-platform-101/building-your-first-managed-agent
+
+#explain
+The whole flow is four steps, and Managed Agents is enabled by default for API accounts:
+
+1. **Create an environment** (once): for example a cloud container with limited networking.
+2. **Create an agent** (once): model, optional system prompt and tools (the built-in agent toolset gives bash, file editing and more).
+3. **Start a session** that points to the agent and the environment.
+4. **Stream the events**: open the stream, send a user message, and read the agent's messages and tool activity as they happen until the session goes idle.
+~~
+کل روند چهار قدم است و Managed Agents برای حساب‌های API به‌طور پیش‌فرض فعال است:
+
+1. **یک محیط بساز** (یک بار): مثلاً یک کانتینر ابری با شبکهٔ محدود.
+2. **یک ایجنت بساز** (یک بار): مدل، پرامپت سیستم و ابزارهای دلخواه (مجموعه‌ابزار داخلی ایجنت، bash، ویرایش فایل و چیزهای دیگر را می‌دهد).
+3. **یک جلسه شروع کن** که به ایجنت و محیط اشاره کند.
+4. **رویدادها را stream کن:** جریان را باز کن، یک پیام کاربر بفرست و پیام‌های ایجنت و فعالیت ابزارها را همان لحظه که اتفاق می‌افتند بخوان، تا وقتی جلسه بیکار (idle) شود.
+
+#code python Managed agent in four steps (beta)
+environment = client.beta.environments.create(
+    name="dev-env",
+    config={"type": "cloud", "networking": {"type": "limited", "allow_package_managers": True}},
+)
+agent = client.beta.agents.create(            # do this ONCE, then store agent.id
+    name="Data Helper",
+    model="claude-opus-5-5",
+    system="You analyze CSV files and explain findings in plain language.",
+    tools=[{"type": "agent_toolset_20260401",
+            "default_config": {"enabled": True, "permission_policy": {"type": "auto"}},
+            "configs": [{"name": "web_search", "enabled": False}, {"name": "web_fetch", "enabled": False}]}],
+)
+session = client.beta.sessions.create(
+    agent={"type": "agent", "id": agent.id, "version": agent.version},
+    environment_id=environment.id,
+)
+with client.beta.sessions.events.stream(session_id=session.id) as stream:   # open the stream first
+    client.beta.sessions.events.send(session_id=session.id, events=[
+        {"type": "user.message", "content": [{"type": "text", "text": "Create a sample sales CSV and summarize it."}]},
+    ])
+    for event in stream:
+        if event.type == "agent.message":
+            for block in event.content:
+                if block.type == "text":
+                    print(block.text, end="")
+        elif event.type == "session.status_idle":
+            break
+#end
+
+#analogy
+Environment = the **workshop**, agent = the **craftsperson's job description**, session = **today's shift**, events = the **live camera** in the workshop.
+~~
+محیط = **کارگاه**، ایجنت = **شرح وظایف استادکار**، جلسه = **شیفت امروز**، رویدادها = **دوربین زندهٔ** داخل کارگاه.
+
+#tip
+Open the event stream **before** you send the first message. The stream only delivers events that happen after it opens, so "stream first, then send" avoids missing the beginning.
+~~
+جریان رویدادها را **قبل از** فرستادن اولین پیام باز کن. جریان فقط رویدادهایی را تحویل می‌دهد که بعد از باز شدنش اتفاق می‌افتند؛ پس «اول stream، بعد ارسال» باعث می‌شود شروع کار را از دست ندهی.
+
+#warn
+Keep web tools off unless the job needs the web, and never auto-approve every tool call in unattended runs. Least privilege is as important for agents as for people.
+~~
+تا وقتی کار به وب نیاز ندارد ابزارهای وب را خاموش نگه دار و در اجراهای بدون ناظر هرگز همهٔ فراخوانی‌های ابزار را خودکار تأیید نکن. «کمترین دسترسی لازم» برای ایجنت‌ها به اندازهٔ آدم‌ها مهم است.
+
+@lesson
+id: building-with-claude-code
+en: Building with Claude Code
+fa: ساختن با Claude Code
+meta: 5 min
+url: https://academy.claude.com/courses/claude-platform-101/building-with-claude-code
+
+#explain
+The last lesson closes the circle: use **Claude Code to build your Claude app**. Claude Code can read the platform docs, scaffold a project, write the API calls, set up the tool loop, write evals and run them. Ask it for one step at a time (first call → tools → evals → deployment), keep a CLAUDE.md with your conventions, and let it run the tests after each change.
+
+The idea to remember: the best way to learn a platform is to **build something small but real** with it, and a coding agent makes that first build fast.
+~~
+آخرین درس دایره را می‌بندد: **با Claude Code اپ Claude خودت را بساز**. Claude Code می‌تواند مستندات پلتفرم را بخواند، اسکلت پروژه را بسازد، فراخوانی‌های API را بنویسد، چرخهٔ ابزار را راه بیندازد، eval بنویسد و اجرایشان کند. هر بار یک قدم بخواه (اولین درخواست ← ابزارها ← ارزیابی ← استقرار)، یک CLAUDE.md با قراردادهایت داشته باش و بگذار بعد از هر تغییر تست‌ها را اجرا کند.
+
+ایده‌ای که باید یادت بماند: بهترین راه یاد گرفتن یک پلتفرم **ساختن یک چیز کوچک ولی واقعی** با آن است و یک ایجنت کدنویس این اولین ساخت را سریع می‌کند.
+
+#prompt
+Build a tiny Python CLI called "ask-docs" that answers questions about the PDF files in ./docs using the Claude API with citations. Use the official anthropic SDK and claude-opus-5-5. Start with a plan, then implement step by step, add a test with a small sample PDF, and show me how to run it.
+~~
+یک ابزار خط فرمان کوچک پایتونی به اسم «ask-docs» بساز که با Claude API و همراه با ارجاع به منبع، به سؤال‌ها دربارهٔ فایل‌های PDF پوشهٔ ./docs جواب بدهد. از SDK رسمی anthropic و مدل claude-opus-5-5 استفاده کن. با یک برنامه شروع کن، بعد قدم‌به‌قدم پیاده‌سازی کن، با یک PDF نمونهٔ کوچک تست بنویس و نشانم بده چطور اجرایش کنم.
+
+#analogy
+It's a carpenter using a power tool made by the same company that makes the wood: each knows the other well, so the work goes faster.
+~~
+مثل نجاری است که از ابزار برقیِ همان شرکتی استفاده می‌کند که چوب را می‌سازد: هر کدام دیگری را خوب می‌شناسد، پس کار سریع‌تر پیش می‌رود.
+
+#tip
+Ask Claude Code to write a **small eval** before you tune prompts: ten real inputs and a clear pass/fail rule. Then every change to your prompt or model can be measured instead of guessed.
+~~
+قبل از ور رفتن با پرامپت‌ها، از Claude Code بخواه یک **eval کوچک** بنویسد: ده ورودی واقعی و یک قانون روشن برای قبول یا رد. بعد هر تغییری در پرامپت یا مدل قابل‌اندازه‌گیری می‌شود، نه حدس‌زدنی.
+
+@cheatsheet
+- Request = **key + model + messages + max_tokens**. Response = content blocks + usage + **stop_reason**.
+- Key in an env var, never in client-side code. Revoke leaked keys at once.
+- Model choice: test cheapest first; **stop at the cheapest you'd ship**; judge cost per finished task.
+- Agent = loop: Claude asks (`tool_use`) → your code runs → `tool_result` back → until `end_turn`.
+- Tool = name + **description (when to use)** + input schema; `strict: true` for exact inputs.
+- Thinking: `{"type": "adaptive"}` + `output_config.effort` (low → max). `budget_tokens` is legacy.
+- Server tools (web search, web fetch, code execution) run at Anthropic; results in the same response.
+- Skills on the API: `container.skills` + code execution → real pptx/xlsx/docx/pdf files.
+- MCP connector: `mcp_servers` + matching `mcp_toolset`.
+- Context: just-in-time · compaction · caching · memory (+ context editing).
+- Managed Agents: environment → agent (once) → session → events (stream first).
+~~
+- درخواست = **کلید + مدل + پیام‌ها + max_tokens**. جواب = بلوک‌های محتوا + مصرف + **stop_reason**.
+- کلید در متغیر محیطی، هرگز در کد سمت کاربر. کلید لورفته را فوراً باطل کن.
+- انتخاب مدل: اول ارزان‌ترین را امتحان کن؛ **روی ارزان‌ترین مدل قابل‌تحویل بایست**؛ هزینه را به ازای کار تمام‌شده بسنج.
+- ایجنت = چرخه: Claude می‌خواهد (`tool_use`) ← کد تو اجرا می‌کند ← `tool_result` برمی‌گردد ← تا `end_turn`.
+- ابزار = اسم + **توضیح (کی استفاده شود)** + طرح‌وارهٔ ورودی؛ `strict: true` برای ورودی دقیق.
+- تفکر: `{"type": "adaptive"}` + `output_config.effort` (از low تا max). `budget_tokens` قدیمی است.
+- ابزارهای سمت سرور (جست‌وجو، خواندن وب، اجرای کد) در Anthropic اجرا می‌شوند؛ نتیجه در همان جواب.
+- اسکیل روی API: `container.skills` + اجرای کد ← فایل واقعی pptx/xlsx/docx/pdf.
+- کانکتور MCP: `mcp_servers` + یک `mcp_toolset` هم‌نام.
+- کانتکست: به‌موقع · فشرده‌سازی · کش · حافظه (+ ویرایش کانتکست).
+- Managed Agents: محیط ← ایجنت (یک بار) ← جلسه ← رویدادها (اول stream).
+
+@quiz
+Q: Which four things does every Messages API request need? || هر درخواست Messages API به چه چهار چیزی نیاز دارد؟
+A: An API key, a model, a list of messages, and max_tokens. || کلید API، مدل، فهرست پیام‌ها و max_tokens.
+Q: In the agent loop, who actually runs your tool functions? || در چرخهٔ ایجنت، چه کسی واقعاً تابع‌های ابزار تو را اجرا می‌کند؟
+A: Your code. Claude only requests a tool with a tool_use block; you execute it and return a tool_result. || کد خودت. Claude فقط با بلوک tool_use ابزار را درخواست می‌کند؛ تو اجرایش می‌کنی و tool_result را برمی‌گردانی.
+Q: What is the tiered approach to choosing a model? || روش پله‌ای برای انتخاب مدل چیست؟
+A: Run your test set on the cheapest model first and move up only when quality falls short; stop at the cheapest model whose output you'd ship. || مجموعهٔ آزمایشی را اول روی ارزان‌ترین مدل اجرا کن و فقط وقتی کیفیت کم بود بالا برو؛ روی ارزان‌ترین مدلی بایست که خروجی‌اش را تحویل می‌دهی.
+Q: Why don't server tools like web search need a loop in your code? || چرا ابزارهای سمت سرور مثل جست‌وجوی وب در کد تو چرخه لازم ندارند؟
+A: Anthropic executes them on its own infrastructure and returns the results in the same response. || چون Anthropic آن‌ها را روی زیرساخت خودش اجرا می‌کند و نتیجه را در همان جواب برمی‌گرداند.
+Q: Name the four building blocks of Managed Agents. || چهار جزء اصلی Managed Agents را نام ببر.
+A: Agent, environment, session and events. || ایجنت، محیط، جلسه و رویدادها.

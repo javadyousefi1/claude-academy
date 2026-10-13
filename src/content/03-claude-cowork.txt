@@ -1,0 +1,625 @@
+@page
+slug: introduction-to-claude-cowork
+kind: course
+group: start
+order: 3
+en: Introduction to Claude Cowork
+fa: آشنایی با Claude Cowork؛ کار را بسپار، نتیجه را تحویل بگیر
+stats: 14 lessons · 1 quiz · 2.5 hr · badge
+url: https://academy.claude.com/courses/introduction-to-claude-cowork
+expect: 14
+who_en: Knowledge workers on Pro, Max, Team or Enterprise who want to hand Claude whole tasks across files and apps.
+who_fa: کارمندان دانشی روی پلن‌های Pro، Max، Team یا Enterprise که می‌خواهند کارهای کامل را بین فایل‌ها و اپ‌ها به Claude بسپارند.
+blurb_fa: سپردن کارهای چندمرحله‌ای: پوشه و کانکتور، کار زمان‌بندی‌شده، دستور همیشگی، اسکیل و پلاگین، کروم و مایکروسافت ۳۶۵، کار امن و اشتراک با تیم.
+desc_en: Delegate whole multi-step tasks to Claude across your files, apps and browser, safely, and share what you build.
+
+@intro
+Most AI tools give you an **answer**, and turning that answer into a real deck, spreadsheet or sent email is still your job. **Cowork is built for the work itself.** You describe an outcome ("compare these five vendor proposals in a spreadsheet"), Claude plans the steps, works across your files, apps and browser, and hands back a finished deliverable, with references to the real files and messages it used.
+
+This course goes from the first setup to sharing team workflows: connect a folder and your apps, hand off your first task, give Claude standing context, teach it your methods with skills and plugins, use it inside Chrome and Microsoft 365, and do all of it safely.
+
+Note: Anthropic has since folded Cowork into the main Claude app, so chat and hand-off tasks now start from the same message box. The ideas in this course are exactly the same.
+~~
+بیشتر ابزارهای هوش مصنوعی یک **جواب** به تو می‌دهند و تبدیل آن جواب به یک ارائهٔ واقعی، فایل اکسل یا ایمیل فرستاده‌شده هنوز کار خودت است. **Cowork برای خود کار ساخته شده.** نتیجه را توصیف می‌کنی («این پنج پیشنهاد فروشنده را در یک فایل اکسل مقایسه کن»)، Claude قدم‌ها را برنامه‌ریزی می‌کند، بین فایل‌ها، اپ‌ها و مرورگرت کار می‌کند و یک خروجی تمام‌شده تحویل می‌دهد؛ همراه با ارجاع به فایل‌ها و پیام‌های واقعی‌ای که استفاده کرده.
+
+این دوره از اولین راه‌اندازی تا اشتراک روال‌های کاری با تیم پیش می‌رود: یک پوشه و اپ‌هایت را وصل کن، اولین کار را بسپار، به Claude زمینهٔ همیشگی بده، با اسکیل و پلاگین روش‌هایت را یادش بده، داخل کروم و مایکروسافت ۳۶۵ از آن استفاده کن و همهٔ این‌ها را امن انجام بده.
+
+یادداشت: Anthropic بعداً Cowork را داخل خود اپ اصلی Claude ادغام کرد؛ یعنی گفت‌وگو و سپردن کار حالا از همان یک جعبهٔ پیام شروع می‌شوند. ایده‌های این دوره دقیقاً همان‌اند.
+
+@section Meet Claude Cowork | آشنایی با Claude Cowork
+
+@lesson
+id: what-is-cowork
+en: What is Claude Cowork?
+fa: Claude Cowork چیست؟
+url: https://academy.claude.com/courses/introduction-to-claude-cowork/what-is-cowork
+
+#explain
+**Chat is a conversation; Cowork is a delegation.** In chat, you steer every turn. In Cowork, you describe the goal, Claude works across your files and tools, and you come back to a finished result.
+
+Under the hood, Cowork uses the same agentic engine as Claude Code, without needing a terminal. It can:
+
+- read and write **files on your computer** (only in folders you connect),
+- use your **connected apps** such as Slack, Gmail, Google Drive or Asana,
+- use the **browser** through Claude in Chrome,
+- split big jobs into parts handled by **subagents** working in parallel,
+- produce **real deliverables**: Excel files with working formulas, PowerPoint decks, formatted documents,
+- run **long tasks** and **scheduled tasks** (every Monday morning, every month-end).
+
+It's built for people whose day is spent moving information between systems: analysts, project managers, operators, researchers, marketers, recruiters.
+~~
+**Chat یعنی گفت‌وگو؛ Cowork یعنی سپردن کار.** در Chat تو هر نوبت را هدایت می‌کنی. در Cowork هدف را توصیف می‌کنی، Claude بین فایل‌ها و ابزارهایت کار می‌کند و تو برمی‌گردی و نتیجهٔ تمام‌شده را می‌بینی.
+
+پشت صحنه، Cowork از همان موتور ایجنتی Claude Code استفاده می‌کند، بدون این‌که ترمینال لازم باشد. می‌تواند:
+
+- **فایل‌های روی کامپیوترت** را بخواند و بنویسد (فقط در پوشه‌هایی که وصل می‌کنی)،
+- از **اپ‌های وصل‌شده‌ات** مثل اسلک، جیمیل، گوگل درایو یا آسانا استفاده کند،
+- از طریق Claude in Chrome با **مرورگر** کار کند،
+- کارهای بزرگ را به تکه‌هایی بشکند که **ساب‌ایجنت‌ها** موازی انجامشان می‌دهند،
+- **خروجی واقعی** بسازد: فایل اکسل با فرمول‌های درست، ارائهٔ پاورپوینت، سند مرتب،
+- **کارهای طولانی** و **کارهای زمان‌بندی‌شده** را اجرا کند (هر دوشنبه صبح، هر آخر ماه).
+
+برای کسانی ساخته شده که روزشان صرف جابه‌جا کردن اطلاعات بین سیستم‌ها می‌شود: تحلیلگرها، مدیران پروژه، کارکنان عملیات، پژوهشگرها، بازاریاب‌ها، کارشناس‌های جذب نیرو.
+
+#analogy
+Chat is calling a smart friend for advice. Cowork is **hiring an assistant for the afternoon**: you hand over the keys to the right drawers, explain the goal, and come back to a finished folder on your desk.
+~~
+Chat مثل زنگ زدن به یک دوست باهوش برای مشورت است. Cowork یعنی **یک دستیار را برای یک بعدازظهر استخدام کنی**: کلید کشوهای لازم را می‌دهی، هدف را توضیح می‌دهی و برمی‌گردی و یک پوشهٔ کامل روی میزت تحویل می‌گیری.
+
+#example
+"Read the five vendor PDFs in my Downloads folder, compare them on price, support hours and contract length, and put the result in a spreadsheet with a recommendation tab." Chat would describe how to do it. Cowork **makes the spreadsheet**.
+~~
+«پنج فایل PDF پیشنهاد فروشنده‌ها را در پوشهٔ Downloads من بخوان، از نظر قیمت، ساعت پشتیبانی و مدت قرارداد مقایسه‌شان کن و نتیجه را در یک فایل اکسل بگذار که یک برگهٔ پیشنهاد نهایی هم داشته باشد.» Chat توضیح می‌دهد چطور انجامش بدهی. Cowork **فایل اکسل را می‌سازد**.
+
+#tip
+Use the right surface for the job: **Chat** for thinking and drafting, **Claude Code** for production code in a repository, **Cowork** for cross-app work with files. Cowork will even offer to start a Claude Code session when it notices a coding task.
+~~
+برای هر کار ابزار درستش را بردار: **Chat** برای فکر کردن و پیش‌نویس، **Claude Code** برای کد جدی داخل یک مخزن، **Cowork** برای کارهای بین‌اپی با فایل‌ها. Cowork حتی وقتی ببیند کار برنامه‌نویسی است، پیشنهاد می‌دهد یک جلسهٔ Claude Code باز کنی.
+
+#terms
+Cowork = Cowork (حالت همکار) = حالتی از Claude برای سپردن کارهای چندمرحله‌ای بین فایل‌ها، اپ‌ها و مرورگر.
+Deliverable = خروجی نهایی = محصول تمام‌شدهٔ یک کار؛ مثل فایل اکسل، ارائه یا گزارش.
+
+@lesson
+id: getting-set-up
+en: Setting up Claude Cowork
+fa: راه‌اندازی Claude Cowork
+url: https://academy.claude.com/courses/introduction-to-claude-cowork/getting-set-up
+
+#explain
+Setup is a one-time job with three parts:
+
+1. **The app and plan.** Cowork runs in the Claude desktop app (macOS or Windows) on Pro, Max, Team or Enterprise. On Team and Enterprise your admin may need to switch it on first.
+2. **A working folder.** Claude sees **no files** until you connect a folder ("Work in a folder"). It can read context from it and save finished work back into it. Start with one dedicated folder, not your whole drive.
+3. **Your first connectors.** Connect the apps you use most: email and calendar, chat (Slack), and cloud storage (Google Drive, SharePoint, Box). Note that some default connectors, such as Google Drive and Microsoft 365, are **read-and-search only**; others can also create or edit. Read each connector's description.
+
+Finally, look at the **permissions model**: you can choose how much Claude asks before acting, per chat or in settings. Even in the most hands-off mode, Claude still asks before sensitive actions like deleting files, downloads or changing sharing settings.
+~~
+راه‌اندازی یک کار یک‌باره است با سه بخش:
+
+1. **اپ و پلن.** Cowork در اپ دسکتاپ Claude (مک یا ویندوز) روی پلن‌های Pro، Max، Team یا Enterprise اجرا می‌شود. در Team و Enterprise ممکن است اول ادمین سازمان آن را روشن کند.
+2. **یک پوشهٔ کاری.** تا وقتی پوشه‌ای وصل نکنی («Work in a folder»)، Claude **هیچ فایلی** نمی‌بیند. از آن پوشه زمینه می‌خواند و کار تمام‌شده را همان‌جا ذخیره می‌کند. با یک پوشهٔ مخصوص شروع کن، نه کل هارد.
+3. **اولین کانکتورها.** اپ‌هایی را که بیشتر استفاده می‌کنی وصل کن: ایمیل و تقویم، پیام‌رسان (اسلک) و فضای ابری (گوگل درایو، شیرپوینت، Box). حواست باشد بعضی کانکتورهای پیش‌فرض مثل گوگل درایو و مایکروسافت ۳۶۵ **فقط خواندن و جست‌وجو** می‌کنند و بعضی دیگر می‌توانند چیزی بسازند یا ویرایش کنند. توضیح هر کانکتور را بخوان.
+
+در آخر **مدل مجوزها** را ببین: می‌توانی برای هر گفت‌وگو یا در تنظیمات تعیین کنی Claude قبل از کار چقدر بپرسد. حتی در آزادترین حالت هم Claude قبل از کارهای حساس مثل پاک کردن فایل، دانلود یا تغییر تنظیمات اشتراک‌گذاری اجازه می‌گیرد.
+
+#analogy
+Setting up Cowork is like preparing a desk for a new assistant: a **tray** with the papers they may use (the folder), **phone numbers** of the people they may call (connectors), and **house rules** about what needs your signature (permissions).
+~~
+راه‌اندازی Cowork مثل آماده کردن میز برای یک دستیار تازه است: یک **سینی** با کاغذهایی که اجازهٔ استفاده‌شان را دارد (پوشه)، **شماره‌تلفن** کسانی که می‌تواند زنگ بزند (کانکتورها) و **قانون‌های خانه** دربارهٔ کارهایی که امضای تو را لازم دارند (مجوزها).
+
+#steps
+1. Install or update the Claude desktop app and sign in.
+2. Create a folder such as `Claude Work` and connect it.
+3. Connect two apps you use daily.
+4. Open settings and choose your default permission level.
+5. Give Claude one small, real task to test the setup.
+~~
+1. اپ دسکتاپ Claude را نصب یا به‌روز کن و وارد شو.
+2. یک پوشه مثل `Claude Work` بساز و وصلش کن.
+3. دو اپی را که هر روز استفاده می‌کنی وصل کن.
+4. تنظیمات را باز کن و سطح پیش‌فرض مجوز را انتخاب کن.
+5. یک کار کوچک ولی واقعی به Claude بده تا راه‌اندازی را امتحان کنی.
+
+#tip
+Your first connector should be the app where **most of your work context lives**. For many people that's cloud storage or email. One high-value connector beats five you never use.
+~~
+اولین کانکتورت را برای اپی بگذار که **بیشترِ زمینهٔ کاری‌ات** آن‌جاست. برای خیلی‌ها این فضای ابری یا ایمیل است. یک کانکتور پربازده از پنج کانکتوری که هرگز استفاده نمی‌کنی بهتر است.
+
+@lesson
+id: scheduled-tasks
+en: What Claude Cowork can do for you
+fa: Claude Cowork برایت چه کارهایی می‌کند؟
+url: https://academy.claude.com/courses/introduction-to-claude-cowork/scheduled-tasks
+
+#explain
+Cowork shines at work that is **multi-step, cross-tool and repetitive**: research briefs from many sources, meeting prep, file clean-up, recurring reports, inbox and channel triage.
+
+A big part of this lesson is **scheduled tasks**. There are two ways to create one:
+
+1. Run a task once, check that the output is what you want, then type `/schedule` to make it recurring.
+2. Describe the schedule directly ("every Friday at 4 pm, …").
+
+Where it runs matters. A task that only uses **connectors** can run remotely, even when your computer is asleep. A task that needs **local files** runs only while the desktop app is open; if your laptop was off at the scheduled time, Claude runs it when you're back and notes the delay.
+~~
+Cowork در کارهایی می‌درخشد که **چندمرحله‌ای، بین‌ابزاری و تکراری‌اند**: گزارش تحقیقی از منبع‌های زیاد، آمادگی برای جلسه، مرتب کردن فایل‌ها، گزارش‌های دوره‌ای، دسته‌بندی ایمیل‌ها و کانال‌ها.
+
+بخش مهمی از این درس **کارهای زمان‌بندی‌شده** است. دو راه برای ساختنشان هست:
+
+1. کار را یک بار اجرا کن، ببین خروجی همان است که می‌خواهی، بعد بنویس `/schedule` تا تکرارشونده شود.
+2. زمان‌بندی را مستقیم توصیف کن («هر جمعه ساعت ۴ بعدازظهر، …»).
+
+این‌که کار کجا اجرا می‌شود مهم است. کاری که فقط از **کانکتورها** استفاده می‌کند می‌تواند از راه دور اجرا شود، حتی وقتی کامپیوترت خواب است. کاری که **فایل‌های محلی** لازم دارد فقط وقتی اجرا می‌شود که اپ دسکتاپ باز باشد؛ اگر لپ‌تاپت در زمان تعیین‌شده خاموش بود، Claude وقتی برگشتی اجرایش می‌کند و تأخیر را یادداشت می‌کند.
+
+#analogy
+A scheduled task is like a **coffee machine with a timer**: set it once the night before, and every morning the coffee is ready when you walk in.
+~~
+کار زمان‌بندی‌شده مثل **قهوه‌ساز تایمردار** است: یک بار شب قبل تنظیمش می‌کنی و هر صبح که وارد آشپزخانه می‌شوی قهوه آماده است.
+
+#prompt
+Every Monday at 8:30, read last week's messages in #sales-team and the "Pipeline" sheet in my Drive. Write a one-page summary: deals that moved, deals that are stuck, and three things I should ask about in the 10:00 meeting. Save it in /Weekly Briefs with the date in the file name.
+~~
+هر دوشنبه ساعت ۸:۳۰، پیام‌های هفتهٔ قبل کانال #sales-team و برگهٔ «Pipeline» در درایوم را بخوان. یک خلاصهٔ یک‌صفحه‌ای بنویس: معامله‌هایی که جلو رفتند، معامله‌هایی که گیر کرده‌اند و سه سؤالی که باید در جلسهٔ ساعت ۱۰ بپرسم. آن را در پوشهٔ /Weekly Briefs با تاریخ در اسم فایل ذخیره کن.
+
+#tip
+Always run a recurring task **by hand once** before scheduling it. Fix the prompt until the output is right; a schedule only repeats what you give it, including its mistakes.
+~~
+هر کار تکرارشونده را قبل از زمان‌بندی **یک بار دستی اجرا کن**. آن‌قدر پرامپت را اصلاح کن تا خروجی درست شود؛ زمان‌بندی فقط چیزی را تکرار می‌کند که به آن داده‌ای، با همهٔ اشتباه‌هایش.
+
+#terms
+Scheduled task = کار زمان‌بندی‌شده = کاری که Claude در زمان‌های مشخص و تکراری خودش اجرا می‌کند.
+
+@lesson
+id: hand-claude-cowork-your-first-task
+en: Hand Claude Cowork your first task
+fa: اولین کار را به Claude Cowork بسپار
+url: https://academy.claude.com/courses/introduction-to-claude-cowork
+
+#explain
+Your first real hand-off goes like this:
+
+1. **Describe the outcome**, the sources and the format: what you want, where the information is, and what the result should look like.
+2. **Read Claude's plan.** Before changing anything on your machine, Claude lays out the steps. This is your moment to correct a misunderstanding.
+3. **Watch or step away.** Claude explains what it is doing at each step. For complex work it may run several subagents in parallel.
+4. **Steer mid-task** if it heads in the wrong direction; you can jump in anytime.
+5. **Review the deliverable** before you send, publish or act on it.
+
+Choose a **real** task you were about to do yourself, not a toy demo. One real task teaches you more about what context Cowork needs than ten demos.
+~~
+اولین سپردن واقعی کار این‌طوری پیش می‌رود:
+
+1. **نتیجه، منبع‌ها و قالب را توصیف کن:** چه می‌خواهی، اطلاعات کجاست و نتیجه چه شکلی باشد.
+2. **برنامهٔ Claude را بخوان.** Claude قبل از تغییر دادن هر چیزی روی کامپیوترت، قدم‌ها را نشان می‌دهد. این لحظهٔ تو برای اصلاح سوءتفاهم است.
+3. **تماشا کن یا برو سراغ کار دیگر.** Claude در هر قدم توضیح می‌دهد چه می‌کند. برای کارهای پیچیده ممکن است چند ساب‌ایجنت را موازی اجرا کند.
+4. **وسط کار مسیر را اصلاح کن** اگر دارد اشتباه می‌رود؛ هر وقت بخواهی می‌توانی وارد شوی.
+5. **خروجی را قبل از فرستادن، منتشر کردن یا عمل کردن بازبینی کن.**
+
+یک کار **واقعی** را انتخاب کن که خودت می‌خواستی انجامش بدهی، نه یک نمایش اسباب‌بازی. یک کار واقعی بیشتر از ده نمایش به تو یاد می‌دهد Cowork چه زمینه‌ای لازم دارد.
+
+#prompt
+In the folder "Q3 Receipts" there are about 60 PDFs and photos of receipts. Make an Excel file with one row per receipt: date, vendor, amount, currency and category (travel, food, software, other). Flag any receipt you couldn't read clearly in a separate tab. Don't move or rename the original files.
+~~
+در پوشهٔ «Q3 Receipts» حدود ۶۰ فایل PDF و عکس رسید هست. یک فایل اکسل بساز که برای هر رسید یک ردیف داشته باشد: تاریخ، فروشنده، مبلغ، واحد پول و دسته (سفر، غذا، نرم‌افزار، سایر). هر رسیدی را که نتوانستی واضح بخوانی در یک برگهٔ جدا علامت بزن. فایل‌های اصلی را جابه‌جا یا تغییر نام نده.
+
+#analogy
+It's like giving a task to a new team member: a clear brief, a quick look at their plan, then you check the work before it goes to the client.
+~~
+مثل سپردن کار به یک عضو تازهٔ تیم است: یک توضیح روشن، یک نگاه سریع به برنامه‌اش و بعد قبل از رفتن کار به دست مشتری، خودت چکش می‌کنی.
+
+#warn
+Notice the last sentence of the sample prompt: "Don't move or rename the original files." Saying what **not** to touch is as important as saying what to do.
+~~
+به جملهٔ آخر پرامپت نمونه دقت کن: «فایل‌های اصلی را جابه‌جا یا تغییر نام نده.» گفتن این‌که به چه چیزی **نباید** دست بزند، به اندازهٔ گفتن کاری که باید بکند مهم است.
+
+@section Make Claude Cowork yours | Cowork را مال خودت کن
+
+@lesson
+id: research-analysis-at-scale
+en: Get better results faster
+fa: نتیجهٔ بهتر، سریع‌تر
+url: https://academy.claude.com/courses/introduction-to-claude-cowork/research-analysis-at-scale
+
+#explain
+The people who get the most from Cowork don't use a secret feature. They do three things:
+
+- **Front-load context.** Name the exact folders, channels, people and time range. "Read the docs in 'Pricing 2026' and the last two weeks of #pricing in Slack; skip anything older than April 1" beats "summarize the pricing project".
+- **Be specific about the output**: format (docx, xlsx, pdf, markdown), length, audience and tone. "A one-page summary for our VP that leads with the recommendation" is ten times stronger than "write a summary".
+- **Iterate in place.** If the first draft is 80% right, say what to change. Editing is faster than starting over, and Claude remembers the conversation.
+~~
+کسانی که بیشترین بهره را از Cowork می‌برند قابلیت مخفی خاصی استفاده نمی‌کنند. سه کار می‌کنند:
+
+- **زمینه را از اول کامل می‌دهند.** پوشه‌ها، کانال‌ها، آدم‌ها و بازهٔ زمانی دقیق را نام می‌برند. «اسناد پوشهٔ 'Pricing 2026' و پیام‌های دو هفتهٔ اخیر کانال #pricing در اسلک را بخوان؛ هر چیز قدیمی‌تر از اول آوریل را نادیده بگیر» خیلی بهتر از «پروژهٔ قیمت‌گذاری را خلاصه کن» است.
+- **دربارهٔ خروجی دقیق‌اند:** قالب (docx، xlsx، pdf، markdown)، طول، مخاطب و لحن. «یک خلاصهٔ یک‌صفحه‌ای برای معاون ما که با پیشنهاد نهایی شروع شود» ده برابر قوی‌تر از «یک خلاصه بنویس» است.
+- **در همان‌جا اصلاح می‌کنند.** اگر پیش‌نویس اول ۸۰٪ درست است، بگو چه چیزی را عوض کند. ویرایش سریع‌تر از شروع دوباره است و Claude گفت‌وگو را یادش می‌ماند.
+
+#example
+Weak: "Help me get ready for tomorrow."
+Strong: "I have a 10:00 with the Acme team tomorrow. Pull notes from our last two calls (in /Customers/Acme), open feedback items tagged 'Acme', and Slack threads from #acme-account this month. Give me a one-page brief: where we left off, what they'll likely ask, what I should push on."
+~~
+ضعیف: «کمکم کن برای فردا آماده شوم.»
+قوی: «فردا ساعت ۱۰ با تیم Acme جلسه دارم. یادداشت‌های دو تماس قبلی‌مان (در /Customers/Acme)، بازخوردهای باز با برچسب 'Acme' و رشته‌پیام‌های این ماه کانال #acme-account را بیاور. یک خلاصهٔ یک‌صفحه‌ای بده: کجا ماندیم، احتمالاً چه می‌پرسند و روی چه چیزی باید پافشاری کنم.»
+
+#analogy
+A vague request to Cowork is like telling a taxi driver "take me somewhere nice". A specific one is giving the exact address, the route you prefer and the time you must arrive.
+~~
+درخواست مبهم از Cowork مثل این است که به راننده تاکسی بگویی «یک جای خوب ببرم». درخواست دقیق یعنی آدرس کامل، مسیری که ترجیح می‌دهی و ساعتی که باید برسی.
+
+#tip
+Add a **"skip" line** to research prompts: what to ignore (bot posts, stand-ups, anything before a date). Telling Claude what *not* to read saves time and makes the summary sharper.
+~~
+به پرامپت‌های تحقیقی یک **خط «نادیده بگیر»** اضافه کن: چه چیزهایی را کنار بگذارد (پیام بات‌ها، گزارش‌های روزانهٔ تکراری، هر چیز قبل از یک تاریخ). گفتن این‌که چه چیزی را *نخواند* هم وقت را ذخیره می‌کند و هم خلاصه را دقیق‌تر.
+
+@lesson
+id: giving-cowork-context
+en: "Standing context: global instructions and projects"
+fa: زمینهٔ همیشگی: دستورهای سراسری و پروژه‌ها
+url: https://academy.claude.com/courses/introduction-to-claude-cowork/giving-cowork-context
+
+#explain
+You shouldn't have to introduce yourself every session. Cowork has layers of **standing context**:
+
+- **Global instructions** (in Cowork's settings): apply to every session. Your role, your team, preferred tone, default output formats.
+- **Folder instructions** (in the Customize panel): extra context that applies whenever you work in a specific local folder. Claude can even update them itself as it learns how you work there.
+- **Projects**: group related tasks into a workspace with their own files, instructions and memory that persist across sessions.
+
+Rule of thumb: who you are → global; how this folder works → folder instructions; everything about one ongoing piece of work → a project.
+~~
+لازم نیست در هر جلسه خودت را معرفی کنی. Cowork چند لایه **زمینهٔ همیشگی** دارد:
+
+- **دستورهای سراسری** (Global instructions، در تنظیمات Cowork): روی همهٔ جلسه‌ها اثر دارند. نقشت، تیمت، لحن دلخواه، قالب‌های پیش‌فرض خروجی.
+- **دستورهای پوشه** (Folder instructions، در پنل Customize): زمینهٔ اضافه‌ای که هر وقت در یک پوشهٔ محلی مشخص کار می‌کنی اعمال می‌شود. Claude حتی خودش می‌تواند آن‌ها را به‌روز کند، وقتی می‌فهمد آن‌جا چطور کار می‌کنی.
+- **پروژه‌ها:** کارهای مرتبط را در یک فضای کاری با فایل‌ها، دستورها و حافظهٔ خودشان جمع می‌کنند که بین جلسه‌ها باقی می‌ماند.
+
+قاعدهٔ سرانگشتی: تو کی هستی ← سراسری؛ این پوشه چطور کار می‌کند ← دستور پوشه؛ همه‌چیز دربارهٔ یک کار ادامه‌دار ← پروژه.
+
+#analogy
+Think of three sticky notes: one on **your forehead** (who I am, everywhere), one on **a drawer** (how this drawer is organized), and one on **a project box** (everything about the kitchen renovation).
+~~
+سه برچسب چسبی را تصور کن: یکی روی **پیشانی خودت** (من کی هستم؛ همه‌جا)، یکی روی **یک کشو** (این کشو چطور مرتب شده) و یکی روی **جعبهٔ یک پروژه** (همه‌چیز دربارهٔ بازسازی آشپزخانه).
+
+#example
+Global: "I'm an operations manager at a 40-person logistics company in Tehran. Write in plain English or Persian, whichever I use. Prefer tables for comparisons. Dates in YYYY-MM-DD."
+Folder instructions for /Invoices: "File names follow `YYYY-MM vendor amount`. Never delete anything here."
+~~
+سراسری: «من مدیر عملیات یک شرکت لجستیک ۴۰ نفره در تهرانم. به هر زبانی که من نوشتم، فارسی یا انگلیسی ساده، جواب بده. برای مقایسه جدول را ترجیح بده. تاریخ‌ها به شکل YYYY-MM-DD.»
+دستور پوشهٔ /Invoices: «اسم فایل‌ها به شکل `YYYY-MM فروشنده مبلغ` است. هیچ‌وقت چیزی را این‌جا پاک نکن.»
+
+#tip
+Re-read your global instructions once a month. Out-of-date standing context ("I'm working on the Q1 launch") quietly pulls every answer in the wrong direction.
+~~
+دستورهای سراسری‌ات را ماهی یک بار دوباره بخوان. زمینهٔ همیشگیِ کهنه («دارم روی عرضهٔ فصل اول کار می‌کنم») بی‌صدا همهٔ جواب‌ها را به مسیر اشتباه می‌کشد.
+
+@lesson
+id: file-document-tasks
+en: "Skills: teach Claude Cowork your way"
+fa: اسکیل‌ها: روش خودت را به Cowork یاد بده
+url: https://academy.claude.com/courses/introduction-to-claude-cowork/file-document-tasks
+
+#explain
+Instructions tell Claude **about you**; **skills** teach it **how to do a specific job your way**. A skill is a playbook (instructions plus optional templates or examples) that Claude loads automatically when a task matches it.
+
+Skills are perfect for deliverables you produce again and again: the monthly report, the client proposal, the board update, the contract summary. Instead of re-explaining the structure, tone and rules every time, you write them once. Anthropic also ships skills for creating real Word, Excel, PowerPoint and PDF files.
+
+The easiest way to create one: do the task once with Claude, get it right, then ask Claude to **turn what you just did into a skill**.
+~~
+دستورالعمل‌ها **دربارهٔ تو** به Claude می‌گویند؛ **اسکیل‌ها** یادش می‌دهند **یک کار مشخص را به روش تو انجام دهد**. اسکیل یک دستورکار است (دستورالعمل، به‌علاوهٔ قالب یا نمونه اگر لازم باشد) که Claude وقتی کاری با آن جور است خودکار بارش می‌کند.
+
+اسکیل‌ها برای خروجی‌هایی عالی‌اند که بارها و بارها تولید می‌کنی: گزارش ماهانه، پیشنهاد به مشتری، گزارش هیئت‌مدیره، خلاصهٔ قرارداد. به‌جای این‌که هر بار ساختار و لحن و قانون‌ها را توضیح بدهی، یک بار می‌نویسی‌شان. Anthropic اسکیل‌های آماده‌ای هم برای ساختن فایل‌های واقعی ورد، اکسل، پاورپوینت و PDF دارد.
+
+ساده‌ترین راه ساختن اسکیل: کار را یک بار همراه Claude انجام بده، درستش کن و بعد از Claude بخواه **همان کاری را که الان کردید به یک اسکیل تبدیل کند**.
+
+#prompt
+That client proposal came out exactly right. Turn what we just did into a skill called "client-proposal": the section order, the tone, how we price, the things I corrected along the way, and use today's proposal as the example.
+~~
+آن پیشنهاد به مشتری دقیقاً درست درآمد. همین کاری را که الان کردیم به یک اسکیل به اسم «client-proposal» تبدیل کن: ترتیب بخش‌ها، لحن، روش قیمت‌گذاری ما، چیزهایی که وسط کار اصلاح کردم، و پیشنهاد امروز را هم به عنوان نمونه بگذار.
+
+#analogy
+A skill is your **grandmother's recipe written down**. Before, only she could make that dish perfectly. Once it's on paper, anyone in the family can, every time.
+~~
+اسکیل یعنی **دستور پخت مادربزرگ که روی کاغذ آمده**. قبلاً فقط خودش می‌توانست آن غذا را بی‌نقص بپزد. وقتی روی کاغذ آمد، هر کسی در خانواده می‌تواند، هر بار.
+
+#tip
+Put your **corrections** into the skill. The rules you had to say out loud during the first run ("never round prices", "always mention the warranty") are exactly what makes the skill valuable.
+~~
+**اصلاح‌هایت** را داخل اسکیل بگذار. قانون‌هایی که در اجرای اول مجبور شدی بلند بگویی («قیمت‌ها را گرد نکن»، «همیشه گارانتی را ذکر کن») دقیقاً همان چیزی است که اسکیل را باارزش می‌کند.
+
+@lesson
+id: plugins-cowork-as-a-specialist
+en: "Plugins: encode your team's expertise"
+fa: پلاگین‌ها: تخصص تیمت را بسته‌بندی کن
+url: https://academy.claude.com/courses/introduction-to-claude-cowork/plugins-cowork-as-a-specialist
+
+#explain
+A **plugin** bundles several things into one installable package built around a role or workflow:
+
+- **Skills**: step-by-step playbooks that load when a task matches.
+- **Subagents**: specialized helpers with their own context, tools and permissions.
+- **Connectors**: the apps the workflow depends on (CRM, Slack, document storage), already wired up.
+- **Slash commands** to start a whole workflow, like `/account-research`.
+
+Anthropic publishes ready-made plugins for roles such as Sales, Marketing, Legal, Product Management, Finance, HR, Engineering and Small Business. For example, a Legal plugin can pair document-storage and e-signature connectors with skills for contract review and NDA triage. You install with one click from the plugin marketplace, and admins can distribute plugins to specific teams or the whole organization.
+
+Reach for a plugin when you keep re-explaining the same workflow, when it touches several tools in sequence, or when there is "a right way" your team does it.
+~~
+**پلاگین** چند چیز را در یک بستهٔ قابل‌نصب جمع می‌کند که حول یک نقش یا روال کاری ساخته شده:
+
+- **اسکیل‌ها:** دستورکارهای قدم‌به‌قدم که وقتی کار جور باشد بار می‌شوند.
+- **ساب‌ایجنت‌ها:** دستیارهای تخصصی با کانتکست، ابزار و مجوزهای خودشان.
+- **کانکتورها:** اپ‌هایی که روال کاری به آن‌ها نیاز دارد (CRM، اسلک، فضای اسناد)، از قبل وصل‌شده.
+- **دستورهای اسلشی** برای شروع یک روال کامل؛ مثل `/account-research`.
+
+Anthropic پلاگین‌های آماده‌ای برای نقش‌هایی مثل فروش، بازاریابی، حقوقی، مدیریت محصول، مالی، منابع انسانی، مهندسی و کسب‌وکار کوچک منتشر کرده. مثلاً یک پلاگین حقوقی می‌تواند کانکتورهای فضای اسناد و امضای الکترونیک را با اسکیل‌های بررسی قرارداد و دسته‌بندی NDA جفت کند. نصب با یک کلیک از بازارچهٔ پلاگین‌هاست و ادمین‌ها می‌توانند پلاگین‌ها را برای تیم‌های خاص یا کل سازمان پخش کنند.
+
+وقتی سراغ پلاگین برو که مدام یک روال را از نو توضیح می‌دهی، وقتی چند ابزار را پشت سر هم درگیر می‌کند، یا وقتی تیمت «روش درست» خودش را برای آن کار دارد.
+
+#analogy
+If a skill is one recipe card, a plugin is a **meal kit**: the recipes, the pre-measured ingredients and the right pan, all in one box.
+~~
+اگر اسکیل یک کارت دستور پخت باشد، پلاگین یک **بستهٔ آمادهٔ غذاست**: دستورها، مواد اندازه‌گیری‌شده و تابهٔ مناسب، همه در یک جعبه.
+
+#example
+A customer-success manager preps every renewal call the same way: account in the CRM, recent support tickets, the last three call recordings, then a brief in a shared doc. With a "renewal prep" plugin she types `/prep-renewal Acme` and the whole chain runs.
+~~
+یک مدیر موفقیت مشتری هر تماس تمدید قرارداد را یک‌جور آماده می‌کند: حساب مشتری در CRM، تیکت‌های پشتیبانی اخیر، سه تماس ضبط‌شدهٔ آخر و بعد یک خلاصه در یک سند مشترک. با یک پلاگین «آمادگی تمدید» فقط می‌نویسد `/prep-renewal Acme` و کل زنجیره اجرا می‌شود.
+
+#warn
+Plugins you install manually are usually stored on that device and may not follow you to other computers. For team-wide workflows, ask your admin to distribute the plugin centrally.
+~~
+پلاگین‌هایی که دستی نصب می‌کنی معمولاً روی همان دستگاه ذخیره می‌شوند و ممکن است روی کامپیوترهای دیگرت نیایند. برای روال‌های کل تیم، از ادمین بخواه پلاگین را مرکزی پخش کند.
+
+#terms
+Plugin = پلاگین = بسته‌ای از اسکیل‌ها، ساب‌ایجنت‌ها، کانکتورها و دستورها برای یک نقش یا روال کاری.
+Marketplace = بازارچه = فهرستی که پلاگین‌ها از آن نصب می‌شوند.
+
+@section Use Claude wherever you work | Claude را هر جا کار می‌کنی استفاده کن
+
+@lesson
+id: claude-in-chrome
+en: Claude in Chrome
+fa: Claude در کروم
+url: https://academy.claude.com/courses/introduction-to-claude-cowork/claude-in-chrome
+
+#explain
+**Claude in Chrome** is a browser extension that puts Claude in a side panel and lets it **read and interact with web pages**: click, scroll, fill forms, move between tabs. Cowork can use it when a task needs the web, for example a site that has no connector.
+
+Good uses: comparing products across several shops, collecting information from internal web tools, filling repetitive forms, tidying a web inbox. Claude asks before sensitive actions such as purchases, and you stay signed in as yourself, so treat it like letting someone use your browser while you watch.
+~~
+**Claude in Chrome** افزونهٔ مرورگری است که Claude را در یک پنل کناری می‌گذارد و اجازه می‌دهد **صفحه‌های وب را بخواند و با آن‌ها کار کند**: کلیک کند، اسکرول کند، فرم پر کند، بین تب‌ها جابه‌جا شود. Cowork وقتی کاری به وب نیاز دارد، مثلاً سایتی که کانکتور ندارد، می‌تواند از آن استفاده کند.
+
+کاربردهای خوب: مقایسهٔ یک محصول در چند فروشگاه، جمع کردن اطلاعات از ابزارهای وب داخلی سازمان، پر کردن فرم‌های تکراری، مرتب کردن صندوق ایمیل تحت وب. Claude قبل از کارهای حساس مثل خرید اجازه می‌گیرد و تو با حساب خودت وارد هستی؛ پس با آن مثل این رفتار کن که کسی جلوی چشم تو با مرورگرت کار می‌کند.
+
+#analogy
+It's like sitting next to a friend and saying "you drive the mouse for a bit": they can see your screen and click for you, but you're right there.
+~~
+مثل این است که کنار یک دوست بنشینی و بگویی «یک کم تو موس را دست بگیر»: صفحه‌ات را می‌بیند و برایت کلیک می‌کند، ولی خودت همان‌جا نشسته‌ای.
+
+#prompt
+Open these three online stores in tabs and compare the same 1 TB external SSD: price with shipping, delivery time and return policy. Don't add anything to a cart. Give me a table and your pick.
+~~
+این سه فروشگاه اینترنتی را در تب‌های جدا باز کن و یک SSD اکسترنال یک ترابایتی یکسان را مقایسه کن: قیمت با هزینهٔ ارسال، زمان تحویل و شرایط مرجوعی. چیزی به سبد خرید اضافه نکن. یک جدول و انتخاب خودت را بده.
+
+#warn
+Web pages can contain hidden text written to trick AI agents ("ignore your instructions and…"). Use Chrome on sites you trust, and stop the task if Claude starts doing something you didn't ask for.
+~~
+صفحه‌های وب ممکن است متن پنهانی داشته باشند که برای فریب دادن ایجنت‌های هوش مصنوعی نوشته شده («دستورهایت را نادیده بگیر و…»). از کروم روی سایت‌های مطمئن استفاده کن و اگر Claude شروع کرد به کاری که نخواسته بودی، کار را متوقف کن.
+
+#terms
+Browser extension = افزونهٔ مرورگر = برنامهٔ کوچکی که قابلیت تازه به مرورگر اضافه می‌کند.
+Prompt injection = تزریق پرامپت = متنی فریبنده در صفحه یا فایل که سعی می‌کند به هوش مصنوعی دستور تازه بدهد.
+
+@lesson
+id: claude-for-microsoft-365
+en: Claude for Microsoft 365
+fa: Claude برای مایکروسافت ۳۶۵
+url: https://academy.claude.com/courses/introduction-to-claude-cowork/claude-for-microsoft-365
+
+#explain
+Claude can work as an **add-in inside Word, Excel, PowerPoint and Outlook**, on the file you have open:
+
+- **Excel**: analyze data, write formulas, find and fix errors like `#REF!` and circular references, and run "what if" scenarios without breaking the model.
+- **PowerPoint**: build or edit slides that follow your template's layouts, fonts and colors.
+- **Word**: draft, restructure and review documents.
+- **Outlook**: summarize threads and draft replies.
+
+The magic is **carrying context across apps**: build the analysis in Excel, then hand it to PowerPoint to make the slide, in one flow.
+~~
+Claude می‌تواند به شکل **افزونه داخل ورد، اکسل، پاورپوینت و اوت‌لوک** روی همان فایلی که باز کرده‌ای کار کند:
+
+- **اکسل:** داده تحلیل کند، فرمول بنویسد، خطاهایی مثل `#REF!` و ارجاع‌های چرخشی را پیدا و درست کند و سناریوهای «اگر این‌طور شود چه؟» را بدون خراب کردن مدل اجرا کند.
+- **پاورپوینت:** اسلایدهایی بسازد یا ویرایش کند که با چیدمان، فونت و رنگ‌های قالب تو جورند.
+- **ورد:** سند پیش‌نویس کند، ساختارش را عوض کند و بازبینی‌اش کند.
+- **اوت‌لوک:** رشته‌ایمیل‌ها را خلاصه کند و جواب پیش‌نویس کند.
+
+جادو در **حمل کردن زمینه بین اپ‌هاست**: تحلیل را در اکسل بساز و بعد به پاورپوینت بده تا اسلایدش را بسازد؛ همه در یک جریان.
+
+#example
+A finance analyst asks Claude in Excel: "Why does the March total jump by 40%? Trace the formulas." Claude finds a range that accidentally includes the totals row twice, fixes it, and adds a comment. Then in PowerPoint: "Make one slide that explains the corrected Q1 numbers using our company template."
+~~
+یک تحلیلگر مالی در اکسل از Claude می‌پرسد: «چرا جمع اسفند ۴۰٪ پریده؟ فرمول‌ها را ردگیری کن.» Claude محدوده‌ای را پیدا می‌کند که اشتباهی ردیف جمع را دو بار حساب کرده، درستش می‌کند و یک یادداشت کنارش می‌گذارد. بعد در پاورپوینت: «یک اسلاید بساز که عددهای اصلاح‌شدهٔ فصل اول را با قالب شرکت توضیح بدهد.»
+
+#analogy
+It's the same expert walking from the accountant's desk (Excel) to the designer's desk (PowerPoint), carrying the notes in their hand instead of making you re-explain.
+~~
+همان یک متخصص است که از میز حسابدار (اکسل) به میز طراح (پاورپوینت) می‌رود و یادداشت‌ها را خودش در دست دارد؛ لازم نیست تو دوباره توضیح بدهی.
+
+#tip
+In Excel, ask Claude to **explain before it edits**: "Tell me what you'd change and why, then wait." Spreadsheet errors spread silently, so a quick preview protects your model.
+~~
+در اکسل از Claude بخواه **قبل از ویرایش توضیح بدهد**: «بگو چه چیزی را عوض می‌کنی و چرا، بعد صبر کن.» خطاهای صفحه‌گسترده بی‌صدا پخش می‌شوند، پس یک پیش‌نمایش کوتاه از مدلت محافظت می‌کند.
+
+@section Sharing and safety in Claude Cowork | اشتراک‌گذاری و ایمنی
+
+@lesson
+id: permissions-usage-choosing-your-model
+en: Best practices for working safely
+fa: بهترین روش‌ها برای کار امن
+url: https://academy.claude.com/courses/introduction-to-claude-cowork/permissions-usage-choosing-your-model
+
+#explain
+Cowork can do real things on your computer, so a few habits keep you safe:
+
+- **Protect your workspace.** Connect a dedicated folder, not your whole disk. Keep backups (or version history) of important files.
+- **Choose permissions on purpose.** Use stricter modes for unfamiliar or sensitive work. Even in "act without asking", Claude still confirms deletions, downloads, sharing changes, purchases and other sensitive actions; don't click "allow" on autopilot.
+- **Word prompts carefully.** Say what must not be touched ("read only", "don't send anything", "don't delete").
+- **Watch your usage.** Bigger models and long tasks use more of your plan's limits. Use the lighter model for simple jobs and save the most capable one for hard reasoning.
+- **Review before you ship**, especially numbers, names, citations and anything with money involved.
+~~
+Cowork می‌تواند روی کامپیوترت کارهای واقعی انجام بدهد، پس چند عادت امنت نگه می‌دارد:
+
+- **از فضای کارت محافظت کن.** یک پوشهٔ مخصوص وصل کن، نه کل دیسک. از فایل‌های مهم پشتیبان (یا تاریخچهٔ نسخه‌ها) داشته باش.
+- **مجوزها را آگاهانه انتخاب کن.** برای کارهای ناآشنا یا حساس از حالت‌های سخت‌گیرانه‌تر استفاده کن. حتی در حالت «بدون پرسیدن انجام بده» هم Claude برای پاک کردن، دانلود، تغییر اشتراک‌گذاری، خرید و کارهای حساس دیگر تأیید می‌گیرد؛ دکمهٔ «اجازه» را بی‌فکر نزن.
+- **پرامپت را با دقت بنویس.** بگو به چه چیزهایی نباید دست بزند («فقط بخوان»، «چیزی نفرست»، «چیزی پاک نکن»).
+- **حواست به مصرفت باشد.** مدل‌های بزرگ‌تر و کارهای طولانی سهمیهٔ پلنت را بیشتر مصرف می‌کنند. برای کارهای ساده مدل سبک‌تر و برای استدلال سخت قوی‌ترین مدل را نگه دار.
+- **قبل از تحویل بازبینی کن**؛ به‌خصوص عددها، اسم‌ها، ارجاع‌ها و هر چیزی که پای پول وسط است.
+
+#analogy
+It's like lending your car: you choose who drives, which roads are allowed, you keep insurance (backups), and you still check the fuel and the mirrors when it comes back.
+~~
+مثل قرض دادن ماشین است: انتخاب می‌کنی چه کسی رانندگی کند و از کدام جاده‌ها برود، بیمه داری (پشتیبان) و وقتی برگشت، باز هم بنزین و آینه‌ها را چک می‌کنی.
+
+#warn
+Never connect folders that contain passwords, private keys or other people's sensitive data "just in case". Anything in a connected folder can end up in Claude's context.
+~~
+پوشه‌هایی را که رمز عبور، کلید خصوصی یا اطلاعات حساس دیگران دارند «محض احتیاط» وصل نکن. هر چیزی در پوشهٔ وصل‌شده ممکن است وارد کانتکست Claude شود.
+
+#tip
+A great safety phrase: **"Show me the plan before making changes."** It costs ten seconds and catches most misunderstandings before they touch a file.
+~~
+یک جملهٔ ایمنی عالی: **«قبل از تغییر دادن چیزی، برنامه‌ات را نشانم بده.»** ده ثانیه وقت می‌گیرد و بیشتر سوءتفاهم‌ها را قبل از این‌که به فایلی برسند می‌گیرد.
+
+@lesson
+id: validating-skills-for-plugins
+en: Validating skills for plugins
+fa: سنجیدن اسکیل‌ها قبل از گذاشتن در پلاگین
+meta: 8 min
+url: https://academy.claude.com/courses/introduction-to-claude-cowork/validating-skills-for-plugins
+
+#explain
+Before you share a skill with your whole team, **test it**. The tests are called **evals**: short trial runs where you send a realistic request, look at the output, and tell Claude what to fix.
+
+The built-in **skill-creator** makes this easy: it writes two or more realistic prompts for your skill and produces a pair of outputs for each one, **one with the skill and one without**. If the "with skill" version isn't clearly better, the skill needs work.
+
+Change **one thing at a time** between rounds, so you know what helped. Most skills are ready after one or two rounds.
+~~
+قبل از این‌که اسکیلی را با کل تیم به اشتراک بگذاری، **امتحانش کن**. به این امتحان‌ها **eval** (ارزیابی) می‌گویند: اجراهای آزمایشی کوتاه که در آن‌ها یک درخواست واقع‌گرایانه می‌فرستی، خروجی را نگاه می‌کنی و به Claude می‌گویی چه چیزی را درست کند.
+
+ابزار داخلی **skill-creator** این کار را آسان می‌کند: دو یا چند پرامپت واقع‌گرایانه برای اسکیلت می‌نویسد و برای هر کدام یک جفت خروجی می‌سازد: **یکی با اسکیل و یکی بدون آن**. اگر نسخهٔ «با اسکیل» به‌وضوح بهتر نیست، اسکیل هنوز کار دارد.
+
+بین دورها **هر بار فقط یک چیز را عوض کن** تا بفهمی چه چیزی کمک کرد. بیشتر اسکیل‌ها بعد از یک یا دو دور آماده‌اند.
+
+#analogy
+It's a **taste test with and without the secret sauce**. If nobody can tell the difference, the sauce isn't doing its job.
+~~
+مثل **مزه کردن غذا با سس مخصوص و بدون آن** است. اگر هیچ‌کس فرقش را نفهمد، سس کارش را انجام نمی‌دهد.
+
+#example
+A "meeting notes" skill is tested with two realistic requests: a messy 45-minute transcript and a short 5-line note. With the skill, both outputs follow the team's Decisions/Actions/Owners format; without it, the format changes every time. One fix after round one ("always list owners with due dates") and the skill is ready.
+~~
+یک اسکیل «صورت‌جلسه» با دو درخواست واقع‌گرایانه امتحان می‌شود: متن پیاده‌شدهٔ شلوغ یک جلسهٔ ۴۵ دقیقه‌ای و یک یادداشت کوتاه ۵ خطی. با اسکیل، هر دو خروجی قالب تیم یعنی «تصمیم‌ها/اقدام‌ها/مسئول‌ها» را دارند؛ بدون آن، قالب هر بار عوض می‌شود. بعد از دور اول یک اصلاح («مسئول‌ها را همیشه با تاریخ سررسید بنویس») و اسکیل آماده است.
+
+#tip
+Include one **awkward** test case on purpose (a half-empty input, a weird format). Skills usually break on the edges, not in the middle.
+~~
+عمداً یک مورد آزمایشی **عجیب‌وغریب** هم بگذار (ورودی نیمه‌خالی، قالب نامعمول). اسکیل‌ها معمولاً در لبه‌ها می‌شکنند، نه در حالت معمولی.
+
+#terms
+Eval = ارزیابی (eval) = اجرای آزمایشی با ورودی‌های واقع‌گرایانه برای سنجیدن کیفیت خروجی.
+Skill-creator = سازندهٔ اسکیل = اسکیل داخلی‌ای که در ساختن، تست کردن و بهتر کردن اسکیل‌ها کمک می‌کند.
+
+@lesson
+id: share-what-you-build-with-your-team
+en: Share what you build with your team
+fa: آنچه ساختی را با تیمت به اشتراک بگذار
+url: https://academy.claude.com/courses/introduction-to-claude-cowork
+
+#explain
+A workflow that only lives on your laptop helps one person. Shared, it helps the whole team. Ways to share:
+
+- **Projects** with shared files and instructions, so teammates start from the same context.
+- **Skills** and **plugins** packaged for the team; on Team and Enterprise plans, admins can distribute plugins to specific groups or the whole organization through a private marketplace.
+- **Scheduled tasks** whose outputs land in a shared folder or channel, so everyone benefits from one setup.
+
+Before sharing, write a two-line "how to use this" note, test it with one teammate, and name one owner who keeps it up to date.
+~~
+روال کاری‌ای که فقط روی لپ‌تاپ تو زندگی می‌کند به یک نفر کمک می‌کند. اگر به اشتراک گذاشته شود، به کل تیم. راه‌های اشتراک:
+
+- **پروژه‌ها** با فایل‌ها و دستورهای مشترک تا هم‌تیمی‌ها از یک زمینهٔ یکسان شروع کنند.
+- **اسکیل‌ها** و **پلاگین‌های** بسته‌بندی‌شده برای تیم؛ در پلن‌های Team و Enterprise ادمین‌ها می‌توانند پلاگین‌ها را از طریق یک بازارچهٔ خصوصی به گروه‌های خاص یا کل سازمان برسانند.
+- **کارهای زمان‌بندی‌شده** که خروجی‌شان در یک پوشه یا کانال مشترک می‌نشیند تا با یک بار تنظیم، همه بهره ببرند.
+
+قبل از اشتراک، یک یادداشت دوخطی «چطور از این استفاده کنیم» بنویس، با یک هم‌تیمی امتحانش کن و یک نفر را مسئول به‌روز نگه داشتنش بگذار.
+
+#analogy
+It's the difference between knowing a great shortcut through the city and **putting up a road sign** so everyone can use it.
+~~
+فرقش مثل فرق بین بلد بودن یک میان‌بر عالی در شهر و **نصب کردن تابلوی راهنما** است تا همه بتوانند از آن استفاده کنند.
+
+#tip
+Share the **smallest useful version** first. A tiny plugin with one great skill that people actually use beats a giant one that tries to do everything.
+~~
+اول **کوچک‌ترین نسخهٔ مفید** را به اشتراک بگذار. یک پلاگین کوچک با یک اسکیل عالی که مردم واقعاً استفاده‌اش می‌کنند، از یک پلاگین غول‌پیکر که می‌خواهد همه‌کار بکند بهتر است.
+
+@lesson
+id: troubleshooting-next-steps
+en: Wrap up and next steps
+fa: جمع‌بندی و قدم‌های بعدی
+kind: wrap
+url: https://academy.claude.com/courses/introduction-to-claude-cowork/troubleshooting-next-steps
+
+#explain
+You've learned the whole Cowork cycle: set up a folder and connectors, hand off a real task, give standing context, capture methods as skills, bundle them in plugins, work in Chrome and Microsoft 365, stay safe, validate, and share.
+
+Common fixes when something goes wrong:
+
+- **Claude can't find a file** → is the folder connected? Is the file inside it?
+- **A connector does nothing** → is it switched on for this task, and does it allow write actions or only reading?
+- **A scheduled task didn't run** → did it need local files while the app was closed?
+- **Results drift over time** → refresh global instructions and re-test the skill.
+
+Next: try the Cowork tutorials and use cases in this handout, and the **Claude Cowork Enterprise Admin Guide** if you manage a team.
+~~
+حالا کل چرخهٔ Cowork را بلدی: پوشه و کانکتورها را راه بینداز، یک کار واقعی بسپار، زمینهٔ همیشگی بده، روش‌ها را در اسکیل ذخیره کن، در پلاگین بسته‌بندی کن، در کروم و مایکروسافت ۳۶۵ کار کن، امن بمان، بسنج و به اشتراک بگذار.
+
+راه‌حل‌های رایج وقتی چیزی درست کار نمی‌کند:
+
+- **Claude فایلی را پیدا نمی‌کند** ← پوشه وصل است؟ فایل داخل همان پوشه است؟
+- **یک کانکتور کاری نمی‌کند** ← برای این کار روشن است؟ اجازهٔ نوشتن دارد یا فقط خواندن؟
+- **یک کار زمان‌بندی‌شده اجرا نشد** ← فایل محلی لازم داشت و اپ بسته بود؟
+- **نتیجه‌ها کم‌کم از مسیر خارج می‌شوند** ← دستورهای سراسری را تازه کن و اسکیل را دوباره امتحان کن.
+
+قدم بعد: آموزش‌های کوتاه و کاربردهای Cowork در همین جزوه و اگر تیمی را مدیریت می‌کنی، **راهنمای ادمین Claude Cowork Enterprise**.
+
+@cheatsheet
+- Chat = conversation · **Cowork = delegation** (goal in, deliverable out).
+- Setup: desktop app + paid plan · **connect one folder** · connect 1-2 key apps · pick permissions.
+- First task: real, specific, with sources and format; **read the plan**; steer; review.
+- Better results: front-load context, specify output, iterate in place, add a "skip" line.
+- Standing context: **global** (you) · **folder** (this folder) · **project** (one ongoing job).
+- **Skills** = your method for one job · **Plugins** = skills + subagents + connectors + commands for a role.
+- `/schedule` after one good manual run. Local-file tasks need the app open.
+- Chrome = web pages; Microsoft 365 add-ins = Word, Excel, PowerPoint, Outlook.
+- Safety: dedicated folder, backups, deliberate permissions, say what not to touch, review before shipping.
+- Validate skills with with/without evals; change one thing at a time; share the smallest useful version.
+~~
+- Chat = گفت‌وگو · **Cowork = سپردن کار** (هدف می‌دهی، خروجی می‌گیری).
+- راه‌اندازی: اپ دسکتاپ + پلن پولی · **یک پوشه وصل کن** · ۱ یا ۲ اپ کلیدی وصل کن · مجوزها را انتخاب کن.
+- اولین کار: واقعی، دقیق، با منبع و قالب؛ **برنامه را بخوان**؛ هدایت کن؛ بازبینی کن.
+- نتیجهٔ بهتر: زمینه را اول بده، خروجی را دقیق بگو، همان‌جا اصلاح کن، یک خط «نادیده بگیر» اضافه کن.
+- زمینهٔ همیشگی: **سراسری** (خودت) · **پوشه** (این پوشه) · **پروژه** (یک کار ادامه‌دار).
+- **اسکیل** = روش تو برای یک کار · **پلاگین** = اسکیل + ساب‌ایجنت + کانکتور + دستور برای یک نقش.
+- بعد از یک اجرای دستی خوب، `/schedule`. کارهای فایل محلی اپ باز لازم دارند.
+- کروم = صفحه‌های وب؛ افزونه‌های ۳۶۵ = ورد، اکسل، پاورپوینت، اوت‌لوک.
+- ایمنی: پوشهٔ مخصوص، پشتیبان، مجوز آگاهانه، گفتن «به چه دست نزن»، بازبینی قبل از تحویل.
+- اسکیل‌ها را با ارزیابی «با/بدون» بسنج؛ هر بار یک تغییر؛ کوچک‌ترین نسخهٔ مفید را به اشتراک بگذار.
+
+@quiz
+Q: What is the core difference between Chat and Cowork? || فرق اصلی Chat و Cowork چیست؟
+A: Chat is a turn-by-turn conversation you steer; Cowork is delegation: you give a goal and come back to a finished deliverable. || Chat گفت‌وگوی نوبت‌به‌نوبتی است که تو هدایتش می‌کنی؛ Cowork سپردن کار است: هدف را می‌دهی و برمی‌گردی و خروجی تمام‌شده را می‌گیری.
+Q: Your scheduled task reads files in a local folder and your laptop was off at 9:00. What happens? || کار زمان‌بندی‌شده‌ات فایل‌های یک پوشهٔ محلی را می‌خواند و لپ‌تاپت ساعت ۹ خاموش بود. چه می‌شود؟
+A: It runs when you're back and the app is open, and Claude notes the delay. Connector-only tasks could have run remotely. || وقتی برگشتی و اپ باز شد اجرا می‌شود و Claude تأخیر را یادداشت می‌کند. کارهایی که فقط از کانکتور استفاده می‌کنند می‌توانستند از راه دور اجرا شوند.
+Q: Where would you put "I'm a recruiter; always use tables for candidate comparisons"? || جملهٔ «من کارشناس جذب نیرو هستم؛ برای مقایسهٔ داوطلب‌ها همیشه جدول بکش» را کجا می‌گذاری؟
+A: In global instructions, because it's about you and applies to every session. || در دستورهای سراسری؛ چون دربارهٔ خود توست و روی همهٔ جلسه‌ها اثر دارد.
+Q: What does a plugin add on top of a single skill? || پلاگین چه چیزی به یک اسکیل تنها اضافه می‌کند؟
+A: It bundles several skills with subagents, connectors and slash commands for a role or workflow, installable in one click. || چند اسکیل را با ساب‌ایجنت‌ها، کانکتورها و دستورهای اسلشی برای یک نقش یا روال کاری در یک بستهٔ تک‌کلیکی جمع می‌کند.
+Q: How does skill-creator test whether a skill helps? || skill-creator چطور می‌سنجد اسکیل کمک می‌کند یا نه؟
+A: It writes realistic prompts and compares outputs with the skill and without it. || پرامپت‌های واقع‌گرایانه می‌نویسد و خروجی‌ها را با اسکیل و بدون آن مقایسه می‌کند.
