@@ -1,0 +1,210 @@
+@page
+slug: introduction-to-subagents
+kind: course
+group: products
+order: 4
+en: Introduction to subagents
+fa: آشنایی با ساب‌ایجنت‌ها
+stats: 4 lessons · 45 min
+url: https://academy.claude.com/courses/introduction-to-subagents
+expect: 4
+who_en: Claude Code users who want cleaner sessions and specialized helpers.
+who_fa: کاربران Claude Code که جلسه‌های تمیزتر و دستیارهای تخصصی می‌خواهند.
+blurb_fa: ساب‌ایجنت چیست، چطور بسازیمش، چطور خوب طراحی‌اش کنیم و کی واقعاً کمک می‌کند یا مزاحم است.
+desc_en: What subagents are, how to create and design them, and when they help or get in the way.
+
+@intro
+A **subagent** is a specialized helper that Claude Code can hand a task to. It works in **its own context window**, with its own instructions, tools and even model, and returns **only a summary** to the main conversation.
+
+Four short lessons: what subagents are, how to create one, how to design it well, and how to decide when to use one at all.
+~~
+**ساب‌ایجنت** دستیار تخصصی‌ای است که Claude Code می‌تواند یک کار را به او بسپارد. در **پنجرهٔ کانتکست خودش** کار می‌کند، با دستورالعمل‌ها، ابزارها و حتی مدل خودش، و **فقط یک خلاصه** به گفت‌وگوی اصلی برمی‌گرداند.
+
+چهار درس کوتاه: ساب‌ایجنت چیست، چطور یکی بسازیم، چطور خوب طراحی‌اش کنیم و چطور تصمیم بگیریم اصلاً کی از آن استفاده کنیم.
+
+@lesson
+id: what-are-subagents
+en: What are subagents?
+fa: ساب‌ایجنت‌ها چه هستند؟
+meta: 5 min
+url: https://academy.claude.com/courses/introduction-to-subagents/what-are-subagents
+
+#explain
+When Claude Code explores, reads logs or researches, every file it opens lands in the main context and stays there. Do that a few times and the context is full of **noise** that the actual task doesn't need.
+
+A subagent solves this. The main Claude **delegates** a focused task ("find every place we call the payments API"), the subagent does all the reading **in its own separate context window**, and returns a **short summary** ("7 call sites, listed here, 2 don't handle timeouts"). The main thread gets the answer without the mess.
+
+Claude Code ships with built-in subagents (for example one specialized in exploring code), and you can define your own.
+~~
+وقتی Claude Code می‌گردد، لاگ می‌خواند یا تحقیق می‌کند، هر فایلی که باز می‌کند در کانتکست اصلی می‌نشیند و همان‌جا می‌ماند. چند بار این کار را بکند و کانتکست پر از **شلوغی** می‌شود که کار اصلی به آن نیازی ندارد.
+
+ساب‌ایجنت این را حل می‌کند. Claude اصلی یک کار متمرکز را **می‌سپارد** («همهٔ جاهایی که API پرداخت را صدا می‌زنیم پیدا کن»)، ساب‌ایجنت همهٔ خواندن‌ها را **در پنجرهٔ کانتکست جداگانهٔ خودش** انجام می‌دهد و یک **خلاصهٔ کوتاه** برمی‌گرداند («۷ جا، فهرستشان این‌جاست؛ ۲ تایشان timeout را مدیریت نمی‌کنند»). رشتهٔ اصلی جواب را می‌گیرد، بدون شلوغی.
+
+Claude Code ساب‌ایجنت‌های داخلی دارد (مثلاً یکی که در گشتن کد تخصص دارد) و خودت هم می‌توانی تعریفشان کنی.
+
+#analogy
+A manager doesn't read all 300 customer emails. They ask an assistant: "read them and tell me the top 5 complaints." The manager's desk stays clear; the assistant's desk gets messy, and that's fine.
+~~
+یک مدیر همهٔ ۳۰۰ ایمیل مشتری‌ها را نمی‌خواند. از یک دستیار می‌خواهد: «بخوانشان و ۵ شکایت اصلی را بگو.» میز مدیر خلوت می‌ماند؛ میز دستیار شلوغ می‌شود و اشکالی ندارد.
+
+#tip
+A subagent's summary is the **only** thing that comes back. If you need specific details (file paths, line numbers), ask for them explicitly in the task, or they may be summarized away.
+~~
+خلاصهٔ ساب‌ایجنت **تنها** چیزی است که برمی‌گردد. اگر جزئیات خاصی لازم داری (مسیر فایل، شمارهٔ خط)، صریحاً در شرح کار بخواهشان، وگرنه ممکن است در خلاصه حذف شوند.
+
+#terms
+Delegation = سپردن کار = دادن یک کار مشخص به یک دستیار دیگر و گرفتن نتیجه‌اش.
+Context isolation = جداسازی کانتکست = کار کردن هر ساب‌ایجنت در پنجرهٔ کانتکست جدا تا شلوغی‌اش به رشتهٔ اصلی نرسد.
+
+@lesson
+id: creating-a-subagent
+en: Creating a subagent
+fa: ساختن یک ساب‌ایجنت
+meta: 10 min
+url: https://academy.claude.com/courses/introduction-to-subagents/creating-a-subagent
+
+#explain
+A custom subagent is a **Markdown file with YAML frontmatter**, stored in `.claude/agents/` (project, shared with the team) or `~/.claude/agents/` (personal). You can create one by hand or with the `/agents` command, which helps you write it. The parts:
+
+- **name**: how it's referred to.
+- **description**: *when* Claude should use it. This is what triggers delegation, so be specific.
+- **tools**: which tools it may use (leave out to inherit all; list them to restrict).
+- **model**: Haiku, Sonnet, Opus, or **inherit** (same as the main session). Use a lighter model for simple, high-volume work.
+- **the body**: the system prompt: its role, how to work, and what to return.
+~~
+یک ساب‌ایجنت سفارشی یک **فایل Markdown با سربرگ YAML** است که در `.claude/agents/` (پروژه، مشترک با تیم) یا `~/.claude/agents/` (شخصی) ذخیره می‌شود. می‌توانی دستی بسازی‌اش یا با دستور `/agents` که در نوشتنش کمکت می‌کند. اجزایش:
+
+- **name**: اسمی که با آن صدایش می‌زنند.
+- **description**: Claude *کی* باید از آن استفاده کند. همین است که سپردن کار را فعال می‌کند؛ پس دقیق بنویس.
+- **tools**: از چه ابزارهایی می‌تواند استفاده کند (اگر ننویسی همه را به ارث می‌برد؛ فهرست کنی محدود می‌شود).
+- **model**: Haiku، Sonnet، Opus یا **inherit** (همان مدل جلسهٔ اصلی). برای کارهای ساده و پرتعداد از مدل سبک‌تر استفاده کن.
+- **بدنه**: پرامپت سیستم: نقشش، روش کارش و چه چیزی را برگرداند.
+
+#code markdown .claude/agents/log-detective.md
+---
+name: log-detective
+description: Investigates errors in application logs. Use when the user mentions a crash, an error message, a failing request or "check the logs".
+tools: Read, Grep, Glob, Bash
+model: haiku
+---
+You are a log investigator. Search the logs under ./logs for the error the user described.
+Find the first occurrence, the frequency, and the request or job that triggered it.
+Do not modify any files.
+Return: (1) a one-paragraph diagnosis, (2) up to 5 key log lines with file:line,
+(3) your confidence (high/medium/low) and what would confirm it.
+#end
+
+#analogy
+Creating a subagent is writing a **job ad**: the title (name), "we need you when…" (description), the equipment you'll get (tools), the seniority level (model), and the job description (body).
+~~
+ساختن ساب‌ایجنت مثل نوشتن یک **آگهی استخدام** است: عنوان شغل (name)، «وقتی به تو نیاز داریم که…» (description)، تجهیزاتی که می‌گیری (tools)، سطح ارشدیت (model) و شرح وظایف (بدنه).
+
+#tip
+Restricting tools is a quiet superpower: a reviewer subagent with **read-only tools** physically can't "fix" things you only wanted reported.
+~~
+محدود کردن ابزارها یک قدرت بی‌سروصداست: یک ساب‌ایجنت بازبین با **ابزارهای فقط‌خواندنی** اصلاً نمی‌تواند چیزهایی را که فقط می‌خواستی گزارش شوند «درست کند».
+
+@lesson
+id: designing-effective-subagents
+en: Designing effective subagents
+fa: طراحی ساب‌ایجنت‌های مؤثر
+meta: 10 min
+url: https://academy.claude.com/courses/introduction-to-subagents/designing-effective-subagents
+
+#explain
+Four design habits make the difference:
+
+1. **Write a precise description.** It decides when the subagent is used. Name the situations and keywords ("use when… / after…").
+2. **Define the output format.** The main agent will read the summary, so make it predictable: sections, lists, a confidence level.
+3. **Ask it to report obstacles.** "If you couldn't access something or weren't sure, say so." Silent gaps are the worst kind.
+4. **Limit tool access** to what the job needs. Fewer tools mean fewer ways to go off track, and safer runs.
+~~
+چهار عادت طراحی فرق را می‌سازند:
+
+1. **توضیح دقیق بنویس.** همین تصمیم می‌گیرد کی از ساب‌ایجنت استفاده شود. موقعیت‌ها و کلیدواژه‌ها را نام ببر («وقتی… / بعد از…»).
+2. **قالب خروجی را تعریف کن.** ایجنت اصلی خلاصه را می‌خواند؛ پس قابل‌پیش‌بینی‌اش کن: بخش‌ها، فهرست‌ها، سطح اطمینان.
+3. **بخواه موانع را گزارش کند.** «اگر به چیزی دسترسی نداشتی یا مطمئن نبودی، بگو.» شکاف‌های بی‌صدا بدترین نوع‌اند.
+4. **دسترسی ابزارها را محدود کن** به آنچه کار لازم دارد. ابزار کمتر یعنی راه کمتر برای منحرف شدن و اجرای امن‌تر.
+
+#example
+Weak description: "Helps with tests."
+Strong description: "Writes unit tests for code that was just changed. Use after implementing a feature or bug fix, or when the user asks for tests or coverage."
+Strong output format: "Return: tests added (file and name), pass/fail counts, behaviors you could not test and why."
+~~
+توضیح ضعیف: «در تست کمک می‌کند.»
+توضیح قوی: «برای کدی که همین الان تغییر کرده تست واحد می‌نویسد. بعد از پیاده‌سازی یک قابلیت یا رفع باگ، یا وقتی کاربر تست یا پوشش تست خواست، استفاده شود.»
+قالب خروجی قوی: «برگردان: تست‌های اضافه‌شده (فایل و اسم)، تعداد قبول/رد، رفتارهایی که نتوانستی تست کنی و چرا.»
+
+#analogy
+It's like briefing a courier: **where** to go (description), **what** to bring back and in what box (output format), "**call me** if the shop is closed" (obstacles), and **only the keys they need** (tools).
+~~
+مثل توجیه کردن یک پیک است: **کجا** برود (توضیح)، **چه چیزی** را در چه جعبه‌ای برگرداند (قالب خروجی)، «اگر مغازه بسته بود **زنگ بزن**» (موانع) و **فقط کلیدهایی که لازم دارد** (ابزارها).
+
+#warn
+Subagents **don't automatically see your skills** or the main conversation. Put everything the subagent needs into its own prompt or the task you hand it.
+~~
+ساب‌ایجنت‌ها **خودبه‌خود اسکیل‌های تو** یا گفت‌وگوی اصلی را نمی‌بینند. هر چه ساب‌ایجنت لازم دارد را در پرامپت خودش یا در شرح کاری که به او می‌دهی بگذار.
+
+@lesson
+id: using-subagents-effectively
+en: Using subagents effectively
+fa: استفادهٔ درست از ساب‌ایجنت‌ها
+meta: 10 min
+url: https://academy.claude.com/courses/introduction-to-subagents/using-subagents-effectively
+
+#explain
+Subagents are not always better. The decision rule from the lesson: **does the intermediate work matter to the main thread?**
+
+- **No → use a subagent.** Research ("which libraries handle Persian dates?"), log digging, code review, searching a big codebase. You only need the conclusion.
+- **Yes → stay in the main thread.** Implementing a feature step by step, debugging where each finding changes the next move, anything you want to watch and steer.
+
+Other great uses: an independent **code reviewer** with a fresh context (it didn't write the code, so it doesn't defend it), and subagents with **custom system prompts** for specialized roles (a security auditor, a docs checker). Several subagents can also run **in parallel** for independent pieces of a job.
+~~
+ساب‌ایجنت همیشه بهتر نیست. قانون تصمیم این درس: **آیا کارهای میانی برای رشتهٔ اصلی مهم است؟**
+
+- **نه ← از ساب‌ایجنت استفاده کن.** تحقیق («کدام کتابخانه‌ها تاریخ شمسی را مدیریت می‌کنند؟»)، گشتن در لاگ‌ها، بازبینی کد، جست‌وجو در یک کدبیس بزرگ. فقط نتیجه را لازم داری.
+- **بله ← در رشتهٔ اصلی بمان.** پیاده‌سازی قدم‌به‌قدم یک قابلیت، دیباگی که هر یافته‌اش حرکت بعدی را عوض می‌کند، هر چیزی که می‌خواهی تماشا و هدایتش کنی.
+
+کاربردهای عالی دیگر: یک **بازبین کد** مستقل با کانتکست تازه (کد را خودش ننوشته، پس از آن دفاع نمی‌کند) و ساب‌ایجنت‌هایی با **پرامپت سیستم سفارشی** برای نقش‌های تخصصی (بازرس امنیت، بررسی‌کنندهٔ مستندات). چند ساب‌ایجنت هم می‌توانند برای تکه‌های مستقل یک کار **موازی** اجرا شوند.
+
+#analogy
+You send someone to **buy groceries** (you only care about the bags at the end), but you don't send someone to **cook your grandmother's recipe** for you if you need to taste and adjust at every step.
+~~
+کسی را برای **خرید** می‌فرستی (فقط کیسه‌های آخر کار برایت مهم است)، ولی کسی را نمی‌فرستی که **دستور پخت مادربزرگت را** جای تو بپزد، اگر لازم است در هر قدم بچشی و تنظیم کنی.
+
+#example
+"Use three subagents in parallel: one researches how competitors price their annual plans, one checks our pricing page code for hard-coded prices, one reads last month's support tickets about billing. Then combine their findings into one recommendation."
+~~
+«سه ساب‌ایجنت را موازی به کار بگیر: یکی تحقیق کند رقبا اشتراک سالانه را چطور قیمت‌گذاری می‌کنند، یکی کد صفحهٔ قیمت ما را برای قیمت‌های ثابت‌شده در کد بگردد و یکی تیکت‌های پشتیبانی ماه قبل دربارهٔ صورت‌حساب را بخواند. بعد یافته‌هایشان را در یک پیشنهاد واحد ترکیب کن.»
+
+#tip
+Subagents cost tokens too: each one reads its own material. Use them where they **save** the main context or add independence, not for tiny tasks the main agent could do in one step.
+~~
+ساب‌ایجنت‌ها هم توکن خرج می‌کنند: هر کدام مطالب خودش را می‌خواند. جایی استفاده‌شان کن که کانتکست اصلی را **نجات می‌دهند** یا استقلال اضافه می‌کنند، نه برای کارهای ریزی که ایجنت اصلی در یک قدم انجام می‌دهد.
+
+@cheatsheet
+- Subagent = helper with **its own context**, instructions, tools and model; returns **only a summary**.
+- File: `.claude/agents/<name>.md` (team) or `~/.claude/agents/` (personal); manage with `/agents`.
+- Frontmatter: `name`, `description` (when to use), `tools` (restrict!), `model` (haiku/sonnet/opus/inherit).
+- Design: precise description · defined output format · report obstacles · least tools.
+- Rule: **intermediate work doesn't matter → subagent; it matters → main thread.**
+- Great for research, logs, reviews (fresh eyes), parallel independent pieces.
+- Subagents don't see your skills or chat automatically: give them what they need.
+~~
+- ساب‌ایجنت = دستیاری با **کانتکست خودش**، دستورها، ابزارها و مدل خودش؛ **فقط خلاصه** برمی‌گرداند.
+- فایل: `.claude/agents/<name>.md` (تیمی) یا `~/.claude/agents/` (شخصی)؛ مدیریت با `/agents`.
+- سربرگ: `name`، `description` (کی استفاده شود)، `tools` (محدود کن!)، `model` (haiku/sonnet/opus/inherit).
+- طراحی: توضیح دقیق · قالب خروجی تعریف‌شده · گزارش موانع · کمترین ابزار.
+- قانون: **کار میانی مهم نیست ← ساب‌ایجنت؛ مهم است ← رشتهٔ اصلی.**
+- عالی برای تحقیق، لاگ‌ها، بازبینی (چشم تازه)، تکه‌های مستقل موازی.
+- ساب‌ایجنت‌ها خودبه‌خود اسکیل‌ها و گفت‌وگوی تو را نمی‌بینند: هر چه لازم دارند بده.
+
+@quiz
+Q: What comes back from a subagent to the main conversation? || از یک ساب‌ایجنت چه چیزی به گفت‌وگوی اصلی برمی‌گردد؟
+A: Only its final summary; all its reading and intermediate work stay in its own context. || فقط خلاصهٔ نهایی‌اش؛ همهٔ خواندن‌ها و کارهای میانی در کانتکست خودش می‌مانند.
+Q: Which frontmatter field mostly decides when a subagent gets used? || کدام فیلد سربرگ بیشتر از همه تعیین می‌کند کی از یک ساب‌ایجنت استفاده شود؟
+A: The description. || توضیح (description).
+Q: You're debugging step by step and each finding changes your next move. Subagent or main thread? || داری قدم‌به‌قدم دیباگ می‌کنی و هر یافته حرکت بعدی‌ات را عوض می‌کند. ساب‌ایجنت یا رشتهٔ اصلی؟
+A: Main thread, because the intermediate work matters and you need to see and steer it. || رشتهٔ اصلی؛ چون کار میانی مهم است و باید ببینی و هدایتش کنی.
+Q: Why give a reviewer subagent only read-only tools? || چرا به یک ساب‌ایجنت بازبین فقط ابزارهای فقط‌خواندنی بدهیم؟
+A: So it can only report problems and can't change code you only wanted reviewed. || تا فقط بتواند مشکل‌ها را گزارش کند و نتواند کدی را که فقط می‌خواستی بازبینی شود تغییر بدهد.

@@ -1,0 +1,282 @@
+@page
+slug: introduction-to-agent-skills
+kind: course
+group: products
+order: 5
+en: Introduction to agent skills
+fa: آشنایی با Agent Skills
+stats: 6 lessons · 1 hr
+url: https://academy.claude.com/courses/introduction-to-agent-skills
+expect: 6
+who_en: Claude Code users who want to package repeatable expertise and share it with a team.
+who_fa: کاربران Claude Code که می‌خواهند تخصص تکرارشونده را بسته‌بندی کنند و با تیم به اشتراک بگذارند.
+blurb_fa: اسکیل چیست، ساختن اولین اسکیل، تنظیمات و اسکیل‌های چندفایلی، مقایسه با بقیهٔ قابلیت‌ها، اشتراک‌گذاری و رفع اشکال.
+desc_en: Create, configure, compare, share and troubleshoot agent skills in Claude Code.
+
+@intro
+**Skills** are folders of instructions (and optionally scripts and resources) that Claude discovers and uses **on demand**. They're how you turn "the way we do X" into something Claude does right every time, without stuffing everything into CLAUDE.md.
+
+The six lessons take you from your first skill to team-wide distribution and troubleshooting.
+~~
+**اسکیل‌ها** پوشه‌هایی از دستورالعمل‌اند (و اگر لازم باشد اسکریپت و منبع) که Claude پیدایشان می‌کند و **هنگام نیاز** از آن‌ها استفاده می‌کند. با آن‌ها «روش ما برای انجام X» را به چیزی تبدیل می‌کنی که Claude هر بار درست انجامش می‌دهد، بدون این‌که همه‌چیز را در CLAUDE.md بچپانی.
+
+شش درس تو را از اولین اسکیل تا توزیع در کل تیم و رفع اشکال می‌برد.
+
+@lesson
+id: what-are-skills
+en: What are skills?
+fa: اسکیل‌ها چه هستند؟
+url: https://academy.claude.com/courses/introduction-to-agent-skills/what-are-skills
+
+#explain
+Each skill lives in its own folder with a **`SKILL.md`** file. Its frontmatter has a **name** and a **description**; the body has the instructions. Claude Code only keeps the short names and descriptions in mind; when your request matches a description, it **loads the full skill**.
+
+Where skills live:
+
+- **Personal**: `~/.claude/skills/`, available in all your projects.
+- **Project**: `.claude/skills/` inside the repository, shared with everyone who clones it.
+
+How they differ from neighbors: **CLAUDE.md** is loaded every session (always-on facts); **slash commands** run when you type them; **skills** load automatically when relevant (and can also be invoked by name).
+~~
+هر اسکیل در پوشهٔ خودش با یک فایل **`SKILL.md`** زندگی می‌کند. سربرگش یک **اسم** و یک **توضیح** دارد؛ بدنه‌اش دستورالعمل‌هاست. Claude Code فقط اسم‌ها و توضیح‌های کوتاه را در ذهن نگه می‌دارد؛ وقتی درخواست تو با یک توضیح جور شد، **کل اسکیل را بار می‌کند**.
+
+اسکیل‌ها کجا زندگی می‌کنند:
+
+- **شخصی**: `~/.claude/skills/`، در همهٔ پروژه‌هایت در دسترس.
+- **پروژه**: `.claude/skills/` داخل مخزن، مشترک با هر کسی که آن را clone می‌کند.
+
+فرقشان با همسایه‌ها: **CLAUDE.md** در هر جلسه بار می‌شود (دانسته‌های همیشه‌روشن)؛ **دستورهای اسلشی** وقتی تایپشان کنی اجرا می‌شوند؛ **اسکیل‌ها** وقتی مرتبط باشند خودکار بار می‌شوند (و می‌شود با اسم هم صدایشان زد).
+
+#analogy
+Skills are a **library card catalog**: Claude reads the little cards (descriptions) and only walks to the shelf for the full book (the skill) when it actually needs it.
+~~
+اسکیل‌ها مثل **برگه‌دان کتابخانه‌اند**: Claude کارت‌های کوچک (توضیح‌ها) را می‌خواند و فقط وقتی واقعاً لازم شد سراغ قفسه می‌رود تا کتاب کامل (اسکیل) را بیاورد.
+
+#tip
+Because only descriptions are always loaded, you can have **dozens of skills** without slowing Claude down. That's why skills scale better than an ever-growing CLAUDE.md.
+~~
+چون فقط توضیح‌ها همیشه بار می‌شوند، می‌توانی **ده‌ها اسکیل** داشته باشی بدون این‌که Claude کند شود. برای همین اسکیل‌ها از یک CLAUDE.md همیشه‌درحال‌رشد بهتر مقیاس می‌گیرند.
+
+#terms
+SKILL.md = فایل SKILL.md = فایل اصلی هر اسکیل با سربرگ (اسم و توضیح) و دستورالعمل‌ها.
+Progressive disclosure = افشای تدریجی = اول فقط خلاصه را نشان دادن و جزئیات را فقط هنگام نیاز بار کردن.
+
+@lesson
+id: creating-your-first-skill
+en: Creating your first skill
+fa: ساختن اولین اسکیل
+url: https://academy.claude.com/courses/introduction-to-agent-skills/creating-your-first-skill
+
+#explain
+The lesson builds a **personal skill that writes pull-request descriptions** in a consistent format, then tests that it loads.
+
+Steps: create the folder, write `SKILL.md` with a clear name and a description that says when to use it, write the instructions (structure, tone, what to include), then ask for a PR description and check that Claude used the skill.
+
+When skills share a name, there's a **priority order**: **Enterprise → Personal → Project → Plugins**. A company-managed skill wins over your personal one, which wins over the project's, which wins over a plugin's.
+~~
+این درس یک **اسکیل شخصی برای نوشتن توضیح pull request** با قالبی یکدست می‌سازد و بعد امتحان می‌کند که بار می‌شود یا نه.
+
+قدم‌ها: پوشه را بساز، `SKILL.md` را با یک اسم روشن و توضیحی که می‌گوید کی استفاده شود بنویس، دستورالعمل‌ها را بنویس (ساختار، لحن، چه چیزهایی بیاید)، بعد یک توضیح PR بخواه و چک کن Claude از اسکیل استفاده کرده.
+
+وقتی چند اسکیل هم‌نام باشند، یک **ترتیب اولویت** وجود دارد: **سازمانی (Enterprise) ← شخصی ← پروژه ← پلاگین**. اسکیل مدیریت‌شدهٔ شرکت از اسکیل شخصی تو قوی‌تر است، شخصی از پروژه و پروژه از پلاگین.
+
+#code markdown ~/.claude/skills/pr-description/SKILL.md
+---
+name: pr-description
+description: Writes pull request descriptions. Use when the user asks for a PR description, PR summary, or to open a pull request.
+---
+Read the diff against the main branch, then write:
+
+## What changed
+2-4 bullets, user-visible effects first.
+
+## Why
+One short paragraph with the reason or the issue link.
+
+## How to test
+Numbered steps a reviewer can follow.
+
+## Risks
+Anything risky (migrations, config, breaking changes) or "None known".
+Keep it under 250 words. No marketing language.
+#end
+
+#analogy
+Your first skill is like writing your **first recipe card**: pick one dish you make often, write it clearly, then cook from the card once to make sure it works.
+~~
+اولین اسکیلت مثل نوشتن **اولین کارت دستور پخت** است: یک غذا را که زیاد درست می‌کنی انتخاب کن، روشن بنویسش و بعد یک بار از روی کارت بپز تا مطمئن شوی جواب می‌دهد.
+
+#try
+Make a skill for something you explain to Claude at least once a week. Test it with two different phrasings ("write the PR text", "summarize this PR"). If one phrasing doesn't trigger it, improve the description.
+~~
+برای چیزی که دست‌کم هفته‌ای یک بار به Claude توضیح می‌دهی یک اسکیل بساز. با دو جملهٔ متفاوت امتحانش کن («متن PR را بنویس»، «این PR را خلاصه کن»). اگر یکی از جمله‌ها فعالش نکرد، توضیح را بهتر کن.
+
+@lesson
+id: configuration-and-multi-file-skills
+en: Configuration and multi-file skills
+fa: تنظیمات و اسکیل‌های چندفایلی
+url: https://academy.claude.com/courses/introduction-to-agent-skills/configuration-and-multi-file-skills
+
+#explain
+Beyond name and description, skills support **optional metadata**, for example limiting or **pre-approving the tools** a skill may use, so running it doesn't trigger a permission prompt for every step.
+
+Two big ideas in this lesson:
+
+- **Descriptions that trigger reliably** say *what* the skill does and *when* to use it, with the words users actually type ("release", "publish", "cut a version").
+- **Multi-file skills**: keep `SKILL.md` short and point to other files: a long reference (`reference.md`), templates, examples, or **scripts** that Claude can run. Claude reads those extra files only when the instructions send it there.
+~~
+اسکیل‌ها جدا از اسم و توضیح، **فرادادهٔ اختیاری** هم پشتیبانی می‌کنند؛ مثلاً محدود کردن یا **از پیش تأیید کردن ابزارهایی** که اسکیل می‌تواند استفاده کند، تا اجرایش برای هر قدم پنجرهٔ اجازه باز نکند.
+
+دو ایدهٔ بزرگ این درس:
+
+- **توضیح‌هایی که مطمئن فعال می‌شوند** می‌گویند اسکیل *چه* می‌کند و *کی* استفاده شود، با همان کلمه‌هایی که کاربرها واقعاً تایپ می‌کنند («انتشار»، «release»، «نسخهٔ جدید»).
+- **اسکیل‌های چندفایلی**: `SKILL.md` را کوتاه نگه دار و به فایل‌های دیگر اشاره کن: یک مرجع طولانی (`reference.md`)، قالب‌ها، نمونه‌ها یا **اسکریپت‌هایی** که Claude می‌تواند اجرا کند. Claude آن فایل‌های اضافه را فقط وقتی می‌خواند که دستورالعمل‌ها او را به آن‌جا بفرستند.
+
+#code text A multi-file skill
+.claude/skills/invoice-check/
+├── SKILL.md          # short: when to use, the steps, links to the files below
+├── rules.md          # the long list of VAT and discount rules
+├── example-good.md   # one perfect example output
+└── scripts/
+    └── totals.py     # recomputes totals; Claude runs it instead of doing math in its head
+#end
+
+#analogy
+A good skill is like a **first-aid kit**: the lid has a short checklist (SKILL.md), and inside are labeled pouches (extra files) you open only for the injury in front of you.
+~~
+یک اسکیل خوب مثل **جعبهٔ کمک‌های اولیه** است: روی درش یک چک‌لیست کوتاه هست (SKILL.md) و داخلش کیسه‌های برچسب‌دار (فایل‌های اضافه) که فقط برای همان آسیبی که جلوی رویت است بازشان می‌کنی.
+
+#tip
+Put **deterministic work into scripts**. Calculations, format conversions and validations are more reliable as code that Claude runs than as instructions it has to follow in its head.
+~~
+**کارهای قطعی را در اسکریپت بگذار.** محاسبه، تبدیل قالب و اعتبارسنجی به شکل کدی که Claude اجرا می‌کند قابل‌اعتمادترند تا دستورالعملی که باید ذهنی دنبالش کند.
+
+@lesson
+id: skills-vs-other-claude-code-features
+en: Skills vs. other Claude Code features
+fa: اسکیل‌ها در مقایسه با بقیهٔ قابلیت‌های Claude Code
+url: https://academy.claude.com/courses/introduction-to-agent-skills/skills-vs-other-claude-code-features
+
+#explain
+Claude Code has several ways to customize behavior. Here's when each one fits:
+
+- **CLAUDE.md**: facts and conventions needed in **every** session. Always loaded.
+- **Skills**: **on-demand, task-specific expertise**. Loaded only when relevant.
+- **Subagents**: work done in a **separate context** that returns a summary. For isolation, parallelism and focus.
+- **Hooks**: **guaranteed** automation at fixed moments (before/after a tool, at stop). For rules that must never be skipped.
+- **MCP servers**: **new tools and data** from outside systems.
+
+They combine well: a subagent can follow a procedure you also wrote as a skill (by including it in the subagent's prompt), a skill can tell Claude to use an MCP tool, and a hook can enforce what a skill only recommends.
+~~
+Claude Code چند راه برای شخصی‌سازی رفتار دارد. این‌که هر کدام کی به کار می‌آید:
+
+- **CLAUDE.md**: دانسته‌ها و قراردادهایی که در **همهٔ** جلسه‌ها لازم‌اند. همیشه بار می‌شود.
+- **اسکیل‌ها**: **تخصص هنگام‌نیاز و مخصوص یک کار**. فقط وقتی مرتبط باشد بار می‌شود.
+- **ساب‌ایجنت‌ها**: کاری که در یک **کانتکست جدا** انجام می‌شود و خلاصه برمی‌گرداند. برای جداسازی، موازی‌کاری و تمرکز.
+- **هوک‌ها**: خودکارسازی **تضمینی** در لحظه‌های مشخص (قبل/بعد از ابزار، موقع توقف). برای قانون‌هایی که هرگز نباید جا بیفتند.
+- **سرورهای MCP**: **ابزارها و داده‌های تازه** از سیستم‌های بیرونی.
+
+خوب با هم ترکیب می‌شوند: یک ساب‌ایجنت می‌تواند روشی را دنبال کند که آن را به شکل اسکیل هم نوشته‌ای (با گذاشتنش در پرامپت ساب‌ایجنت)، یک اسکیل می‌تواند به Claude بگوید از یک ابزار MCP استفاده کند و یک هوک می‌تواند چیزی را اجباری کند که اسکیل فقط توصیه‌اش می‌کند.
+
+#analogy
+A school: **CLAUDE.md** is the school rules everyone knows, **skills** are the subject textbooks you open in that class, **subagents** are classmates you send to do research, **hooks** are the school bell and the locked gate, and **MCP** is the field trip to the museum.
+~~
+یک مدرسه را تصور کن: **CLAUDE.md** قانون‌های مدرسه است که همه بلدند، **اسکیل‌ها** کتاب‌های درسی‌اند که سر همان کلاس بازشان می‌کنی، **ساب‌ایجنت‌ها** هم‌کلاسی‌هایی‌اند که برای تحقیق می‌فرستی، **هوک‌ها** زنگ مدرسه و درِ قفل‌شده‌اند و **MCP** اردوی بازدید از موزه است.
+
+#tip
+A quick test: "Should this happen **every time no matter what**?" → hook. "Does Claude need to **know** this every session?" → CLAUDE.md. "Is this **how to do a specific job**?" → skill.
+~~
+یک آزمون سریع: «این باید **هر بار، در هر صورت** اتفاق بیفتد؟» ← هوک. «Claude باید این را در هر جلسه **بداند**؟» ← CLAUDE.md. «این **روش انجام یک کار مشخص** است؟» ← اسکیل.
+
+@lesson
+id: sharing-skills
+en: Sharing skills
+fa: به اشتراک گذاشتن اسکیل‌ها
+url: https://academy.claude.com/courses/introduction-to-agent-skills/sharing-skills
+
+#explain
+Three ways to share skills, from small to organization-wide:
+
+1. **Git repositories**: commit skills into `.claude/skills/` in a project; everyone who clones it gets them.
+2. **Plugins and marketplaces**: bundle skills (with subagents, hooks, MCP config) into a plugin and publish it in a marketplace so people install it across projects.
+3. **Enterprise managed settings**: administrators can push skills to everyone in the organization; these take top priority.
+
+One gotcha: **subagents don't automatically see your skills**. If a subagent should follow a skill's procedure, include the relevant instructions in the subagent's own prompt.
+~~
+سه راه برای اشتراک اسکیل‌ها، از کوچک تا کل سازمان:
+
+1. **مخزن‌های Git**: اسکیل‌ها را در `.claude/skills/` یک پروژه commit کن؛ هر کسی که clone کند آن‌ها را دارد.
+2. **پلاگین‌ها و بازارچه‌ها**: اسکیل‌ها را (همراه ساب‌ایجنت، هوک و تنظیمات MCP) در یک پلاگین بسته‌بندی کن و در یک بازارچه منتشر کن تا افراد در همهٔ پروژه‌ها نصبش کنند.
+3. **تنظیمات مدیریت‌شدهٔ سازمانی**: ادمین‌ها می‌توانند اسکیل‌ها را برای همهٔ افراد سازمان بفرستند؛ این‌ها بالاترین اولویت را دارند.
+
+یک دام: **ساب‌ایجنت‌ها خودبه‌خود اسکیل‌هایت را نمی‌بینند**. اگر یک ساب‌ایجنت باید روش یک اسکیل را دنبال کند، دستورالعمل‌های مربوط را در پرامپت خود ساب‌ایجنت بگذار.
+
+#analogy
+Sharing a recipe: tell a friend (git repo), print it in a cookbook people can buy (plugin marketplace), or make it the official recipe in every branch of the restaurant chain (enterprise managed settings).
+~~
+اشتراک یک دستور پخت: به یک دوست بگویی (مخزن git)، در یک کتاب آشپزی که مردم می‌خرند چاپش کنی (بازارچهٔ پلاگین)، یا آن را دستور رسمی همهٔ شعبه‌های زنجیرهٔ رستوران کنی (تنظیمات مدیریت‌شدهٔ سازمانی).
+
+#tip
+Version your shared skills like code: a changelog line at the bottom of `SKILL.md` ("v3: added refund rules") saves teammates from guessing why the behavior changed.
+~~
+اسکیل‌های مشترک را مثل کد نسخه‌گذاری کن: یک خط تغییرات در انتهای `SKILL.md` («نسخهٔ ۳: قانون‌های بازپرداخت اضافه شد») هم‌تیمی‌ها را از حدس زدن این‌که چرا رفتار عوض شده نجات می‌دهد.
+
+@lesson
+id: troubleshooting-skills
+en: Troubleshooting skills
+fa: رفع اشکال اسکیل‌ها
+url: https://academy.claude.com/courses/introduction-to-agent-skills/troubleshooting-skills
+
+#explain
+When a skill misbehaves, check these four areas in order:
+
+1. **Validation**: run the skills validator to catch a broken frontmatter, a missing name or description, or a bad file path.
+2. **Triggering**: the skill exists but never gets used. Usually the description is too vague or uses different words than people type. Rewrite it with concrete triggers.
+3. **Loading and priority**: a skill with the same name at a higher priority level (enterprise, personal) may be shadowing yours. Rename or remove the duplicate.
+4. **Runtime errors**: the skill loads but fails, for example a script that needs a missing package or a path that doesn't exist on another machine. Make scripts check their inputs and print clear errors.
+~~
+وقتی یک اسکیل درست رفتار نمی‌کند، این چهار حوزه را به ترتیب چک کن:
+
+1. **اعتبارسنجی**: ابزار اعتبارسنج اسکیل‌ها را اجرا کن تا سربرگ خراب، اسم یا توضیح جاافتاده یا مسیر فایل اشتباه را پیدا کند.
+2. **فعال شدن**: اسکیل وجود دارد ولی هیچ‌وقت استفاده نمی‌شود. معمولاً توضیح خیلی مبهم است یا کلمه‌هایی غیر از آنچه مردم تایپ می‌کنند دارد. با ماشه‌های ملموس بازنویسی‌اش کن.
+3. **بار شدن و اولویت**: ممکن است یک اسکیل هم‌نام در سطح اولویت بالاتر (سازمانی، شخصی) جلوی اسکیل تو را گرفته باشد. اسم را عوض کن یا نسخهٔ تکراری را بردار.
+4. **خطاهای زمان اجرا**: اسکیل بار می‌شود ولی شکست می‌خورد؛ مثلاً اسکریپتی که بسته‌ای را لازم دارد که نصب نیست یا مسیری که روی ماشین دیگری وجود ندارد. کاری کن اسکریپت‌ها ورودی‌شان را چک کنند و خطای روشن چاپ کنند.
+
+#analogy
+It's like a car that won't start: check **the fuel** (is the file valid?), **the key** (does the description match?), **another car blocking the driveway** (a higher-priority duplicate), and only then **the engine** (runtime errors).
+~~
+مثل ماشینی است که روشن نمی‌شود: **بنزین** را چک کن (فایل معتبر است؟)، **کلید** را (توضیح جور است؟)، **ماشین دیگری که جلوی در پارک کرده** (اسکیل تکراری با اولویت بالاتر) و فقط بعد **موتور** را (خطاهای زمان اجرا).
+
+#try
+Ask Claude directly: "Which skills do you have available, and which would you use for 'prepare the release'?" Its answer shows whether your description is being matched the way you expect.
+~~
+مستقیم از Claude بپرس: «چه اسکیل‌هایی در دسترست هست و برای «انتشار را آماده کن» از کدام استفاده می‌کنی؟» جوابش نشان می‌دهد توضیح اسکیلت همان‌طور که انتظار داری تطبیق داده می‌شود یا نه.
+
+@cheatsheet
+- Skill = folder + `SKILL.md` (name, **description**, instructions) + optional files and scripts.
+- Personal `~/.claude/skills/` · project `.claude/skills/` · plugins · enterprise. Priority: **Enterprise → Personal → Project → Plugins**.
+- Only descriptions are always in context → many skills, little cost.
+- Descriptions = what + **when**, in users' own words.
+- Keep `SKILL.md` short; link to reference files and **scripts for deterministic work**.
+- CLAUDE.md = always · skills = on demand · subagents = separate context · hooks = guaranteed · MCP = outside tools.
+- Share via git, plugins/marketplaces, or enterprise managed settings. Subagents don't see skills automatically.
+- Troubleshoot: validate → triggering → priority clash → runtime errors.
+~~
+- اسکیل = پوشه + `SKILL.md` (اسم، **توضیح**، دستورالعمل) + فایل‌ها و اسکریپت‌های اختیاری.
+- شخصی `~/.claude/skills/` · پروژه `.claude/skills/` · پلاگین · سازمانی. اولویت: **سازمانی ← شخصی ← پروژه ← پلاگین**.
+- فقط توضیح‌ها همیشه در کانتکست‌اند ← اسکیل‌های زیاد، هزینهٔ کم.
+- توضیح = چه کار می‌کند + **کی**، با کلمه‌های خود کاربرها.
+- `SKILL.md` را کوتاه نگه دار؛ به فایل‌های مرجع و **اسکریپت برای کارهای قطعی** لینک بده.
+- CLAUDE.md = همیشه · اسکیل = هنگام نیاز · ساب‌ایجنت = کانتکست جدا · هوک = تضمینی · MCP = ابزار بیرونی.
+- اشتراک با git، پلاگین/بازارچه یا تنظیمات سازمانی. ساب‌ایجنت‌ها خودبه‌خود اسکیل‌ها را نمی‌بینند.
+- رفع اشکال: اعتبارسنجی ← فعال شدن ← تداخل اولویت ← خطای زمان اجرا.
+
+@quiz
+Q: Two skills named "release" exist: one personal, one in the project. Which one wins? || دو اسکیل به اسم «release» داریم: یکی شخصی، یکی در پروژه. کدام برنده است؟
+A: The personal one (order: Enterprise, Personal, Project, Plugins). || شخصی (ترتیب: سازمانی، شخصی، پروژه، پلاگین).
+Q: Your skill exists but Claude never uses it. What's the most likely fix? || اسکیلت وجود دارد ولی Claude هیچ‌وقت از آن استفاده نمی‌کند. محتمل‌ترین راه‌حل چیست؟
+A: Rewrite the description to say clearly what it does and when to use it, with the words users actually type. || توضیح را بازنویسی کن تا روشن بگوید چه می‌کند و کی استفاده شود، با همان کلمه‌هایی که کاربرها تایپ می‌کنند.
+Q: Why put calculations into a script inside the skill? || چرا محاسبه‌ها را در یک اسکریپت داخل اسکیل بگذاریم؟
+A: Running code is deterministic and more reliable than asking the model to compute in its head. || اجرای کد قطعی است و از این‌که مدل ذهنی حساب کند قابل‌اعتمادتر است.
+Q: Skill or hook for "always run the linter after editing a Python file"? || برای «همیشه بعد از ویرایش یک فایل پایتون linter را اجرا کن» اسکیل یا هوک؟
+A: A hook (PostToolUse), because it must happen every time. || هوک (PostToolUse)؛ چون باید هر بار اتفاق بیفتد.

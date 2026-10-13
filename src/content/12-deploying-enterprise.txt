@@ -1,0 +1,484 @@
+@page
+slug: deploying-claude-enterprise-with-confidence
+kind: course
+group: products
+order: 7
+en: "Deploying Claude Enterprise with confidence: the five decisions that shape your rollout"
+fa: استقرار مطمئن Claude Enterprise؛ پنج تصمیمی که راه‌اندازی را شکل می‌دهند
+stats: 14 lessons · 1 quiz · 2.5 hr · badge
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence
+expect: 14
+who_en: The Owner (and admins) of a Claude Enterprise organization planning or running a rollout.
+who_fa: مالک (و ادمین‌های) یک سازمان Claude Enterprise که دارد راه‌اندازی را برنامه‌ریزی یا اجرا می‌کند.
+blurb_fa: پنج تصمیم سازمانی به ترتیب وابستگی: ساختار و هویت، دسترسی، حاکمیت، هزینه و دیده‌پذیری؛ با یک شرکت فرضی به اسم Pluto به‌عنوان مثال سراسری.
+desc_en: The five organization-wide decisions of a Claude Enterprise rollout, in dependency order, with a running example company.
+
+@intro
+Rolling Claude out to a whole company is a series of **organization-wide decisions**, and the order matters because later decisions depend on earlier ones. The course groups them into **five decisions**:
+
+1. **Structure & Identity**: who owns what, prerequisites like SSO and domains, one organization or many.
+2. **Access**: groups, which surfaces each group gets, which connectors.
+3. **Governance**: who may build and share customizations.
+4. **Spend**: caps and managing the shared budget.
+5. **Visibility**: what you can measure and which adoption signals to watch.
+
+A fictional company, **Pluto**, makes each decision alongside you, so you can compare your answers with theirs. You finish with a written **rollout plan**. Most settings here need **Owner-level** access.
+~~
+راه‌اندازی Claude برای کل یک شرکت مجموعه‌ای از **تصمیم‌های سازمانی** است و ترتیب مهم است، چون تصمیم‌های بعدی به قبلی‌ها وابسته‌اند. دوره آن‌ها را در **پنج تصمیم** دسته‌بندی می‌کند:
+
+1. **ساختار و هویت:** چه کسی مسئول چیست، پیش‌نیازهایی مثل SSO و دامنه‌ها، یک سازمان یا چند سازمان.
+2. **دسترسی:** گروه‌ها، این‌که هر گروه به کدام محصول‌ها دسترسی دارد، کدام کانکتورها.
+3. **حاکمیت:** چه کسی اجازه دارد شخصی‌سازی‌ها را بسازد و به اشتراک بگذارد.
+4. **هزینه:** سقف‌ها و مدیریت بودجهٔ مشترک.
+5. **دیده‌پذیری:** چه چیزهایی را می‌توانی اندازه بگیری و کدام نشانه‌های پذیرش را زیر نظر بگیری.
+
+یک شرکت فرضی به اسم **Pluto** هم‌پای تو هر تصمیم را می‌گیرد تا بتوانی جواب‌هایت را با جواب‌های آن مقایسه کنی. در پایان یک **برنامهٔ راه‌اندازی** مکتوب داری. بیشتر تنظیمات این‌جا دسترسی **در سطح مالک (Owner)** لازم دارند.
+
+@section The frame | چارچوب
+
+@lesson
+id: five-decisions-and-the-frame
+en: Five decisions and the frame
+fa: پنج تصمیم و چارچوب کلی
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence/five-decisions-and-the-frame
+
+#explain
+The frame is simple: **five decisions, made in dependency order, written down in one rollout plan**. You can't set spend caps per group before you've decided the groups; you can't decide groups before you know whether you have one organization or several.
+
+Some decisions are **hard to reverse**, so the course flags them early. The big one: **domain claiming** pulls the personal Claude accounts that use your company email domain into your organization, and **once it's on, it can't be reversed**.
+~~
+چارچوب ساده است: **پنج تصمیم، به ترتیب وابستگی، نوشته‌شده در یک برنامهٔ راه‌اندازی واحد**. نمی‌توانی قبل از تعیین گروه‌ها برای هر گروه سقف هزینه بگذاری؛ نمی‌توانی گروه‌ها را تعیین کنی قبل از این‌که بدانی یک سازمان داری یا چند تا.
+
+بعضی تصمیم‌ها **سخت برگشت‌پذیرند**، پس دوره زود به آن‌ها اشاره می‌کند. مهم‌ترینش: **ادعای مالکیت دامنه** (domain claiming) حساب‌های شخصی Claude را که از دامنهٔ ایمیل شرکتت استفاده می‌کنند به سازمانت می‌آورد و **وقتی روشن شد، دیگر برگشت ندارد**.
+
+#analogy
+Like building a house: **foundation, walls, roof, wiring, paint**, in that order. Painting first is fast but wasted, and some choices (the foundation) can't be undone later.
+~~
+مثل ساختن یک خانه: **پی، دیوار، سقف، سیم‌کشی، رنگ**، به همین ترتیب. اول رنگ زدن سریع است ولی هدر می‌رود و بعضی انتخاب‌ها (پی) بعداً قابل‌برگشت نیستند.
+
+#tip
+Keep the rollout plan as a **living document** with one section per decision: the choice, the owner, the date, and the reason. Six months later, "why did we do it this way?" has an answer.
+~~
+برنامهٔ راه‌اندازی را یک **سند زنده** نگه دار با یک بخش برای هر تصمیم: انتخاب، مسئول، تاریخ و دلیل. شش ماه بعد، سؤال «چرا این‌طوری انجامش دادیم؟» جواب دارد.
+
+#terms
+Owner = مالک (Owner) = بالاترین نقش در سازمان Claude که به تنظیمات سراسری دسترسی دارد.
+Domain claiming = ادعای مالکیت دامنه = آوردن همهٔ حساب‌هایی که با ایمیل دامنهٔ شرکت ساخته شده‌اند به سازمان؛ غیرقابل‌برگشت.
+
+@section Structure & Identity | ساختار و هویت
+
+@lesson
+id: owners-and-intake
+en: Owners and intake
+fa: مسئول‌ها و پرسش‌نامهٔ ورودی
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence
+
+#explain
+Before touching settings, **name an owner for every decision**: identity (often IT), access (IT plus department heads), governance (security or a platform team), spend (finance), visibility (whoever reports on the rollout). A decision without an owner gets made by accident.
+
+Then run the **intake questionnaire**: a set of questions that surfaces the calls you'll need to bring to stakeholders. Which departments go first? Which data may never be connected? What's the budget? Who approves new connectors?
+~~
+قبل از دست زدن به تنظیمات، **برای هر تصمیم یک مسئول نام ببر**: هویت (اغلب واحد IT)، دسترسی (IT به‌اضافهٔ مدیران واحدها)، حاکمیت (امنیت یا یک تیم پلتفرم)، هزینه (مالی)، دیده‌پذیری (هر کسی که دربارهٔ راه‌اندازی گزارش می‌دهد). تصمیمی که مسئول ندارد، تصادفی گرفته می‌شود.
+
+بعد **پرسش‌نامهٔ ورودی** را اجرا کن: مجموعه‌ای از سؤال‌ها که تصمیم‌هایی را که باید پیش ذی‌نفعان ببری نمایان می‌کند. کدام واحدها اول شروع کنند؟ کدام داده‌ها هرگز نباید وصل شوند؟ بودجه چقدر است؟ چه کسی کانکتورهای تازه را تأیید می‌کند؟
+
+#analogy
+Planning a wedding: someone owns the guest list, someone the budget, someone the venue. If "everyone" owns the budget, nobody does.
+~~
+مثل برنامه‌ریزی عروسی است: یک نفر مسئول لیست مهمان‌هاست، یک نفر بودجه، یک نفر تالار. اگر بودجه مال «همه» باشد، مال هیچ‌کس نیست.
+
+#try
+Write a one-page table: five decisions × owner × deadline × open question. Share it with your stakeholders before configuring anything.
+~~
+یک جدول یک‌صفحه‌ای بنویس: پنج تصمیم × مسئول × مهلت × سؤال باز. قبل از تنظیم هر چیزی، آن را با ذی‌نفعان به اشتراک بگذار.
+
+@lesson
+id: prerequisites
+en: Prerequisites
+fa: پیش‌نیازها
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence/prerequisites
+
+#explain
+The identity foundations come first:
+
+- **Single sign-on (SSO)** with your identity provider (SAML or OIDC), tested with a small pilot group and then **enforced**.
+- **Provisioning**: ideally **SCIM**, which syncs users and groups automatically from your identity provider.
+- **Domain verification and claiming**: SSO must be **enforced, not just configured**, before you claim your domain, and claiming can't be undone.
+
+Order matters because enforcing SSO too early can lock out people who aren't provisioned yet, and there's no self-service recovery.
+~~
+پایه‌های هویت اول می‌آیند:
+
+- **ورود یکپارچه (SSO)** با سرویس هویت سازمانت (SAML یا OIDC)، آزموده‌شده با یک گروه آزمایشی کوچک و بعد **اجباری‌شده**.
+- **تأمین کاربران (Provisioning):** در حالت ایده‌آل با **SCIM**، که کاربران و گروه‌ها را خودکار از سرویس هویت همگام می‌کند.
+- **تأیید و ادعای مالکیت دامنه:** قبل از ادعای دامنه، SSO باید **اجباری شده باشد، نه فقط تنظیم**، و ادعای دامنه قابل‌برگشت نیست.
+
+ترتیب مهم است، چون اجباری کردن زودهنگام SSO ممکن است کسانی را که هنوز تأمین نشده‌اند بیرون بگذارد و راه بازیابی خودکاری وجود ندارد.
+
+#analogy
+Install the **door locks and give out the keys** before you lock the building. Lock first, and half the staff is stuck outside.
+~~
+اول **قفل‌ها را نصب کن و کلیدها را پخش کن**، بعد در ساختمان را قفل کن. اگر اول قفل کنی، نصف کارکنان پشت در می‌مانند.
+
+#warn
+If SCIM tries to provision more users than you have seats, provisioning can **fail silently**. Check seat counts against group sizes before each expansion.
+~~
+اگر SCIM بخواهد بیشتر از تعداد صندلی‌هایت کاربر بسازد، تأمین کاربر ممکن است **بی‌صدا شکست بخورد**. قبل از هر گسترش، تعداد صندلی‌ها را با اندازهٔ گروه‌ها مقایسه کن.
+
+#terms
+SSO = ورود یکپارچه = ورود به Claude با همان حساب سازمانی که برای بقیهٔ ابزارها استفاده می‌شود.
+SCIM = SCIM = استانداردی برای همگام‌سازی خودکار کاربران و گروه‌ها از سرویس هویت به اپ‌ها.
+
+@lesson
+id: one-organization-or-many
+en: One organization or many
+fa: یک سازمان یا چند سازمان؟
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence/one-organization-or-many
+
+#explain
+Most companies are best served by **one organization** with **groups** inside it: one place for settings, one shared spend pool, one set of analytics, and groups to give different teams different access and caps.
+
+Several organizations make sense when there are hard boundaries: separate legal entities, strict data-residency or regulatory separation, or a subsidiary that must stay fully isolated. The cost is duplication: separate settings, separate admins, separate reporting.
+
+The running example, Pluto, chooses one organization with groups aligned to its org chart, plus a cross-unit Engineering group.
+~~
+بیشتر شرکت‌ها با **یک سازمان** و **گروه‌هایی** داخل آن بهتر جواب می‌گیرند: یک جا برای تنظیمات، یک استخر هزینهٔ مشترک، یک مجموعهٔ آمار و گروه‌ها برای این‌که به تیم‌های مختلف دسترسی و سقف متفاوت بدهی.
+
+چند سازمان وقتی منطقی است که مرزهای سخت وجود داشته باشد: نهادهای حقوقی جدا، الزام سخت‌گیرانه دربارهٔ محل نگهداری داده یا جداسازی قانونی، یا یک شرکت تابعه که باید کاملاً جدا بماند. بهایش تکرار است: تنظیمات جدا، ادمین‌های جدا، گزارش‌های جدا.
+
+مثال سراسری دوره، Pluto، یک سازمان انتخاب می‌کند با گروه‌هایی هم‌راستا با نمودار سازمانی‌اش، به‌اضافهٔ یک گروه مهندسی که چند واحد را پوشش می‌دهد.
+
+#analogy
+One house with separate **rooms** (groups) is easier to run than separate **houses** (organizations). You only build a second house when the families truly must live apart.
+~~
+یک خانه با **اتاق‌های** جدا (گروه‌ها) راحت‌تر از چند **خانهٔ** جدا (سازمان‌ها) اداره می‌شود. خانهٔ دوم را فقط وقتی می‌سازی که خانواده‌ها واقعاً باید جدا زندگی کنند.
+
+#tip
+Default to one organization and write down the **specific** reason if you choose more. "Different departments" is not a reason; groups solve that.
+~~
+پیش‌فرضت یک سازمان باشد و اگر بیشتر انتخاب کردی دلیل **مشخص** را بنویس. «واحدهای مختلف» دلیل نیست؛ گروه‌ها آن را حل می‌کنند.
+
+@section Access | دسترسی
+
+@lesson
+id: your-groups
+en: Your groups
+fa: گروه‌هایت
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence/your-groups
+
+#explain
+**Groups are the backbone of the rollout**: nearly every later control (surfaces, connectors, customizations, spend caps, analytics breakdowns) **attaches to groups, not to individual members**. So design groups carefully, usually synced from your identity provider through SCIM.
+
+Common patterns: groups that follow the org chart (Sales, Finance, Legal), plus **cross-cutting groups** for people who need special access (all engineers across units, a payments-engineering group with stricter rules).
+~~
+**گروه‌ها ستون فقرات راه‌اندازی‌اند**: تقریباً همهٔ کنترل‌های بعدی (محصول‌ها، کانکتورها، شخصی‌سازی‌ها، سقف هزینه، تفکیک آمار) **به گروه‌ها وصل می‌شوند، نه به تک‌تک اعضا**. پس گروه‌ها را با دقت طراحی کن؛ معمولاً همگام‌شده از سرویس هویت از طریق SCIM.
+
+الگوهای رایج: گروه‌هایی که از نمودار سازمانی پیروی می‌کنند (فروش، مالی، حقوقی)، به‌اضافهٔ **گروه‌های افقی** برای کسانی که دسترسی ویژه لازم دارند (همهٔ مهندس‌ها در همهٔ واحدها، یک گروه مهندسی پرداخت با قانون‌های سخت‌گیرانه‌تر).
+
+#analogy
+Groups are like **colored wristbands at an event**: blue gets the main hall, green also gets the workshop rooms, red gets backstage. Staff check the band, not each person's name.
+~~
+گروه‌ها مثل **مچ‌بندهای رنگی در یک رویداد** هستند: آبی به سالن اصلی، سبز به اتاق‌های کارگاه هم و قرمز به پشت صحنه. مأموران مچ‌بند را چک می‌کنند، نه اسم تک‌تک افراد را.
+
+#warn
+Nested groups in your identity provider may not sync; usually only **direct members** come through. Flatten group membership for anything Claude should see.
+~~
+گروه‌های تودرتو در سرویس هویت ممکن است همگام نشوند؛ معمولاً فقط **اعضای مستقیم** منتقل می‌شوند. برای هر چیزی که Claude باید ببیند، عضویت گروه‌ها را تخت (بدون تودرتو) کن.
+
+@lesson
+id: surfaces-each-group-gets
+en: Surfaces each group gets
+fa: هر گروه به کدام محصول‌ها دسترسی دارد
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence/surfaces-each-group-gets
+
+#explain
+"Surfaces" are the ways people use Claude: chat on web and desktop, Cowork, Claude Code, Claude in Chrome, the Office add-ins, Slack and so on. For **each group**, mark which surfaces it gets on **day one**, which you'll **phase in later**, and **why**.
+
+Roles can also limit **which models** and **what effort levels** a group may use (these limits apply to custom roles). A sensible pattern: start every group with the core chat experience, give engineering Claude Code early, and phase in more powerful or autonomous surfaces once training and guardrails are ready.
+~~
+«محصول‌ها» (surfaces) راه‌هایی‌اند که آدم‌ها با آن از Claude استفاده می‌کنند: گفت‌وگو در وب و دسکتاپ، Cowork، Claude Code، Claude in Chrome، افزونه‌های آفیس، اسلک و غیره. برای **هر گروه** مشخص کن کدام محصول‌ها را **از روز اول** می‌گیرد، کدام‌ها را **بعداً مرحله‌به‌مرحله** اضافه می‌کنی و **چرا**.
+
+نقش‌ها هم می‌توانند **مدل‌ها** و **سطح‌های effort** قابل‌استفادهٔ یک گروه را محدود کنند (این محدودیت‌ها روی نقش‌های سفارشی اعمال می‌شوند). یک الگوی معقول: همهٔ گروه‌ها را با تجربهٔ اصلی گفت‌وگو شروع کن، Claude Code را زود به مهندسی بده و محصول‌های قوی‌تر یا خودکارتر را وقتی آموزش و نرده‌های ایمنی آماده شد اضافه کن.
+
+#analogy
+A new employee gets an **email account on day one**, building access in week one, and the company credit card after training. Same idea for Claude's surfaces.
+~~
+یک کارمند تازه **روز اول حساب ایمیل** می‌گیرد، هفتهٔ اول دسترسی ساختمان و بعد از آموزش، کارت اعتباری شرکت. برای محصول‌های Claude هم همین ایده است.
+
+#tip
+Write the "why" for each phase-in. When a team asks "why don't we have Cowork yet?", you can answer with a date and a condition, not a shrug.
+~~
+برای هر مرحلهٔ اضافه شدن «چرا» را بنویس. وقتی تیمی پرسید «چرا هنوز Cowork نداریم؟»، می‌توانی با یک تاریخ و یک شرط جواب بدهی، نه با بالا انداختن شانه.
+
+@lesson
+id: connectors
+en: Connectors
+fa: کانکتورها
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence/connectors
+
+#explain
+Connectors are where data meets AI, so they get their own decision. A member can only use a connector when it passes **three gates**: the organization allows that connector, the member's group/role is allowed to use it, and the member authenticates with their own account (so they only see what they're already permitted to see).
+
+**Enterprise-managed authorization** lets admins provision connector access centrally instead of every member connecting by hand. Decide connector by connector: which are on for everyone, which only for certain groups, and which are never allowed.
+~~
+کانکتورها جایی‌اند که داده با هوش مصنوعی روبه‌رو می‌شود؛ پس تصمیم خودشان را دارند. یک عضو فقط وقتی می‌تواند از یک کانکتور استفاده کند که از **سه دروازه** بگذرد: سازمان آن کانکتور را مجاز کرده باشد، گروه/نقش آن عضو اجازهٔ استفاده‌اش را داشته باشد و خود عضو با حساب خودش وارد شود (تا فقط چیزهایی را ببیند که از قبل اجازهٔ دیدنشان را داشته).
+
+**مجوزدهی مدیریت‌شدهٔ سازمانی** به ادمین‌ها اجازه می‌دهد دسترسی کانکتورها را مرکزی تأمین کنند، به‌جای این‌که هر عضو دستی وصل شود. برای هر کانکتور جدا تصمیم بگیر: کدام برای همه روشن است، کدام فقط برای گروه‌های خاص و کدام هرگز مجاز نیست.
+
+#analogy
+Three locks on one door: the **building** must allow the room (organization), your **badge** must include it (group), and you must use **your own key** inside (personal auth). All three must open.
+~~
+سه قفل روی یک در: **ساختمان** باید آن اتاق را مجاز کند (سازمان)، **کارتت** باید آن را شامل شود (گروه) و داخل باید با **کلید خودت** باز کنی (احراز هویت شخصی). هر سه باید باز شوند.
+
+#tip
+Start with **read-only connectors** for the broad population and enable write-capable ones (that can send, create or delete) for smaller groups after a pilot.
+~~
+برای عموم با **کانکتورهای فقط‌خواندنی** شروع کن و کانکتورهایی که می‌توانند بنویسند (بفرستند، بسازند یا پاک کنند) را بعد از یک دورهٔ آزمایشی برای گروه‌های کوچک‌تر فعال کن.
+
+@section Governance | حاکمیت
+
+@lesson
+id: governing-customizations
+en: Governing customizations
+fa: حاکمیت بر شخصی‌سازی‌ها
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence
+
+#explain
+Customizations are the things people build on top of Claude: **skills, plugins, projects, shared artifacts**, and connectors to internal tools. They're where most of the value comes from, and where most of the risk hides.
+
+The governance decision asks: **who can build, who can share, and how widely?** Options range from "anyone can create and share with the whole company" to "anyone can create for themselves, but organization-wide sharing goes through review". Many companies use a **private marketplace** of approved plugins, owned by a platform team, and let individuals experiment personally.
+~~
+شخصی‌سازی‌ها چیزهایی‌اند که آدم‌ها روی Claude می‌سازند: **اسکیل‌ها، پلاگین‌ها، پروژه‌ها، آرتیفکت‌های مشترک** و کانکتور به ابزارهای داخلی. بیشترِ ارزش از همین‌جا می‌آید و بیشترِ ریسک هم همین‌جا پنهان است.
+
+تصمیم حاکمیت می‌پرسد: **چه کسی می‌تواند بسازد، چه کسی می‌تواند به اشتراک بگذارد و با چه گستردگی‌ای؟** گزینه‌ها از «هر کسی می‌تواند بسازد و با کل شرکت به اشتراک بگذارد» تا «هر کسی برای خودش می‌سازد، ولی اشتراک در سطح سازمان از بازبینی می‌گذرد» را شامل می‌شوند. خیلی از شرکت‌ها یک **بازارچهٔ خصوصی** از پلاگین‌های تأییدشده دارند که مال یک تیم پلتفرم است و به افراد اجازه می‌دهند به‌صورت شخصی آزمایش کنند.
+
+#analogy
+Like a company **kitchen**: anyone can cook their own lunch (personal customizations), but what goes on the **shared menu** for everyone gets tasted and approved first.
+~~
+مثل **آشپزخانهٔ** شرکت است: هر کسی می‌تواند ناهار خودش را بپزد (شخصی‌سازی شخصی)، ولی چیزی که در **منوی مشترک** همه قرار می‌گیرد اول چشیده و تأیید می‌شود.
+
+#tip
+Make the review path **fast**. If sharing a useful skill takes a month of approvals, people will share it in unofficial ways you can't see.
+~~
+مسیر بازبینی را **سریع** کن. اگر به اشتراک گذاشتن یک اسکیل مفید یک ماه تأیید بخواهد، مردم آن را از راه‌های غیررسمی‌ای به اشتراک می‌گذارند که تو نمی‌بینی.
+
+@section Spend | هزینه
+
+@lesson
+id: spend-caps
+en: Spend caps
+fa: سقف‌های هزینه
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence/spend-caps
+
+#explain
+Caps exist at **three levels**: an **organization ceiling**, **group caps**, and **per-member overrides**. When a member hits a cap, their usage is **paused** until the period resets or someone raises the cap.
+
+Escalation requests go to Admins and Owners, so **decide the escalation rules before the first request arrives**: who approves, up to what amount, how fast. Pluto sets the organization ceiling from the budget owner's number and sizes each group cap to the typical member of that unit.
+~~
+سقف‌ها در **سه سطح** وجود دارند: **سقف کل سازمان**، **سقف گروه‌ها** و **استثناهای تک‌تک اعضا**. وقتی عضوی به سقف برسد، مصرفش **متوقف** می‌شود تا دوره از نو شروع شود یا کسی سقف را بالا ببرد.
+
+درخواست‌های افزایش به ادمین‌ها و مالک‌ها می‌رسد؛ پس **قبل از رسیدن اولین درخواست، قانون‌های افزایش را تعیین کن**: چه کسی تأیید می‌کند، تا چه مبلغی، با چه سرعتی. Pluto سقف کل سازمان را از روی عددی که مسئول بودجه داده تعیین می‌کند و سقف هر گروه را به اندازهٔ عضو معمولی همان واحد تنظیم می‌کند.
+
+#analogy
+A family phone plan: a **total data limit** for the family, a **limit per child**, and an exception for the teenager doing an online course. When a child runs out, the data stops until a parent approves more.
+~~
+مثل یک بستهٔ موبایل خانوادگی است: **سقف کل اینترنت** برای خانواده، **سقف برای هر بچه** و یک استثنا برای نوجوانی که دورهٔ آنلاین دارد. وقتی سهم یک بچه تمام شد، اینترنتش قطع می‌شود تا یکی از والدین بیشتر تأیید کند.
+
+#tip
+Set group caps from **real usage of typical members** after a pilot, not from guesses. Caps that are far too low create a flood of escalations; far too high and they protect nothing.
+~~
+سقف گروه‌ها را بعد از یک دورهٔ آزمایشی از روی **مصرف واقعی اعضای معمولی** تعیین کن، نه با حدس. سقف‌های خیلی پایین سیل درخواست افزایش راه می‌اندازند؛ سقف‌های خیلی بالا از هیچ چیز محافظت نمی‌کنند.
+
+@lesson
+id: managing-spend
+en: Managing spend
+fa: مدیریت هزینه
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence/managing-spend
+
+#explain
+Billing is a **per-member platform fee** plus **pooled token consumption**. Because the pool is shared, one group's heavy month draws on everyone's budget.
+
+Two insights from the lesson: the **default model and effort level** often drive spend more than cap changes do (a default of the most powerful model at maximum effort is expensive for everyday chat), and spend deserves a **monthly review** where cap increases are questioned before they're approved. Analytics tools help: a dashboard for trends, an analytics chat for ad-hoc questions, and an Analytics API for finance reconciliation and group-level breakdowns.
+~~
+صورت‌حساب شامل یک **هزینهٔ ثابت پلتفرم به ازای هر عضو** به‌اضافهٔ **مصرف توکن از یک استخر مشترک** است. چون استخر مشترک است، ماه پرمصرف یک گروه از بودجهٔ همه برداشت می‌کند.
+
+دو نکتهٔ مهم این درس: **مدل و سطح effort پیش‌فرض** اغلب بیشتر از تغییر سقف‌ها روی هزینه اثر دارند (پیش‌فرض گذاشتن قوی‌ترین مدل با بیشترین effort برای گفت‌وگوهای روزمره گران است) و هزینه یک **مرور ماهانه** لازم دارد که در آن درخواست‌های بالا بردن سقف قبل از تأیید به چالش کشیده شوند. ابزارهای آمار کمک می‌کنند: یک داشبورد برای روندها، یک گفت‌وگوی آماری برای سؤال‌های لحظه‌ای و یک Analytics API برای تطبیق مالی و تفکیک در سطح گروه.
+
+#analogy
+Like a household electricity bill: before installing a meter on every room (caps), check whether the **heater is set to maximum by default** (default model and effort). That one setting may matter more than everything else.
+~~
+مثل قبض برق خانه است: قبل از نصب کنتور روی هر اتاق (سقف‌ها)، چک کن آیا **بخاری به‌طور پیش‌فرض روی حداکثر است** (مدل و effort پیش‌فرض). همان یک تنظیم ممکن است از همه‌چیز مهم‌تر باشد.
+
+#tip
+When someone asks for a higher cap, ask **what work it's for**. Sometimes the answer is a better workflow (a skill, a lighter model for bulk tasks), not more budget.
+~~
+وقتی کسی سقف بالاتر می‌خواهد، بپرس **برای چه کاری**. گاهی جواب یک روال کاری بهتر است (یک اسکیل، مدل سبک‌تر برای کارهای انبوه)، نه بودجهٔ بیشتر.
+
+@section Visibility | دیده‌پذیری
+
+@lesson
+id: visibility-what-you-can-measure
+en: "Visibility: what you can measure"
+fa: دیده‌پذیری: چه چیزهایی را می‌شود اندازه گرفت
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence/visibility-what-you-can-measure
+
+#explain
+Visibility answers two different questions, and the course keeps them apart:
+
+1. **What happened?** (oversight and compliance) → the **Compliance API**, **audit logs**, and data-retention settings (set organization-wide).
+2. **Is the rollout working?** (adoption and value) → the **usage analytics dashboard** and related analytics tools.
+
+Decide early who may look at what. Compliance data is sensitive and belongs with security and legal; adoption analytics belongs with the rollout owner and team leads.
+~~
+دیده‌پذیری به دو سؤال متفاوت جواب می‌دهد و دوره آن‌ها را از هم جدا نگه می‌دارد:
+
+1. **چه اتفاقی افتاد؟** (نظارت و انطباق با قوانین) ← **Compliance API**، **لاگ‌های ممیزی** و تنظیمات نگهداری داده (که در سطح کل سازمان تعیین می‌شود).
+2. **آیا راه‌اندازی دارد جواب می‌دهد؟** (پذیرش و ارزش) ← **داشبورد آمار استفاده** و ابزارهای آماری مرتبط.
+
+زود تصمیم بگیر چه کسی اجازهٔ دیدن چه چیزی را دارد. داده‌های انطباق حساس‌اند و جایشان پیش امنیت و حقوقی است؛ آمار پذیرش مال مسئول راه‌اندازی و مدیران تیم‌هاست.
+
+#analogy
+A school has **security cameras** (audit logs: what happened) and **report cards** (analytics: is learning happening). You don't use cameras to grade students, or report cards to investigate incidents.
+~~
+یک مدرسه **دوربین امنیتی** دارد (لاگ ممیزی: چه اتفاقی افتاد) و **کارنامه** (آمار: آیا یادگیری اتفاق می‌افتد). از دوربین برای نمره دادن استفاده نمی‌کنی و از کارنامه برای بررسی حادثه‌ها.
+
+#tip
+Tell employees clearly what is logged and who can see it. Transparency about oversight builds the trust that adoption depends on.
+~~
+به کارکنان روشن بگو چه چیزی ثبت می‌شود و چه کسی می‌تواند ببیند. شفافیت دربارهٔ نظارت همان اعتمادی را می‌سازد که پذیرش به آن وابسته است.
+
+#terms
+Audit log = لاگ ممیزی = ثبت رویدادهای مهم (چه کسی، چه کاری، کی) برای بررسی‌های امنیتی و قانونی.
+Compliance API = API انطباق = رابطی برای بیرون کشیدن داده‌های لازم برای نظارت و الزامات قانونی.
+
+@lesson
+id: adoption-signals
+en: Adoption signals
+fa: نشانه‌های پذیرش
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence/adoption-signals
+
+#explain
+Two kinds of leading indicators:
+
+- **Breadth**: active members by group, weekly returning users. Is Claude reaching people?
+- **Depth**: chats per active member, skills and projects in use, connector use. Is Claude becoming part of real work?
+
+These are **diagnostics, not quotas**. A low number tells you **where to look** (a team without training, a missing connector, a confusing policy), not who to blame. Set a concrete pace goal against a signal you can actually read, for example "70% of Sales active weekly by the end of next quarter".
+~~
+دو نوع شاخص پیشرو:
+
+- **گستردگی:** اعضای فعال به تفکیک گروه، کاربرانی که هر هفته برمی‌گردند. آیا Claude به آدم‌ها می‌رسد؟
+- **عمق:** تعداد گفت‌وگو به ازای هر عضو فعال، اسکیل‌ها و پروژه‌های در حال استفاده، استفاده از کانکتورها. آیا Claude دارد بخشی از کار واقعی می‌شود؟
+
+این‌ها **ابزار تشخیص‌اند، نه سهمیه**. یک عدد پایین به تو می‌گوید **کجا را بگردی** (تیمی که آموزش ندیده، کانکتوری که نیست، سیاستی که گیج‌کننده است)، نه این‌که چه کسی را مقصر بدانی. یک هدف سرعت ملموس بر اساس نشانه‌ای که واقعاً می‌توانی بخوانی بگذار؛ مثلاً «۷۰٪ تیم فروش تا پایان فصل بعد هر هفته فعال باشند».
+
+#analogy
+A doctor's **thermometer**: a fever tells you something is wrong and where to examine. Nobody punishes the patient for the number.
+~~
+مثل **دماسنج** پزشک است: تب به تو می‌گوید چیزی درست نیست و کجا را معاینه کنی. هیچ‌کس بیمار را به خاطر عدد تنبیه نمی‌کند.
+
+#example
+Pluto sees Finance has high breadth but low depth: everyone logs in, few chats each. Interviews show people don't know Claude can work with spreadsheets. A 30-minute session on the Excel add-in doubles depth in a month.
+~~
+Pluto می‌بیند تیم مالی گستردگی بالا ولی عمق کمی دارد: همه وارد می‌شوند، ولی هر نفر گفت‌وگوی کمی دارد. مصاحبه‌ها نشان می‌دهد مردم نمی‌دانند Claude می‌تواند با فایل‌های اکسل کار کند. یک جلسهٔ ۳۰ دقیقه‌ای دربارهٔ افزونهٔ اکسل، عمق را در یک ماه دو برابر می‌کند.
+
+@section Your rollout | راه‌اندازی تو
+
+@lesson
+id: how-the-decisions-connect
+en: How the decisions connect
+fa: تصمیم‌ها چطور به هم وصل‌اند
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence/how-the-decisions-connect
+
+#explain
+This capstone shows the five decisions as **one system**: structure decides whether groups are possible; groups carry access, connectors, governance and caps; the default model and effort shape spend; visibility tells you whether any of it is working, and feeds back into changing groups, surfaces and caps.
+
+You compare your rollout plan with **Pluto's**. Differences aren't wrong answers; they should reflect real differences between your company and Pluto, and each one should have a written reason.
+~~
+این جمع‌بندی پنج تصمیم را به شکل **یک سیستم واحد** نشان می‌دهد: ساختار تعیین می‌کند گروه‌ها ممکن‌اند یا نه؛ گروه‌ها دسترسی، کانکتورها، حاکمیت و سقف‌ها را حمل می‌کنند؛ مدل و effort پیش‌فرض هزینه را شکل می‌دهند؛ دیده‌پذیری به تو می‌گوید هیچ‌کدام کار می‌کند یا نه و دوباره به تغییر گروه‌ها، محصول‌ها و سقف‌ها برمی‌گردد.
+
+برنامهٔ راه‌اندازی‌ات را با برنامهٔ **Pluto** مقایسه می‌کنی. تفاوت‌ها جواب اشتباه نیستند؛ باید تفاوت‌های واقعی بین شرکت تو و Pluto را نشان بدهند و هر کدام یک دلیل نوشته‌شده داشته باشد.
+
+#analogy
+Like the systems of a body: the skeleton (structure) holds the muscles (groups), the muscles move the limbs (access), and the nervous system (visibility) tells the brain what's working and what hurts.
+~~
+مثل دستگاه‌های بدن است: اسکلت (ساختار) ماهیچه‌ها (گروه‌ها) را نگه می‌دارد، ماهیچه‌ها اندام‌ها را حرکت می‌دهند (دسترسی) و دستگاه عصبی (دیده‌پذیری) به مغز می‌گوید چه چیزی کار می‌کند و کجا درد می‌کند.
+
+#try
+For each of your five decisions, write one sentence: "We chose X because Y, and we'll revisit it when Z." If you can't write Z, you haven't defined what would change your mind.
+~~
+برای هر کدام از پنج تصمیمت یک جمله بنویس: «X را انتخاب کردیم چون Y و وقتی Z اتفاق بیفتد دوباره بررسی‌اش می‌کنیم.» اگر نمی‌توانی Z را بنویسی، هنوز تعیین نکرده‌ای چه چیزی نظرت را عوض می‌کند.
+
+@lesson
+id: when-a-new-product-arrives
+en: When a new product arrives
+fa: وقتی یک محصول تازه از راه می‌رسد
+url: https://academy.claude.com/courses/deploying-claude-enterprise-with-confidence
+
+#explain
+Claude ships new surfaces and features often. Your rollout plan should make each new arrival a **routine**, not a crisis. Run it through the same five decisions:
+
+1. **Structure**: does it need anything new from identity or org setup?
+2. **Access**: which groups get it on day one, which later, and why?
+3. **Governance**: can people build or share new kinds of customizations with it?
+4. **Spend**: does it change consumption (for example longer autonomous tasks)? Adjust caps or defaults?
+5. **Visibility**: how will you see whether it's used and useful?
+
+Pilot with a small, willing group, write down the decision, then expand.
+~~
+Claude مرتب محصول‌ها و قابلیت‌های تازه عرضه می‌کند. برنامهٔ راه‌اندازی تو باید ورود هر محصول تازه را به یک **روال** تبدیل کند، نه یک بحران. آن را از همان پنج تصمیم عبور بده:
+
+1. **ساختار:** آیا چیز تازه‌ای از هویت یا تنظیمات سازمان لازم دارد؟
+2. **دسترسی:** کدام گروه‌ها از روز اول می‌گیرندش، کدام‌ها بعداً و چرا؟
+3. **حاکمیت:** آیا آدم‌ها با آن می‌توانند نوع تازه‌ای از شخصی‌سازی بسازند یا به اشتراک بگذارند؟
+4. **هزینه:** آیا مصرف را تغییر می‌دهد (مثلاً کارهای خودکار طولانی‌تر)؟ سقف‌ها یا پیش‌فرض‌ها را تنظیم کنیم؟
+5. **دیده‌پذیری:** از کجا می‌فهمی استفاده می‌شود و مفید است؟
+
+با یک گروه کوچک و مشتاق آزمایش کن، تصمیم را بنویس و بعد گسترش بده.
+
+#analogy
+A good school doesn't panic when a new subject is added to the curriculum: it asks the usual questions (which grade, which teacher, which room, what budget, how to assess) and slots it in.
+~~
+یک مدرسهٔ خوب وقتی یک درس تازه به برنامه اضافه می‌شود دستپاچه نمی‌شود: همان سؤال‌های همیشگی را می‌پرسد (کدام پایه، کدام معلم، کدام کلاس، چه بودجه‌ای، چطور ارزیابی کنیم) و جایش می‌دهد.
+
+#tip
+Keep a short **"new product checklist"** in your rollout plan with the five questions. It turns every launch announcement into a 30-minute decision meeting.
+~~
+یک **«چک‌لیست محصول تازه»** کوتاه با همین پنج سؤال در برنامهٔ راه‌اندازی‌ات نگه دار. هر اطلاعیهٔ عرضهٔ تازه را به یک جلسهٔ تصمیم‌گیری ۳۰ دقیقه‌ای تبدیل می‌کند.
+
+@cheatsheet
+- Five decisions in order: **Structure & Identity → Access → Governance → Spend → Visibility**. Write them in one rollout plan.
+- Name an **owner** per decision; run the intake questionnaire first.
+- SSO tested, then **enforced**; SCIM for provisioning; **domain claiming is irreversible**; check seat counts.
+- Default to **one organization** with groups; more only for hard legal/regulatory boundaries.
+- **Groups carry nearly every control.** Flatten nested groups.
+- Surfaces per group: day one vs later, with reasons. Roles can limit models and effort.
+- Connectors: **three gates** (org, group/role, personal auth); start read-only.
+- Governance: who builds, who shares, how widely; fast review path; private marketplace.
+- Spend: org ceiling · group caps · member overrides; usage pauses at a cap; decide escalation rules early; **default model + effort drive spend**; monthly review.
+- Visibility: compliance (audit, Compliance API, retention) ≠ adoption (breadth, depth). Signals are diagnostics, not quotas.
+- New product → same five questions → pilot → expand.
+~~
+- پنج تصمیم به ترتیب: **ساختار و هویت ← دسترسی ← حاکمیت ← هزینه ← دیده‌پذیری**. همه را در یک برنامهٔ راه‌اندازی بنویس.
+- برای هر تصمیم یک **مسئول** نام ببر؛ اول پرسش‌نامهٔ ورودی را اجرا کن.
+- SSO را آزمایش کن، بعد **اجباری** کن؛ SCIM برای تأمین کاربر؛ **ادعای دامنه برگشت‌ناپذیر است**؛ تعداد صندلی‌ها را چک کن.
+- پیش‌فرض **یک سازمان** با گروه‌ها؛ بیشتر فقط برای مرزهای سخت حقوقی یا قانونی.
+- **گروه‌ها تقریباً همهٔ کنترل‌ها را حمل می‌کنند.** گروه‌های تودرتو را تخت کن.
+- محصول‌ها برای هر گروه: روز اول در مقابل بعداً، با دلیل. نقش‌ها می‌توانند مدل و effort را محدود کنند.
+- کانکتورها: **سه دروازه** (سازمان، گروه/نقش، احراز هویت شخصی)؛ با فقط‌خواندنی شروع کن.
+- حاکمیت: چه کسی می‌سازد، چه کسی به اشتراک می‌گذارد، با چه گستردگی؛ مسیر بازبینی سریع؛ بازارچهٔ خصوصی.
+- هزینه: سقف سازمان · سقف گروه · استثنای عضو؛ رسیدن به سقف یعنی توقف مصرف؛ قانون افزایش را زود تعیین کن؛ **مدل و effort پیش‌فرض هزینه را می‌سازند**؛ مرور ماهانه.
+- دیده‌پذیری: انطباق (ممیزی، Compliance API، نگهداری داده) ≠ پذیرش (گستردگی، عمق). نشانه‌ها ابزار تشخیص‌اند، نه سهمیه.
+- محصول تازه ← همان پنج سؤال ← آزمایش ← گسترش.
+
+@quiz
+Q: Why must SSO be enforced before claiming your domain? || چرا قبل از ادعای مالکیت دامنه باید SSO اجباری شده باشد؟
+A: Domain claiming is irreversible and pulls accounts into the org; identity controls must already be in force, and the order prevents lockouts and gaps. || چون ادعای دامنه برگشت‌ناپذیر است و حساب‌ها را به سازمان می‌آورد؛ کنترل‌های هویت باید از قبل اجرا شده باشند و این ترتیب از قفل شدن و شکاف جلوگیری می‌کند.
+Q: Most later controls attach to what? || بیشتر کنترل‌های بعدی به چه چیزی وصل می‌شوند؟
+A: Groups, not individual members. || به گروه‌ها، نه به تک‌تک اعضا.
+Q: What are the three levels of spend caps? || سه سطح سقف هزینه کدام‌اند؟
+A: Organization ceiling, group caps, and per-member overrides. || سقف کل سازمان، سقف گروه‌ها و استثناهای تک‌تک اعضا.
+Q: Spend is too high. What often matters more than lowering caps? || هزینه خیلی بالاست. چه چیزی اغلب از پایین آوردن سقف‌ها مهم‌تر است؟
+A: The default model and effort level. || مدل و سطح effort پیش‌فرض.
+Q: Breadth is high but depth is low for a team. How should you treat that number? || گستردگی یک تیم بالاست ولی عمقش کم. با این عدد چطور برخورد کنیم؟
+A: As a diagnostic pointing where to investigate (training, connectors, policies), not as a failed quota. || به‌عنوان یک ابزار تشخیص که نشان می‌دهد کجا را بررسی کنی (آموزش، کانکتورها، سیاست‌ها)، نه به‌عنوان سهمیه‌ای که پر نشده.

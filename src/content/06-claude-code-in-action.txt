@@ -1,0 +1,480 @@
+@page
+slug: claude-code-in-action
+kind: course
+group: products
+order: 1
+en: Claude Code in action
+fa: Claude Code در عمل؛ جلسه‌های طولانی، کار بدون نظارت و کار تیمی
+stats: 9 lessons · 1 quiz · 1 hr · badge
+url: https://academy.claude.com/courses/claude-code-in-action
+expect: 9
+who_en: Developers who already use Claude Code for single prompts and want longer, less supervised workflows.
+who_fa: برنامه‌نویس‌هایی که Claude Code را برای پرامپت‌های تکی استفاده می‌کنند و حالا جریان‌های کاری طولانی‌تر و با نظارت کمتر می‌خواهند.
+blurb_fa: هدایت جلسه‌های طولانی، CLAUDE.md کم‌حجم و مؤثر، اسکیل‌های راستی‌آزمایی، حالت‌های مجوز، هوک‌ها، روتین‌ها و حالت headless، گیت‌هاب اکشن و بازبینی کد، اعتماد به اجرای بی‌ناظر و پلاگین‌ها.
+desc_en: Steer long Claude Code sessions, configure it properly, automate repeat work and verify unsupervised runs before sharing your setup.
+
+@intro
+Claude Code 101 taught you to work **with** Claude Code. This course teaches you to let it work **longer and more on its own**, safely. It has four themes:
+
+1. **Steering long sessions**: plan first, compact on purpose, rewind mistakes, run work in parallel.
+2. **Configuring Claude**: a CLAUDE.md that actually gets followed, skills that verify work, the right permission mode, and hooks that enforce rules.
+3. **Automating repeat work**: routines in the cloud, headless runs from scripts, GitHub Actions and managed code review.
+4. **Verifying and sharing**: checking unsupervised runs in proportion to how little you watched them, and packaging your setup as a plugin.
+~~
+Claude Code 101 به تو یاد داد **همراه** Claude Code کار کنی. این دوره یاد می‌دهد اجازه بدهی **طولانی‌تر و مستقل‌تر** کار کند؛ آن هم با خیال راحت. چهار موضوع دارد:
+
+1. **هدایت جلسه‌های طولانی:** اول برنامه، فشرده‌سازی آگاهانه، برگرداندن اشتباه‌ها، کار موازی.
+2. **پیکربندی Claude:** یک CLAUDE.md که واقعاً رعایت شود، اسکیل‌هایی که کار را می‌سنجند، حالت مجوز درست و هوک‌هایی که قانون‌ها را اجرا می‌کنند.
+3. **خودکار کردن کارهای تکراری:** روتین‌ها روی ابر، اجرای بی‌رابط (headless) از اسکریپت‌ها، گیت‌هاب اکشن و بازبینی کد مدیریت‌شده.
+4. **سنجیدن و اشتراک:** بررسی اجراهای بی‌ناظر به اندازهٔ کمیِ نظارتت و بسته‌بندی تنظیماتت به شکل یک پلاگین.
+
+@section Steering long sessions | هدایت جلسه‌های طولانی
+
+@lesson
+id: steering-long-sessions
+en: Steering long sessions
+fa: هدایت جلسه‌های طولانی
+url: https://academy.claude.com/courses/claude-code-in-action/steering-long-sessions
+
+#explain
+Long sessions drift. Five habits keep them on track:
+
+1. **Scope first.** Start big tasks in **plan mode**: Claude researches with read-only tools and lays out a plan before writing a single line. Agree on the plan, then switch modes.
+2. **Compact on purpose.** `/compact` condenses the chat, but details can get lost and Claude can drift. Tell it what to keep: `/compact keep the API design decisions and the list of failing tests`.
+3. **Rewind instead of arguing.** Double-tap **Esc** on an empty prompt to open the **rewind** menu. You can restore the code, the conversation, or both to an earlier point. It's faster than explaining why the last ten minutes were wrong.
+4. **Set clear goals**, including how to verify them, so Claude knows when it's done.
+5. **Run parallel work in worktrees.** A git **worktree** gives each session its own copy of the files, so two Claude sessions can work on two features at once without overwriting each other.
+~~
+جلسه‌های طولانی کم‌کم از مسیر خارج می‌شوند. پنج عادت آن‌ها را سر راه نگه می‌دارد:
+
+1. **اول محدوده.** کارهای بزرگ را در **حالت برنامه‌ریزی** شروع کن: Claude با ابزارهای فقط‌خواندنی تحقیق می‌کند و قبل از نوشتن حتی یک خط، برنامه می‌چیند. روی برنامه توافق کن، بعد حالت را عوض کن.
+2. **فشرده‌سازی آگاهانه.** `/compact` گفت‌وگو را خلاصه می‌کند، ولی ممکن است جزئیات گم شوند و Claude منحرف شود. بگو چه چیزی بماند: `/compact keep the API design decisions and the list of failing tests`.
+3. **به‌جای بحث، برگرد عقب.** روی پرامپت خالی دو بار **Esc** بزن تا منوی **rewind** باز شود. می‌توانی کد، گفت‌وگو یا هر دو را به یک نقطهٔ قبلی برگردانی. سریع‌تر از توضیح دادن این است که چرا ده دقیقهٔ اخیر اشتباه بود.
+4. **هدف روشن بگذار**؛ همراه با روش سنجیدنش، تا Claude بداند کی کار تمام است.
+5. **کار موازی را در worktree انجام بده.** یک **worktree** در git به هر جلسه نسخهٔ جداگانهٔ خودش از فایل‌ها را می‌دهد؛ پس دو جلسهٔ Claude می‌توانند هم‌زمان روی دو قابلیت کار کنند بدون این‌که کار هم را خراب کنند.
+
+#code bash Two features in parallel with git worktrees
+git worktree add ../shop-search -b feature/search
+git worktree add ../shop-coupons -b feature/coupons
+
+cd ../shop-search  && claude     # terminal 1: "Add full-text product search"
+cd ../shop-coupons && claude     # terminal 2: "Add coupon codes at checkout"
+#end
+
+#analogy
+A long session is a **road trip**. Plan the route before leaving (plan mode), keep a short list of what matters instead of every receipt (directed compaction), make a U-turn as soon as you take a wrong exit (rewind), and if two people need to go to different cities, take **two cars** (worktrees).
+~~
+یک جلسهٔ طولانی مثل **سفر جاده‌ای** است. قبل از حرکت مسیر را برنامه‌ریزی کن (حالت برنامه‌ریزی)، به‌جای نگه داشتن همهٔ رسیدها یک فهرست کوتاه از چیزهای مهم داشته باش (فشرده‌سازی هدایت‌شده)، هر وقت خروجی اشتباه را رفتی همان لحظه دور بزن (rewind) و اگر دو نفر باید به دو شهر مختلف بروند، **دو ماشین** بردار (worktree).
+
+#tip
+Ask Claude to write its **progress into a file** (for example `PROGRESS.md`: done, next, open questions) before you compact or end a session. A file never gets "summarized away".
+~~
+قبل از فشرده‌سازی یا تمام کردن جلسه، از Claude بخواه **پیشرفت کار را در یک فایل بنویسد** (مثلاً `PROGRESS.md`: انجام شد، قدم بعد، سؤال‌های باز). یک فایل هیچ‌وقت «خلاصه‌شده و گم» نمی‌شود.
+
+#terms
+Rewind = برگرداندن (rewind) = برگرداندن کد یا گفت‌وگو (یا هر دو) به یک نقطهٔ قبلی در جلسه.
+Git worktree = ورک‌تری گیت = نسخهٔ دیگری از پوشهٔ کاری همان مخزن روی شاخه‌ای دیگر، برای کار موازی.
+
+@section Configuring Claude | پیکربندی Claude
+
+@lesson
+id: a-claude-md-that-follows
+en: A CLAUDE.md that gets followed
+fa: CLAUDE.mdای که واقعاً رعایت شود
+url: https://academy.claude.com/courses/claude-code-in-action/a-claude-md-that-follows
+
+#explain
+CLAUDE.md is **guidance, not enforced configuration**. Every line competes with every other line for Claude's attention, so **the longer the file gets, the more it competes with itself**. Short files are followed more reliably.
+
+How to keep it effective:
+
+- Keep only what Claude needs **every** session: commands, key conventions, landmines.
+- Move **hard rules** ("never touch production config") into **hooks** or permissions, which enforce instead of request.
+- Move occasional procedures into **skills**.
+- Treat wrong behavior as a **bug report**: when Claude ignores or misreads a rule, rewrite that rule (clearer, more specific, with the reason), don't just add another line.
+~~
+CLAUDE.md **راهنماست، نه پیکربندی اجباری**. هر خط با خط‌های دیگر بر سر توجه Claude رقابت می‌کند؛ پس **هر چه فایل بلندتر شود، بیشتر با خودش رقابت می‌کند**. فایل‌های کوتاه با اطمینان بیشتری رعایت می‌شوند.
+
+چطور اثرگذار نگهش داری:
+
+- فقط چیزی را نگه دار که Claude در **همهٔ** جلسه‌ها لازم دارد: دستورها، قراردادهای کلیدی، تله‌ها.
+- **قانون‌های سخت** («هیچ‌وقت به تنظیمات محیط اصلی دست نزن») را به **هوک‌ها** یا مجوزها منتقل کن که به‌جای خواهش کردن، اجرا می‌کنند.
+- روش‌های گاه‌به‌گاه را به **اسکیل‌ها** منتقل کن.
+- رفتار اشتباه را مثل یک **گزارش باگ** ببین: وقتی Claude یک قانون را نادیده گرفت یا بد فهمید، همان قانون را بازنویسی کن (روشن‌تر، دقیق‌تر، همراه با دلیل)؛ فقط یک خط دیگر اضافه نکن.
+
+#example
+Before: "Be careful with the database."
+After: "Migrations: create them with `pnpm db:migrate:new <name>`; never edit an existing migration file, because deployed databases have already run it."
+The second version is specific, actionable and explains **why**, so Claude can apply it to cases the rule didn't mention.
+~~
+قبل: «مواظب دیتابیس باش.»
+بعد: «Migrationها را با `pnpm db:migrate:new <name>` بساز؛ هیچ‌وقت فایل migration موجود را ویرایش نکن، چون دیتابیس‌های منتشرشده قبلاً اجرایش کرده‌اند.»
+نسخهٔ دوم دقیق است، قابل‌اجراست و **چرایش** را توضیح می‌دهد؛ پس Claude می‌تواند آن را در موقعیت‌هایی هم به کار ببرد که قانون اسمی از آن‌ها نبرده.
+
+#analogy
+A CLAUDE.md is a **packing list on the fridge**. Ten items get checked every time. Two hundred items means people stop reading it, and the important ones get lost in the crowd.
+~~
+CLAUDE.md مثل **فهرست وسایل سفر روی در یخچال** است. ده قلم را هر بار تیک می‌زنی. دویست قلم یعنی دیگر کسی نمی‌خواندش و موارد مهم در شلوغی گم می‌شوند.
+
+#tip
+Explaining the **reason** behind a rule is one of the most powerful edits you can make. "Use UTC" is a rule; "Use UTC because our servers are in three time zones" lets Claude generalize correctly.
+~~
+توضیح **دلیل** پشت یک قانون یکی از قوی‌ترین تغییرهایی است که می‌توانی بدهی. «از UTC استفاده کن» یک قانون است؛ «از UTC استفاده کن چون سرورهایمان در سه منطقهٔ زمانی‌اند» به Claude اجازه می‌دهد درست تعمیمش بدهد.
+
+@lesson
+id: verification-skills
+en: Verification skills
+fa: اسکیل‌های راستی‌آزمایی
+url: https://academy.claude.com/courses/claude-code-in-action/verification-skills
+
+#explain
+An agent is only as good as its ability to **check its own work**. A **verification skill** packages "how we know a change is good" into one reusable procedure: run the right tests, run the linter and type checks, read the diff for unwanted changes, and report clearly what passed and what didn't.
+
+Because it's a skill, Claude loads it whenever a task is about finishing or checking work, and every teammate gets the same definition of "done". It's also the foundation for trusting longer, unsupervised runs later in the course.
+~~
+یک ایجنت فقط به اندازهٔ توانایی‌اش در **سنجیدن کار خودش** خوب است. یک **اسکیل راستی‌آزمایی** «از کجا بفهمیم یک تغییر خوب است» را در یک روش قابل‌استفادهٔ دوباره بسته‌بندی می‌کند: تست‌های درست را اجرا کن، linter و بررسی نوع‌ها را اجرا کن، diff را برای تغییرهای ناخواسته بخوان و روشن گزارش بده چه چیزی قبول شد و چه چیزی نه.
+
+چون اسکیل است، هر وقت کاری دربارهٔ تمام کردن یا سنجیدن باشد Claude بارش می‌کند و همهٔ هم‌تیمی‌ها تعریف یکسانی از «تمام شد» دارند. همین پایه‌ای است برای اعتماد به اجراهای طولانی‌تر و بی‌ناظر که در ادامهٔ دوره می‌بینی.
+
+#code markdown .claude/skills/verify/SKILL.md
+---
+name: verify
+description: Verifies a change before it is called done. Use after implementing a feature or fix, or when asked to check, finish or wrap up work.
+---
+1. Run `pnpm lint && pnpm typecheck`. Fix new errors you introduced.
+2. Run tests for the changed packages: `pnpm test --filter <package>`.
+3. Read `git diff`. Remove debug prints, commented-out code and unrelated edits.
+4. Report in this format:
+   - Checks run and results (pass/fail with counts)
+   - Anything you could not verify, and why
+   - Risky spots a human reviewer should look at
+Never report success for a check you did not actually run.
+#end
+
+#analogy
+It's the **pre-flight checklist** pilots use. Pilots are experts, and they still read the list every single time, because one forgotten step is too expensive.
+~~
+مثل **چک‌لیست قبل از پرواز** خلبان‌هاست. خلبان‌ها متخصص‌اند و باز هم هر بار فهرست را می‌خوانند، چون فراموش کردن یک قدم خیلی گران تمام می‌شود.
+
+#tip
+The line "Never report success for a check you did not actually run" matters. Asking for **honest reporting of what wasn't verified** is more valuable than another test command.
+~~
+جملهٔ «هیچ‌وقت برای بررسی‌ای که واقعاً اجرا نکرده‌ای گزارش موفقیت نده» مهم است. خواستن **گزارش صادقانه از چیزهایی که سنجیده نشده‌اند** از یک دستور تست دیگر باارزش‌تر است.
+
+@lesson
+id: permission-modes
+en: Permission modes
+fa: حالت‌های مجوز
+url: https://academy.claude.com/courses/claude-code-in-action/permission-modes
+
+#explain
+Claude Code offers a ladder of **permission modes**, from careful to hands-off:
+
+- **Default (ask)**: asks before edits and commands. Best for unfamiliar code.
+- **Accept edits**: edits files freely, still asks before commands.
+- **Plan**: read-only research and a plan; no changes.
+- **Auto**: no prompts; a separate **classifier** reviews each action before it runs and blocks risky ones. It checks **intent**, not whether the code works, so pair it with a **Stop hook that runs the tests** (the classifier checks intent before each action; the hook checks correctness after).
+- **Don't ask**: only pre-approved tools run, everything else is denied without prompting. Made for **unattended jobs**: CI pipelines, scheduled jobs, overnight batches.
+- **Bypass permissions**: no checks at all. Only run it inside an **isolated container or virtual machine**.
+
+Pre-approve safe commands in settings (for example `Bash(pnpm test:*)`) so that stricter modes still feel smooth.
+~~
+Claude Code یک نردبان از **حالت‌های مجوز** دارد، از محتاط تا کاملاً آزاد:
+
+- **پیش‌فرض (پرسیدن):** قبل از ویرایش و اجرای دستور می‌پرسد. برای کد ناآشنا بهترین است.
+- **پذیرش ویرایش‌ها:** فایل‌ها را آزادانه ویرایش می‌کند، برای دستورها هنوز می‌پرسد.
+- **برنامه‌ریزی:** فقط تحقیق و برنامه؛ هیچ تغییری.
+- **خودکار (Auto):** بدون پنجرهٔ اجازه؛ یک **طبقه‌بند** جداگانه هر کار را قبل از اجرا بررسی می‌کند و کارهای پرخطر را بلاک می‌کند. این طبقه‌بند **نیت** را می‌سنجد، نه درستی کد را؛ پس آن را با یک **هوک Stop که تست‌ها را اجرا می‌کند** جفت کن (طبقه‌بند قبل از هر کار نیت را می‌سنجد؛ هوک بعدش درستی را).
+- **نپرس (Don't ask):** فقط ابزارهای از پیش تأییدشده اجرا می‌شوند و بقیه بدون پرسیدن رد می‌شوند. برای **کارهای بی‌ناظر** ساخته شده: خط لوله‌های CI، کارهای زمان‌بندی‌شده، اجراهای شبانه.
+- **دور زدن مجوزها (Bypass):** هیچ بررسی‌ای نیست. فقط داخل یک **کانتینر یا ماشین مجازی ایزوله** اجرایش کن.
+
+دستورهای امن را در تنظیمات از قبل تأیید کن (مثلاً `Bash(pnpm test:*)`) تا حالت‌های سخت‌گیرتر هم روان باشند.
+
+#code json .claude/settings.json: pre-approve safe commands, deny dangerous ones
+{
+  "permissions": {
+    "allow": ["Bash(pnpm test:*)", "Bash(pnpm lint)", "Bash(git diff:*)"],
+    "deny": ["Bash(git push:*)", "Read(./.env)", "Read(./secrets/**)"]
+  }
+}
+#end
+
+#analogy
+Like a **learner driver's licence** levels: first an instructor holds a second brake (ask), then you drive alone in the neighbourhood (accept edits), then on the highway with a dash-cam and a speed limiter (auto + hooks), and the race-track mode (bypass) only exists inside a closed circuit (isolated VM).
+~~
+مثل مرحله‌های **گواهینامهٔ رانندگی** است: اول مربی یک ترمز دوم زیر پایش دارد (پرسیدن)، بعد در محله تنها رانندگی می‌کنی (پذیرش ویرایش‌ها)، بعد در اتوبان با دوربین ثبت وقایع و محدودکنندهٔ سرعت (خودکار + هوک‌ها) و حالت پیست مسابقه (bypass) فقط داخل یک پیست بسته وجود دارد (ماشین مجازی ایزوله).
+
+#warn
+"Bypass permissions" on your own laptop means Claude can do anything **you** can do: delete files, push code, read secrets. Use it only in a disposable, isolated environment.
+~~
+«دور زدن مجوزها» روی لپ‌تاپ شخصی یعنی Claude هر کاری که **تو** می‌توانی بکند را می‌تواند بکند: پاک کردن فایل، push کردن کد، خواندن رمزها. فقط در یک محیط ایزولهٔ دورریختنی از آن استفاده کن.
+
+#terms
+Classifier = طبقه‌بند = مدل جداگانه‌ای که در حالت خودکار، هر کار را قبل از اجرا از نظر خطر بررسی می‌کند.
+Allow / deny rules = قانون‌های اجازه و منع = فهرست دستورها و فایل‌هایی که بدون پرسیدن مجاز یا همیشه ممنوع‌اند.
+
+@lesson
+id: hooks
+en: Hooks
+fa: هوک‌ها در عمل
+url: https://academy.claude.com/courses/claude-code-in-action/hooks
+
+#explain
+Hooks are **deterministic code that runs at fixed points in Claude's loop**. The most useful ones:
+
+- **PreToolUse**: before a tool runs. It can **block** a call (exit code 2; the message you print is shown to Claude) or **rewrite** it.
+- **PostToolUse**: after a tool runs: format the file, run a quick check.
+- **Stop**: when Claude wants to end its turn. It can **keep Claude working**, for example while tests still fail.
+- **SessionStart** with the `compact` matcher: re-inject important state right after a compaction.
+
+A clever pattern from the lesson: **redact instead of block**. If a command's output may contain secrets, rewrite or scrub it instead of refusing the whole command, so Claude can keep working without ever seeing the secret.
+~~
+هوک‌ها **کدهای قطعی‌اند که در نقطه‌های مشخصی از چرخهٔ Claude اجرا می‌شوند**. مفیدترین‌هایشان:
+
+- **PreToolUse:** قبل از اجرای ابزار. می‌تواند یک فراخوانی را **بلاک** کند (کد خروج ۲؛ پیامی که چاپ می‌کنی به Claude نشان داده می‌شود) یا آن را **بازنویسی** کند.
+- **PostToolUse:** بعد از اجرای ابزار: فایل را فرمت کن، یک بررسی سریع اجرا کن.
+- **Stop:** وقتی Claude می‌خواهد نوبتش را تمام کند. می‌تواند **Claude را سر کار نگه دارد**؛ مثلاً تا وقتی تست‌ها شکست می‌خورند.
+- **SessionStart** با matcher `compact`: درست بعد از یک فشرده‌سازی، اطلاعات مهم را دوباره تزریق کن.
+
+یک الگوی هوشمندانه از این درس: **به‌جای بلاک کردن، سانسور کن**. اگر خروجی یک دستور ممکن است رمز داشته باشد، به‌جای رد کردن کل دستور، آن را بازنویسی یا پاک‌سازی کن تا Claude بتواند کارش را ادامه بدهد بدون این‌که هیچ‌وقت رمز را ببیند.
+
+#code bash .claude/hooks/block-env.sh (PreToolUse on Edit|Write)
+#!/usr/bin/env bash
+# Reads the tool call as JSON on stdin; exit code 2 blocks it and shows stderr to Claude.
+file=$(jq -r '.tool_input.file_path // empty')
+if [[ "$file" == *".env"* ]]; then
+  echo "Editing .env files is not allowed. Ask the user to change secrets themselves." >&2
+  exit 2
+fi
+exit 0
+#end
+
+#analogy
+Hooks are **automatic gates in a factory line**. A sensor before the press (PreToolUse) stops a misplaced part, a polisher after it (PostToolUse) cleans every piece, and the final inspector (Stop) won't let a box ship until it passes the test.
+~~
+هوک‌ها مثل **دروازه‌های خودکار در خط تولید کارخانه‌اند**. یک حسگر قبل از دستگاه پرس (PreToolUse) قطعهٔ بدجاافتاده را متوقف می‌کند، یک پولیش‌کار بعد از آن (PostToolUse) هر قطعه را تمیز می‌کند و بازرس نهایی (Stop) تا وقتی جعبه از آزمون رد نشده اجازهٔ ارسالش را نمی‌دهد.
+
+#tip
+A **Stop hook that runs your fast tests** turns "Claude says it's done" into "Claude is done when the tests say so". It's one of the highest-value hooks for unsupervised work.
+~~
+یک **هوک Stop که تست‌های سریعت را اجرا می‌کند** جملهٔ «Claude می‌گوید تمام شد» را به «Claude وقتی تمام کرده که تست‌ها بگویند» تبدیل می‌کند. یکی از پربازده‌ترین هوک‌ها برای کار بی‌ناظر است.
+
+#warn
+A Stop hook that can never be satisfied makes Claude loop forever. Give it a clear success condition and a way out (for example, stop blocking after a few attempts and report the failure).
+~~
+هوک Stop که هیچ‌وقت راضی نمی‌شود، Claude را در یک چرخهٔ بی‌پایان گیر می‌اندازد. یک شرط موفقیت روشن و یک راه خروج برایش بگذار (مثلاً بعد از چند تلاش دیگر بلاک نکند و شکست را گزارش بدهد).
+
+@section Automating repeat work | خودکار کردن کارهای تکراری
+
+@lesson
+id: routines-and-headless
+en: Routines and headless mode
+fa: روتین‌ها و حالت headless
+url: https://academy.claude.com/courses/claude-code-in-action/routines-and-headless
+
+#explain
+Two ways to run Claude Code **without sitting in front of it**:
+
+- **Routines** (research preview): a saved bundle of **a prompt, a repository and any connectors**, running on Anthropic's infrastructure. Triggers: a **cron schedule** (recurring schedules run at most hourly), an **HTTP POST**, or a **GitHub event**. Great for "every morning, triage new issues" or "when a PR is labeled, update the docs".
+- **Headless mode**: `claude -p "…"` runs Claude Code as a one-shot command inside your own scripts, CI jobs or cron, and can print JSON for other programs to read.
+
+The lesson's rule of thumb: **start with routines**, and drop to headless only when a job needs more control (your own machines, custom environment, special wiring).
+~~
+دو راه برای اجرای Claude Code **بدون این‌که جلویش بنشینی**:
+
+- **روتین‌ها** (پیش‌نمایش پژوهشی): یک بستهٔ ذخیره‌شده از **یک پرامپت، یک مخزن و کانکتورهای لازم** که روی زیرساخت Anthropic اجرا می‌شود. محرک‌ها: **زمان‌بندی cron** (زمان‌بندی‌های تکرارشونده حداکثر ساعتی یک بار اجرا می‌شوند)، یک **درخواست HTTP POST** یا یک **رویداد گیت‌هاب**. برای کارهایی مثل «هر صبح issueهای تازه را دسته‌بندی کن» یا «وقتی یک PR برچسب خورد، مستندات را به‌روز کن» عالی است.
+- **حالت headless:** `claude -p "…"` Claude Code را به شکل یک دستور یک‌باره داخل اسکریپت‌ها، CI یا cron خودت اجرا می‌کند و می‌تواند خروجی JSON بدهد تا برنامه‌های دیگر بخوانند.
+
+قاعدهٔ سرانگشتی درس: **با روتین‌ها شروع کن** و فقط وقتی کاری کنترل بیشتری لازم دارد (ماشین‌های خودت، محیط سفارشی، اتصال‌های خاص) سراغ headless برو.
+
+#code bash Headless mode in a script
+# one-shot run, machine-readable output, only the tools this job needs
+claude -p "Summarize the changes in the last 10 commits for the release notes" \
+  --output-format json \
+  --allowedTools "Bash(git log:*)" "Bash(git diff:*)" "Read" \
+  > release-notes.json
+#end
+
+#analogy
+A routine is a **dishwasher with a timer**: load it once and it runs every night by itself. Headless mode is a **power tool you attach to your own workbench**: more control, but you install and maintain the bench.
+~~
+روتین مثل **ماشین ظرف‌شویی تایمردار** است: یک بار پرش می‌کنی و هر شب خودش کار می‌کند. حالت headless مثل **ابزار برقی‌ای است که به میز کار خودت وصل می‌کنی**: کنترل بیشتر، ولی میز را خودت نصب و نگهداری می‌کنی.
+
+#tip
+For unattended jobs, always limit the tools (`--allowedTools` or don't-ask mode) to exactly what the job needs. A release-notes job doesn't need permission to push or delete.
+~~
+برای کارهای بی‌ناظر همیشه ابزارها را دقیقاً به همان چیزی که کار لازم دارد محدود کن (`--allowedTools` یا حالت «نپرس»). کار نوشتن یادداشت انتشار به اجازهٔ push یا پاک کردن نیازی ندارد.
+
+#terms
+Routine = روتین = پرامپت + مخزن + کانکتورهای ذخیره‌شده که با زمان‌بندی یا رویداد روی ابر اجرا می‌شود.
+Headless mode = حالت headless = اجرای Claude Code بدون رابط تعاملی، با فلگ -p، داخل اسکریپت‌ها.
+
+@lesson
+id: github-actions-and-code-review
+en: GitHub Actions and Code Review
+fa: گیت‌هاب اکشن و بازبینی کد
+url: https://academy.claude.com/courses/claude-code-in-action/github-actions-and-code-review
+
+#explain
+Two options for bringing Claude into your pull requests:
+
+- **Managed Code Review**: Anthropic's service that reviews pull requests on GitHub and leaves comments. An admin enables it; you don't maintain any workflow files. Choose it when "review every PR" is the goal.
+- **The Claude GitHub Action**: you add a workflow to your repository and control exactly when and how Claude runs: answer `@claude` mentions in comments, implement changes requested in a comment, run scheduled reports, or anything else you can script.
+
+In short: managed review for reviewing; the Action for **jobs beyond review**.
+~~
+دو راه برای آوردن Claude به pull requestها:
+
+- **بازبینی کد مدیریت‌شده (Code Review):** سرویس Anthropic که pull requestهای گیت‌هاب را بازبینی می‌کند و نظر می‌گذارد. ادمین فعالش می‌کند و تو هیچ فایل workflowی نگهداری نمی‌کنی. وقتی هدفت «بازبینی همهٔ PRها» است انتخابش کن.
+- **Claude GitHub Action:** یک workflow به مخزنت اضافه می‌کنی و دقیقاً تعیین می‌کنی Claude کی و چطور اجرا شود: جواب دادن به اشاره‌های `@claude` در نظرها، پیاده کردن تغییری که در یک نظر خواسته شده، گزارش‌های زمان‌بندی‌شده یا هر چیز دیگری که بشود اسکریپتش کرد.
+
+خلاصه: بازبینی مدیریت‌شده برای بازبینی؛ Action برای **کارهای فراتر از بازبینی**.
+
+#code yaml .github/workflows/claude.yml (simplified)
+name: Claude
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  claude:
+    if: contains(github.event.comment.body, '@claude')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+#end
+
+#analogy
+Managed review is hiring a **proofreading service** that checks every letter you send. The Action is **training an assistant in your own office** who can proofread, but also file, reply and run errands, exactly the way you tell them.
+~~
+بازبینی مدیریت‌شده مثل استخدام یک **سرویس ویراستاری** است که هر نامه‌ای که می‌فرستی را چک می‌کند. Action یعنی **آموزش دادن یک دستیار در دفتر خودت** که هم ویراستاری می‌کند و هم بایگانی، جواب دادن و کارهای بیرون را، دقیقاً همان‌طور که تو می‌گویی.
+
+#tip
+Give the Action the **smallest permissions** its job needs, and keep the API key in repository secrets. A comment-triggered job that can push code should only run for trusted collaborators.
+~~
+به Action **کمترین مجوزهایی** را بده که کارش لازم دارد و کلید API را در secrets مخزن نگه دار. کاری که با یک نظر فعال می‌شود و می‌تواند کد push کند، فقط باید برای همکاران مورد اعتماد اجرا شود.
+
+@section Verifying and sharing | سنجیدن و اشتراک‌گذاری
+
+@lesson
+id: trust-it-verifying-unsupervised-runs
+en: "Trust it: verifying unsupervised runs"
+fa: اعتماد کن، ولی بسنج: بررسی اجراهای بی‌ناظر
+url: https://academy.claude.com/courses/claude-code-in-action
+
+#explain
+The core idea: **verify in proportion to how little you watched.** If you watched every step, a quick look at the diff may be enough. If Claude worked alone for an hour overnight, you need stronger evidence before merging.
+
+Evidence, from light to strong:
+
+- the final **summary** (useful, but it's Claude's own account),
+- the **diff**: read what actually changed, especially deletions and config files,
+- **tests and CI** results that ran on the real change,
+- the **transcript/logs**: what commands ran, what failed and was retried,
+- an **independent review** in a fresh context (a reviewer subagent, `/code-review`, or a teammate).
+
+Build verification into the run itself (verification skill + Stop hook + CI), so checking afterwards is mostly confirming, not discovering.
+~~
+ایدهٔ اصلی: **به اندازهٔ کمیِ نظارتت، بسنج.** اگر تک‌تک قدم‌ها را دیده‌ای، یک نگاه سریع به diff شاید کافی باشد. اگر Claude یک ساعت تنها و شبانه کار کرده، قبل از merge کردن مدرک محکم‌تری لازم داری.
+
+مدرک‌ها، از سبک تا محکم:
+
+- **خلاصهٔ** نهایی (مفید است، ولی روایت خود Claude است)،
+- **diff**: بخوان واقعاً چه تغییر کرده، به‌خصوص پاک‌شده‌ها و فایل‌های تنظیمات،
+- نتیجهٔ **تست‌ها و CI** که روی همین تغییر واقعی اجرا شده،
+- **رونوشت جلسه/لاگ‌ها**: چه دستورهایی اجرا شد، چه چیزی شکست خورد و دوباره تلاش شد،
+- یک **بازبینی مستقل** در کانتکست تازه (یک ساب‌ایجنت بازبین، `/code-review` یا یک هم‌تیمی).
+
+راستی‌آزمایی را داخل خود اجرا بگذار (اسکیل راستی‌آزمایی + هوک Stop + CI) تا بررسی بعدی بیشتر «تأیید کردن» باشد تا «کشف کردن».
+
+#analogy
+When a babysitter watched your kids for an evening, a quick "all good?" is fine. When they looked after the house for a whole week, you also check the fridge, the plants and the mailbox. Same babysitter, **different amount of evidence**.
+~~
+وقتی پرستار یک شب مراقب بچه‌ها بوده، یک «همه‌چیز خوب بود؟» کافی است. وقتی یک هفتهٔ کامل مراقب خانه بوده، یخچال و گلدان‌ها و صندوق نامه را هم چک می‌کنی. همان پرستار، **مقدار متفاوتی از مدرک**.
+
+#tip
+Be suspicious of a summary that says "all tests pass" but doesn't show the test output. Ask for the evidence, or better, let CI produce it independently.
+~~
+به خلاصه‌ای که می‌گوید «همهٔ تست‌ها پاس شدند» ولی خروجی تست را نشان نمی‌دهد مشکوک باش. مدرک بخواه یا بهتر از آن، بگذار CI مستقل تولیدش کند.
+
+@lesson
+id: plugins
+en: Plugins
+fa: پلاگین‌ها
+url: https://academy.claude.com/courses/claude-code-in-action/plugins
+
+#explain
+Once your setup works (skills, subagents, hooks, MCP servers, slash commands), **package it as a plugin** so others can install the whole thing in one step. A plugin is a folder with a manifest that bundles these pieces. Teams publish plugins in a **marketplace** (often just a Git repository), and people install them from inside Claude Code.
+
+Plugins spread good practice fast: a new teammate installs "our-team-setup" and immediately gets the same verification skill, the same hooks and the same review agent as everyone else.
+~~
+وقتی تنظیماتت جواب داد (اسکیل‌ها، ساب‌ایجنت‌ها، هوک‌ها، سرورهای MCP، دستورهای اسلشی)، **آن را به شکل یک پلاگین بسته‌بندی کن** تا بقیه بتوانند کل مجموعه را با یک قدم نصب کنند. پلاگین پوشه‌ای با یک فایل معرفی (manifest) است که این تکه‌ها را با هم بسته‌بندی می‌کند. تیم‌ها پلاگین‌ها را در یک **بازارچه** منتشر می‌کنند (اغلب فقط یک مخزن Git) و افراد از داخل Claude Code نصبشان می‌کنند.
+
+پلاگین‌ها روش‌های خوب را سریع پخش می‌کنند: یک هم‌تیمی تازه «our-team-setup» را نصب می‌کند و بلافاصله همان اسکیل راستی‌آزمایی، همان هوک‌ها و همان ایجنت بازبین بقیه را دارد.
+
+#code text Plugin layout (example)
+our-team-setup/
+├── .claude-plugin/plugin.json   # name, version, description
+├── skills/verify/SKILL.md
+├── agents/reviewer.md
+├── hooks/hooks.json
+└── .mcp.json
+#end
+
+#code text Installing from inside Claude Code
+/plugin marketplace add our-org/claude-plugins
+/plugin install our-team-setup@our-org
+#end
+
+#analogy
+A plugin is a **starter kit** for a new hire: laptop, keys, badge and handbook in one box, instead of ten separate trips to ten departments.
+~~
+پلاگین مثل **کیت شروع کار** برای یک نیروی تازه است: لپ‌تاپ، کلید، کارت شناسایی و دفترچهٔ راهنما در یک جعبه، به‌جای ده رفت‌وآمد جدا به ده واحد مختلف.
+
+#warn
+**Plugin hooks run with your privileges and fire alongside your own hooks.** Read a plugin before you install it, exactly as you would read a script from the internet before running it.
+~~
+**هوک‌های پلاگین با دسترسی‌های خود تو اجرا می‌شوند و کنار هوک‌های خودت فعال می‌شوند.** قبل از نصب یک پلاگین بخوانش؛ درست همان‌طور که قبل از اجرای اسکریپتی از اینترنت آن را می‌خوانی.
+
+#terms
+Plugin = پلاگین = بسته‌ای قابل‌نصب از اسکیل‌ها، ساب‌ایجنت‌ها، هوک‌ها، سرورهای MCP و دستورها.
+Marketplace = بازارچه = فهرستی (اغلب یک مخزن Git) که پلاگین‌ها از آن نصب می‌شوند.
+
+@cheatsheet
+- Long sessions: **plan first** · `/compact <what to keep>` · **Esc Esc = rewind** · goals with checks · **worktrees** for parallel work.
+- CLAUDE.md: short, every-session facts, reasons included. Hard rules → hooks. Occasional procedures → skills.
+- Verification skill = tests + lint + diff review + honest report of what wasn't checked.
+- Modes: ask · accept edits · plan · **auto (+ Stop hook running tests)** · **don't ask (unattended)** · bypass (isolated VM only).
+- Hooks: PreToolUse (block/rewrite, exit 2) · PostToolUse · Stop · SessionStart(compact). Redact instead of block.
+- **Routines** (cron / HTTP / GitHub event, cloud) first; **headless `claude -p`** for more control.
+- Managed Code Review for PR review; GitHub Action for jobs beyond review.
+- Verify in proportion to how little you watched.
+- Plugins share a whole setup; read them first: their hooks run as you.
+~~
+- جلسهٔ طولانی: **اول برنامه** · `/compact <چه بماند>` · **Esc Esc = برگرداندن** · هدف همراه با روش سنجش · **worktree** برای کار موازی.
+- CLAUDE.md: کوتاه، دانسته‌های لازم در هر جلسه، همراه با دلیل. قانون سخت ← هوک. روش گاه‌به‌گاه ← اسکیل.
+- اسکیل راستی‌آزمایی = تست + lint + مرور diff + گزارش صادقانه از چیزهای سنجیده‌نشده.
+- حالت‌ها: پرسیدن · پذیرش ویرایش · برنامه‌ریزی · **خودکار (+ هوک Stop با تست)** · **نپرس (بی‌ناظر)** · bypass (فقط در ماشین ایزوله).
+- هوک‌ها: PreToolUse (بلاک/بازنویسی، خروج ۲) · PostToolUse · Stop · SessionStart(compact). سانسور به‌جای بلاک.
+- اول **روتین** (cron / HTTP / رویداد گیت‌هاب، روی ابر)؛ برای کنترل بیشتر **`claude -p`**.
+- بازبینی مدیریت‌شده برای PR؛ گیت‌هاب اکشن برای کارهای فراتر از بازبینی.
+- به اندازهٔ کمیِ نظارتت بسنج.
+- پلاگین کل تنظیمات را به اشتراک می‌گذارد؛ قبل از نصب بخوانش: هوک‌هایش با دسترسی تو اجرا می‌شوند.
+
+@quiz
+Q: Auto mode's classifier approved every action, yet the code is broken. Why, and what's the fix? || طبقه‌بند حالت خودکار همهٔ کارها را تأیید کرده، ولی کد خراب است. چرا و راه‌حل چیست؟
+A: The classifier checks intent and risk, not correctness. Pair auto mode with a Stop hook (or verification skill/CI) that runs the tests. || طبقه‌بند نیت و ریسک را می‌سنجد، نه درستی را. حالت خودکار را با یک هوک Stop (یا اسکیل راستی‌آزمایی/CI) که تست‌ها را اجرا می‌کند جفت کن.
+Q: Which permission mode fits an overnight CI job? || کدام حالت مجوز برای یک کار شبانهٔ CI مناسب است؟
+A: Don't-ask mode with pre-approved tools only; bypass only inside an isolated container or VM. || حالت «نپرس» فقط با ابزارهای از پیش تأییدشده؛ bypass فقط داخل یک کانتینر یا ماشین مجازی ایزوله.
+Q: How do you run two Claude sessions on two features without conflicts? || چطور دو جلسهٔ Claude را روی دو قابلیت بدون تداخل اجرا کنیم؟
+A: Give each its own git worktree (its own copy of the files on its own branch). || به هر کدام یک git worktree جدا بده (نسخهٔ خودش از فایل‌ها روی شاخهٔ خودش).
+Q: Why might adding more lines to CLAUDE.md make Claude follow it less? || چرا اضافه کردن خط‌های بیشتر به CLAUDE.md ممکن است باعث شود Claude کمتر رعایتش کند؟
+A: Every line competes for attention; a longer file competes with itself. Keep it short and move hard rules to hooks. || چون هر خط بر سر توجه رقابت می‌کند و فایل بلندتر با خودش رقابت می‌کند. کوتاه نگهش دار و قانون‌های سخت را به هوک ببر.
+Q: Routines or headless mode: which should you try first? || روتین یا حالت headless: اول کدام را امتحان کنیم؟
+A: Routines; drop to headless `claude -p` only when the job needs more control. || روتین؛ فقط وقتی کار کنترل بیشتری لازم دارد سراغ `claude -p` برو.

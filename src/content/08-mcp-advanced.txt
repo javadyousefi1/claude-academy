@@ -1,0 +1,477 @@
+@page
+slug: model-context-protocol-advanced-topics
+kind: course
+group: products
+order: 3
+en: "Model Context Protocol: Advanced topics"
+fa: MCP پیشرفته؛ sampling، اعلان‌ها، roots و روش‌های انتقال
+stats: 11 lessons · 1 quiz · 1.5 hr · badge
+url: https://academy.claude.com/courses/model-context-protocol-advanced-topics
+expect: 11
+who_en: Engineers building production MCP servers who know MCP basics and async programming.
+who_fa: مهندس‌هایی که سرور MCP جدی می‌سازند و مبانی MCP و برنامه‌نویسی async را بلدند.
+blurb_fa: sampling (سپردن هزینهٔ مدل به کلاینت)، اعلان لاگ و پیشرفت، roots برای دسترسی امن به فایل، پیام‌های JSON-RPC، انتقال stdio و StreamableHTTP و معاملهٔ قابلیت در برابر مقیاس‌پذیری.
+desc_en: Production MCP: sampling, log and progress notifications, roots, JSON-RPC messages, and the STDIO and StreamableHTTP transports.
+
+@intro
+The intro course covered tools, resources and prompts. Production servers need more: servers that can **ask the client's model to think** (sampling), that **report progress** on long jobs, that **only touch the folders they're allowed to** (roots), and that run either as a local process or as a **scalable web service**.
+
+The course has two halves: **core features** (each with a concept lesson and a code walkthrough) and **transports and communication** (what the JSON messages look like and how they travel over STDIO and StreamableHTTP, including when to give up features for scale).
+~~
+دورهٔ مقدماتی ابزارها، منابع و پرامپت‌ها را پوشش داد. سرورهای جدی بیشتر لازم دارند: سرورهایی که بتوانند **از مدلِ کلاینت بخواهند فکر کند** (sampling)، روی کارهای طولانی **پیشرفت گزارش بدهند**، **فقط به پوشه‌هایی که اجازه دارند دست بزنند** (roots) و یا به شکل یک پردازهٔ محلی اجرا شوند یا به شکل یک **سرویس وب مقیاس‌پذیر**.
+
+دوره دو نیمه دارد: **قابلیت‌های اصلی** (هر کدام با یک درس مفهومی و یک مرور کد) و **روش‌های انتقال و ارتباط** (پیام‌های JSON چه شکلی‌اند و چطور از stdio و StreamableHTTP جابه‌جا می‌شوند، از جمله این‌که کی قابلیت‌ها را فدای مقیاس کنیم).
+
+@section Core MCP features | قابلیت‌های اصلی MCP
+
+@lesson
+id: sampling
+en: Sampling
+fa: Sampling؛ وقتی سرور از مدلِ کلاینت کمک می‌گیرد
+url: https://academy.claude.com/courses/model-context-protocol-advanced-topics/sampling
+
+#explain
+Sometimes a **server** needs an LLM in the middle of a tool, for example to summarize a long web page before returning it. The server could call Claude itself, but then it needs its own API key, pays for every user's requests, and handles model access.
+
+**Sampling** flips this: the server sends a **"please generate this" request back to the client**, and the client (which already has a model connection) runs the model and returns the text. So sampling lets you **offload AI costs and model access to the client**. The server stays simple and model-agnostic, and the user's own model and limits are used.
+~~
+گاهی یک **سرور** وسط اجرای یک ابزار به یک مدل زبانی نیاز دارد؛ مثلاً برای خلاصه کردن یک صفحهٔ وب طولانی قبل از برگرداندنش. سرور می‌تواند خودش Claude را صدا بزند، ولی آن‌وقت کلید API خودش را لازم دارد، هزینهٔ درخواست‌های همهٔ کاربرها را می‌پردازد و دسترسی به مدل را هم باید مدیریت کند.
+
+**Sampling** این را برعکس می‌کند: سرور یک درخواست **«لطفاً این را تولید کن» را به کلاینت برمی‌گرداند** و کلاینت (که از قبل به مدل وصل است) مدل را اجرا می‌کند و متن را برمی‌گرداند. پس sampling به تو اجازه می‌دهد **هزینهٔ هوش مصنوعی و دسترسی به مدل را به کلاینت بسپاری**. سرور ساده و مستقل از مدل می‌ماند و از مدل و سهمیهٔ خود کاربر استفاده می‌شود.
+
+#analogy
+A plumber (the server) needs a ladder. Instead of buying and carrying a ladder to every house, they ask the homeowner (the client): "Can I borrow your ladder?" The job gets done with the homeowner's ladder.
+~~
+یک لوله‌کش (سرور) نردبان لازم دارد. به‌جای خریدن و حمل کردن نردبان به هر خانه، از صاحب‌خانه (کلاینت) می‌پرسد: «می‌شود نردبانتان را قرض بگیرم؟» کار با نردبان صاحب‌خانه انجام می‌شود.
+
+#tip
+Sampling is ideal for **public servers** used by many people: you don't want to pay for everyone's tokens or store an API key in your server. Each user's client pays with its own model access.
+~~
+Sampling برای **سرورهای عمومی** که آدم‌های زیادی از آن‌ها استفاده می‌کنند ایده‌آل است: نمی‌خواهی هزینهٔ توکن‌های همه را بدهی یا یک کلید API در سرورت نگه داری. کلاینت هر کاربر با دسترسی مدل خودش هزینه را می‌دهد.
+
+#terms
+Sampling = نمونه‌گیری (sampling) = درخواستی که سرور MCP به کلاینت می‌فرستد تا کلاینت با مدل خودش متنی تولید کند.
+
+@lesson
+id: sampling-walkthrough
+en: Sampling walkthrough
+fa: مرور کد sampling
+url: https://academy.claude.com/courses/model-context-protocol-advanced-topics/sampling-walkthrough
+
+#explain
+Two pieces of code:
+
+- **On the server**, inside a tool, call `ctx.session.create_message(...)` with the messages and a token limit. It waits until the client replies.
+- **On the client**, provide a **sampling callback** when you create the session. It receives the server's request, calls Claude (with your key, your model choice, maybe a human approval step), and returns the result.
+
+The client stays in control: it can choose the model, cap tokens, log the request, or refuse it.
+~~
+دو تکه کد:
+
+- **در سرور**، داخل یک ابزار، `ctx.session.create_message(...)` را با پیام‌ها و سقف توکن صدا بزن. منتظر می‌ماند تا کلاینت جواب بدهد.
+- **در کلاینت**، موقع ساختن session یک **تابع callback برای sampling** بده. درخواست سرور را می‌گیرد، Claude را صدا می‌زند (با کلید تو، انتخاب مدل تو و شاید یک مرحلهٔ تأیید انسانی) و نتیجه را برمی‌گرداند.
+
+کنترل دست کلاینت می‌ماند: می‌تواند مدل را انتخاب کند، سقف توکن بگذارد، درخواست را ثبت کند یا ردش کند.
+
+#code python Server: ask the client's model for a summary
+from mcp.server.fastmcp import FastMCP, Context
+from mcp.types import SamplingMessage, TextContent
+
+mcp = FastMCP("Summarizer")
+
+@mcp.tool()
+async def summarize(text: str, ctx: Context) -> str:
+    result = await ctx.session.create_message(
+        messages=[SamplingMessage(role="user", content=TextContent(type="text", text=f"Summarize in 3 bullets:\n{text}"))],
+        max_tokens=1000,
+    )
+    if result.content.type == "text":
+        return result.content.text
+    raise ValueError("Sampling failed")
+#end
+
+#code python Client: answer sampling requests with Claude
+from mcp.types import CreateMessageRequestParams, CreateMessageResult, TextContent
+
+async def sampling_callback(context, params: CreateMessageRequestParams) -> CreateMessageResult:
+    msgs = [{"role": m.role, "content": m.content.text} for m in params.messages]
+    reply = anthropic_client.messages.create(model="claude-opus-5-5", max_tokens=params.maxTokens, messages=msgs)
+    text = next(b.text for b in reply.content if b.type == "text")
+    return CreateMessageResult(role="assistant", model="claude-opus-5-5", content=TextContent(type="text", text=text))
+
+# async with ClientSession(read, write, sampling_callback=sampling_callback) as session: ...
+#end
+
+#analogy
+It's a **two-way phone line**: usually the client calls the server, but with sampling the server can call back and say "quick question for your model", and the client answers.
+~~
+مثل یک **خط تلفن دوطرفه** است: معمولاً کلاینت به سرور زنگ می‌زند، ولی با sampling سرور هم می‌تواند برگردد زنگ بزند و بگوید «یک سؤال کوتاه از مدلت دارم» و کلاینت جواب بدهد.
+
+#warn
+Sampling needs a connection where the **server can send requests to the client**. As you'll see in the transport lessons, a fully stateless HTTP setup loses this ability.
+~~
+Sampling اتصالی لازم دارد که در آن **سرور بتواند به کلاینت درخواست بفرستد**. همان‌طور که در درس‌های روش انتقال می‌بینی، یک راه‌اندازی HTTP کاملاً بی‌حالت (stateless) این توانایی را از دست می‌دهد.
+
+@lesson
+id: log-and-progress-notifications
+en: Log and progress notifications
+fa: اعلان‌های لاگ و پیشرفت
+url: https://academy.claude.com/courses/model-context-protocol-advanced-topics/log-and-progress-notifications
+
+#explain
+A tool that runs for 30 seconds with no feedback feels broken. MCP lets a server send **notifications** while a tool is still running:
+
+- **Log messages**: "Fetching 12 sources…", "Parsing PDF 3 of 12…".
+- **Progress updates**: a number out of a total (for example 40 of 100), which the client can show as a progress bar.
+
+Notifications are one-way messages: the server doesn't wait for an answer. The client decides how to display them (a status line, a bar, a log panel).
+~~
+ابزاری که ۳۰ ثانیه بدون هیچ بازخوردی کار می‌کند، خراب به نظر می‌رسد. MCP به سرور اجازه می‌دهد وقتی ابزار هنوز در حال اجراست **اعلان** (notification) بفرستد:
+
+- **پیام‌های لاگ:** «در حال آوردن ۱۲ منبع…»، «در حال خواندن PDF شمارهٔ ۳ از ۱۲…».
+- **به‌روزرسانی پیشرفت:** یک عدد از یک کل (مثلاً ۴۰ از ۱۰۰) که کلاینت می‌تواند به شکل نوار پیشرفت نشانش بدهد.
+
+اعلان‌ها پیام‌های یک‌طرفه‌اند: سرور منتظر جواب نمی‌ماند. کلاینت تصمیم می‌گیرد چطور نمایششان بدهد (یک خط وضعیت، یک نوار، یک پنل لاگ).
+
+#analogy
+It's the **delivery tracker** for your online order: "packed", "shipped", "out for delivery". The package isn't there yet, but you know it's coming and roughly when.
+~~
+مثل **ردیاب مرسوله** برای خرید اینترنتی است: «بسته‌بندی شد»، «ارسال شد»، «در مسیر تحویل». بسته هنوز نرسیده، ولی می‌دانی در راه است و تقریباً کی می‌رسد.
+
+#tip
+Progress messages also help **the model's users trust the agent**: a long silent tool call makes people cancel it; a visible "page 7 of 20" makes them wait.
+~~
+پیام‌های پیشرفت به **اعتماد کاربر به ایجنت** هم کمک می‌کنند: فراخوانی طولانی و بی‌صدای یک ابزار باعث می‌شود مردم لغوش کنند؛ یک «صفحهٔ ۷ از ۲۰» قابل‌دیدن باعث می‌شود صبر کنند.
+
+#terms
+Notification = اعلان = پیام یک‌طرفه در MCP که جوابی برایش انتظار نمی‌رود؛ مثل لاگ یا پیشرفت.
+
+@lesson
+id: notifications-walkthrough
+en: Notifications walkthrough
+fa: مرور کد اعلان‌ها
+url: https://academy.claude.com/courses/model-context-protocol-advanced-topics
+
+#explain
+On the **server**, the tool receives a `Context` object: `ctx.info(...)` sends a log message and `ctx.report_progress(done, total)` sends progress. On the **client**, you register a **logging callback** on the session and pass a **progress callback** when calling the tool.
+~~
+در **سرور**، ابزار یک شیء `Context` دریافت می‌کند: `ctx.info(...)` یک پیام لاگ می‌فرستد و `ctx.report_progress(done, total)` پیشرفت را. در **کلاینت**، یک **callback لاگ** روی session ثبت می‌کنی و موقع صدا زدن ابزار یک **callback پیشرفت** می‌دهی.
+
+#code python Server side
+@mcp.tool(name="research")
+async def research(topic: str, ctx: Context) -> str:
+    await ctx.info(f"Starting research on {topic}")
+    sources = find_sources(topic)
+    for i, src in enumerate(sources, 1):
+        read(src)
+        await ctx.report_progress(i, len(sources))
+    await ctx.info("Writing the report")
+    return write_report(sources)
+#end
+
+#code python Client side
+async def on_log(params):
+    print("[server]", params.data)
+
+async def on_progress(progress: float, total: float | None, message: str | None):
+    print(f"progress: {progress}/{total}")
+
+# async with ClientSession(read, write, logging_callback=on_log) as session:
+#     await session.call_tool("research", {"topic": "solar panels"}, progress_callback=on_progress)
+#end
+
+#analogy
+The server is a **cook calling out from the kitchen** ("starters are ready!", "two minutes for the mains"); the client is the **waiter who passes the news to the table** in whatever way fits the restaurant.
+~~
+سرور مثل **آشپزی است که از آشپزخانه صدا می‌زند** («پیش‌غذا آماده است!»، «دو دقیقه تا غذای اصلی») و کلاینت **گارسونی است که خبر را به میز می‌رساند**، به هر شکلی که به آن رستوران می‌خورد.
+
+@lesson
+id: roots
+en: Roots
+fa: Roots؛ مرز دسترسی به فایل‌ها
+url: https://academy.claude.com/courses/model-context-protocol-advanced-topics
+
+#explain
+Imagine a server with a tool that converts video files. Which files may it touch? **Roots** answer that. The **client** tells the server a list of **root** locations (folders, as `file://` URIs) that the user has granted. A well-behaved server:
+
+- asks the client for its roots,
+- checks that every path it reads or writes is **inside one of the roots**,
+- refuses anything outside.
+
+Roots also make tools easier to use: Claude can resolve "convert the video in my Movies folder" because it knows which folders are in play.
+~~
+یک سرور را تصور کن با ابزاری که فایل‌های ویدیویی را تبدیل می‌کند. به کدام فایل‌ها اجازه دارد دست بزند؟ **Roots** جواب این سؤال است. **کلاینت** فهرستی از مکان‌های **ریشه** (پوشه‌ها، به شکل URIهای `file://`) را که کاربر اجازه داده به سرور می‌گوید. یک سرور خوش‌رفتار:
+
+- roots را از کلاینت می‌پرسد،
+- چک می‌کند هر مسیری که می‌خواند یا می‌نویسد **داخل یکی از roots** باشد،
+- هر چیز بیرون از آن‌ها را رد می‌کند.
+
+Roots استفاده از ابزارها را هم آسان‌تر می‌کند: Claude می‌تواند «ویدیوی پوشهٔ Movies من را تبدیل کن» را بفهمد چون می‌داند کدام پوشه‌ها در بازی‌اند.
+
+#analogy
+Roots are the **rooms you show a house-sitter**: "you can use the kitchen and the living room." A good house-sitter doesn't open the bedroom, even if the door isn't locked.
+~~
+Roots مثل **اتاق‌هایی است که به نگهبان خانه نشان می‌دهی**: «از آشپزخانه و پذیرایی می‌توانی استفاده کنی.» یک نگهبان خوب در اتاق خواب را باز نمی‌کند، حتی اگر قفل نباشد.
+
+#warn
+Roots are a **contract**, not a sandbox. The protocol tells the server the boundaries; the server's own code must enforce them (resolve the real path, including symlinks and `..`, before checking).
+~~
+Roots یک **قرارداد** است، نه یک محیط ایزوله. پروتکل مرزها را به سرور می‌گوید؛ کد خود سرور باید رعایتشان کند (قبل از چک کردن، مسیر واقعی را با در نظر گرفتن symlinkها و `..` حل کند).
+
+#terms
+Root = ریشه (root) = پوشه‌ای که کلاینت به سرور اعلام می‌کند و سرور فقط اجازهٔ کار در آن را دارد.
+
+@lesson
+id: roots-walkthrough
+en: Roots walkthrough
+fa: مرور کد roots
+url: https://academy.claude.com/courses/model-context-protocol-advanced-topics
+
+#explain
+The client supplies roots through a **list-roots callback**. The server calls `ctx.session.list_roots()` inside a tool and verifies the requested path against them before doing anything.
+~~
+کلاینت roots را از طریق یک **callback فهرست roots** فراهم می‌کند. سرور داخل ابزار `ctx.session.list_roots()` را صدا می‌زند و قبل از هر کاری، مسیر درخواستی را با آن‌ها می‌سنجد.
+
+#code python Client: declare the allowed folders
+from mcp.types import ListRootsResult, Root
+from pydantic import FileUrl
+
+async def list_roots_callback(context) -> ListRootsResult:
+    return ListRootsResult(roots=[Root(uri=FileUrl("file:///Users/sara/Movies"), name="Movies")])
+
+# async with ClientSession(read, write, list_roots_callback=list_roots_callback) as session: ...
+#end
+
+#code python Server: refuse paths outside the roots
+from pathlib import Path
+from urllib.parse import urlparse
+
+async def is_allowed(path: str, ctx: Context) -> bool:
+    target = Path(path).resolve()                      # resolves .. and symlinks
+    roots = (await ctx.session.list_roots()).roots
+    for root in roots:
+        base = Path(urlparse(str(root.uri)).path).resolve()
+        if target == base or base in target.parents:
+            return True
+    return False
+
+@mcp.tool()
+async def convert_video(path: str, ctx: Context) -> str:
+    if not await is_allowed(path, ctx):
+        raise ValueError(f"{path} is outside the folders you shared with this server.")
+    ...
+#end
+
+#analogy
+It's the **guest list at the door**: the client hands over the list, and the bouncer (server code) checks every name before letting anyone in.
+~~
+مثل **فهرست مهمان‌ها دمِ در** است: کلاینت فهرست را می‌دهد و نگهبان (کد سرور) قبل از راه دادن هر کسی، اسمش را چک می‌کند.
+
+@section Transports and communication | روش‌های انتقال و ارتباط
+
+@lesson
+id: json-message-types
+en: JSON message types
+fa: انواع پیام‌های JSON
+url: https://academy.claude.com/courses/model-context-protocol-advanced-topics/json-message-types
+
+#explain
+Under the hood, every MCP message is **JSON-RPC 2.0**. There are two families:
+
+- **Requests** have an `id` and expect a **result** (or an error) with the same `id`: `tools/list`, `tools/call`, `resources/read`, `prompts/get`, and from server to client `sampling/createMessage` or `roots/list`.
+- **Notifications** have **no `id`** and expect no answer: progress, log messages, "initialized", "list changed".
+
+Messages flow **both ways**: client → server (call a tool) and server → client (ask for sampling, send progress). This bidirectional nature is exactly what transports must support.
+~~
+پشت صحنه، هر پیام MCP از نوع **JSON-RPC 2.0** است. دو خانواده دارند:
+
+- **درخواست‌ها** یک `id` دارند و منتظر یک **نتیجه** (یا خطا) با همان `id` هستند: `tools/list`، `tools/call`، `resources/read`، `prompts/get` و از سرور به کلاینت `sampling/createMessage` یا `roots/list`.
+- **اعلان‌ها** **هیچ `id`ای ندارند** و منتظر جواب نیستند: پیشرفت، پیام لاگ، «initialized»، «فهرست تغییر کرد».
+
+پیام‌ها **دوطرفه** جریان دارند: از کلاینت به سرور (صدا زدن ابزار) و از سرور به کلاینت (درخواست sampling، فرستادن پیشرفت). همین دوطرفه بودن دقیقاً چیزی است که روش‌های انتقال باید پشتیبانی کنند.
+
+#code json A request, its result, and a notification
+{"jsonrpc": "2.0", "id": 7, "method": "tools/call",
+ "params": {"name": "read_doc_contents", "arguments": {"doc_id": "menu.md"}}}
+
+{"jsonrpc": "2.0", "id": 7,
+ "result": {"content": [{"type": "text", "text": "Cafe menu: tea, saffron cake, baklava."}]}}
+
+{"jsonrpc": "2.0", "method": "notifications/progress",
+ "params": {"progressToken": "job-42", "progress": 40, "total": 100}}
+#end
+
+#analogy
+A request is a **registered letter** with a tracking number: you expect a reply that quotes the same number. A notification is a **postcard**: you send it and don't wait for an answer.
+~~
+درخواست مثل **نامهٔ سفارشی** با شمارهٔ پیگیری است: منتظر جوابی هستی که همان شماره را داشته باشد. اعلان مثل **کارت‌پستال** است: می‌فرستی و منتظر جواب نمی‌مانی.
+
+#terms
+JSON-RPC = JSON-RPC = قالب استاندارد پیام برای صدا زدن تابع‌ها از راه دور با JSON؛ MCP روی آن ساخته شده.
+Request vs notification = درخواست در برابر اعلان = درخواست id دارد و جواب می‌خواهد؛ اعلان id ندارد و جواب نمی‌خواهد.
+
+@lesson
+id: the-stdio-transport
+en: The STDIO transport
+fa: انتقال STDIO
+url: https://academy.claude.com/courses/model-context-protocol-advanced-topics/the-stdio-transport
+
+#explain
+With **STDIO**, the client **starts the server as a child process** on the same machine and they talk through the process's standard input and output: each JSON message is written as a line to stdin, and replies come back on stdout. It's simple, fast and naturally two-way, which makes it perfect for **local development and desktop tools**.
+
+Every connection starts with a **handshake**: the client sends an `initialize` request, the server replies with its capabilities, and the client sends an `initialized` notification. Only then do normal requests begin.
+~~
+در **STDIO**، کلاینت **سرور را به شکل یک پردازهٔ فرزند** روی همان ماشین اجرا می‌کند و از طریق ورودی و خروجی استاندارد آن پردازه با هم حرف می‌زنند: هر پیام JSON به شکل یک خط در stdin نوشته می‌شود و جواب‌ها از stdout برمی‌گردند. ساده، سریع و ذاتاً دوطرفه است؛ همین آن را برای **توسعهٔ محلی و ابزارهای دسکتاپ** عالی می‌کند.
+
+هر اتصال با یک **دست‌دادن** (handshake) شروع می‌شود: کلاینت درخواست `initialize` را می‌فرستد، سرور با قابلیت‌هایش جواب می‌دهد و کلاینت اعلان `initialized` را می‌فرستد. فقط بعد از این، درخواست‌های معمولی شروع می‌شوند.
+
+#analogy
+STDIO is **two people passing notes across the same desk**: instant and private, but both must sit at the same desk (the same machine).
+~~
+STDIO مثل **دو نفر است که روی یک میز برای هم یادداشت ردوبدل می‌کنند**: فوری و خصوصی، ولی هر دو باید پشت همان میز (همان ماشین) بنشینند.
+
+#warn
+With STDIO, **never print debug text to stdout** in your server: stdout is the message channel, and a stray print corrupts the protocol. Log to stderr instead.
+~~
+در STDIO هیچ‌وقت در سرورت **متن دیباگ را در stdout چاپ نکن**: stdout کانال پیام‌هاست و یک print سرگردان پروتکل را خراب می‌کند. به‌جایش در stderr لاگ کن.
+
+@lesson
+id: the-streamablehttp-transport
+en: The StreamableHTTP transport
+fa: انتقال StreamableHTTP
+url: https://academy.claude.com/courses/model-context-protocol-advanced-topics
+
+#explain
+To offer a server **over the internet**, use **StreamableHTTP**. The client sends each message as an **HTTP POST** to one endpoint (for example `/mcp`). The server can answer with plain JSON, or open a **Server-Sent Events (SSE)** stream to send several messages back, such as progress notifications followed by the final result.
+
+HTTP is naturally "client asks, server answers". To let the server *start* messages (sampling requests, notifications), the client can also open a long-lived **GET** connection that the server uses as an SSE channel. A **session id** header ties all these requests to the same client.
+~~
+برای ارائهٔ یک سرور **روی اینترنت**، از **StreamableHTTP** استفاده کن. کلاینت هر پیام را به شکل یک **درخواست HTTP POST** به یک endpoint می‌فرستد (مثلاً `/mcp`). سرور می‌تواند با JSON ساده جواب بدهد، یا یک جریان **Server-Sent Events (SSE)** باز کند تا چند پیام برگرداند؛ مثلاً چند اعلان پیشرفت و بعد نتیجهٔ نهایی.
+
+HTTP ذاتاً «کلاینت می‌پرسد، سرور جواب می‌دهد» است. برای این‌که سرور هم بتواند پیام *شروع* کند (درخواست sampling، اعلان‌ها)، کلاینت می‌تواند یک اتصال **GET** طولانی هم باز کند که سرور از آن به‌عنوان کانال SSE استفاده کند. یک هدر **شناسهٔ جلسه** (session id) همهٔ این درخواست‌ها را به همان کلاینت گره می‌زند.
+
+#code python Running a server over StreamableHTTP
+mcp = FastMCP("DocumentMCP")
+# ... tools, resources, prompts ...
+if __name__ == "__main__":
+    mcp.run(transport="streamable-http")   # serves the MCP endpoint over HTTP
+#end
+
+#analogy
+STDIO is passing notes at one desk. StreamableHTTP is **a call center**: customers call in (POST), the agent can stay on the line and give updates (SSE), and a customer number (session id) makes sure the right history is on screen.
+~~
+STDIO ردوبدل یادداشت روی یک میز است. StreamableHTTP مثل **یک مرکز تماس** است: مشتری‌ها زنگ می‌زنند (POST)، اپراتور می‌تواند پشت خط بماند و خبر بدهد (SSE) و یک شمارهٔ مشتری (شناسهٔ جلسه) مطمئن می‌شود تاریخچهٔ درست روی صفحه است.
+
+#terms
+SSE (Server-Sent Events) = رویدادهای ارسالی از سرور = روشی در HTTP که سرور با آن می‌تواند پشت سر هم پیام به کلاینت بفرستد.
+Session id = شناسهٔ جلسه = مقداری در هدر که درخواست‌های مختلف یک کلاینت را به هم وصل می‌کند.
+
+@lesson
+id: streamablehttp-in-depth
+en: StreamableHTTP in depth
+fa: StreamableHTTP با جزئیات
+url: https://academy.claude.com/courses/model-context-protocol-advanced-topics
+
+#explain
+Putting the pieces together, a StreamableHTTP conversation looks like this:
+
+1. **Initialize**: the client POSTs `initialize`; the server replies and assigns a **session id** in a response header.
+2. **Standalone stream** (optional): the client opens a GET request with that session id; the server keeps it open as an SSE channel for **server-initiated** messages (sampling requests, roots requests, notifications).
+3. **Requests**: each client request is a new POST with the session id. For a quick tool, the reply is one JSON result. For a long tool, the server may answer with an SSE stream: progress notifications, then the result.
+4. **Responses to the server**: when the server asked something (for example a sampling request), the client POSTs its answer back.
+
+The cost of all this flexibility: the server must **remember sessions** and keep connections open, which matters when you run many server instances.
+~~
+اگر تکه‌ها را کنار هم بگذاریم، یک گفت‌وگو با StreamableHTTP این شکلی است:
+
+1. **شروع:** کلاینت `initialize` را POST می‌کند؛ سرور جواب می‌دهد و در هدر جواب یک **شناسهٔ جلسه** تعیین می‌کند.
+2. **جریان مستقل** (اختیاری): کلاینت با همان شناسه یک درخواست GET باز می‌کند؛ سرور آن را به‌عنوان کانال SSE برای پیام‌هایی که **خودش شروع می‌کند** باز نگه می‌دارد (درخواست sampling، درخواست roots، اعلان‌ها).
+3. **درخواست‌ها:** هر درخواست کلاینت یک POST تازه همراه با شناسهٔ جلسه است. برای یک ابزار سریع، جواب یک نتیجهٔ JSON است. برای یک ابزار طولانی، سرور ممکن است با یک جریان SSE جواب بدهد: اعلان‌های پیشرفت و بعد نتیجه.
+4. **جواب به سرور:** وقتی سرور چیزی پرسیده (مثلاً یک درخواست sampling)، کلاینت جوابش را دوباره POST می‌کند.
+
+هزینهٔ این همه انعطاف: سرور باید **جلسه‌ها را به خاطر بسپارد** و اتصال‌ها را باز نگه دارد؛ وقتی چند نسخه از سرور را اجرا می‌کنی این موضوع مهم می‌شود.
+
+#analogy
+Like a **restaurant with a table number**: you order at the counter several times (POSTs), the kitchen can call your table number when something is ready (SSE), and the number makes sure everything reaches the same table.
+~~
+مثل **رستورانی با شمارهٔ میز** است: چند بار از پیشخوان سفارش می‌دهی (POST)، آشپزخانه وقتی چیزی آماده شد شمارهٔ میزت را صدا می‌زند (SSE) و همان شماره مطمئن می‌شود همه‌چیز به همان میز برسد.
+
+#tip
+If you put a load balancer in front of a stateful server, configure **sticky sessions** (the same session id always reaches the same instance), or the follow-up requests will land on a server that never met this client.
+~~
+اگر جلوی یک سرور حالت‌دار (stateful) یک load balancer گذاشتی، **sticky session** تنظیم کن (یک شناسهٔ جلسه همیشه به یک نسخهٔ ثابت برسد)، وگرنه درخواست‌های بعدی به سروری می‌رسند که این کلاینت را هرگز ندیده.
+
+@lesson
+id: state-and-the-streamablehttp-transport
+en: State and the StreamableHTTP transport
+fa: حالت (state) و انتقال StreamableHTTP
+url: https://academy.claude.com/courses/model-context-protocol-advanced-topics/state-and-the-streamablehttp-transport
+
+#explain
+To scale a server horizontally (many instances behind a load balancer, no sticky sessions), you can run it **stateless**:
+
+- `stateless_http=True`: no session ids; every request stands alone, so any instance can answer it.
+- `json_response=True`: plain JSON replies instead of SSE streams.
+
+The trade-off: without sessions and streams the server **can't start messages to the client**, so you lose **sampling**, **progress and log notifications**, **roots requests** and other server-initiated features. Simple tools (request in, result out) keep working perfectly.
+
+The decision rule: if your tools are simple and you need massive scale, go stateless. If you need sampling or live progress, keep sessions (and make your infrastructure route them correctly).
+~~
+برای مقیاس دادن افقی به یک سرور (چندین نسخه پشت یک load balancer، بدون sticky session) می‌توانی آن را **بی‌حالت** (stateless) اجرا کنی:
+
+- `stateless_http=True`: شناسهٔ جلسه‌ای در کار نیست؛ هر درخواست مستقل است و هر نسخه‌ای می‌تواند جوابش را بدهد.
+- `json_response=True`: جواب‌ها JSON ساده‌اند، به‌جای جریان‌های SSE.
+
+بهایش: بدون جلسه و جریان، سرور **نمی‌تواند خودش به کلاینت پیام بدهد**؛ پس **sampling**، **اعلان‌های پیشرفت و لاگ**، **درخواست roots** و قابلیت‌های دیگری که سرور شروع‌شان می‌کند را از دست می‌دهی. ابزارهای ساده (درخواست می‌آید، نتیجه می‌رود) کاملاً درست کار می‌کنند.
+
+قانون تصمیم: اگر ابزارهایت ساده‌اند و مقیاس خیلی بزرگ لازم داری، بی‌حالت برو. اگر sampling یا پیشرفت زنده لازم داری، جلسه‌ها را نگه دار (و زیرساختت را طوری تنظیم کن که آن‌ها را درست مسیریابی کند).
+
+#code python Stateless, JSON-only server for horizontal scaling
+mcp = FastMCP("DocumentMCP", stateless_http=True, json_response=True)
+# good for: simple request -> result tools behind a load balancer
+# lost:     sampling, progress/log notifications, roots, other server -> client messages
+mcp.run(transport="streamable-http")
+#end
+
+#analogy
+A **vending machine** is stateless: any machine in the hall gives you the same snack, no memory needed, and you can add a hundred machines. But a vending machine can't call you later to say "your order is half ready". A **personal waiter** can, but you can't swap waiters mid-meal.
+~~
+یک **دستگاه فروش خودکار** بی‌حالت است: هر دستگاهی در سالن همان خوراکی را می‌دهد، حافظه لازم نیست و می‌توانی صد دستگاه دیگر اضافه کنی. ولی دستگاه فروش نمی‌تواند بعداً صدایت کند و بگوید «سفارشت نصفه آماده است». یک **گارسون شخصی** می‌تواند، ولی وسط غذا نمی‌شود گارسون را عوض کرد.
+
+#tip
+Design tools so they **don't depend on server-initiated messages** unless they truly need them. Then you keep the freedom to switch to stateless mode later without rewriting anything.
+~~
+ابزارها را طوری طراحی کن که **به پیام‌هایی که سرور شروع می‌کند وابسته نباشند**، مگر واقعاً لازمشان داشته باشند. آن‌وقت این آزادی را داری که بعداً بدون بازنویسی چیزی، به حالت بی‌حالت بروی.
+
+#terms
+Stateless = بی‌حالت = سروری که بین درخواست‌ها چیزی دربارهٔ کلاینت به خاطر نمی‌سپارد.
+Horizontal scaling = مقیاس افقی = بالا بردن ظرفیت با اضافه کردن نسخه‌های بیشتر از یک سرور.
+
+@cheatsheet
+- **Sampling**: server asks the client's model to generate (offloads model cost and keys to the client). Server: `ctx.session.create_message`; client: `sampling_callback`.
+- **Notifications**: `ctx.info(...)`, `ctx.report_progress(i, total)`; client: `logging_callback`, `progress_callback`.
+- **Roots**: client declares allowed folders; server checks every path (resolve first!) and refuses the rest.
+- Messages are **JSON-RPC 2.0**: requests have an `id` and expect a result; notifications have no `id`. Both directions.
+- **STDIO**: local child process, stdin/stdout, handshake initialize → result → initialized. Never print to stdout.
+- **StreamableHTTP**: POST per message, optional SSE responses, GET for a server→client stream, session id header.
+- **Stateless** (`stateless_http=True`, `json_response=True`) scales easily but loses sampling, notifications and roots.
+~~
+- **Sampling**: سرور از مدلِ کلاینت می‌خواهد تولید کند (هزینه و کلید مدل به کلاینت سپرده می‌شود). سرور: `ctx.session.create_message`؛ کلاینت: `sampling_callback`.
+- **اعلان‌ها**: `ctx.info(...)`، `ctx.report_progress(i, total)`؛ کلاینت: `logging_callback`، `progress_callback`.
+- **Roots**: کلاینت پوشه‌های مجاز را اعلام می‌کند؛ سرور هر مسیر را می‌سنجد (اول مسیر واقعی را حل کن!) و بقیه را رد می‌کند.
+- پیام‌ها **JSON-RPC 2.0** هستند: درخواست‌ها `id` دارند و نتیجه می‌خواهند؛ اعلان‌ها `id` ندارند. در هر دو جهت.
+- **STDIO**: پردازهٔ فرزند محلی، stdin/stdout، دست‌دادن initialize ← نتیجه ← initialized. هرگز در stdout چاپ نکن.
+- **StreamableHTTP**: یک POST برای هر پیام، جواب SSE در صورت نیاز، GET برای جریان سرور ← کلاینت، هدر شناسهٔ جلسه.
+- **بی‌حالت** (`stateless_http=True`، `json_response=True`) راحت مقیاس می‌گیرد ولی sampling، اعلان‌ها و roots را از دست می‌دهد.
+
+@quiz
+Q: Why would a public MCP server use sampling instead of calling Claude itself? || چرا یک سرور عمومی MCP به‌جای صدا زدن مستقیم Claude از sampling استفاده می‌کند؟
+A: So the client's own model access pays for generation: the server needs no API key and doesn't pay for every user's tokens. || تا تولید متن با دسترسی مدلِ خود کلاینت انجام و پرداخت شود: سرور کلید API لازم ندارد و هزینهٔ توکن همهٔ کاربرها را نمی‌دهد.
+Q: How do you tell a JSON-RPC request from a notification? || درخواست JSON-RPC را از اعلان چطور تشخیص می‌دهیم؟
+A: A request has an id and expects a result with the same id; a notification has no id and gets no reply. || درخواست id دارد و منتظر نتیجه‌ای با همان id است؛ اعلان id ندارد و جوابی نمی‌گیرد.
+Q: Your STDIO server breaks randomly after you added debug prints. Why? || سرور STDIO تو بعد از اضافه کردن printهای دیباگ گاهی خراب می‌شود. چرا؟
+A: stdout carries protocol messages, so stray prints corrupt them; log to stderr instead. || چون stdout پیام‌های پروتکل را حمل می‌کند و printهای اضافه خرابشان می‌کنند؛ در stderr لاگ کن.
+Q: What do you lose by running a server with stateless_http=True? || با اجرای سرور با stateless_http=True چه چیزهایی را از دست می‌دهی؟
+A: Server-initiated features: sampling, progress/log notifications, roots requests. Simple request/response tools still work. || قابلیت‌هایی که سرور شروع می‌کند: sampling، اعلان‌های پیشرفت و لاگ، درخواست roots. ابزارهای ساده هنوز کار می‌کنند.
+Q: Who must actually enforce roots? || چه کسی واقعاً باید roots را اجرا کند؟
+A: The server's own code: roots tell it the allowed folders, but it must check every resolved path itself. || کد خود سرور: roots پوشه‌های مجاز را می‌گوید، ولی سرور باید خودش هر مسیر حل‌شده را بسنجد.

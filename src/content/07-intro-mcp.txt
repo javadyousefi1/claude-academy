@@ -1,0 +1,475 @@
+@page
+slug: introduction-to-model-context-protocol
+kind: course
+group: products
+order: 2
+en: Introduction to Model Context Protocol
+fa: آشنایی با پروتکل MCP؛ ساختن سرور و کلاینت از صفر
+stats: 10 lessons · 1 quiz · 1 hr · badge
+url: https://academy.claude.com/courses/introduction-to-model-context-protocol
+expect: 10
+who_en: Engineers with basic Python, async/await and API familiarity.
+who_fa: مهندس‌هایی که پایتون پایه، async/await و کار با API را بلدند.
+blurb_fa: MCP چیست، کلاینت چیست، تعریف ابزار، بازرس سرور، پیاده‌سازی کلاینت، منابع (resources) و پرامپت‌ها، با یک پروژهٔ عملی مدیریت اسناد.
+desc_en: Build MCP servers and clients from scratch with the Python SDK: tools, resources and prompts, through a document-manager project.
+
+@intro
+The **Model Context Protocol (MCP)** is an open standard that lets an AI application plug into tools and data in a uniform way. Instead of writing custom integration code for every service, a service publishes an **MCP server**, and any **MCP client** (Claude apps, Claude Code, your own app) can use it.
+
+In this course you build both sides with the official Python SDK, through one hands-on project: a small **document manager** where Claude can read and edit documents, where your app can list and fetch them, and where users can run ready-made prompts like "reformat this doc in Markdown". Along the way you meet MCP's three building blocks: **tools, resources and prompts**.
+~~
+**پروتکل MCP** (Model Context Protocol) یک استاندارد باز است که به یک اپ هوش مصنوعی اجازه می‌دهد به شکلی یکسان به ابزارها و داده‌ها وصل شود. به‌جای نوشتن کد اتصال اختصاصی برای هر سرویس، هر سرویس یک **سرور MCP** منتشر می‌کند و هر **کلاینت MCP** (اپ‌های Claude، Claude Code، اپ خودت) می‌تواند از آن استفاده کند.
+
+در این دوره هر دو طرف را با SDK رسمی پایتون می‌سازی، آن هم در قالب یک پروژهٔ عملی: یک **مدیر اسناد** کوچک که در آن Claude می‌تواند سندها را بخواند و ویرایش کند، اپ تو می‌تواند فهرستشان را بگیرد و محتوایشان را بیاورد و کاربرها می‌توانند پرامپت‌های آماده‌ای مثل «این سند را به Markdown بازنویسی کن» را اجرا کنند. در این مسیر با سه آجر اصلی MCP آشنا می‌شوی: **ابزارها، منابع و پرامپت‌ها**.
+
+@section Introduction | مقدمه
+
+@lesson
+id: introducing-mcp
+en: Introducing MCP
+fa: معرفی MCP
+url: https://academy.claude.com/courses/introduction-to-model-context-protocol/introducing-mcp
+
+#explain
+Imagine you're building a chat app that should work with GitHub. Without MCP, **you** write and maintain a tool for every GitHub action (list repos, read issues, open PRs…): schemas, functions, error handling, updates when GitHub changes. Multiply that by Slack, Jira, Google Drive…
+
+MCP moves that work into an **MCP server**, usually written and maintained by the people who know the service best. Your app only needs an **MCP client** to connect. MCP is a **communication layer** that gives Claude context and tools without a lot of integration code on your side.
+
+A server can offer three kinds of things:
+
+- **Tools**: actions the model can call (search issues, create a ticket).
+- **Resources**: data your app can read (a list of documents, a file's contents).
+- **Prompts**: ready-made, high-quality prompt templates users can run.
+
+Common confusion: MCP is **not** a replacement for tool use. MCP servers *provide* tool definitions; Claude still uses them through normal tool calling. MCP just changes **who writes and hosts** the tools.
+~~
+فرض کن داری یک اپ گفت‌وگو می‌سازی که باید با گیت‌هاب کار کند. بدون MCP، **خودت** باید برای هر کار گیت‌هاب (فهرست مخزن‌ها، خواندن issueها، باز کردن PR و…) یک ابزار بنویسی و نگهداری کنی: طرح‌واره، تابع، مدیریت خطا و به‌روزرسانی هر بار که گیت‌هاب چیزی را عوض کرد. حالا این را در اسلک، جیرا، گوگل درایو و… ضرب کن.
+
+MCP این کار را به یک **سرور MCP** منتقل می‌کند که معمولاً همان کسانی که سرویس را بهتر از همه می‌شناسند می‌نویسند و نگهداری می‌کنند. اپ تو فقط یک **کلاینت MCP** لازم دارد تا وصل شود. MCP یک **لایهٔ ارتباطی** است که بدون کد اتصال زیاد در سمت تو، به Claude زمینه و ابزار می‌دهد.
+
+یک سرور می‌تواند سه نوع چیز ارائه کند:
+
+- **ابزارها (Tools):** کارهایی که مدل می‌تواند صدا بزند (جست‌وجوی issue، ساختن تیکت).
+- **منابع (Resources):** داده‌ای که اپ تو می‌تواند بخواند (فهرست سندها، محتوای یک فایل).
+- **پرامپت‌ها (Prompts):** قالب‌های آماده و باکیفیت پرامپت که کاربرها می‌توانند اجرا کنند.
+
+یک سوءتفاهم رایج: MCP **جایگزین** tool use نیست. سرورهای MCP تعریف ابزارها را *فراهم می‌کنند*؛ Claude هنوز از طریق همان فراخوانی ابزار معمولی از آن‌ها استفاده می‌کند. MCP فقط عوض می‌کند **چه کسی** ابزارها را می‌نویسد و میزبانی می‌کند.
+
+#analogy
+Before USB, every device had its own special plug. MCP is the **USB of AI tools**: one standard socket, so any app (the laptop) can use any service (the keyboard, the printer) without a custom cable for each.
+~~
+قبل از USB هر دستگاه دوشاخهٔ مخصوص خودش را داشت. MCP مثل **USB ابزارهای هوش مصنوعی** است: یک سوکت استاندارد، تا هر اپ (لپ‌تاپ) بتواند از هر سرویس (کیبورد، پرینتر) استفاده کند بدون کابل اختصاصی برای هر کدام.
+
+#tip
+Before writing your own integration, search for an existing MCP server for that service. Many companies publish official ones, and using them saves you maintenance forever.
+~~
+قبل از نوشتن اتصال اختصاصی، دنبال یک سرور MCP موجود برای آن سرویس بگرد. خیلی از شرکت‌ها نسخهٔ رسمی منتشر کرده‌اند و استفاده از آن، تو را برای همیشه از نگهداری معاف می‌کند.
+
+#terms
+MCP server = سرور MCP = برنامه‌ای که ابزار، منبع یا پرامپت را با استاندارد MCP در اختیار کلاینت‌ها می‌گذارد.
+MCP client = کلاینت MCP = بخشی از اپ تو که به سرورهای MCP وصل می‌شود و با آن‌ها پیام ردوبدل می‌کند.
+
+@lesson
+id: mcp-clients
+en: MCP clients
+fa: کلاینت‌های MCP
+url: https://academy.claude.com/courses/introduction-to-model-context-protocol/mcp-clients
+
+#explain
+The **client** is the bridge between your application and an MCP server. It sends requests and receives results using MCP's message types, for example:
+
+- `ListToolsRequest` → `ListToolsResult` ("what tools do you have?")
+- `CallToolRequest` → `CallToolResult` ("run this tool with these arguments")
+
+MCP is **transport-agnostic**: the same messages can travel over standard input/output (a server running as a local process) or over HTTP (a remote server).
+
+A full round trip in a chat app looks like this:
+
+1. User asks: "What repos do I have?"
+2. Your app asks the MCP client for the server's tool list and sends it to Claude with the question.
+3. Claude replies with a `tool_use` request.
+4. Your app asks the MCP client to call that tool; the server talks to GitHub and returns the result.
+5. Your app sends the result to Claude, which writes the final answer.
+~~
+**کلاینت** پل بین اپ تو و یک سرور MCP است. با نوع‌های پیام MCP درخواست می‌فرستد و نتیجه می‌گیرد؛ مثلاً:
+
+- `ListToolsRequest` ← `ListToolsResult` («چه ابزارهایی داری؟»)
+- `CallToolRequest` ← `CallToolResult` («این ابزار را با این ورودی‌ها اجرا کن»)
+
+MCP **مستقل از روش انتقال** است: همان پیام‌ها می‌توانند از طریق ورودی/خروجی استاندارد (سروری که به شکل یک پردازهٔ محلی اجرا می‌شود) یا از طریق HTTP (یک سرور راه‌دور) جابه‌جا شوند.
+
+یک رفت‌وبرگشت کامل در یک اپ گفت‌وگو این‌طوری است:
+
+1. کاربر می‌پرسد: «چه مخزن‌هایی دارم؟»
+2. اپ تو از کلاینت MCP فهرست ابزارهای سرور را می‌گیرد و همراه سؤال برای Claude می‌فرستد.
+3. Claude با یک درخواست `tool_use` جواب می‌دهد.
+4. اپ تو از کلاینت MCP می‌خواهد آن ابزار را صدا بزند؛ سرور با گیت‌هاب حرف می‌زند و نتیجه را برمی‌گرداند.
+5. اپ تو نتیجه را برای Claude می‌فرستد و Claude جواب نهایی را می‌نویسد.
+
+#analogy
+The client is a **translator at a business meeting**. Your app speaks "app", the server speaks "service", and the translator makes sure every question and answer passes correctly in the standard language both understand.
+~~
+کلاینت مثل **مترجم یک جلسهٔ کاری** است. اپ تو «زبان اپ» حرف می‌زند، سرور «زبان سرویس» و مترجم مطمئن می‌شود هر سؤال و جواب به زبان استانداردی که هر دو می‌فهمند درست منتقل شود.
+
+#tip
+Notice who talks to Claude: **your app**, not the MCP server. The server never sees your conversation; it only receives specific tool calls. That's a useful boundary for privacy and security.
+~~
+دقت کن چه کسی با Claude حرف می‌زند: **اپ تو**، نه سرور MCP. سرور هیچ‌وقت گفت‌وگوی تو را نمی‌بیند؛ فقط فراخوانی‌های مشخص ابزار را دریافت می‌کند. این مرز برای حریم خصوصی و امنیت مفید است.
+
+#terms
+Transport = روش انتقال = مسیری که پیام‌های MCP از آن جابه‌جا می‌شوند؛ مثل stdio یا HTTP.
+
+@section Hands-on with MCP servers | کار عملی با سرورهای MCP
+
+@lesson
+id: defining-tools-with-mcp
+en: Defining tools with MCP
+fa: تعریف ابزار با MCP
+url: https://academy.claude.com/courses/introduction-to-model-context-protocol/defining-tools-with-mcp
+
+#explain
+Writing JSON schemas by hand is tedious. The Python SDK's **FastMCP** lets you define a tool with a **decorator** on a normal Python function: the function name, its type hints and `Field` descriptions become the schema automatically.
+
+In the course project, the server keeps a small set of documents in memory and offers two tools: one to **read** a document and one to **edit** it by replacing text. Clear names, descriptions and error messages matter, because Claude reads them to decide what to call.
+~~
+نوشتن دستی طرح‌واره‌های JSON خسته‌کننده است. **FastMCP** در SDK پایتون اجازه می‌دهد یک ابزار را با یک **دکوریتور** روی یک تابع معمولی پایتون تعریف کنی: اسم تابع، نوع‌های ورودی و توضیح‌های `Field` خودبه‌خود به طرح‌واره تبدیل می‌شوند.
+
+در پروژهٔ دوره، سرور چند سند را در حافظه نگه می‌دارد و دو ابزار ارائه می‌کند: یکی برای **خواندن** سند و یکی برای **ویرایش** آن با جایگزین کردن متن. اسم‌ها، توضیح‌ها و پیام‌های خطای روشن مهم‌اند، چون Claude آن‌ها را می‌خواند تا تصمیم بگیرد چه چیزی را صدا بزند.
+
+#code python mcp_server.py (tools)
+from mcp.server.fastmcp import FastMCP
+from pydantic import Field
+
+mcp = FastMCP("DocumentMCP", log_level="ERROR")
+
+docs = {
+    "menu.md": "Cafe menu: tea, saffron cake, baklava.",
+    "lease.pdf": "Lease for unit 4, starting 1 Farvardin, 12 months.",
+}
+
+@mcp.tool(name="read_doc_contents", description="Read a document's contents and return them as text.")
+def read_document(doc_id: str = Field(description="Id of the document to read")) -> str:
+    if doc_id not in docs:
+        raise ValueError(f"Document '{doc_id}' not found. Known ids: {list(docs)}")
+    return docs[doc_id]
+
+@mcp.tool(name="edit_document", description="Edit a document by replacing an exact piece of text with new text.")
+def edit_document(
+    doc_id: str = Field(description="Id of the document to edit"),
+    old_str: str = Field(description="Exact text to replace, including spaces"),
+    new_str: str = Field(description="Text to put in its place"),
+) -> str:
+    if doc_id not in docs:
+        raise ValueError(f"Document '{doc_id}' not found.")
+    docs[doc_id] = docs[doc_id].replace(old_str, new_str)
+    return "ok"
+
+if __name__ == "__main__":
+    mcp.run(transport="stdio")
+#end
+
+#analogy
+The decorator is a **label maker**. You write a normal function, stick a label on it ("read a document"), and the SDK turns the label into the official form Claude needs to understand the tool.
+~~
+دکوریتور مثل یک **دستگاه برچسب‌زن** است. یک تابع معمولی می‌نویسی، رویش برچسب می‌زنی («یک سند را بخوان») و SDK آن برچسب را به فرم رسمی‌ای تبدیل می‌کند که Claude برای فهمیدن ابزار لازم دارد.
+
+#tip
+Make error messages **helpful to the model**: include what went wrong and what would work ("Known ids: menu.md, lease.pdf"). Claude can then correct itself on the next try instead of guessing.
+~~
+پیام‌های خطا را **برای مدل مفید** بنویس: بگو چه چیزی اشتباه شد و چه چیزی جواب می‌دهد («شناسه‌های موجود: menu.md، lease.pdf»). آن‌وقت Claude می‌تواند در تلاش بعدی خودش را اصلاح کند به‌جای حدس زدن.
+
+#terms
+FastMCP = FastMCP = بخشی از SDK پایتون MCP که ساختن سرور را با دکوریتورها ساده می‌کند.
+Decorator = دکوریتور = نشانه‌ای مثل @mcp.tool بالای تابع که رفتار یا نقش آن را مشخص می‌کند.
+
+@lesson
+id: the-server-inspector
+en: The server inspector
+fa: بازرس سرور (Inspector)
+url: https://academy.claude.com/courses/introduction-to-model-context-protocol/the-server-inspector
+
+#explain
+You don't need a full chat app to test a server. The SDK includes a browser-based **MCP Inspector**: run your server in development mode, open the inspector in your browser, connect, and you can list the tools, fill in arguments, call them and see the exact responses and errors.
+
+It's the fastest feedback loop for server work: change code, reconnect, call the tool again.
+~~
+برای امتحان کردن یک سرور به یک اپ گفت‌وگوی کامل نیاز نداری. SDK یک **بازرس MCP** (MCP Inspector) مرورگری دارد: سرورت را در حالت توسعه اجرا کن، بازرس را در مرورگر باز کن، وصل شو و می‌توانی ابزارها را فهرست کنی، ورودی‌ها را پر کنی، صدایشان بزنی و جواب‌ها و خطاهای دقیق را ببینی.
+
+سریع‌ترین چرخهٔ بازخورد برای کار روی سرور است: کد را عوض کن، دوباره وصل شو، ابزار را دوباره صدا بزن.
+
+#code bash Open the inspector
+mcp dev mcp_server.py
+# then open the printed local URL, click Connect, go to Tools, and run read_doc_contents
+#end
+
+#analogy
+The inspector is a **test bench** in an electronics workshop: you check the circuit with probes and a screen before you install it inside the finished product.
+~~
+بازرس مثل **میز تست** در یک کارگاه الکترونیک است: قبل از نصب مدار داخل محصول نهایی، با پراب و صفحه‌نمایش چکش می‌کنی.
+
+#tip
+Test the **unhappy paths** in the inspector too: a wrong document id, an empty string, a very long text. If the errors are clear to you, they'll be clear to Claude.
+~~
+**مسیرهای ناخوشایند** را هم در بازرس امتحان کن: شناسهٔ اشتباه، رشتهٔ خالی، یک متن خیلی طولانی. اگر خطاها برای تو روشن‌اند، برای Claude هم روشن خواهند بود.
+
+@section Connecting with MCP clients | اتصال با کلاینت‌های MCP
+
+@lesson
+id: implementing-a-client
+en: Implementing a client
+fa: پیاده‌سازی یک کلاینت
+url: https://academy.claude.com/courses/introduction-to-model-context-protocol/implementing-a-client
+
+#explain
+Now the other side. A client starts (or connects to) the server, opens a **session**, **initializes** it, and then can list and call tools. In the course, this logic is wrapped in a small `MCPClient` class so the rest of the app (the chat loop that talks to Claude) just asks "give me the tools" and "call this tool".
+
+Most apps don't talk to the session directly everywhere; they keep one tidy wrapper and reuse it.
+~~
+حالا طرف دیگر. یک کلاینت سرور را اجرا می‌کند (یا به آن وصل می‌شود)، یک **جلسه** (session) باز می‌کند، **مقداردهی اولیه** می‌کند و بعد می‌تواند ابزارها را فهرست کند و صدا بزند. در دوره این منطق داخل یک کلاس کوچک `MCPClient` پیچیده شده تا بقیهٔ اپ (چرخهٔ گفت‌وگو که با Claude حرف می‌زند) فقط بگوید «ابزارها را بده» و «این ابزار را صدا بزن».
+
+بیشتر اپ‌ها همه‌جا مستقیم با session حرف نمی‌زنند؛ یک لایهٔ مرتب نگه می‌دارند و همان را دوباره استفاده می‌کنند.
+
+#code python Minimal client over stdio
+import asyncio
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+async def main():
+    params = StdioServerParameters(command="python", args=["mcp_server.py"])
+    async with stdio_client(params) as (read, write):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
+            tools = (await session.list_tools()).tools
+            print([t.name for t in tools])                      # ['read_doc_contents', 'edit_document']
+            result = await session.call_tool("read_doc_contents", {"doc_id": "menu.md"})
+            print(result.content[0].text)
+
+asyncio.run(main())
+#end
+
+#analogy
+The client is like **dialing a phone call**: connect (start the server), say hello (initialize), ask "what can you do?" (list tools), then make requests (call tools), and hang up properly at the end.
+~~
+کلاینت مثل **گرفتن یک تماس تلفنی** است: وصل می‌شوی (اجرای سرور)، سلام می‌کنی (مقداردهی اولیه)، می‌پرسی «چه کارهایی بلدی؟» (فهرست ابزارها)، بعد درخواست می‌دهی (فراخوانی ابزار) و آخرش درست قطع می‌کنی.
+
+#tip
+The tool definitions from `list_tools()` map almost one-to-one onto the `tools` list you send to Claude (name, description, input schema). The wrapper's job is mostly this small conversion.
+~~
+تعریف ابزارهایی که از `list_tools()` می‌آید تقریباً یک‌به‌یک با فهرست `tools` که به Claude می‌فرستی جور است (اسم، توضیح، طرح‌وارهٔ ورودی). کار اصلی لایهٔ واسط همین تبدیل کوچک است.
+
+@lesson
+id: defining-resources
+en: Defining resources
+fa: تعریف منابع (Resources)
+url: https://academy.claude.com/courses/introduction-to-model-context-protocol/defining-resources
+
+#explain
+**Resources** expose data that your **app** can read, identified by a URI. They come in two shapes:
+
+- **Direct resources** have a fixed URI, like `docs://documents` (the list of all document ids).
+- **Templated resources** have parameters in the URI, like `docs://documents/{doc_id}` (one document's contents).
+
+Each resource declares a **MIME type** (for example `application/json` or `text/plain`) so the client knows how to read it.
+
+Why resources and not just another tool? A tool is called **when Claude decides**. A resource is fetched **when your app decides**, for example to show a list in the UI or to attach a document the user mentioned, without spending a model turn on it.
+~~
+**منابع** (Resources) داده‌ای را ارائه می‌کنند که **اپ تو** می‌تواند بخواند و هر کدام با یک URI شناخته می‌شوند. دو شکل دارند:
+
+- **منابع مستقیم** یک URI ثابت دارند؛ مثل `docs://documents` (فهرست شناسهٔ همهٔ سندها).
+- **منابع قالب‌دار** داخل URI پارامتر دارند؛ مثل `docs://documents/{doc_id}` (محتوای یک سند).
+
+هر منبع یک **نوع MIME** اعلام می‌کند (مثلاً `application/json` یا `text/plain`) تا کلاینت بداند چطور بخواندش.
+
+چرا منبع و نه یک ابزار دیگر؟ ابزار **وقتی Claude تصمیم بگیرد** صدا زده می‌شود. منبع **وقتی اپ تو تصمیم بگیرد** خوانده می‌شود؛ مثلاً برای نشان دادن یک فهرست در رابط کاربری یا ضمیمه کردن سندی که کاربر اسمش را آورده، بدون این‌که یک نوبت مدل خرج آن شود.
+
+#code python mcp_server.py (resources)
+@mcp.resource("docs://documents", mime_type="application/json")
+def list_docs() -> list[str]:
+    return list(docs.keys())
+
+@mcp.resource("docs://documents/{doc_id}", mime_type="text/plain")
+def fetch_doc(doc_id: str) -> str:
+    if doc_id not in docs:
+        raise ValueError(f"Document '{doc_id}' not found.")
+    return docs[doc_id]
+#end
+
+#analogy
+Tools are **asking the chef to cook something** (Claude decides). Resources are **the waiter grabbing the menu or a bottle of water from the shelf** (your app decides): no cooking, just fetching.
+~~
+ابزارها مثل **سفارش دادن یک غذا به آشپز** هستند (Claude تصمیم می‌گیرد). منابع مثل **برداشتن منو یا یک بطری آب از قفسه توسط گارسون** است (اپ تو تصمیم می‌گیرد): پختی در کار نیست، فقط آوردن.
+
+#terms
+Resource = منبع = داده‌ای که سرور MCP با یک URI در اختیار اپ می‌گذارد تا هر وقت خواست بخواندش.
+URI template = قالب URI = نشانی‌ای با جای خالی مثل {doc_id} که با مقدار واقعی پر می‌شود.
+MIME type = نوع MIME = برچسبی که نوع داده را مشخص می‌کند؛ مثل text/plain یا application/json.
+
+@lesson
+id: accessing-resources
+en: Accessing resources
+fa: دسترسی به منابع
+url: https://academy.claude.com/courses/introduction-to-model-context-protocol/accessing-resources
+
+#explain
+On the client side you read a resource by its URI and parse it according to its MIME type. The course uses this for a nice feature: when the user types **`@lease.pdf`** in the chat, the app fetches that document through the resource and **adds its contents to the message** before sending it to Claude. Claude can answer immediately, without first calling a read tool.
+
+The app can also use the `docs://documents` resource to power **autocomplete**: as the user types `@`, show the list of available documents.
+~~
+در سمت کلاینت، یک منبع را با URIاش می‌خوانی و بر اساس نوع MIMEاش تجزیه می‌کنی. دوره از این برای یک قابلیت جالب استفاده می‌کند: وقتی کاربر در گفت‌وگو می‌نویسد **`@lease.pdf`**، اپ آن سند را از طریق منبع می‌آورد و **محتوایش را قبل از فرستادن به Claude به پیام اضافه می‌کند**. Claude بلافاصله می‌تواند جواب بدهد، بدون این‌که اول یک ابزار خواندن را صدا بزند.
+
+اپ می‌تواند از منبع `docs://documents` برای **تکمیل خودکار** هم استفاده کند: وقتی کاربر `@` را تایپ می‌کند، فهرست سندهای موجود را نشان بده.
+
+#code python Reading resources in the client
+import json
+from pydantic import AnyUrl
+
+async def read_resource(session, uri: str):
+    result = await session.read_resource(AnyUrl(uri))
+    item = result.contents[0]
+    if item.mimeType == "application/json":
+        return json.loads(item.text)
+    return item.text
+
+doc_ids = await read_resource(session, "docs://documents")          # ['menu.md', 'lease.pdf']
+lease   = await read_resource(session, "docs://documents/lease.pdf")
+#end
+
+#analogy
+It's like a student who **brings the right page of the textbook** to the teacher's desk along with the question. The teacher doesn't need to go look it up first; the answer comes faster.
+~~
+مثل دانش‌آموزی است که همراه سؤالش **همان صفحهٔ درست کتاب را** سر میز معلم می‌آورد. معلم لازم نیست اول برود پیدایش کند؛ جواب سریع‌تر می‌آید.
+
+#tip
+Injecting a resource saves a model turn and tokens, but only inject what's needed. Attaching ten whole documents "just in case" can hide the important one in noise.
+~~
+تزریق یک منبع یک نوبت مدل و کلی توکن صرفه‌جویی می‌کند، ولی فقط چیزی را تزریق کن که لازم است. ضمیمه کردن ده سند کامل «محض احتیاط» ممکن است سند مهم را در شلوغی گم کند.
+
+@lesson
+id: defining-prompts
+en: Defining prompts
+fa: تعریف پرامپت‌ها
+url: https://academy.claude.com/courses/introduction-to-model-context-protocol
+
+#explain
+A **prompt** in MCP is a ready-made, well-tested instruction template that a server offers, with arguments. Users could write "reformat this doc as Markdown" themselves, but a prompt written and tested by the server's authors is usually **much better**: it knows the right tools to use, the edge cases and the output format.
+
+In the course project, the server offers a `format` prompt that takes a document id and returns messages telling Claude to rewrite that document in Markdown using the edit tool.
+~~
+**پرامپت** در MCP یک قالب دستورالعمل آماده و آزموده است که سرور ارائه می‌کند و آرگومان می‌گیرد. کاربرها می‌توانند خودشان بنویسند «این سند را به Markdown تبدیل کن»، ولی پرامپتی که نویسندگان سرور نوشته و آزموده‌اند معمولاً **خیلی بهتر** است: ابزارهای درست، حالت‌های خاص و قالب خروجی را می‌شناسد.
+
+در پروژهٔ دوره، سرور یک پرامپت `format` دارد که شناسهٔ یک سند را می‌گیرد و پیام‌هایی برمی‌گرداند که به Claude می‌گویند آن سند را با ابزار ویرایش، به Markdown بازنویسی کند.
+
+#code python mcp_server.py (prompts)
+from mcp.server.fastmcp.prompts import base
+
+@mcp.prompt(name="format", description="Rewrite a document's contents in clean Markdown.")
+def format_document(doc_id: str = Field(description="Id of the document to format")) -> list[base.Message]:
+    prompt = f"""Reformat the document <document_id>{doc_id}</document_id> using Markdown:
+add headings, bullet lists and tables where they help. Keep every fact.
+Read it with 'read_doc_contents', then save the result with 'edit_document'."""
+    return [base.UserMessage(prompt)]
+#end
+
+#analogy
+A prompt template is a **chef's signature recipe** offered on the menu. You could describe a dish yourself, but ordering "the house special" gets you the version the chef has perfected.
+~~
+قالب پرامپت مثل **غذای مخصوص سرآشپز** در منوست. می‌توانی خودت یک غذا را توصیف کنی، ولی سفارش «غذای مخصوص» نسخه‌ای را برایت می‌آورد که سرآشپز به کمال رسانده.
+
+#tip
+Good candidates for MCP prompts are tasks your users do often and tend to describe badly: "summarize this ticket for a customer", "turn this doc into release notes", "review this contract with our checklist".
+~~
+کاندیدهای خوب برای پرامپت‌های MCP کارهایی‌اند که کاربرها زیاد انجام می‌دهند و معمولاً بد توصیفشان می‌کنند: «این تیکت را برای مشتری خلاصه کن»، «این سند را به یادداشت انتشار تبدیل کن»، «این قرارداد را با چک‌لیست ما بررسی کن».
+
+@lesson
+id: prompts-in-the-client
+en: Prompts in the client
+fa: پرامپت‌ها در کلاینت
+url: https://academy.claude.com/courses/introduction-to-model-context-protocol
+
+#explain
+The client can **list** the server's prompts and **get** one with arguments. The result is a list of messages, ready to send to Claude. In the course CLI, prompts appear as **slash commands**: typing `/format menu.md` fetches the `format` prompt with `doc_id="menu.md"` and sends it, and Claude then reads and edits the document with the server's tools.
+
+So the three building blocks work together in one flow: the user picks a **prompt**, the app attaches **resources**, and Claude calls **tools**.
+~~
+کلاینت می‌تواند پرامپت‌های سرور را **فهرست کند** و یکی را با آرگومان‌هایش **بگیرد**. نتیجه فهرستی از پیام‌هاست که آمادهٔ فرستادن به Claude است. در CLI دوره، پرامپت‌ها به شکل **دستورهای اسلشی** ظاهر می‌شوند: تایپ `/format menu.md` پرامپت `format` را با `doc_id="menu.md"` می‌گیرد و می‌فرستد و Claude بعد سند را با ابزارهای سرور می‌خواند و ویرایش می‌کند.
+
+پس سه آجر اصلی در یک جریان با هم کار می‌کنند: کاربر یک **پرامپت** انتخاب می‌کند، اپ **منابع** را ضمیمه می‌کند و Claude **ابزارها** را صدا می‌زند.
+
+#code python Using a prompt from the client
+prompts = (await session.list_prompts()).prompts
+print([p.name for p in prompts])                                  # ['format']
+
+result = await session.get_prompt("format", {"doc_id": "menu.md"})
+messages = [{"role": m.role, "content": m.content.text} for m in result.messages]
+# send `messages` to Claude together with the server's tools
+#end
+
+#analogy
+Slash commands are **speed-dial buttons** on a phone: one press, and the long, correct number (the full, tested prompt) is dialed for you.
+~~
+دستورهای اسلشی مثل **دکمه‌های شماره‌گیری سریع** روی تلفن‌اند: یک بار فشار می‌دهی و شمارهٔ طولانی و درست (پرامپت کامل و آزموده) برایت گرفته می‌شود.
+
+@section Wrap-up | جمع‌بندی
+
+@lesson
+id: mcp-review
+en: MCP review
+fa: مرور MCP
+kind: wrap
+url: https://academy.claude.com/courses/introduction-to-model-context-protocol/mcp-review
+
+#explain
+The most useful way to remember the three primitives is **who controls them**:
+
+- **Tools are model-controlled**: Claude decides when to call them. Use them for actions and live lookups the model should choose.
+- **Resources are app-controlled**: your code decides when to fetch them. Use them for data the UI needs or content you attach to messages.
+- **Prompts are user-controlled**: the user decides when to run them (slash commands, buttons). Use them for ready-made workflows.
+
+When designing a server, ask for each capability: *who should decide when this happens?* The answer tells you which primitive to use. The course ends with a final assessment and a completion badge.
+~~
+بهترین راه برای به خاطر سپردن سه آجر اصلی این است که بدانی **چه کسی کنترلشان می‌کند**:
+
+- **ابزارها در کنترل مدل‌اند:** Claude تصمیم می‌گیرد کی صدایشان بزند. برای کارها و جست‌وجوهای زنده‌ای که مدل باید انتخاب کند.
+- **منابع در کنترل اپ‌اند:** کد تو تصمیم می‌گیرد کی بخواندشان. برای داده‌ای که رابط کاربری لازم دارد یا محتوایی که به پیام‌ها ضمیمه می‌کنی.
+- **پرامپت‌ها در کنترل کاربرند:** کاربر تصمیم می‌گیرد کی اجرایشان کند (دستورهای اسلشی، دکمه‌ها). برای روال‌های آماده.
+
+موقع طراحی یک سرور، برای هر قابلیت بپرس: *چه کسی باید تصمیم بگیرد این کی اتفاق بیفتد؟* جواب به تو می‌گوید از کدام آجر استفاده کنی. دوره با یک آزمون نهایی و نشان پایان دوره تمام می‌شود.
+
+#analogy
+In a restaurant: the **chef** decides which pans to use (tools, model-controlled), the **waiter** decides when to bring bread and water (resources, app-controlled), and the **customer** orders from the menu (prompts, user-controlled).
+~~
+در یک رستوران: **آشپز** تصمیم می‌گیرد از کدام تابه استفاده کند (ابزارها، در کنترل مدل)، **گارسون** تصمیم می‌گیرد کی نان و آب بیاورد (منابع، در کنترل اپ) و **مشتری** از روی منو سفارش می‌دهد (پرامپت‌ها، در کنترل کاربر).
+
+#terms
+Model-controlled = در کنترل مدل = چیزی که خود مدل تصمیم می‌گیرد کی استفاده‌اش کند (ابزارها).
+App-controlled = در کنترل اپ = چیزی که کد اپ تصمیم می‌گیرد کی بخواندش (منابع).
+User-controlled = در کنترل کاربر = چیزی که کاربر آگاهانه اجرایش می‌کند (پرامپت‌ها).
+
+@cheatsheet
+- MCP = a standard socket between AI apps and services: **servers** provide, **clients** connect.
+- It doesn't replace tool use; it changes **who writes and hosts** tools.
+- Messages: ListTools / CallTool (also list/read resources, list/get prompts). Transports: stdio or HTTP.
+- FastMCP: `@mcp.tool`, `@mcp.resource("uri")`, `@mcp.prompt` on normal functions; `Field(description=…)`.
+- Test with `mcp dev server.py` (the inspector).
+- Client: `stdio_client` → `ClientSession` → `initialize()` → `list_tools` / `call_tool` / `read_resource` / `get_prompt`.
+- **Tools = model-controlled · Resources = app-controlled · Prompts = user-controlled.**
+~~
+- MCP = یک سوکت استاندارد بین اپ‌های هوش مصنوعی و سرویس‌ها: **سرورها** فراهم می‌کنند، **کلاینت‌ها** وصل می‌شوند.
+- جایگزین tool use نیست؛ فقط عوض می‌کند **چه کسی** ابزار را می‌نویسد و میزبانی می‌کند.
+- پیام‌ها: ListTools / CallTool (و فهرست/خواندن منابع، فهرست/گرفتن پرامپت‌ها). روش انتقال: stdio یا HTTP.
+- FastMCP: `@mcp.tool`، `@mcp.resource("uri")`، `@mcp.prompt` روی تابع‌های معمولی؛ `Field(description=…)`.
+- آزمایش با `mcp dev server.py` (بازرس).
+- کلاینت: `stdio_client` ← `ClientSession` ← `initialize()` ← `list_tools` / `call_tool` / `read_resource` / `get_prompt`.
+- **ابزار = کنترل مدل · منبع = کنترل اپ · پرامپت = کنترل کاربر.**
+
+@quiz
+Q: Does MCP replace tool use? || آیا MCP جایگزین tool use است؟
+A: No. MCP servers provide tool definitions and execution; Claude still uses them through normal tool calling. || نه. سرورهای MCP تعریف و اجرای ابزارها را فراهم می‌کنند؛ Claude هنوز از طریق فراخوانی ابزار معمولی از آن‌ها استفاده می‌کند.
+Q: You want the UI to show all document names as the user types "@". Tool, resource or prompt? || می‌خواهی وقتی کاربر «@» تایپ می‌کند، رابط کاربری اسم همهٔ سندها را نشان بدهد. ابزار، منبع یا پرامپت؟
+A: A resource (app-controlled), such as docs://documents. || منبع (در کنترل اپ)؛ مثل docs://documents.
+Q: What's the difference between a direct and a templated resource? || فرق منبع مستقیم با منبع قالب‌دار چیست؟
+A: A direct resource has a fixed URI; a templated one has parameters in its URI, like docs://documents/{doc_id}. || منبع مستقیم یک URI ثابت دارد؛ منبع قالب‌دار داخل URI پارامتر دارد، مثل docs://documents/{doc_id}.
+Q: Why offer a "format" prompt instead of letting users type their own request? || چرا به‌جای این‌که کاربر خودش درخواستش را بنویسد، یک پرامپت «format» ارائه کنیم؟
+A: A tested prompt written by the server's authors knows the right tools, edge cases and format, so results are more reliable. || پرامپت آزموده‌ای که نویسندگان سرور نوشته‌اند ابزارهای درست، حالت‌های خاص و قالب را می‌شناسد؛ پس نتیجه قابل‌اعتمادتر است.
+Q: Which command opens the MCP Inspector for a Python server? || کدام دستور بازرس MCP را برای یک سرور پایتونی باز می‌کند؟
+A: mcp dev mcp_server.py || mcp dev mcp_server.py

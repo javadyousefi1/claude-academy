@@ -106,5 +106,136 @@
    "building-your-first-managed-agent",
    "building-with-claude-code"
   ]
+ },
+ {
+  "slug": "claude-code-in-action",
+  "kind": "course",
+  "group": "products",
+  "en": "Claude Code in action",
+  "fa": "Claude Code در عمل؛ جلسه‌های طولانی، کار بدون نظارت و کار تیمی",
+  "items": [
+   "steering-long-sessions",
+   "a-claude-md-that-follows",
+   "verification-skills",
+   "permission-modes",
+   "hooks",
+   "routines-and-headless",
+   "github-actions-and-code-review",
+   "trust-it-verifying-unsupervised-runs",
+   "plugins"
+  ]
+ },
+ {
+  "slug": "introduction-to-model-context-protocol",
+  "kind": "course",
+  "group": "products",
+  "en": "Introduction to Model Context Protocol",
+  "fa": "آشنایی با پروتکل MCP؛ ساختن سرور و کلاینت از صفر",
+  "items": [
+   "introducing-mcp",
+   "mcp-clients",
+   "defining-tools-with-mcp",
+   "the-server-inspector",
+   "implementing-a-client",
+   "defining-resources",
+   "accessing-resources",
+   "defining-prompts",
+   "prompts-in-the-client",
+   "mcp-review"
+  ]
+ },
+ {
+  "slug": "model-context-protocol-advanced-topics",
+  "kind": "course",
+  "group": "products",
+  "en": "Model Context Protocol: Advanced topics",
+  "fa": "MCP پیشرفته؛ sampling، اعلان‌ها، roots و روش‌های انتقال",
+  "items": [
+   "sampling",
+   "sampling-walkthrough",
+   "log-and-progress-notifications",
+   "notifications-walkthrough",
+   "roots",
+   "roots-walkthrough",
+   "json-message-types",
+   "the-stdio-transport",
+   "the-streamablehttp-transport",
+   "streamablehttp-in-depth",
+   "state-and-the-streamablehttp-transport"
+  ]
+ },
+ {
+  "slug": "introduction-to-subagents",
+  "kind": "course",
+  "group": "products",
+  "en": "Introduction to subagents",
+  "fa": "آشنایی با ساب‌ایجنت‌ها",
+  "items": [
+   "what-are-subagents",
+   "creating-a-subagent",
+   "designing-effective-subagents",
+   "using-subagents-effectively"
+  ]
+ },
+ {
+  "slug": "introduction-to-agent-skills",
+  "kind": "course",
+  "group": "products",
+  "en": "Introduction to agent skills",
+  "fa": "آشنایی با Agent Skills",
+  "items": [
+   "what-are-skills",
+   "creating-your-first-skill",
+   "configuration-and-multi-file-skills",
+   "skills-vs-other-claude-code-features",
+   "sharing-skills",
+   "troubleshooting-skills"
+  ]
+ },
+ {
+  "slug": "ai-native-sdlc-playbook",
+  "kind": "course",
+  "group": "products",
+  "en": "The AI-native SDLC playbook",
+  "fa": "کتاب بازی چرخهٔ توسعهٔ نرم‌افزار هوش‌مصنوعی‌محور",
+  "items": [
+   "introduction",
+   "capture-as-intent-md",
+   "requirements-and-design",
+   "plan-mode",
+   "claude-md",
+   "skills-as-institutional-knowledge",
+   "parallel-sessions-and-subagents",
+   "give-claude-a-feedback-loop",
+   "continuous-evals-in-ci",
+   "ai-in-the-pr-review-loop",
+   "hooks-as-approval-gates",
+   "ci-cd-integration-and-deployment",
+   "closing-the-loop-on-metrics",
+   "closing-thoughts-and-resources"
+  ]
+ },
+ {
+  "slug": "deploying-claude-enterprise-with-confidence",
+  "kind": "course",
+  "group": "products",
+  "en": "Deploying Claude Enterprise with confidence: the five decisions that shape your rollout",
+  "fa": "استقرار مطمئن Claude Enterprise؛ پنج تصمیمی که راه‌اندازی را شکل می‌دهند",
+  "items": [
+   "five-decisions-and-the-frame",
+   "owners-and-intake",
+   "prerequisites",
+   "one-organization-or-many",
+   "your-groups",
+   "surfaces-each-group-gets",
+   "connectors",
+   "governing-customizations",
+   "spend-caps",
+   "managing-spend",
+   "visibility-what-you-can-measure",
+   "adoption-signals",
+   "how-the-decisions-connect",
+   "when-a-new-product-arrives"
+  ]
  }
 ]

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-lang="both">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>آشنایی با Agent Skills | Introduction to agent skills</title>
+<meta name="description" content="Create, configure, compare, share and troubleshoot agent skills in Claude Code.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Lalezar&family=Vazirmatn:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>try{var l=localStorage.getItem("ca-lang");if(l)document.documentElement.setAttribute("data-lang",l)}catch(e){}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+<script src="../assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">پرش به متن اصلی</a>
+
+<header class="topbar">
+  <nav class="crumbs" aria-label="مسیر صفحه"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">C</span><span>جزوهٔ Claude Academy</span></a><span class="crumb-sep" aria-hidden="true">/</span><a href="../index.html#products">شناخت عمیق محصولات</a><span class="crumb-sep" aria-hidden="true">/</span><span>آشنایی با Agent Skills</span></nav>
+  <div class="lang-switch" role="group" aria-label="زبان نمایش">
+    <button type="button" data-set-lang="both" aria-pressed="true">دوزبانه</button>
+    <button type="button" data-set-lang="fa" aria-pressed="false">فارسی</button>
+    <button type="button" data-set-lang="en" aria-pressed="false" lang="en">English</button>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="side-toc" aria-label="فهرست این صفحه"><details open><summary>فهرست این صفحه <span class="toc-count">۶ مورد</span></summary><ol><li><a href="#introduction-to-agent-skills--what-are-skills" data-toc="introduction-to-agent-skills--what-are-skills"><span class="toc-n">۱</span><span class="toc-t">اسکیل‌ها چه هستند؟</span></a></li><li><a href="#introduction-to-agent-skills--creating-your-first-skill" data-toc="introduction-to-agent-skills--creating-your-first-skill"><span class="toc-n">۲</span><span class="toc-t">ساختن اولین اسکیل</span></a></li><li><a href="#introduction-to-agent-skills--configuration-and-multi-file-skills" data-toc="introduction-to-agent-skills--configuration-and-multi-file-skills"><span class="toc-n">۳</span><span class="toc-t">تنظیمات و اسکیل‌های چندفایلی</span></a></li><li><a href="#introduction-to-agent-skills--skills-vs-other-claude-code-features" data-toc="introduction-to-agent-skills--skills-vs-other-claude-code-features"><span class="toc-n">۴</span><span class="toc-t">اسکیل‌ها در مقایسه با بقیهٔ قابلیت‌های Claude Code</span></a></li><li><a href="#introduction-to-agent-skills--sharing-skills" data-toc="introduction-to-agent-skills--sharing-skills"><span class="toc-n">۵</span><span class="toc-t">به اشتراک گذاشتن اسکیل‌ها</span></a></li><li><a href="#introduction-to-agent-skills--troubleshooting-skills" data-toc="introduction-to-agent-skills--troubleshooting-skills"><span class="toc-n">۶</span><span class="toc-t">رفع اشکال اسکیل‌ها</span></a></li><li><a href="#cheatsheet"><span class="toc-n">★</span><span class="toc-t">خلاصهٔ یک‌نگاه</span></a></li><li><a href="#selfcheck"><span class="toc-n">؟</span><span class="toc-t">خودت را بسنج</span></a></li></ol></details></nav>
+<main id="main">
+<header class="page-head">
+  <p class="eyebrow">شناخت عمیق محصولات <span lang="en" dir="ltr">· Learn the products</span></p>
+  <h1><span class="h1-fa">آشنایی با Agent Skills</span><span class="h1-en" lang="en" dir="ltr">Introduction to agent skills</span></h1>
+  <p class="page-stats"><span lang="en" dir="ltr">6 lessons · 1 hr</span> <a class="src src-big" href="https://academy.claude.com/courses/introduction-to-agent-skills" target="_blank" rel="noopener">صفحهٔ رسمی در Claude Academy<span aria-hidden="true"> ↗</span></a></p>
+  <p class="who"><span class="who-label">مناسب برای</span> <span>کاربران Claude Code که می‌خواهند تخصص تکرارشونده را بسته‌بندی کنند و با تیم به اشتراک بگذارند.</span> <span class="who-en" lang="en" dir="ltr">Claude Code users who want to package repeatable expertise and share it with a team.</span></p>
+  <p class="progress" data-progress-for="introduction-to-agent-skills" data-total="6"><span class="progress-bar"><span></span></span><span class="progress-text">۰ از ۶ خوانده شده</span></p>
+</header>
+<div class="page-intro"><div class="pair"><div class="en" lang="en" dir="ltr"><p><strong>Skills</strong> are folders of instructions (and optionally scripts and resources) that Claude discovers and uses <strong>on demand</strong>. They're how you turn "the way we do X" into something Claude does right every time, without stuffing everything into CLAUDE.md.</p>
+<p>The six lessons take you from your first skill to team-wide distribution and troubleshooting.</p></div><div class="fa" lang="fa" dir="rtl"><p><strong>اسکیل‌ها</strong> پوشه‌هایی از دستورالعمل‌اند (و اگر لازم باشد اسکریپت و منبع) که Claude پیدایشان می‌کند و <strong>هنگام نیاز</strong> از آن‌ها استفاده می‌کند. با آن‌ها «روش ما برای انجام X» را به چیزی تبدیل می‌کنی که Claude هر بار درست انجامش می‌دهد، بدون این‌که همه‌چیز را در CLAUDE.md بچپانی.</p>
+<p>شش درس تو را از اولین اسکیل تا توزیع در کل تیم و رفع اشکال می‌برد.</p></div></div></div>
+
+<article class="item" id="introduction-to-agent-skills--what-are-skills" data-item="introduction-to-agent-skills--what-are-skills">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱ <span lang="en" dir="ltr">· Lesson 1</span> </p>
+      <h3><span class="t-fa">اسکیل‌ها چه هستند؟</span><span class="t-en" lang="en" dir="ltr">What are skills?</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/introduction-to-agent-skills/what-are-skills" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-introduction-to-agent-skills--what-are-skills" data-done="introduction-to-agent-skills--what-are-skills"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Each skill lives in its own folder with a <strong><code dir="ltr">SKILL.md</code></strong> file. Its frontmatter has a <strong>name</strong> and a <strong>description</strong>; the body has the instructions. Claude Code only keeps the short names and descriptions in mind; when your request matches a description, it <strong>loads the full skill</strong>.</p>
+<p>Where skills live:</p>
+<ul><li><strong>Personal</strong>: <code dir="ltr">~/.claude/skills/</code>, available in all your projects.</li><li><strong>Project</strong>: <code dir="ltr">.claude/skills/</code> inside the repository, shared with everyone who clones it.</li></ul>
+<p>How they differ from neighbors: <strong>CLAUDE.md</strong> is loaded every session (always-on facts); <strong>slash commands</strong> run when you type them; <strong>skills</strong> load automatically when relevant (and can also be invoked by name).</p></div><div class="fa" lang="fa" dir="rtl"><p>هر اسکیل در پوشهٔ خودش با یک فایل <strong><code dir="ltr">SKILL.md</code></strong> زندگی می‌کند. سربرگش یک <strong>اسم</strong> و یک <strong>توضیح</strong> دارد؛ بدنه‌اش دستورالعمل‌هاست. Claude Code فقط اسم‌ها و توضیح‌های کوتاه را در ذهن نگه می‌دارد؛ وقتی درخواست تو با یک توضیح جور شد، <strong>کل اسکیل را بار می‌کند</strong>.</p>
+<p>اسکیل‌ها کجا زندگی می‌کنند:</p>
+<ul><li><strong>شخصی</strong>: <code dir="ltr">~/.claude/skills/</code>، در همهٔ پروژه‌هایت در دسترس.</li><li><strong>پروژه</strong>: <code dir="ltr">.claude/skills/</code> داخل مخزن، مشترک با هر کسی که آن را clone می‌کند.</li></ul>
+<p>فرقشان با همسایه‌ها: <strong>CLAUDE.md</strong> در هر جلسه بار می‌شود (دانسته‌های همیشه‌روشن)؛ <strong>دستورهای اسلشی</strong> وقتی تایپشان کنی اجرا می‌شوند؛ <strong>اسکیل‌ها</strong> وقتی مرتبط باشند خودکار بار می‌شوند (و می‌شود با اسم هم صدایشان زد).</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Skills are a <strong>library card catalog</strong>: Claude reads the little cards (descriptions) and only walks to the shelf for the full book (the skill) when it actually needs it.</p></div><div class="fa" lang="fa" dir="rtl"><p>اسکیل‌ها مثل <strong>برگه‌دان کتابخانه‌اند</strong>: Claude کارت‌های کوچک (توضیح‌ها) را می‌خواند و فقط وقتی واقعاً لازم شد سراغ قفسه می‌رود تا کتاب کامل (اسکیل) را بیاورد.</p></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Because only descriptions are always loaded, you can have <strong>dozens of skills</strong> without slowing Claude down. That's why skills scale better than an ever-growing CLAUDE.md.</p></div><div class="fa" lang="fa" dir="rtl"><p>چون فقط توضیح‌ها همیشه بار می‌شوند، می‌توانی <strong>ده‌ها اسکیل</strong> داشته باشی بدون این‌که Claude کند شود. برای همین اسکیل‌ها از یک CLAUDE.md همیشه‌درحال‌رشد بهتر مقیاس می‌گیرند.</p></div></div></section>
+<section class="blk blk-terms"><h4 class="blk-label"><span lang="en">Key words</span><span>واژه‌های کلیدی</span></h4><dl class="terms"><div class="term"><dt><span lang="en" dir="ltr">SKILL.md</span><span class="term-fa">فایل SKILL.md</span></dt><dd>فایل اصلی هر اسکیل با سربرگ (اسم و توضیح) و دستورالعمل‌ها.</dd></div><div class="term"><dt><span lang="en" dir="ltr">Progressive disclosure</span><span class="term-fa">افشای تدریجی</span></dt><dd>اول فقط خلاصه را نشان دادن و جزئیات را فقط هنگام نیاز بار کردن.</dd></div></dl></section>
+  </div>
+</article>
+<article class="item" id="introduction-to-agent-skills--creating-your-first-skill" data-item="introduction-to-agent-skills--creating-your-first-skill">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲ <span lang="en" dir="ltr">· Lesson 2</span> </p>
+      <h3><span class="t-fa">ساختن اولین اسکیل</span><span class="t-en" lang="en" dir="ltr">Creating your first skill</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/introduction-to-agent-skills/creating-your-first-skill" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-introduction-to-agent-skills--creating-your-first-skill" data-done="introduction-to-agent-skills--creating-your-first-skill"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>The lesson builds a <strong>personal skill that writes pull-request descriptions</strong> in a consistent format, then tests that it loads.</p>
+<p>Steps: create the folder, write <code dir="ltr">SKILL.md</code> with a clear name and a description that says when to use it, write the instructions (structure, tone, what to include), then ask for a PR description and check that Claude used the skill.</p>
+<p>When skills share a name, there's a <strong>priority order</strong>: <strong>Enterprise → Personal → Project → Plugins</strong>. A company-managed skill wins over your personal one, which wins over the project's, which wins over a plugin's.</p></div><div class="fa" lang="fa" dir="rtl"><p>این درس یک <strong>اسکیل شخصی برای نوشتن توضیح pull request</strong> با قالبی یکدست می‌سازد و بعد امتحان می‌کند که بار می‌شود یا نه.</p>
+<p>قدم‌ها: پوشه را بساز، <code dir="ltr">SKILL.md</code> را با یک اسم روشن و توضیحی که می‌گوید کی استفاده شود بنویس، دستورالعمل‌ها را بنویس (ساختار، لحن، چه چیزهایی بیاید)، بعد یک توضیح PR بخواه و چک کن Claude از اسکیل استفاده کرده.</p>
+<p>وقتی چند اسکیل هم‌نام باشند، یک <strong>ترتیب اولویت</strong> وجود دارد: <strong>سازمانی (Enterprise) ← شخصی ← پروژه ← پلاگین</strong>. اسکیل مدیریت‌شدهٔ شرکت از اسکیل شخصی تو قوی‌تر است، شخصی از پروژه و پروژه از پلاگین.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">markdown</span><span class="code-cap">~/.claude/skills/pr-description/SKILL.md</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-markdown">---
+name: pr-description
+description: Writes pull request descriptions. Use when the user asks for a PR description, PR summary, or to open a pull request.
+---
+Read the diff against the main branch, then write:
+
+## What changed
+2-4 bullets, user-visible effects first.
+
+## Why
+One short paragraph with the reason or the issue link.
+
+## How to test
+Numbered steps a reviewer can follow.
+
+## Risks
+Anything risky (migrations, config, breaking changes) or &quot;None known&quot;.
+Keep it under 250 words. No marketing language.</code></pre></figure>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Your first skill is like writing your <strong>first recipe card</strong>: pick one dish you make often, write it clearly, then cook from the card once to make sure it works.</p></div><div class="fa" lang="fa" dir="rtl"><p>اولین اسکیلت مثل نوشتن <strong>اولین کارت دستور پخت</strong> است: یک غذا را که زیاد درست می‌کنی انتخاب کن، روشن بنویسش و بعد یک بار از روی کارت بپز تا مطمئن شوی جواب می‌دهد.</p></div></div></section>
+<section class="blk blk-try"><h4 class="blk-label"><span lang="en">Try it yourself</span><span>خودت امتحان کن</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Make a skill for something you explain to Claude at least once a week. Test it with two different phrasings ("write the PR text", "summarize this PR"). If one phrasing doesn't trigger it, improve the description.</p></div><div class="fa" lang="fa" dir="rtl"><p>برای چیزی که دست‌کم هفته‌ای یک بار به Claude توضیح می‌دهی یک اسکیل بساز. با دو جملهٔ متفاوت امتحانش کن («متن PR را بنویس»، «این PR را خلاصه کن»). اگر یکی از جمله‌ها فعالش نکرد، توضیح را بهتر کن.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="introduction-to-agent-skills--configuration-and-multi-file-skills" data-item="introduction-to-agent-skills--configuration-and-multi-file-skills">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳ <span lang="en" dir="ltr">· Lesson 3</span> </p>
+      <h3><span class="t-fa">تنظیمات و اسکیل‌های چندفایلی</span><span class="t-en" lang="en" dir="ltr">Configuration and multi-file skills</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/introduction-to-agent-skills/configuration-and-multi-file-skills" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-introduction-to-agent-skills--configuration-and-multi-file-skills" data-done="introduction-to-agent-skills--configuration-and-multi-file-skills"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Beyond name and description, skills support <strong>optional metadata</strong>, for example limiting or <strong>pre-approving the tools</strong> a skill may use, so running it doesn't trigger a permission prompt for every step.</p>
+<p>Two big ideas in this lesson:</p>
+<ul><li><strong>Descriptions that trigger reliably</strong> say *what* the skill does and *when* to use it, with the words users actually type ("release", "publish", "cut a version").</li><li><strong>Multi-file skills</strong>: keep <code dir="ltr">SKILL.md</code> short and point to other files: a long reference (<code dir="ltr">reference.md</code>), templates, examples, or <strong>scripts</strong> that Claude can run. Claude reads those extra files only when the instructions send it there.</li></ul></div><div class="fa" lang="fa" dir="rtl"><p>اسکیل‌ها جدا از اسم و توضیح، <strong>فرادادهٔ اختیاری</strong> هم پشتیبانی می‌کنند؛ مثلاً محدود کردن یا <strong>از پیش تأیید کردن ابزارهایی</strong> که اسکیل می‌تواند استفاده کند، تا اجرایش برای هر قدم پنجرهٔ اجازه باز نکند.</p>
+<p>دو ایدهٔ بزرگ این درس:</p>
+<ul><li><strong>توضیح‌هایی که مطمئن فعال می‌شوند</strong> می‌گویند اسکیل *چه* می‌کند و *کی* استفاده شود، با همان کلمه‌هایی که کاربرها واقعاً تایپ می‌کنند («انتشار»، «release»، «نسخهٔ جدید»).</li><li><strong>اسکیل‌های چندفایلی</strong>: <code dir="ltr">SKILL.md</code> را کوتاه نگه دار و به فایل‌های دیگر اشاره کن: یک مرجع طولانی (<code dir="ltr">reference.md</code>)، قالب‌ها، نمونه‌ها یا <strong>اسکریپت‌هایی</strong> که Claude می‌تواند اجرا کند. Claude آن فایل‌های اضافه را فقط وقتی می‌خواند که دستورالعمل‌ها او را به آن‌جا بفرستند.</li></ul></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">text</span><span class="code-cap">A multi-file skill</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-text">.claude/skills/invoice-check/
+├── SKILL.md          # short: when to use, the steps, links to the files below
+├── rules.md          # the long list of VAT and discount rules
+├── example-good.md   # one perfect example output
+└── scripts/
+    └── totals.py     # recomputes totals; Claude runs it instead of doing math in its head</code></pre></figure>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>A good skill is like a <strong>first-aid kit</strong>: the lid has a short checklist (SKILL.md), and inside are labeled pouches (extra files) you open only for the injury in front of you.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک اسکیل خوب مثل <strong>جعبهٔ کمک‌های اولیه</strong> است: روی درش یک چک‌لیست کوتاه هست (SKILL.md) و داخلش کیسه‌های برچسب‌دار (فایل‌های اضافه) که فقط برای همان آسیبی که جلوی رویت است بازشان می‌کنی.</p></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Put <strong>deterministic work into scripts</strong>. Calculations, format conversions and validations are more reliable as code that Claude runs than as instructions it has to follow in its head.</p></div><div class="fa" lang="fa" dir="rtl"><p><strong>کارهای قطعی را در اسکریپت بگذار.</strong> محاسبه، تبدیل قالب و اعتبارسنجی به شکل کدی که Claude اجرا می‌کند قابل‌اعتمادترند تا دستورالعملی که باید ذهنی دنبالش کند.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="introduction-to-agent-skills--skills-vs-other-claude-code-features" data-item="introduction-to-agent-skills--skills-vs-other-claude-code-features">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴ <span lang="en" dir="ltr">· Lesson 4</span> </p>
+      <h3><span class="t-fa">اسکیل‌ها در مقایسه با بقیهٔ قابلیت‌های Claude Code</span><span class="t-en" lang="en" dir="ltr">Skills vs. other Claude Code features</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/introduction-to-agent-skills/skills-vs-other-claude-code-features" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-introduction-to-agent-skills--skills-vs-other-claude-code-features" data-done="introduction-to-agent-skills--skills-vs-other-claude-code-features"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Claude Code has several ways to customize behavior. Here's when each one fits:</p>
+<ul><li><strong>CLAUDE.md</strong>: facts and conventions needed in <strong>every</strong> session. Always loaded.</li><li><strong>Skills</strong>: <strong>on-demand, task-specific expertise</strong>. Loaded only when relevant.</li><li><strong>Subagents</strong>: work done in a <strong>separate context</strong> that returns a summary. For isolation, parallelism and focus.</li><li><strong>Hooks</strong>: <strong>guaranteed</strong> automation at fixed moments (before/after a tool, at stop). For rules that must never be skipped.</li><li><strong>MCP servers</strong>: <strong>new tools and data</strong> from outside systems.</li></ul>
+<p>They combine well: a subagent can follow a procedure you also wrote as a skill (by including it in the subagent's prompt), a skill can tell Claude to use an MCP tool, and a hook can enforce what a skill only recommends.</p></div><div class="fa" lang="fa" dir="rtl"><p>Claude Code چند راه برای شخصی‌سازی رفتار دارد. این‌که هر کدام کی به کار می‌آید:</p>
+<ul><li><strong>CLAUDE.md</strong>: دانسته‌ها و قراردادهایی که در <strong>همهٔ</strong> جلسه‌ها لازم‌اند. همیشه بار می‌شود.</li><li><strong>اسکیل‌ها</strong>: <strong>تخصص هنگام‌نیاز و مخصوص یک کار</strong>. فقط وقتی مرتبط باشد بار می‌شود.</li><li><strong>ساب‌ایجنت‌ها</strong>: کاری که در یک <strong>کانتکست جدا</strong> انجام می‌شود و خلاصه برمی‌گرداند. برای جداسازی، موازی‌کاری و تمرکز.</li><li><strong>هوک‌ها</strong>: خودکارسازی <strong>تضمینی</strong> در لحظه‌های مشخص (قبل/بعد از ابزار، موقع توقف). برای قانون‌هایی که هرگز نباید جا بیفتند.</li><li><strong>سرورهای MCP</strong>: <strong>ابزارها و داده‌های تازه</strong> از سیستم‌های بیرونی.</li></ul>
+<p>خوب با هم ترکیب می‌شوند: یک ساب‌ایجنت می‌تواند روشی را دنبال کند که آن را به شکل اسکیل هم نوشته‌ای (با گذاشتنش در پرامپت ساب‌ایجنت)، یک اسکیل می‌تواند به Claude بگوید از یک ابزار MCP استفاده کند و یک هوک می‌تواند چیزی را اجباری کند که اسکیل فقط توصیه‌اش می‌کند.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>A school: <strong>CLAUDE.md</strong> is the school rules everyone knows, <strong>skills</strong> are the subject textbooks you open in that class, <strong>subagents</strong> are classmates you send to do research, <strong>hooks</strong> are the school bell and the locked gate, and <strong>MCP</strong> is the field trip to the museum.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک مدرسه را تصور کن: <strong>CLAUDE.md</strong> قانون‌های مدرسه است که همه بلدند، <strong>اسکیل‌ها</strong> کتاب‌های درسی‌اند که سر همان کلاس بازشان می‌کنی، <strong>ساب‌ایجنت‌ها</strong> هم‌کلاسی‌هایی‌اند که برای تحقیق می‌فرستی، <strong>هوک‌ها</strong> زنگ مدرسه و درِ قفل‌شده‌اند و <strong>MCP</strong> اردوی بازدید از موزه است.</p></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>A quick test: "Should this happen <strong>every time no matter what</strong>?" → hook. "Does Claude need to <strong>know</strong> this every session?" → CLAUDE.md. "Is this <strong>how to do a specific job</strong>?" → skill.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک آزمون سریع: «این باید <strong>هر بار، در هر صورت</strong> اتفاق بیفتد؟» ← هوک. «Claude باید این را در هر جلسه <strong>بداند</strong>؟» ← CLAUDE.md. «این <strong>روش انجام یک کار مشخص</strong> است؟» ← اسکیل.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="introduction-to-agent-skills--sharing-skills" data-item="introduction-to-agent-skills--sharing-skills">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵ <span lang="en" dir="ltr">· Lesson 5</span> </p>
+      <h3><span class="t-fa">به اشتراک گذاشتن اسکیل‌ها</span><span class="t-en" lang="en" dir="ltr">Sharing skills</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/introduction-to-agent-skills/sharing-skills" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-introduction-to-agent-skills--sharing-skills" data-done="introduction-to-agent-skills--sharing-skills"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Three ways to share skills, from small to organization-wide:</p>
+<ol><li><strong>Git repositories</strong>: commit skills into <code dir="ltr">.claude/skills/</code> in a project; everyone who clones it gets them.</li><li><strong>Plugins and marketplaces</strong>: bundle skills (with subagents, hooks, MCP config) into a plugin and publish it in a marketplace so people install it across projects.</li><li><strong>Enterprise managed settings</strong>: administrators can push skills to everyone in the organization; these take top priority.</li></ol>
+<p>One gotcha: <strong>subagents don't automatically see your skills</strong>. If a subagent should follow a skill's procedure, include the relevant instructions in the subagent's own prompt.</p></div><div class="fa" lang="fa" dir="rtl"><p>سه راه برای اشتراک اسکیل‌ها، از کوچک تا کل سازمان:</p>
+<ol><li><strong>مخزن‌های Git</strong>: اسکیل‌ها را در <code dir="ltr">.claude/skills/</code> یک پروژه commit کن؛ هر کسی که clone کند آن‌ها را دارد.</li><li><strong>پلاگین‌ها و بازارچه‌ها</strong>: اسکیل‌ها را (همراه ساب‌ایجنت، هوک و تنظیمات MCP) در یک پلاگین بسته‌بندی کن و در یک بازارچه منتشر کن تا افراد در همهٔ پروژه‌ها نصبش کنند.</li><li><strong>تنظیمات مدیریت‌شدهٔ سازمانی</strong>: ادمین‌ها می‌توانند اسکیل‌ها را برای همهٔ افراد سازمان بفرستند؛ این‌ها بالاترین اولویت را دارند.</li></ol>
+<p>یک دام: <strong>ساب‌ایجنت‌ها خودبه‌خود اسکیل‌هایت را نمی‌بینند</strong>. اگر یک ساب‌ایجنت باید روش یک اسکیل را دنبال کند، دستورالعمل‌های مربوط را در پرامپت خود ساب‌ایجنت بگذار.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Sharing a recipe: tell a friend (git repo), print it in a cookbook people can buy (plugin marketplace), or make it the official recipe in every branch of the restaurant chain (enterprise managed settings).</p></div><div class="fa" lang="fa" dir="rtl"><p>اشتراک یک دستور پخت: به یک دوست بگویی (مخزن git)، در یک کتاب آشپزی که مردم می‌خرند چاپش کنی (بازارچهٔ پلاگین)، یا آن را دستور رسمی همهٔ شعبه‌های زنجیرهٔ رستوران کنی (تنظیمات مدیریت‌شدهٔ سازمانی).</p></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Version your shared skills like code: a changelog line at the bottom of <code dir="ltr">SKILL.md</code> ("v3: added refund rules") saves teammates from guessing why the behavior changed.</p></div><div class="fa" lang="fa" dir="rtl"><p>اسکیل‌های مشترک را مثل کد نسخه‌گذاری کن: یک خط تغییرات در انتهای <code dir="ltr">SKILL.md</code> («نسخهٔ ۳: قانون‌های بازپرداخت اضافه شد») هم‌تیمی‌ها را از حدس زدن این‌که چرا رفتار عوض شده نجات می‌دهد.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="introduction-to-agent-skills--troubleshooting-skills" data-item="introduction-to-agent-skills--troubleshooting-skills">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶ <span lang="en" dir="ltr">· Lesson 6</span> </p>
+      <h3><span class="t-fa">رفع اشکال اسکیل‌ها</span><span class="t-en" lang="en" dir="ltr">Troubleshooting skills</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/introduction-to-agent-skills/troubleshooting-skills" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-introduction-to-agent-skills--troubleshooting-skills" data-done="introduction-to-agent-skills--troubleshooting-skills"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>When a skill misbehaves, check these four areas in order:</p>
+<ol><li><strong>Validation</strong>: run the skills validator to catch a broken frontmatter, a missing name or description, or a bad file path.</li><li><strong>Triggering</strong>: the skill exists but never gets used. Usually the description is too vague or uses different words than people type. Rewrite it with concrete triggers.</li><li><strong>Loading and priority</strong>: a skill with the same name at a higher priority level (enterprise, personal) may be shadowing yours. Rename or remove the duplicate.</li><li><strong>Runtime errors</strong>: the skill loads but fails, for example a script that needs a missing package or a path that doesn't exist on another machine. Make scripts check their inputs and print clear errors.</li></ol></div><div class="fa" lang="fa" dir="rtl"><p>وقتی یک اسکیل درست رفتار نمی‌کند، این چهار حوزه را به ترتیب چک کن:</p>
+<ol><li><strong>اعتبارسنجی</strong>: ابزار اعتبارسنج اسکیل‌ها را اجرا کن تا سربرگ خراب، اسم یا توضیح جاافتاده یا مسیر فایل اشتباه را پیدا کند.</li><li><strong>فعال شدن</strong>: اسکیل وجود دارد ولی هیچ‌وقت استفاده نمی‌شود. معمولاً توضیح خیلی مبهم است یا کلمه‌هایی غیر از آنچه مردم تایپ می‌کنند دارد. با ماشه‌های ملموس بازنویسی‌اش کن.</li><li><strong>بار شدن و اولویت</strong>: ممکن است یک اسکیل هم‌نام در سطح اولویت بالاتر (سازمانی، شخصی) جلوی اسکیل تو را گرفته باشد. اسم را عوض کن یا نسخهٔ تکراری را بردار.</li><li><strong>خطاهای زمان اجرا</strong>: اسکیل بار می‌شود ولی شکست می‌خورد؛ مثلاً اسکریپتی که بسته‌ای را لازم دارد که نصب نیست یا مسیری که روی ماشین دیگری وجود ندارد. کاری کن اسکریپت‌ها ورودی‌شان را چک کنند و خطای روشن چاپ کنند.</li></ol></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>It's like a car that won't start: check <strong>the fuel</strong> (is the file valid?), <strong>the key</strong> (does the description match?), <strong>another car blocking the driveway</strong> (a higher-priority duplicate), and only then <strong>the engine</strong> (runtime errors).</p></div><div class="fa" lang="fa" dir="rtl"><p>مثل ماشینی است که روشن نمی‌شود: <strong>بنزین</strong> را چک کن (فایل معتبر است؟)، <strong>کلید</strong> را (توضیح جور است؟)، <strong>ماشین دیگری که جلوی در پارک کرده</strong> (اسکیل تکراری با اولویت بالاتر) و فقط بعد <strong>موتور</strong> را (خطاهای زمان اجرا).</p></div></div></section>
+<section class="blk blk-try"><h4 class="blk-label"><span lang="en">Try it yourself</span><span>خودت امتحان کن</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Ask Claude directly: "Which skills do you have available, and which would you use for 'prepare the release'?" Its answer shows whether your description is being matched the way you expect.</p></div><div class="fa" lang="fa" dir="rtl"><p>مستقیم از Claude بپرس: «چه اسکیل‌هایی در دسترست هست و برای «انتشار را آماده کن» از کدام استفاده می‌کنی؟» جوابش نشان می‌دهد توضیح اسکیلت همان‌طور که انتظار داری تطبیق داده می‌شود یا نه.</p></div></div></section>
+  </div>
+</article>
+<section class="cheatsheet" id="cheatsheet"><h2 class="section-title"><span>خلاصهٔ یک‌نگاه</span><span class="sec-en" lang="en" dir="ltr">Cheat sheet</span></h2><div class="pair"><div class="en" lang="en" dir="ltr"><ul><li>Skill = folder + <code dir="ltr">SKILL.md</code> (name, <strong>description</strong>, instructions) + optional files and scripts.</li><li>Personal <code dir="ltr">~/.claude/skills/</code> · project <code dir="ltr">.claude/skills/</code> · plugins · enterprise. Priority: <strong>Enterprise → Personal → Project → Plugins</strong>.</li><li>Only descriptions are always in context → many skills, little cost.</li><li>Descriptions = what + <strong>when</strong>, in users' own words.</li><li>Keep <code dir="ltr">SKILL.md</code> short; link to reference files and <strong>scripts for deterministic work</strong>.</li><li>CLAUDE.md = always · skills = on demand · subagents = separate context · hooks = guaranteed · MCP = outside tools.</li><li>Share via git, plugins/marketplaces, or enterprise managed settings. Subagents don't see skills automatically.</li><li>Troubleshoot: validate → triggering → priority clash → runtime errors.</li></ul></div><div class="fa" lang="fa" dir="rtl"><ul><li>اسکیل = پوشه + <code dir="ltr">SKILL.md</code> (اسم، <strong>توضیح</strong>، دستورالعمل) + فایل‌ها و اسکریپت‌های اختیاری.</li><li>شخصی <code dir="ltr">~/.claude/skills/</code> · پروژه <code dir="ltr">.claude/skills/</code> · پلاگین · سازمانی. اولویت: <strong>سازمانی ← شخصی ← پروژه ← پلاگین</strong>.</li><li>فقط توضیح‌ها همیشه در کانتکست‌اند ← اسکیل‌های زیاد، هزینهٔ کم.</li><li>توضیح = چه کار می‌کند + <strong>کی</strong>، با کلمه‌های خود کاربرها.</li><li><code dir="ltr">SKILL.md</code> را کوتاه نگه دار؛ به فایل‌های مرجع و <strong>اسکریپت برای کارهای قطعی</strong> لینک بده.</li><li>CLAUDE.md = همیشه · اسکیل = هنگام نیاز · ساب‌ایجنت = کانتکست جدا · هوک = تضمینی · MCP = ابزار بیرونی.</li><li>اشتراک با git، پلاگین/بازارچه یا تنظیمات سازمانی. ساب‌ایجنت‌ها خودبه‌خود اسکیل‌ها را نمی‌بینند.</li><li>رفع اشکال: اعتبارسنجی ← فعال شدن ← تداخل اولویت ← خطای زمان اجرا.</li></ul></div></div></section>
+<section class="selfcheck" id="selfcheck"><h2 class="section-title"><span>خودت را بسنج</span><span class="sec-en" lang="en" dir="ltr">Check yourself</span></h2><p class="hint">اول جواب را در ذهنت بگو، بعد روی سؤال بزن تا پاسخ باز شود.</p><details class="q"><summary><span class="q-n">۱</span><div class="pair pair-q"><div class="en" lang="en" dir="ltr">Two skills named "release" exist: one personal, one in the project. Which one wins?</div><div class="fa" lang="fa" dir="rtl">دو اسکیل به اسم «release» داریم: یکی شخصی، یکی در پروژه. کدام برنده است؟</div></div></summary><div class="a"><div class="pair"><div class="en" lang="en" dir="ltr">The personal one (order: Enterprise, Personal, Project, Plugins).</div><div class="fa" lang="fa" dir="rtl">شخصی (ترتیب: سازمانی، شخصی، پروژه، پلاگین).</div></div></div></details><details class="q"><summary><span class="q-n">۲</span><div class="pair pair-q"><div class="en" lang="en" dir="ltr">Your skill exists but Claude never uses it. What's the most likely fix?</div><div class="fa" lang="fa" dir="rtl">اسکیلت وجود دارد ولی Claude هیچ‌وقت از آن استفاده نمی‌کند. محتمل‌ترین راه‌حل چیست؟</div></div></summary><div class="a"><div class="pair"><div class="en" lang="en" dir="ltr">Rewrite the description to say clearly what it does and when to use it, with the words users actually type.</div><div class="fa" lang="fa" dir="rtl">توضیح را بازنویسی کن تا روشن بگوید چه می‌کند و کی استفاده شود، با همان کلمه‌هایی که کاربرها تایپ می‌کنند.</div></div></div></details><details class="q"><summary><span class="q-n">۳</span><div class="pair pair-q"><div class="en" lang="en" dir="ltr">Why put calculations into a script inside the skill?</div><div class="fa" lang="fa" dir="rtl">چرا محاسبه‌ها را در یک اسکریپت داخل اسکیل بگذاریم؟</div></div></summary><div class="a"><div class="pair"><div class="en" lang="en" dir="ltr">Running code is deterministic and more reliable than asking the model to compute in its head.</div><div class="fa" lang="fa" dir="rtl">اجرای کد قطعی است و از این‌که مدل ذهنی حساب کند قابل‌اعتمادتر است.</div></div></div></details><details class="q"><summary><span class="q-n">۴</span><div class="pair pair-q"><div class="en" lang="en" dir="ltr">Skill or hook for "always run the linter after editing a Python file"?</div><div class="fa" lang="fa" dir="rtl">برای «همیشه بعد از ویرایش یک فایل پایتون linter را اجرا کن» اسکیل یا هوک؟</div></div></summary><div class="a"><div class="pair"><div class="en" lang="en" dir="ltr">A hook (PostToolUse), because it must happen every time.</div><div class="fa" lang="fa" dir="rtl">هوک (PostToolUse)؛ چون باید هر بار اتفاق بیفتد.</div></div></div></details></section>
+<nav class="pager" aria-label="صفحهٔ قبلی و بعدی"><a class="prev" href="../courses/introduction-to-subagents.html"><span class="pager-label">قبلی</span><span>آشنایی با ساب‌ایجنت‌ها</span></a><a class="next" href="../courses/ai-native-sdlc-playbook.html"><span class="pager-label">بعدی</span><span>کتاب بازی چرخهٔ توسعهٔ نرم‌افزار هوش‌مصنوعی‌محور</span></a></nav>
+</main>
+</div>
+
+<footer class="site-foot">
+  <p>این جزوه یک بازنویسی آموزشی و آزاد از مطالب <a href="https://academy.claude.com" target="_blank" rel="noopener">Claude Academy</a> است؛ متن‌ها، تشبیه‌ها و مثال‌ها تازه نوشته شده‌اند. برای جدیدترین نسخه همیشه به صفحهٔ رسمی هر درس سر بزن.</p>
+  <p lang="en" dir="ltr">An independent study companion to Claude Academy. Explanations and examples are original; follow each "official page" link for the source lesson.</p>
+  <p><a href="../index.html">بازگشت به فهرست کامل</a> · <a href="../glossary.html">واژه‌نامه</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,487 @@
+@page
+slug: ai-native-sdlc-playbook
+kind: course
+group: products
+order: 6
+en: The AI-native SDLC playbook
+fa: کتاب بازی چرخهٔ توسعهٔ نرم‌افزار هوش‌مصنوعی‌محور
+stats: 14 lessons · 1 hr reading · no quiz
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook
+expect: 14
+who_en: Engineering, platform and security leads in organizations that already use Claude Code, especially large or regulated ones.
+who_fa: مدیران مهندسی، پلتفرم و امنیت در سازمان‌هایی که از Claude Code استفاده می‌کنند، به‌خصوص سازمان‌های بزرگ یا تحت مقررات.
+blurb_fa: دوازده «حرکت» برای استفاده از Claude در هر مرحلهٔ چرخهٔ توسعه: برنامه‌ریزی با intent.md، طراحی، ساخت با plan mode و اسکیل‌ها، تست با حلقهٔ بازخورد و eval، استقرار با بازبینی و هوک‌های تأیید، و نگهداری با بستن حلقهٔ معیارها.
+desc_en: Twelve plays for using Claude at every stage of the software lifecycle, from intent.md to closing the loop on metrics.
+
+@intro
+Coding is only part of software work. Around the code sit planning, design, testing, review, deployment and maintenance, and that's where teams lose most of their time. This playbook gives **twelve "plays"**, practical moves for using Claude at each of six stages: **Plan, Design, Build, Test, Deploy, Maintain**.
+
+It's written for leaders who want speed **without** losing control: every play keeps human judgment at the center and uses enforceable controls (hooks, branch protection, CI) for the rules that must always hold. The guidance is based on practices from Anthropic's Applied AI team. A dependency graph shows which plays need others first; six plays have no prerequisites and are good starting points.
+~~
+کدنویسی فقط بخشی از کار نرم‌افزار است. دور کد را برنامه‌ریزی، طراحی، تست، بازبینی، استقرار و نگهداری گرفته‌اند و بیشترین وقت تیم‌ها همین‌جا تلف می‌شود. این کتاب بازی **دوازده «حرکت»** (play) ارائه می‌دهد؛ حرکت‌های عملی برای استفاده از Claude در هر کدام از شش مرحله: **برنامه‌ریزی، طراحی، ساخت، تست، استقرار، نگهداری**.
+
+برای مدیرانی نوشته شده که سرعت می‌خواهند **بدون** از دست دادن کنترل: هر حرکت قضاوت انسانی را در مرکز نگه می‌دارد و برای قانون‌هایی که همیشه باید رعایت شوند از کنترل‌های اجرایی (هوک‌ها، حفاظت شاخه، CI) استفاده می‌کند. این راهنما بر اساس روش‌های تیم Applied AI در Anthropic است. یک نمودار وابستگی نشان می‌دهد کدام حرکت‌ها اول به بقیه نیاز دارند؛ شش حرکت هیچ پیش‌نیازی ندارند و نقطه‌های شروع خوبی‌اند.
+
+@section Introduction | مقدمه
+
+@lesson
+id: introduction
+en: What changes and where to start
+fa: چه چیزی عوض می‌شود و از کجا شروع کنیم
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook/introduction
+
+#explain
+In a traditional lifecycle, people do every step and documents travel slowly between teams. In an **AI-native** lifecycle, Claude does much of the reading, drafting, coding and checking, and people spend their time on **intent, judgment and approval**.
+
+What changes at each stage, in short: plans become short machine-readable intent files; design happens in one agent session guided by written standards; building starts in plan mode with many parallel sessions; testing becomes a feedback loop plus continuous evals; deployment is gated by reviews and hooks; maintenance closes the loop automatically from metrics back to new intents.
+
+Where to start: pick plays without prerequisites (for example a good CLAUDE.md, plan mode as default, a feedback loop for tests) and add the dependent ones later.
+~~
+در چرخهٔ سنتی، آدم‌ها همهٔ قدم‌ها را انجام می‌دهند و اسناد آهسته بین تیم‌ها جابه‌جا می‌شوند. در چرخهٔ **هوش‌مصنوعی‌محور**، Claude بخش بزرگی از خواندن، پیش‌نویس، کدنویسی و بررسی را انجام می‌دهد و آدم‌ها وقتشان را روی **نیت، قضاوت و تأیید** می‌گذارند.
+
+به طور خلاصه در هر مرحله چه عوض می‌شود: برنامه‌ها به فایل‌های نیت کوتاه و قابل‌خواندن برای ماشین تبدیل می‌شوند؛ طراحی در یک جلسهٔ ایجنت با هدایت استانداردهای نوشته‌شده انجام می‌شود؛ ساخت با plan mode و چندین جلسهٔ موازی شروع می‌شود؛ تست به یک حلقهٔ بازخورد به‌علاوهٔ eval پیوسته تبدیل می‌شود؛ استقرار با بازبینی و هوک‌ها دروازه‌بانی می‌شود؛ نگهداری حلقه را خودکار می‌بندد، از معیارها برمی‌گردد به نیت‌های تازه.
+
+از کجا شروع کنیم: حرکت‌های بی‌پیش‌نیاز را انتخاب کن (مثلاً یک CLAUDE.md خوب، plan mode به‌عنوان پیش‌فرض، یک حلقهٔ بازخورد برای تست‌ها) و حرکت‌های وابسته را بعداً اضافه کن.
+
+#analogy
+It's like moving from a kitchen where the chef chops every onion to one with a skilled team: the chef still designs the menu and tastes every plate before it leaves, but the chopping, washing and plating happen in parallel.
+~~
+مثل رفتن از آشپزخانه‌ای که سرآشپز همهٔ پیازها را خودش خرد می‌کند به آشپزخانه‌ای با یک تیم ماهر است: سرآشپز هنوز منو را طراحی می‌کند و هر بشقاب را قبل از رفتن می‌چشد، ولی خرد کردن، شستن و چیدن موازی انجام می‌شود.
+
+#tip
+Don't roll out all twelve plays at once. Pick one stage that hurts the most (often review or testing), run one play for a month, measure, then add the next.
+~~
+همهٔ دوازده حرکت را یک‌جا اجرا نکن. مرحله‌ای را که بیشترین درد را دارد انتخاب کن (اغلب بازبینی یا تست)، یک حرکت را یک ماه اجرا کن، اندازه بگیر و بعد حرکت بعدی را اضافه کن.
+
+#terms
+SDLC = چرخهٔ عمر توسعهٔ نرم‌افزار = مراحل ساختن نرم‌افزار از برنامه‌ریزی تا نگهداری.
+Play = حرکت (play) = یک روش عملی و تکرارپذیر برای یک مرحله، مثل حرکت‌های از پیش تمرین‌شده در ورزش.
+
+@section Stage 1: Plan | مرحلهٔ ۱: برنامه‌ریزی
+
+@lesson
+id: capture-as-intent-md
+en: Capture as intent.md
+fa: ثبت نیت در فایل intent.md
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook
+
+#explain
+Every piece of work starts as an **intent.md**: a short, **version-controlled** file that records the **goal**, the **why**, and the **constraints**. It's written for humans *and* agents: readable by a product manager, actionable by Claude.
+
+Because it lives in Git, intent is reviewable, searchable and traceable: months later you can see why something was built and what was ruled out. Later stages (design, build, even automated maintenance) all start from this file.
+~~
+هر کار با یک **intent.md** شروع می‌شود: فایلی کوتاه و **نسخه‌دار** که **هدف**، **چرایی** و **محدودیت‌ها** را ثبت می‌کند. برای آدم‌ها *و* ایجنت‌ها نوشته شده: مدیر محصول می‌تواند بخواندش و Claude می‌تواند بر اساسش عمل کند.
+
+چون در Git زندگی می‌کند، نیت قابل‌بازبینی، قابل‌جست‌وجو و قابل‌ردیابی است: ماه‌ها بعد می‌بینی چرا چیزی ساخته شد و چه چیزهایی کنار گذاشته شدند. مرحله‌های بعدی (طراحی، ساخت، حتی نگهداری خودکار) همه از همین فایل شروع می‌شوند.
+
+#code markdown intents/2026-10-faster-checkout.md
+# Intent: Faster checkout for returning customers
+
+## Goal
+Returning customers can pay in one step with a saved card.
+
+## Why
+38% of returning customers abandon at the payment page (Sept analytics).
+
+## Constraints
+- PCI rules: card data never touches our servers; use the payment provider's tokens.
+- Must work in the iOS and Android apps, not only the web.
+- No change to the guest checkout flow.
+
+## Out of scope
+New payment methods.
+
+## Done when
+Median checkout time for returning customers < 20 s; no increase in payment errors.
+#end
+
+#analogy
+intent.md is the **note you leave the builders before a renovation**: what you want, why, what must not change, and how you'll know it's finished. Everyone, including robots, can read it.
+~~
+intent.md مثل **یادداشتی است که قبل از بازسازی برای بناها می‌گذاری**: چه می‌خواهی، چرا، به چه چیزی نباید دست بخورد و از کجا می‌فهمی کار تمام است. همه، حتی ربات‌ها، می‌توانند بخوانندش.
+
+#tip
+The **"Done when"** line is gold. It gives Claude a verifiable target and gives reviewers an objective check.
+~~
+خط **«تمام است وقتی»** طلاست. به Claude یک هدف قابل‌سنجش می‌دهد و به بازبین‌ها یک معیار عینی.
+
+@section Stage 2: Design | مرحلهٔ ۲: طراحی
+
+@lesson
+id: requirements-and-design
+en: Requirements and design
+fa: نیازمندی‌ها و طراحی
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook
+
+#explain
+This play turns an intent.md into a **requirements and design spec in one working session**. Claude reads the intent, the relevant code and your **standards stored as skills in Git** (security, API style, data rules), then drafts the spec: requirements, design, risks, open questions. A human edits and approves it.
+
+It depends on two other plays: **Capture intent** (the input) and **Skills as institutional knowledge** (the standards). Without written standards, every design session reinvents them.
+~~
+این حرکت یک intent.md را **در یک جلسهٔ کاری به مشخصات نیازمندی‌ها و طراحی** تبدیل می‌کند. Claude نیت، کد مرتبط و **استانداردهای تو را که به شکل اسکیل در Git ذخیره شده‌اند** می‌خواند (امنیت، سبک API، قانون‌های داده) و بعد مشخصات را پیش‌نویس می‌کند: نیازمندی‌ها، طراحی، ریسک‌ها، سؤال‌های باز. یک انسان ویرایش و تأییدش می‌کند.
+
+به دو حرکت دیگر وابسته است: **ثبت نیت** (ورودی) و **اسکیل‌ها به‌عنوان دانش سازمانی** (استانداردها). بدون استانداردهای نوشته‌شده، هر جلسهٔ طراحی دوباره آن‌ها را از نو اختراع می‌کند.
+
+#prompt
+Read intents/2026-10-faster-checkout.md and the payment module. Using our security and API standards skills, write design/faster-checkout.md with: requirements, proposed design (with a sequence of calls), data stored and where, risks, and open questions for the payments team. Don't write code.
+~~
+فایل intents/2026-10-faster-checkout.md و ماژول پرداخت را بخوان. با استفاده از اسکیل‌های استاندارد امنیت و API ما، فایل design/faster-checkout.md را بنویس شامل: نیازمندی‌ها، طراحی پیشنهادی (با ترتیب فراخوانی‌ها)، داده‌هایی که ذخیره می‌شوند و کجا، ریسک‌ها و سؤال‌های باز برای تیم پرداخت. کد ننویس.
+
+#analogy
+An architect drafting plans in one afternoon because the city's building codes (skills) are on the desk, instead of calling the city office for every rule.
+~~
+مثل معماری است که در یک بعدازظهر نقشه می‌کشد چون آیین‌نامه‌های ساختمانی شهر (اسکیل‌ها) روی میزش است، به‌جای این‌که برای هر قانون به شهرداری زنگ بزند.
+
+#tip
+Ask for **open questions** explicitly. A design that lists what it doesn't know is safer than one that sounds confident about everything.
+~~
+**سؤال‌های باز** را صریحاً بخواه. طراحی‌ای که چیزهایی را که نمی‌داند فهرست می‌کند امن‌تر از طراحی‌ای است که دربارهٔ همه‌چیز مطمئن به نظر می‌رسد.
+
+@section Stage 3: Build | مرحلهٔ ۳: ساخت
+
+@lesson
+id: plan-mode
+en: Claude Code plan mode as the default starting point
+fa: plan mode به‌عنوان نقطهٔ شروع پیش‌فرض
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook/plan-mode
+
+#explain
+Engineers **start every build session in plan mode** and hand Claude the **approved spec**. Claude explores the code read-only, proposes an implementation plan tied to the spec, and the engineer approves or edits it before any change.
+
+Making this the **default** (in settings) rather than a personal habit means the cheapest moment to catch a misunderstanding is built into every session for everyone.
+~~
+مهندس‌ها **هر جلسهٔ ساخت را در plan mode شروع می‌کنند** و **مشخصات تأییدشده** را به Claude می‌دهند. Claude کد را فقط‌خواندنی می‌گردد، یک برنامهٔ پیاده‌سازی مرتبط با مشخصات پیشنهاد می‌دهد و مهندس قبل از هر تغییری تأییدش می‌کند یا اصلاحش می‌کند.
+
+**پیش‌فرض** کردن این کار (در تنظیمات)، به‌جای این‌که یک عادت شخصی باشد، یعنی ارزان‌ترین لحظه برای گرفتن سوءتفاهم در هر جلسه و برای همه تعبیه شده.
+
+#analogy
+Like a surgeon's **time-out before the first cut**: the team confirms the patient, the procedure and the plan. It takes a minute and prevents the worst mistakes.
+~~
+مثل **مکث جراح قبل از اولین برش** است: تیم بیمار، نوع عمل و برنامه را تأیید می‌کند. یک دقیقه طول می‌کشد و از بدترین اشتباه‌ها جلوگیری می‌کند.
+
+#tip
+Link the plan back to the spec: "For each step, name the requirement it satisfies." Steps that satisfy nothing are scope creep; requirements with no step are gaps.
+~~
+برنامه را به مشخصات وصل کن: «برای هر قدم بگو کدام نیازمندی را برآورده می‌کند.» قدم‌هایی که هیچ نیازمندی‌ای را برآورده نمی‌کنند یعنی کار اضافه؛ نیازمندی‌هایی که هیچ قدمی ندارند یعنی جاافتادگی.
+
+@lesson
+id: claude-md
+en: The CLAUDE.md
+fa: فایل CLAUDE.md در مقیاس سازمان
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook/claude-md
+
+#explain
+At organization scale, CLAUDE.md is how every repository tells Claude **how this codebase works**: build and test commands, architecture landmarks, conventions, no-go zones. Keep it short and maintained like code (reviewed in PRs, with an owner).
+
+Remember its limit: CLAUDE.md is **guidance**. It makes good behavior likely; it doesn't guarantee it. Anything that must always hold belongs in hooks, permissions or CI checks.
+~~
+در مقیاس سازمان، CLAUDE.md همان راهی است که هر مخزن به Claude می‌گوید **این کدبیس چطور کار می‌کند**: دستورهای build و تست، نشانه‌های معماری، قراردادها، منطقه‌های ممنوع. کوتاه نگهش دار و مثل کد نگهداری‌اش کن (در PR بازبینی شود و یک مسئول داشته باشد).
+
+محدودیتش را یادت باشد: CLAUDE.md **راهنماست**. رفتار خوب را محتمل می‌کند، تضمینش نمی‌کند. هر چیزی که همیشه باید برقرار باشد جایش در هوک‌ها، مجوزها یا بررسی‌های CI است.
+
+#analogy
+It's the **onboarding page of each team's wiki**: short, current and owned by someone, so a newcomer (human or AI) is productive on day one.
+~~
+مثل **صفحهٔ آشنایی ویکی هر تیم** است: کوتاه، به‌روز و با یک مسئول، تا یک تازه‌وارد (انسان یا هوش مصنوعی) از روز اول مفید باشد.
+
+#tip
+Add CLAUDE.md to your **PR template checklist**: "Did this change make anything in CLAUDE.md wrong?" Outdated guidance is worse than none.
+~~
+CLAUDE.md را به **چک‌لیست قالب PR** اضافه کن: «آیا این تغییر چیزی را در CLAUDE.md نادرست کرد؟» راهنمای کهنه از نبودِ راهنما بدتر است.
+
+@lesson
+id: skills-as-institutional-knowledge
+en: Skills as institutional knowledge
+fa: اسکیل‌ها به‌عنوان دانش سازمانی
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook/skills-as-institutional-knowledge
+
+#explain
+Write a skill when a **policy must be applied consistently**: a security standard, a logging format, an accessibility rule, a data-retention rule. Store it as `SKILL.md` in `.claude/skills/`, give it a **policy owner** who signs off on changes, and review it like code.
+
+Be honest about what a skill is: **an advisory control**. It makes Claude likely to apply the policy while the code is being written, but nothing forces a session to comply. So every rule that *must* hold should also have a **hook or a PR check** behind it.
+~~
+وقتی اسکیل بنویس که یک **سیاست باید یکدست اعمال شود**: یک استاندارد امنیتی، یک قالب لاگ، یک قانون دسترس‌پذیری، یک قانون نگهداری داده. آن را به شکل `SKILL.md` در `.claude/skills/` ذخیره کن، یک **مسئول سیاست** برایش بگذار که تغییرات را امضا کند و مثل کد بازبینی‌اش کن.
+
+دربارهٔ این‌که اسکیل چیست صادق باش: **یک کنترل توصیه‌ای**. باعث می‌شود Claude به احتمال زیاد سیاست را هنگام نوشتن کد اعمال کند، ولی هیچ چیزی جلسه را مجبور به رعایت نمی‌کند. پس پشت هر قانونی که *باید* برقرار باشد، یک **هوک یا بررسی PR** هم بگذار.
+
+#analogy
+A skill is the **company handbook** that everyone reads; the hook is the **badge reader on the door**. The handbook explains the rule; the badge reader enforces it.
+~~
+اسکیل مثل **دفترچهٔ قوانین شرکت** است که همه می‌خوانند؛ هوک **کارت‌خوان روی در** است. دفترچه قانون را توضیح می‌دهد؛ کارت‌خوان اجرایش می‌کند.
+
+#example
+A "secure-logging" skill tells Claude never to log tokens, emails or card numbers and shows the approved masking helper. A CI check scans the diff for logging calls that include those fields and fails the PR if it finds one. Skill + check = consistent **and** enforced.
+~~
+یک اسکیل «لاگ امن» به Claude می‌گوید هرگز توکن، ایمیل یا شمارهٔ کارت را لاگ نکند و تابع کمکی تأییدشده برای پوشاندن را نشانش می‌دهد. یک بررسی CI در diff دنبال فراخوانی‌های لاگی می‌گردد که این فیلدها را دارند و اگر پیدا کند PR را رد می‌کند. اسکیل + بررسی = یکدست **و** اجرایی.
+
+@lesson
+id: parallel-sessions-and-subagents
+en: Parallel sessions and subagents
+fa: جلسه‌های موازی و ساب‌ایجنت‌ها
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook/parallel-sessions-and-subagents
+
+#explain
+One engineer can now supervise **several Claude sessions at once**, each in its own **git worktree** so they never overwrite each other, often in auto mode with tests as the safety net. Inside a session, **subagents** take side quests (research, review, log digging) in separate contexts.
+
+The engineer's role shifts from typing to **orchestrating**: splitting work into independent pieces, writing clear specs for each, and reviewing the results.
+~~
+یک مهندس حالا می‌تواند **هم‌زمان چند جلسهٔ Claude** را سرپرستی کند، هر کدام در **git worktree** خودش تا هرگز کار هم را خراب نکنند، اغلب در حالت خودکار و با تست‌ها به‌عنوان تور ایمنی. داخل یک جلسه هم **ساب‌ایجنت‌ها** کارهای فرعی (تحقیق، بازبینی، گشتن در لاگ) را در کانتکست‌های جدا انجام می‌دهند.
+
+نقش مهندس از تایپ کردن به **هماهنگ‌کردن** تغییر می‌کند: شکستن کار به تکه‌های مستقل، نوشتن مشخصات روشن برای هر کدام و بازبینی نتیجه‌ها.
+
+#analogy
+A head chef running **several stations at once**: grill, salad, dessert. Each cook works at their own station; the head chef assigns, tastes and approves.
+~~
+مثل سرآشپزی است که **چند ایستگاه را هم‌زمان** اداره می‌کند: کباب، سالاد، دسر. هر آشپز در ایستگاه خودش کار می‌کند؛ سرآشپز کار را تقسیم می‌کند، می‌چشد و تأیید می‌کند.
+
+#warn
+Parallelism multiplies review work. Only run as many sessions as you can **actually review**; unreviewed output piling up is a hidden risk.
+~~
+موازی‌کاری کار بازبینی را چند برابر می‌کند. فقط به تعدادی جلسه اجرا کن که **واقعاً می‌توانی بازبینی کنی**؛ خروجی‌های بازبینی‌نشده‌ای که روی هم جمع می‌شوند یک ریسک پنهان‌اند.
+
+@section Stage 4: Test | مرحلهٔ ۴: تست
+
+@lesson
+id: give-claude-a-feedback-loop
+en: Give Claude a feedback loop
+fa: به Claude یک حلقهٔ بازخورد بده
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook/give-claude-a-feedback-loop
+
+#explain
+Claude does its best work when it can **check itself**: run the tests, see the failure, fix, run again. So make that loop fast and available: tests that run in seconds, a dev server Claude can start, a linter and type checker, maybe a browser it can use to look at the page.
+
+Without a feedback loop, Claude guesses and you test. With one, Claude iterates until the checks pass, and you review a working result.
+~~
+Claude وقتی بهترین کارش را می‌کند که بتواند **خودش را بسنجد**: تست‌ها را اجرا کند، شکست را ببیند، درستش کند، دوباره اجرا کند. پس این حلقه را سریع و در دسترس کن: تست‌هایی که در چند ثانیه اجرا می‌شوند، یک سرور توسعه که Claude بتواند بالا بیاورد، یک linter و بررسی‌کنندهٔ نوع‌ها، شاید یک مرورگر که بتواند صفحه را با آن ببیند.
+
+بدون حلقهٔ بازخورد، Claude حدس می‌زند و تو تست می‌کنی. با آن، Claude آن‌قدر تکرار می‌کند تا بررسی‌ها پاس شوند و تو یک نتیجهٔ کارکردی را بازبینی می‌کنی.
+
+#analogy
+Learning to throw darts **with the lights on** versus in the dark. Same thrower; seeing where each dart lands is what makes the next throw better.
+~~
+مثل یاد گرفتن دارت‌بازی **با چراغ روشن** در مقابل تاریکی است. همان پرتاب‌کننده؛ دیدن جای فرود هر دارت است که پرتاب بعدی را بهتر می‌کند.
+
+#tip
+If your full test suite takes 20 minutes, give Claude a **fast subset** command for the area it's changing. A 10-second loop gets used ten times; a 20-minute loop gets skipped.
+~~
+اگر کل تست‌هایت ۲۰ دقیقه طول می‌کشد، به Claude یک دستور **زیرمجموعهٔ سریع** برای بخشی که تغییر می‌دهد بده. حلقهٔ ۱۰ ثانیه‌ای ده بار استفاده می‌شود؛ حلقهٔ ۲۰ دقیقه‌ای رد می‌شود.
+
+@lesson
+id: continuous-evals-in-ci
+en: Continuous evals in CI
+fa: eval پیوسته در CI
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook/continuous-evals-in-ci
+
+#explain
+**Evals are the AI-native version of stage-gate QA.** Your agent setup (CLAUDE.md, skills, hooks, prompts, the model) is configuration that changes behavior, so test it like code. The eval suite **re-runs whenever that configuration changes**, for example a new model or a rewritten prompt, plus on a nightly schedule.
+
+Two clever details: grade each eval from a **clean copy made before the run**, so the agent can't "pass" by editing its own checks; and turn **every production incident into a permanent regression eval**.
+~~
+**eval همان نسخهٔ هوش‌مصنوعی‌محور کنترل کیفیت مرحله‌به‌مرحله است.** تنظیمات ایجنت تو (CLAUDE.md، اسکیل‌ها، هوک‌ها، پرامپت‌ها، مدل) پیکربندی‌ای است که رفتار را تغییر می‌دهد؛ پس مثل کد تستش کن. مجموعهٔ eval **هر وقت این پیکربندی عوض شود دوباره اجرا می‌شود**، مثلاً با یک مدل تازه یا یک پرامپت بازنویسی‌شده، به‌علاوهٔ یک اجرای شبانه.
+
+دو جزئیات هوشمندانه: هر eval را از روی یک **نسخهٔ تمیزِ تهیه‌شده قبل از اجرا** نمره بده تا ایجنت نتواند با ویرایش بررسی‌های خودش «قبول» شود؛ و **هر حادثهٔ محیط اصلی را به یک eval دائمی بازگشتی تبدیل کن**.
+
+#code yaml .github/workflows/agent-evals.yml (trigger section)
+on:
+  pull_request:
+    paths: ["CLAUDE.md", ".claude/**", "evals/**"]
+  schedule:
+    - cron: "0 2 * * *"      # nightly run
+#end
+
+#analogy
+Like a **driving test that's retaken whenever the car changes**: new engine, new brakes or a new driver, you check again on the same course before going on the highway.
+~~
+مثل **آزمون رانندگی است که هر بار ماشین عوض شود دوباره گرفته می‌شود**: موتور تازه، ترمز تازه یا رانندهٔ تازه؛ قبل از رفتن به اتوبان، روی همان مسیر دوباره امتحان می‌دهی.
+
+#tip
+Start small: 20 evals drawn from real tasks beat 500 synthetic ones. Add one every time something goes wrong in production.
+~~
+کوچک شروع کن: ۲۰ eval از کارهای واقعی از ۵۰۰ eval ساختگی بهتر است. هر بار چیزی در محیط اصلی خراب شد، یکی اضافه کن.
+
+#terms
+Regression eval = eval بازگشتی = آزمونی که مطمئن می‌شود مشکلی که قبلاً رفع شده دوباره برنگردد.
+
+@section Stage 5: Deploy | مرحلهٔ ۵: استقرار
+
+@lesson
+id: ai-in-the-pr-review-loop
+en: AI in the PR review loop
+fa: هوش مصنوعی در چرخهٔ بازبینی PR
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook/ai-in-the-pr-review-loop
+
+#explain
+When agents write more code, review becomes the bottleneck. Put **Claude in the review loop**: an automated first review on every pull request (correctness, security, style, missing tests), so human reviewers start from a list of findings and spend their time on design and risk, not typos.
+
+The human approval **stays mandatory**. AI review is the first pass that makes human review faster and sharper, not a replacement for it.
+~~
+وقتی ایجنت‌ها کد بیشتری می‌نویسند، بازبینی گلوگاه می‌شود. **Claude را وارد چرخهٔ بازبینی کن**: یک بازبینی خودکار اولیه روی هر pull request (درستی، امنیت، سبک، تست‌های جاافتاده)، تا بازبین‌های انسانی از یک فهرست یافته‌ها شروع کنند و وقتشان را روی طراحی و ریسک بگذارند، نه غلط تایپی.
+
+تأیید انسانی **اجباری می‌ماند**. بازبینی هوش مصنوعی دور اولی است که بازبینی انسانی را سریع‌تر و دقیق‌تر می‌کند، نه جایگزینش.
+
+#analogy
+A **spell-checker before the editor**: the editor still reads the article, but no longer wastes time on missing commas.
+~~
+مثل **غلط‌یاب املایی قبل از ویراستار** است: ویراستار هنوز مقاله را می‌خواند، ولی دیگر وقتش را سر ویرگول‌های جاافتاده تلف نمی‌کند.
+
+#tip
+Have the AI reviewer rate each finding (severity + confidence) and tune it over time: findings people always dismiss are noise; remove that category from the prompt.
+~~
+از بازبین هوش مصنوعی بخواه به هر یافته امتیاز بدهد (شدت + اطمینان) و به‌مرور تنظیمش کن: یافته‌هایی که آدم‌ها همیشه نادیده می‌گیرند سروصدا هستند؛ آن دسته را از پرامپت حذف کن.
+
+@lesson
+id: hooks-as-approval-gates
+en: Hooks as approval gates
+fa: هوک‌ها به‌عنوان دروازه‌های تأیید
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook/hooks-as-approval-gates
+
+#explain
+Hooks run **before Claude acts** and can **allow, ask, or block**. That makes them perfect **approval gates** for risky actions. The lesson's example is a release gate:
+
+- deploy to **dev** → allowed,
+- deploy to **staging** → ask a human,
+- deploy to **production** → blocked unless there's an **approved change ticket**.
+
+Two safety properties matter: in non-interactive runs an "ask" becomes a **deny**, and if the hook is missing or crashes the gate **fails closed**. Administrators can use **managed settings** so these gates can't be switched off locally.
+~~
+هوک‌ها **قبل از این‌که Claude کاری کند** اجرا می‌شوند و می‌توانند **اجازه بدهند، بپرسند یا بلاک کنند**. همین آن‌ها را **دروازهٔ تأیید** عالی‌ای برای کارهای پرخطر می‌کند. مثال این درس یک دروازهٔ انتشار است:
+
+- استقرار روی **dev** ← مجاز،
+- استقرار روی **staging** ← از یک انسان بپرس،
+- استقرار روی **production** ← بلاک، مگر این‌که یک **تیکت تغییر تأییدشده** وجود داشته باشد.
+
+دو ویژگی ایمنی مهم‌اند: در اجراهای غیرتعاملی، «بپرس» به **رد** تبدیل می‌شود و اگر هوک نباشد یا کرش کند، دروازه **بسته می‌ماند** (fail closed). ادمین‌ها می‌توانند از **تنظیمات مدیریت‌شده** استفاده کنند تا این دروازه‌ها به‌صورت محلی خاموش نشوند.
+
+#code bash .claude/hooks/release-gate.sh (PreToolUse on Bash, sketch)
+#!/usr/bin/env bash
+cmd=$(jq -r '.tool_input.command // empty')
+case "$cmd" in
+  *"deploy --env dev"*)     exit 0 ;;                                   # allow
+  *"deploy --env staging"*) echo '{"decision":"ask"}'; exit 0 ;;        # human must confirm (illustrative)
+  *"deploy --env prod"*)
+    ticket=$(echo "$cmd" | grep -o 'CHG-[0-9]*')
+    if ./scripts/ticket-approved.sh "$ticket"; then exit 0; fi
+    echo "Production deploys need an approved change ticket (CHG-...)." >&2; exit 2 ;;  # block
+esac
+exit 0
+#end
+
+#analogy
+An airport: the **dev** area is the public hall (walk in), **staging** is passport control (someone checks you), and **production** is the cockpit (only with the right badge, no exceptions, and the door stays locked if the badge reader breaks).
+~~
+یک فرودگاه: **dev** سالن عمومی است (آزادانه وارد شو)، **staging** کنترل گذرنامه است (یک نفر چکت می‌کند) و **production** کابین خلبان است (فقط با کارت درست، بدون استثنا، و اگر کارت‌خوان خراب شود در قفل می‌ماند).
+
+#warn
+The exact output format a hook uses to say "ask" differs by setup; check your Claude Code version's hook docs. The principle (allow / ask / block, fail closed) is what matters.
+~~
+قالب دقیق خروجی‌ای که هوک با آن «بپرس» را اعلام می‌کند بسته به نسخه فرق دارد؛ مستندات هوک نسخهٔ Claude Code خودت را چک کن. چیزی که مهم است اصل ماجراست (اجازه / پرسیدن / بلاک، و بسته‌ماندن در صورت خطا).
+
+@lesson
+id: ci-cd-integration-and-deployment
+en: CI/CD integration and deployment
+fa: یکپارچگی با CI/CD و استقرار
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook/ci-cd-integration-and-deployment
+
+#explain
+Agent output enters production through the **same doors as human output**: a pull request, **branch protection**, required checks and required approvals. The agent has **no route to push to main**.
+
+Autonomy is **tiered by environment**: more freedom where mistakes are cheap (dev), more gates where they're expensive (production). Claude can run in CI (headless or via the GitHub Action) to fix failing builds, update docs or write release notes, but merges still go through the protected path.
+~~
+خروجی ایجنت از **همان درهایی وارد محیط اصلی می‌شود که خروجی انسان**: یک pull request، **حفاظت شاخه**، بررسی‌های اجباری و تأییدهای اجباری. ایجنت **هیچ راهی برای push مستقیم به main ندارد**.
+
+آزادی عمل **بر اساس محیط پله‌بندی می‌شود**: آزادی بیشتر جایی که اشتباه ارزان است (dev)، دروازه‌های بیشتر جایی که گران است (production). Claude می‌تواند در CI اجرا شود (headless یا از طریق GitHub Action) تا build شکسته را درست کند، مستندات را به‌روز کند یا یادداشت انتشار بنویسد، ولی merge همچنان از مسیر محافظت‌شده می‌گذرد.
+
+#analogy
+A new bank employee can prepare any transfer, but **the vault only opens with two keys**: theirs and a manager's. Same rule for agents: they prepare, protected processes release.
+~~
+یک کارمند تازهٔ بانک می‌تواند هر انتقالی را آماده کند، ولی **گاوصندوق فقط با دو کلید باز می‌شود**: کلید او و کلید یک مدیر. برای ایجنت‌ها هم همین قانون است: آماده می‌کنند، فرایندهای محافظت‌شده آزادش می‌کنند.
+
+#tip
+Audit the credentials your CI agent uses. If its token *could* push to main or deploy to production, branch protection is your only defense; give it the narrowest token instead.
+~~
+اعتبارنامه‌هایی را که ایجنت CI تو استفاده می‌کند بازبینی کن. اگر توکنش *بتواند* به main push کند یا روی production مستقر کند، حفاظت شاخه تنها دفاع توست؛ به‌جایش محدودترین توکن ممکن را به آن بده.
+
+@section Stage 6: Maintain | مرحلهٔ ۶: نگهداری
+
+@lesson
+id: closing-the-loop-on-metrics
+en: Closing the loop on metrics
+fa: بستن حلقه با معیارها
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook/closing-the-loop-on-metrics
+
+#explain
+The final, most autonomous stage. A **monitoring trigger** (a metric breaching its normal band, such as error rate or latency) starts Claude **headless**. Claude investigates and writes its diagnosis as a **new intent.md**, which goes back into the normal planning flow. **Humans triage a queue of intents** instead of starting the investigation themselves.
+
+Between stages sits an independent **confidence gate** that decides whether the output continues or is escalated to a human. Responses scale with severity; at the highest level Claude may only open a PR or trigger a **pre-approved runbook**, and a review gate still decides. A good leading indicator: **time from band breach to an intent.md appearing in the triage queue**.
+~~
+آخرین و خودکارترین مرحله. یک **محرک مانیتورینگ** (معیاری که از محدودهٔ عادی‌اش بیرون می‌زند، مثل نرخ خطا یا تأخیر) Claude را به‌صورت **headless** راه می‌اندازد. Claude بررسی می‌کند و تشخیصش را به شکل یک **intent.md تازه** می‌نویسد که به جریان عادی برنامه‌ریزی برمی‌گردد. **آدم‌ها یک صف از نیت‌ها را دسته‌بندی می‌کنند**، به‌جای این‌که خودشان بررسی را شروع کنند.
+
+بین مرحله‌ها یک **دروازهٔ اطمینان** مستقل قرار دارد که تصمیم می‌گیرد خروجی ادامه پیدا کند یا به یک انسان ارجاع شود. واکنش‌ها با شدت مشکل بزرگ‌تر می‌شوند؛ در بالاترین سطح Claude فقط می‌تواند یک PR باز کند یا یک **دستورالعمل عملیاتی از پیش تأییدشده** (runbook) را اجرا کند و باز هم یک دروازهٔ بازبینی تصمیم می‌گیرد. یک شاخص پیشرو خوب: **فاصلهٔ زمانی بین بیرون زدن معیار از محدوده تا ظاهر شدن یک intent.md در صف دسته‌بندی**.
+
+#analogy
+A smart **smoke detector** that doesn't just beep: it checks which room, writes a short note ("toaster, kitchen, 7:42"), and puts it on your desk. You decide whether to call the fire brigade.
+~~
+مثل یک **دتکتور دود هوشمند** است که فقط بوق نمی‌زند: چک می‌کند کدام اتاق است، یک یادداشت کوتاه می‌نویسد («توستر، آشپزخانه، ۷:۴۲») و روی میزت می‌گذارد. تو تصمیم می‌گیری به آتش‌نشانی زنگ بزنی یا نه.
+
+#tip
+Start the loop in **"diagnose only"** mode: Claude writes intents but takes no action. Once its diagnoses prove reliable for months, allow pre-approved runbooks for the most common, low-risk cases.
+~~
+حلقه را در حالت **«فقط تشخیص»** شروع کن: Claude نیت می‌نویسد ولی هیچ اقدامی نمی‌کند. وقتی تشخیص‌هایش ماه‌ها قابل‌اعتماد بود، دستورالعمل‌های از پیش تأییدشده را برای رایج‌ترین و کم‌خطرترین موارد مجاز کن.
+
+#terms
+Runbook = دستورالعمل عملیاتی = مجموعهٔ قدم‌های از پیش نوشته و تأییدشده برای پاسخ به یک موقعیت مشخص.
+Leading indicator = شاخص پیشرو = معیاری که زود نشان می‌دهد اوضاع دارد بهتر یا بدتر می‌شود.
+
+@section Closing | پایان
+
+@lesson
+id: closing-thoughts-and-resources
+en: Closing thoughts and resources
+fa: جمع‌بندی و منابع
+kind: wrap
+url: https://academy.claude.com/courses/ai-native-sdlc-playbook/closing-thoughts-and-resources
+
+#explain
+The thread through all twelve plays: **agents do more of the work, humans keep the judgment, and enforcement lives in code, not in hope.** Intent is written down, standards are skills, risky actions pass through hooks and protected branches, quality is measured continuously with evals, and production signals flow back as new intents.
+
+Start with one stage, measure before and after (cycle time, review time, escaped defects), and grow from there. The course closes with links to the Claude Code docs and related Academy courses.
+~~
+رشته‌ای که از میان هر دوازده حرکت می‌گذرد: **ایجنت‌ها کار بیشتری انجام می‌دهند، آدم‌ها قضاوت را نگه می‌دارند و اجرای قانون‌ها در کد است، نه در امید.** نیت نوشته می‌شود، استانداردها اسکیل‌اند، کارهای پرخطر از هوک‌ها و شاخه‌های محافظت‌شده می‌گذرند، کیفیت با eval به‌طور پیوسته اندازه گرفته می‌شود و سیگنال‌های محیط اصلی به شکل نیت‌های تازه برمی‌گردند.
+
+با یک مرحله شروع کن، قبل و بعد را اندازه بگیر (زمان چرخه، زمان بازبینی، خطاهای فرارکرده) و از همان‌جا رشد کن. دوره با لینک به مستندات Claude Code و دوره‌های مرتبط آکادمی تمام می‌شود.
+
+#try
+Map your team's last feature onto the six stages. For each stage write: how long it took, who was waiting on whom, and which play would have helped most. Pick the single biggest win and start there next sprint.
+~~
+آخرین قابلیتی را که تیمت ساخت روی این شش مرحله بچین. برای هر مرحله بنویس: چقدر طول کشید، چه کسی منتظر چه کسی بود و کدام حرکت بیشترین کمک را می‌کرد. بزرگ‌ترین برد را انتخاب کن و از اسپرینت بعد شروعش کن.
+
+@cheatsheet
+- Six stages: **Plan · Design · Build · Test · Deploy · Maintain**; twelve plays.
+- Plan: **intent.md** (goal, why, constraints, done-when) in Git.
+- Design: one session turns intent into a spec, guided by **standards stored as skills**.
+- Build: **plan mode by default** · lean CLAUDE.md · skills with policy owners · **parallel worktrees + subagents**.
+- Test: fast **feedback loop** · **continuous evals** re-run on config changes and nightly; grade from a clean copy; incidents → regression evals.
+- Deploy: AI first-pass review + mandatory human approval · **hooks: allow / ask / block, fail closed** · branch protection, no push to main.
+- Maintain: metric breach → headless diagnosis → **new intent.md** → human triage; confidence gates; pre-approved runbooks only.
+- Skills advise; hooks and CI enforce.
+~~
+- شش مرحله: **برنامه‌ریزی · طراحی · ساخت · تست · استقرار · نگهداری**؛ دوازده حرکت.
+- برنامه‌ریزی: **intent.md** (هدف، چرایی، محدودیت، شرط تمام شدن) در Git.
+- طراحی: یک جلسه نیت را با هدایت **استانداردهای ذخیره‌شده به شکل اسکیل** به مشخصات تبدیل می‌کند.
+- ساخت: **plan mode پیش‌فرض** · CLAUDE.md کم‌حجم · اسکیل‌ها با مسئول سیاست · **worktreeهای موازی + ساب‌ایجنت‌ها**.
+- تست: **حلقهٔ بازخورد** سریع · **eval پیوسته** با هر تغییر پیکربندی و هر شب؛ نمره از نسخهٔ تمیز؛ هر حادثه ← eval بازگشتی.
+- استقرار: بازبینی اولیهٔ هوش مصنوعی + تأیید اجباری انسان · **هوک: اجازه / پرسیدن / بلاک، بسته در صورت خطا** · حفاظت شاخه، بدون push به main.
+- نگهداری: بیرون زدن معیار ← تشخیص headless ← **intent.md تازه** ← دسته‌بندی انسانی؛ دروازه‌های اطمینان؛ فقط runbookهای تأییدشده.
+- اسکیل‌ها توصیه می‌کنند؛ هوک‌ها و CI اجرا می‌کنند.
+
+@quiz
+Q: What three things does an intent.md record? || یک intent.md چه سه چیزی را ثبت می‌کند؟
+A: The goal, the reason (why), and the constraints, ideally plus a "done when" criterion. || هدف، دلیل (چرایی) و محدودیت‌ها؛ و بهتر است یک معیار «تمام است وقتی» هم داشته باشد.
+Q: Why is a skill called an "advisory control"? || چرا به اسکیل «کنترل توصیه‌ای» می‌گویند؟
+A: It makes Claude likely to apply the policy, but nothing forces compliance; rules that must hold need a hook or a CI/PR check too. || چون باعث می‌شود Claude به احتمال زیاد سیاست را اعمال کند، ولی هیچ چیزی رعایت را اجباری نمی‌کند؛ قانون‌هایی که باید برقرار باشند هوک یا بررسی CI/PR هم لازم دارند.
+Q: In a non-interactive run, what happens when a hook says "ask"? || در یک اجرای غیرتعاملی، وقتی هوک می‌گوید «بپرس» چه می‌شود؟
+A: It is treated as a deny, and a missing or broken hook fails closed. || به‌عنوان رد در نظر گرفته می‌شود و هوکی که نباشد یا خراب شود، دروازه را بسته نگه می‌دارد.
+Q: Why grade evals from a copy made before the run? || چرا evalها را از روی نسخه‌ای که قبل از اجرا تهیه شده نمره می‌دهیم؟
+A: So the agent can't pass by editing its own checks during the run. || تا ایجنت نتواند با ویرایش بررسی‌های خودش در حین اجرا قبول شود.
+Q: In Stage 6, what does Claude produce when a metric breaches its band? || در مرحلهٔ ۶، وقتی یک معیار از محدوده‌اش بیرون می‌زند Claude چه چیزی تولید می‌کند؟
+A: A diagnosis written as a new intent.md, which humans triage. || یک تشخیص به شکل یک intent.md تازه که آدم‌ها دسته‌بندی‌اش می‌کنند.
