@@ -1,0 +1,224 @@
+@page
+slug: ai-fluency-for-students
+kind: course
+group: fluency
+order: 11
+en: AI Fluency for students
+fa: سواد هوش مصنوعی برای دانش‌آموزها و دانشجوها
+stats: 5 lessons · 1 quiz · 3 hr · badge
+url: https://academy.claude.com/courses/ai-fluency-for-students
+expect: 6
+who_en: Students who want to use AI to learn more (not less), plan a career, and stay honest. Created by Anthropic with professors Rick Dakan and Joseph Feller.
+who_fa: دانش‌آموزها و دانشجوهایی که می‌خواهند با هوش مصنوعی بیشتر یاد بگیرند (نه کمتر)، برای شغل آینده برنامه بریزند و صادق بمانند. ساختهٔ Anthropic با همکاری استادها ریک داکان و جوزف فلر.
+blurb_fa: هوش مصنوعی به‌عنوان مربی، نه بازیکن جانشین: ساختن رفیق درس‌خوان، دفترچهٔ یادگیری، برنامه‌ریزی شغلی بدون رزومهٔ کلیشه‌ای و نوشتن سیاست شخصی همکاری با هوش مصنوعی.
+desc_en: The 4D Framework for students: AI as a learning partner, a career-planning thinking partner, and you as the human in the loop.
+
+@intro
+There are two ways to use AI as a student. One way does your work **for** you: you get the assignment done and learn nothing. The other way helps you **learn**: it quizzes you, explains things five different ways, and pushes back on your reasoning. Same tool, completely different results.
+
+This course is about the second way. It treats AI as a **coach, not a substitute player**: it can train you, but it can't play the game for you, because the game is your own brain growing. You'll set up a study buddy, keep a learning journal, use AI to explore careers, and write your own **personal AI collaboration policy**.
+~~
+دانش‌آموز یا دانشجو بودن با هوش مصنوعی دو جور است. یک جورش کارت را **به جای** تو انجام می‌دهد: تکلیف تمام می‌شود و تو هیچ چیز یاد نمی‌گیری. جور دیگرش کمکت می‌کند **یاد بگیری**: از تو سؤال می‌پرسد، یک موضوع را به پنج شکل مختلف توضیح می‌دهد و با استدلال‌هایت چالش می‌کند. ابزار یکی است، نتیجه کاملاً فرق دارد.
+
+این دوره دربارهٔ جور دوم است. هوش مصنوعی را **مربی می‌بیند، نه بازیکنی که به جای تو بازی کند**: می‌تواند تمرینت بدهد، ولی نمی‌تواند به جایت بازی کند، چون بازی همان رشد کردن مغز خودت است. یک رفیق درس‌خوان راه می‌اندازی، دفترچهٔ یادگیری نگه می‌داری، با هوش مصنوعی شغل‌ها را کشف می‌کنی و **سیاست شخصی همکاری با هوش مصنوعی** خودت را می‌نویسی.
+
+@section Welcome | خوش آمدی
+
+@lesson
+id: welcome-to-ai-fluency-for-students
+en: Welcome to AI Fluency for students
+fa: خوش آمدی به سواد هوش مصنوعی برای دانش‌آموزها و دانشجوها
+url: https://academy.claude.com/courses/ai-fluency-for-students/welcome-to-ai-fluency-for-students
+
+#explain
+The course was created by Anthropic with two professors, **Rick Dakan** and **Joseph Feller**, who also built the original AI Fluency Framework. It's for students in college or upper high school who already use AI, or who are curious and a bit worried about doing it "wrong".
+
+The big idea from minute one: **the goal of school isn't the finished assignment; it's the thinking the assignment makes you do.** Use AI in ways that keep that thinking yours.
+~~
+این دوره را Anthropic با دو استاد، **ریک داکان** و **جوزف فلر**، ساخته؛ همان کسانی که چارچوب اصلی سواد هوش مصنوعی را هم ساخته‌اند. برای دانشجوها و دانش‌آموزهای سال‌های آخر دبیرستان است که از قبل از هوش مصنوعی استفاده می‌کنند، یا کنجکاوند و کمی نگران‌اند که «اشتباه» استفاده کنند.
+
+ایدهٔ بزرگ از همان دقیقهٔ اول: **هدف مدرسه و دانشگاه تکلیفِ تمام‌شده نیست؛ فکری است که تکلیف مجبورت می‌کند انجام بدهی.** طوری از هوش مصنوعی استفاده کن که آن فکر کردن مال خودت بماند.
+
+#analogy
+Using AI to write your essay is like **sending a robot to the gym for you**: the weights get lifted, but your muscles don't grow.
+~~
+استفاده از هوش مصنوعی برای نوشتن انشایت مثل این است که **یک ربات را به جای خودت به باشگاه بفرستی**: وزنه‌ها بلند می‌شوند، ولی عضله‌های تو بزرگ نمی‌شوند.
+
+#warn
+Every class can have different AI rules. Before using AI on an assignment, **check your course's policy**; when in doubt, ask your teacher. "I didn't know" isn't a great defense.
+~~
+هر کلاس ممکن است قانون‌های متفاوتی برای هوش مصنوعی داشته باشد. قبل از استفاده از هوش مصنوعی در یک تکلیف، **سیاست همان درس را چک کن**؛ اگر شک داشتی، از معلم یا استادت بپرس. «نمی‌دانستم» دفاع خوبی نیست.
+
+@section The AI Fluency Framework | چارچوب سواد هوش مصنوعی
+
+@lesson
+id: ai-fluency-framework
+en: The AI Fluency Framework
+fa: چارچوب سواد هوش مصنوعی
+url: https://academy.claude.com/courses/ai-fluency-for-students/ai-fluency-framework
+
+#explain
+The 4Ds, for students:
+
+- **Delegation**: deciding which parts of your work AI should touch. Explaining a concept you're stuck on: great. Writing the reflection your teacher wants from *you*: no.
+- **Description**: telling AI your level, your goal and how you want to be helped ("ask me questions, don't give me the answer").
+- **Discernment**: checking AI's explanations against your textbook and notes; noticing when it's confidently wrong.
+- **Diligence**: following your class rules, being honest about how you used AI, and owning your work.
+~~
+4D برای دانش‌آموزها و دانشجوها:
+
+- **سپردن**: تصمیم این‌که هوش مصنوعی به کدام بخش‌های کارت دست بزند. توضیح مفهومی که رویش گیر کرده‌ای: عالی. نوشتن تأملی که معلمت از *خود تو* خواسته: نه.
+- **توصیف**: گفتن سطحت، هدفت و این‌که چه جور کمکی می‌خواهی («از من سؤال بپرس، جواب را نده»).
+- **تشخیص**: چک کردن توضیح‌های هوش مصنوعی با کتاب و جزوه‌ات؛ فهمیدن وقتی با اطمینان کامل اشتباه می‌کند.
+- **مسئولیت‌پذیری**: رعایت قانون‌های کلاس، صداقت دربارهٔ این‌که چطور از هوش مصنوعی استفاده کردی و مالکیت کار خودت.
+
+#example
+**Same homework, two delegations.** Sara pastes the chemistry problem set and copies the answers: done in 5 minutes, fails the exam. Ali asks: *"Don't solve these. Check my work on problem 3 and tell me only where my first mistake is."* He spends 40 minutes, and on the exam he recognizes the trick instantly.
+~~
+**یک تکلیف، دو جور سپردن.** سارا تمرین‌های شیمی را می‌چسباند و جواب‌ها را کپی می‌کند: در ۵ دقیقه تمام، ولی امتحان را می‌افتد. علی می‌پرسد: *«این‌ها را حل نکن. راه‌حل من برای سؤال ۳ را چک کن و فقط بگو اولین اشتباهم کجاست.»* ۴۰ دقیقه وقت می‌گذارد و سر امتحان فوراً ترفند سؤال را می‌شناسد.
+
+#tip
+A magic sentence for learning: **"Don't give me the answer; give me a hint, then ask me what I think."**
+~~
+یک جملهٔ جادویی برای یادگیری: **«جواب را به من نده؛ یک سرنخ بده، بعد از من بپرس خودم چه فکر می‌کنم.»**
+
+@section AI in your learning and your future | هوش مصنوعی در یادگیری و آینده‌ات
+
+@lesson
+id: ai-as-a-learning-partner
+en: AI as a learning partner
+fa: هوش مصنوعی به‌عنوان همراه یادگیری
+url: https://academy.claude.com/courses/ai-fluency-for-students/ai-as-a-learning-partner
+
+#explain
+This lesson separates **AI that does the work** from **AI that helps you learn**, and shows you how to configure the second one:
+
+- **A study buddy**: instruct the AI to act as a tutor: ask you questions, check your understanding, give hints before answers, and adjust difficulty.
+- **A learning journal**: after each study session, write (yourself) what you learned, what confused you, and how AI helped. Over time you see your own thinking grow, and you can show your process if anyone asks.
+~~
+این درس **هوش مصنوعی‌ای که کار را انجام می‌دهد** را از **هوش مصنوعی‌ای که کمکت می‌کند یاد بگیری** جدا می‌کند و نشانت می‌دهد دومی را چطور تنظیم کنی:
+
+- **رفیق درس‌خوان**: به هوش مصنوعی بگو نقش معلم خصوصی را بازی کند: از تو سؤال بپرسد، فهمت را چک کند، قبل از جواب سرنخ بدهد و سختی را تنظیم کند.
+- **دفترچهٔ یادگیری**: بعد از هر جلسهٔ درس خواندن، (خودت) بنویس چه یاد گرفتی، چه چیزی گیجت کرد و هوش مصنوعی چطور کمک کرد. با گذشت زمان رشد فکر خودت را می‌بینی و اگر کسی بپرسد، می‌توانی فرایند کارت را نشان بدهی.
+
+#prompt
+Be my study buddy for biology (photosynthesis, 11th grade). Rules: ask me one question at a time, starting easy. If I'm wrong, give a hint, not the answer. After 5 questions, tell me which idea I understand least and give me a 2-minute explanation of just that, with an everyday analogy.
+~~
+رفیق درس‌خوان من برای زیست‌شناسی باش (فتوسنتز، پایهٔ یازدهم). قانون‌ها: هر بار یک سؤال بپرس و از آسان شروع کن. اگر اشتباه گفتم، سرنخ بده، نه جواب. بعد از ۵ سؤال، بگو کدام ایده را از همه کمتر فهمیده‌ام و فقط همان را در ۲ دقیقه با یک تشبیه روزمره توضیح بده.
+
+#code text learning-journal.txt: one entry
+Date: Oct 12 · Topic: photosynthesis
+I learned: light reactions make ATP + NADPH; Calvin cycle uses them.
+Still confused: why the Calvin cycle is "light-independent" if it stops at night.
+AI helped by: quizzing me; its analogy (factory with a day shift) clicked.
+I checked: textbook p. 214 confirms; AI's first answer skipped NADPH.
+#end
+
+#tip
+The **"explain it back" test**: after AI explains something, close the chat and explain it out loud (or to a friend) in your own words. If you can't, you didn't learn it yet; you just read it.
+~~
+آزمون **«دوباره توضیحش بده»**: بعد از این‌که هوش مصنوعی چیزی را توضیح داد، گفت‌وگو را ببند و آن را بلند (یا برای یک دوست) با کلمه‌های خودت توضیح بده. اگر نتوانستی، هنوز یادش نگرفته‌ای؛ فقط خوانده‌ای‌اش.
+
+#analogy
+A good AI tutor is like a **driving instructor with a second brake pedal**: you do the driving; they're there to catch you, not to drive.
+~~
+یک معلم خصوصی هوش مصنوعیِ خوب مثل **مربی رانندگی با پدال ترمز دوم** است: رانندگی را خودت می‌کنی؛ او آن‌جاست که اگر لازم شد نگهت دارد، نه این‌که به جایت رانندگی کند.
+
+@lesson
+id: ai-in-career-planning
+en: AI in career planning
+fa: هوش مصنوعی در برنامه‌ریزی شغلی
+url: https://academy.claude.com/courses/ai-fluency-for-students/ai-in-career-planning
+
+#explain
+AI can be a **thinking partner** for your future: mapping careers you've never heard of, building a skill plan, practicing interviews, and preparing for job searches. But the most important input is **you**: your interests, values, strengths and what you actually enjoyed doing. AI can't know those unless you tell it.
+
+One strong warning from the lesson: **employers can immediately recognize generic AI-written applications.** A cover letter that could be about anyone is about no one. Use AI to brainstorm, structure and polish; the stories and reasons must be truly yours.
+~~
+هوش مصنوعی می‌تواند برای آینده‌ات یک **هم‌فکر** باشد: کشف شغل‌هایی که اسمشان را هم نشنیده‌ای، ساختن برنامهٔ مهارت‌آموزی، تمرین مصاحبه و آماده شدن برای کاریابی. ولی مهم‌ترین ورودی **خودت** هستی: علاقه‌هایت، ارزش‌هایت، نقطه‌های قوتت و کارهایی که واقعاً از انجامشان لذت برده‌ای. هوش مصنوعی تا خودت نگویی این‌ها را نمی‌داند.
+
+یک هشدار جدی از این درس: **کارفرماها درخواست‌های کلیشه‌ای که هوش مصنوعی نوشته را فوراً می‌شناسند.** نامهٔ پوششی‌ای که می‌تواند دربارهٔ هر کسی باشد، دربارهٔ هیچ‌کس نیست. از هوش مصنوعی برای ایده‌پردازی، ساختاردهی و صیقل دادن استفاده کن؛ داستان‌ها و دلیل‌ها باید واقعاً مال خودت باشند.
+
+#prompt
+I'm a second-year student. I love explaining things to younger kids, I'm good at drawing, and I like biology but hate memorizing. Suggest 8 careers that combine these (include some I've probably never heard of). For each: what a normal workday looks like, one skill I could start building this semester, and one question I should ask a real person in that job.
+~~
+من دانشجوی سال دوم هستم. عاشق توضیح دادن به بچه‌های کوچک‌ترم، نقاشی‌ام خوب است و زیست‌شناسی را دوست دارم ولی از حفظ کردن متنفرم. ۸ شغل پیشنهاد بده که این‌ها را ترکیب کنند (چندتایی هم بگذار که احتمالاً اسمشان را نشنیده‌ام). برای هر کدام: یک روز کاری معمولی چه شکلی است، یک مهارت که می‌توانم همین ترم شروع کنم و یک سؤال که باید از یک آدم واقعی در آن شغل بپرسم.
+
+#tip
+Use AI for **mock interviews**: "Interview me for a summer lab assistant role. Ask one question at a time, then give feedback on my answer's specificity." Then practice the improved answers out loud.
+~~
+از هوش مصنوعی برای **مصاحبهٔ آزمایشی** استفاده کن: «برای نقش دستیار آزمایشگاه تابستانی با من مصاحبه کن. هر بار یک سؤال بپرس، بعد دربارهٔ مشخص بودن جوابم بازخورد بده.» بعد جواب‌های بهترشده را بلند تمرین کن.
+
+#warn
+AI's information about salaries, job markets and admission requirements may be outdated or wrong for your country. Verify with official sources, career centers, and real people in the field.
+~~
+اطلاعات هوش مصنوعی دربارهٔ حقوق‌ها، بازار کار و شرط‌های پذیرش ممکن است قدیمی یا برای کشور تو نادرست باشد. با منبع‌های رسمی، مرکز مشاورهٔ شغلی و آدم‌های واقعی آن حوزه راستی‌آزمایی کن.
+
+@lesson
+id: being-the-human-in-the-loop
+en: Being the human in the loop
+fa: انسانِ داخل حلقه بودن
+kind: wrap
+url: https://academy.claude.com/courses/ai-fluency-for-students/being-the-human-in-the-loop
+
+#explain
+The final lesson describes your role: **you are the decision-maker.** You decide what to ask, you evaluate whether the outputs make sense, and you bring your **values** to every interaction. The course ends with you drafting a **personal AI collaboration policy**: your own rules for when, how and why you use AI.
+~~
+درس آخر نقش تو را توصیف می‌کند: **تصمیم‌گیرنده تو هستی.** تو تصمیم می‌گیری چه بپرسی، تو ارزیابی می‌کنی خروجی‌ها منطقی‌اند یا نه و تو **ارزش‌هایت** را به هر تعاملی می‌آوری. دوره با پیش‌نویس **سیاست شخصی همکاری با هوش مصنوعی** تمام می‌شود: قانون‌های خودت برای این‌که کی، چطور و چرا از هوش مصنوعی استفاده کنی.
+
+#code markdown my-ai-policy.md: a student's personal AI policy
+# My AI collaboration policy
+1. I always check each class's AI rules first.
+2. I use AI to understand, practice and get feedback, not to produce work I submit as mine.
+3. First drafts of my writing come from my own head.
+4. I verify facts from AI with my textbook or a real source.
+5. I keep a learning journal and can explain anything I submit.
+6. If AI helped meaningfully, I say how (one honest sentence).
+#end
+
+#analogy
+Your personal AI policy is like **your own training plan**: nobody can follow it for you, and it works best when it's written down.
+~~
+سیاست شخصی هوش مصنوعی‌ات مثل **برنامهٔ تمرینی خودت** است: هیچ‌کس نمی‌تواند به جای تو اجرایش کند و وقتی نوشته شده باشد بهتر جواب می‌دهد.
+
+#try
+Write your policy in 6 lines or fewer and stick it inside your notebook's cover. Revisit it at the end of the semester: which rule did you break most, and why?
+~~
+سیاستت را در ۶ خط یا کمتر بنویس و داخل جلد دفترت بچسبان. آخر ترم دوباره نگاهش کن: کدام قانون را بیشتر از همه شکستی و چرا؟
+
+@lesson
+id: certificate-of-completion
+en: Course quiz and completion badge
+fa: آزمون دوره و نشان پایان دوره
+kind: quiz
+url: https://academy.claude.com/courses/ai-fluency-for-students/certificate-of-completion
+
+#explain
+The quiz checks the 4Ds in student situations: when delegating helps or hurts learning, how to set up AI as a tutor, how to use AI in career planning without generic results, and what being the human in the loop means. Pass to earn the badge.
+~~
+آزمون 4D را در موقعیت‌های دانش‌آموزی و دانشجویی می‌سنجد: کی سپردن به یادگیری کمک می‌کند و کی ضرر می‌زند، چطور هوش مصنوعی را معلم خصوصی کنی، چطور بدون نتیجه‌های کلیشه‌ای در برنامه‌ریزی شغلی از آن کمک بگیری و انسانِ داخل حلقه بودن یعنی چه. با قبول شدن، نشان دوره را می‌گیری.
+
+@cheatsheet
+- AI = **coach, not substitute player**. The thinking is the point of school.
+- Check each **class's AI policy**; ask when unsure.
+- Magic prompt: "Don't give me the answer; give me a hint, then ask what I think."
+- Set up a **study buddy** (questions, hints, difficulty) and keep a **learning journal**.
+- "Explain it back" test: if you can't explain it, you haven't learned it.
+- Careers: you bring interests and values; AI maps options. **Generic applications get spotted.**
+- Write a short **personal AI collaboration policy**.
+~~
+- هوش مصنوعی = **مربی، نه بازیکن جانشین**. هدف مدرسه همان فکر کردن است.
+- **سیاست هوش مصنوعی هر درس** را چک کن؛ اگر مطمئن نیستی بپرس.
+- پرامپت جادویی: «جواب را نده؛ سرنخ بده و بعد بپرس خودم چه فکر می‌کنم.»
+- یک **رفیق درس‌خوان** راه بینداز (سؤال، سرنخ، سختی) و **دفترچهٔ یادگیری** نگه دار.
+- آزمون «دوباره توضیحش بده»: اگر نمی‌توانی توضیحش بدهی، هنوز یادش نگرفته‌ای.
+- شغل: علاقه‌ها و ارزش‌ها را تو می‌آوری؛ هوش مصنوعی گزینه‌ها را نقشه می‌کشد. **درخواست‌های کلیشه‌ای لو می‌روند.**
+- یک **سیاست شخصی همکاری با هوش مصنوعی** کوتاه بنویس.
+
+@quiz
+Q: What's the difference between AI that does the work and AI that helps you learn? || فرق هوش مصنوعی‌ای که کار را انجام می‌دهد با هوش مصنوعی‌ای که کمکت می‌کند یاد بگیری چیست؟
+A: The first produces the output for you; the second makes you do the thinking (questions, hints, feedback), so the skill ends up in your head. || اولی خروجی را به جای تو تولید می‌کند؛ دومی وادارت می‌کند خودت فکر کنی (سؤال، سرنخ، بازخورد)، پس مهارت در ذهن تو می‌ماند.
+Q: Why is a fully AI-written cover letter risky? || چرا نامهٔ پوششی‌ای که کامل با هوش مصنوعی نوشته شده پرخطر است؟
+A: Employers recognize generic AI text immediately, and it lacks your real stories and reasons, which are what make you stand out. || کارفرماها متن کلیشه‌ای هوش مصنوعی را فوراً می‌شناسند و داستان‌ها و دلیل‌های واقعی تو را ندارد، که همان چیزی است که تو را متمایز می‌کند.
+Q: Name one thing that belongs in a personal AI collaboration policy. || یک چیز را که در سیاست شخصی همکاری با هوش مصنوعی جا دارد نام ببر.
+A: For example: check each class's rules; use AI for practice and feedback, not submitted work; verify facts; disclose meaningful help. || مثلاً: قانون‌های هر درس را چک کن؛ از هوش مصنوعی برای تمرین و بازخورد استفاده کن، نه برای کاری که تحویل می‌دهی؛ واقعیت‌ها را راستی‌آزمایی کن؛ کمک قابل‌توجه را اعلام کن.

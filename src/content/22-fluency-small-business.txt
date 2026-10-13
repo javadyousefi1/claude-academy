@@ -1,0 +1,332 @@
+@page
+slug: ai-fluency-for-small-businesses
+kind: course
+group: fluency
+order: 10
+en: AI Fluency for small businesses
+fa: سواد هوش مصنوعی برای کسب‌وکارهای کوچک
+stats: 8 lessons · 1 quiz · 3.5 hr · badge
+url: https://academy.claude.com/courses/ai-fluency-for-small-businesses
+expect: 9
+who_en: Owners and staff of small businesses who want AI to save real time without losing the human touch customers come for. Built with PayPal, Prospect Butcher Company and MAKS TIPM Rebuilders.
+who_fa: صاحبان و کارکنان کسب‌وکارهای کوچک که می‌خواهند هوش مصنوعی واقعاً در وقتشان صرفه‌جویی کند، بدون این‌که آن حس انسانی‌ای را که مشتری به خاطرش می‌آید از دست بدهند. با همکاری PayPal، قصابی Prospect Butcher و تعمیرگاه MAKS TIPM Rebuilders.
+blurb_fa: چارچوب 4D برای یک مغازه و یک کارگاه واقعی: شناخت توان و محدودیت هوش مصنوعی، پژوهش و پالایش با حلقهٔ توصیف و تشخیص، استفادهٔ شفاف از دادهٔ مشتری، ساختن روال کاری و نوشتن سیاست یک‌صفحه‌ای.
+desc_en: The 4D Framework for owners and small teams, following two real businesses: a Brooklyn butcher shop and an auto power-module rebuilder.
+
+@intro
+In a small business, **you are the marketing department, the accountant, the HR team and customer service**, often before lunch. AI can take real weight off, but small businesses also run on things AI can't fake: the regulars you know by name, the craft you've practiced for years, and your reputation in the neighborhood.
+
+This edition follows **two real businesses**: **Prospect Butcher Company**, a butcher shop in Brooklyn, and **MAKS TIPM Rebuilders**, which rebuilds automotive power modules (the fuse-box "brains" of some vehicles). Their owners, together with **PayPal**, shaped the examples. You'll start from **your** values, goals and constraints, learn what AI can and can't do, practice the two loops on real tasks, and leave with a **one-page AI use policy** for your business.
+~~
+در یک کسب‌وکار کوچک، **تو هم بخش بازاریابی هستی، هم حسابدار، هم منابع انسانی و هم خدمات مشتری**؛ آن هم خیلی وقت‌ها قبل از ناهار. هوش مصنوعی می‌تواند واقعاً باری از دوشت بردارد، ولی کسب‌وکارهای کوچک روی چیزهایی هم می‌چرخند که هوش مصنوعی نمی‌تواند جعلشان کند: مشتری‌های همیشگی که اسمشان را می‌دانی، مهارتی که سال‌ها تمرینش کرده‌ای و آبرویت در محله.
+
+این نسخه **دو کسب‌وکار واقعی** را دنبال می‌کند: **Prospect Butcher Company**، یک قصابی در بروکلین، و **MAKS TIPM Rebuilders** که ماژول‌های برق خودرو را بازسازی می‌کند (همان «مغز» جعبه‌فیوز بعضی خودروها). صاحبان این دو کسب‌وکار همراه با **PayPal** مثال‌ها را شکل داده‌اند. از ارزش‌ها، هدف‌ها و محدودیت‌های **خودت** شروع می‌کنی، یاد می‌گیری هوش مصنوعی چه کاری می‌تواند و نمی‌تواند بکند، دو حلقه را روی کارهای واقعی تمرین می‌کنی و با یک **سیاست یک‌صفحه‌ای استفاده از هوش مصنوعی** برای کسب‌وکارت بیرون می‌روی.
+
+@section Introduction | مقدمه
+
+@lesson
+id: ai-fluency-for-small-businesses
+en: Welcome to AI Fluency for small businesses
+fa: خوش آمدی به سواد هوش مصنوعی برای کسب‌وکارهای کوچک
+url: https://academy.claude.com/courses/ai-fluency-for-small-businesses/ai-fluency-for-small-businesses
+
+#explain
+The course starts not with AI, but with **you**: what your business values, what you're trying to achieve this year, and your constraints (time, money, skills, regulations). These become the filter for every AI decision. A shop that values "every customer gets real advice at the counter" will use AI very differently from one whose goal is "answer online orders faster".
+
+The course assumes you've taken (or will take) the foundational AI Fluency course, but it's practical from minute one.
+~~
+دوره نه با هوش مصنوعی، بلکه با **خودت** شروع می‌شود: کسب‌وکارت برای چه چیزی ارزش قائل است، امسال دنبال چه هدفی هستی و محدودیت‌هایت چیست (زمان، پول، مهارت، مقررات). این‌ها صافی هر تصمیمی دربارهٔ هوش مصنوعی می‌شوند. مغازه‌ای که ارزشش این است که «هر مشتری پشت پیشخوان مشاورهٔ واقعی بگیرد» خیلی متفاوت از مغازه‌ای که هدفش «جواب سریع‌تر به سفارش‌های آنلاین» است از هوش مصنوعی استفاده می‌کند.
+
+دوره فرض می‌کند دورهٔ پایهٔ سواد هوش مصنوعی را گذرانده‌ای (یا می‌گذرانی)، ولی از همان دقیقهٔ اول کاربردی است.
+
+#code markdown my-business-card.md: values, goals, constraints
+Business: neighborhood butcher shop, 6 staff
+Values: know our farmers; honest advice at the counter; zero waste
+Goals this year: grow catering orders 20%; less owner time on admin
+Constraints: owner has ~3 hrs/week for admin; no IT person;
+             food-safety labeling rules; small marketing budget
+#end
+
+#analogy
+Before buying a new tool for the shop, you measure the space and check the budget. Your **values–goals–constraints card** is that tape measure for AI.
+~~
+قبل از خریدن یک ابزار تازه برای مغازه، جا را متر می‌کنی و بودجه را چک می‌کنی. **کارت ارزش‌ها–هدف‌ها–محدودیت‌های** تو همان متر برای هوش مصنوعی است.
+
+#try
+Fill in your own card (5 lines max). Paste it at the start of any AI conversation about your business; it instantly makes answers more relevant.
+~~
+کارت خودت را پر کن (حداکثر ۵ خط). آن را اول هر گفت‌وگو با هوش مصنوعی دربارهٔ کسب‌وکارت بچسبان؛ جواب‌ها فوراً مرتبط‌تر می‌شوند.
+
+@lesson
+id: the-4d-framework
+en: The 4D Framework
+fa: چارچوب 4D
+url: https://academy.claude.com/courses/ai-fluency-for-small-businesses/the-4d-framework
+
+#explain
+The 4Ds, small-business style:
+
+- **Delegation**: which jobs go to AI, which stay with you. Drafting the weekly specials email: AI. Telling a long-time customer their order will be late: you.
+- **Description**: telling AI about your business, customers and voice, like briefing a new part-timer.
+- **Discernment**: catching what's wrong: prices, part numbers, opening hours, claims about products, tone.
+- **Diligence**: protecting customer data, being honest about AI use, and owning whatever goes out under your shop's name.
+
+Two loops: **Description ⇄ Discernment** guides your day-to-day AI conversations; **Delegation ⇄ Diligence** guides the bigger decisions about when and how to use AI at all.
+~~
+4D به سبک کسب‌وکار کوچک:
+
+- **سپردن**: کدام کارها به هوش مصنوعی می‌رسد و کدام پیش خودت می‌ماند. پیش‌نویس ایمیل پیشنهادهای ویژهٔ هفته: هوش مصنوعی. گفتن این‌که سفارش یک مشتری قدیمی دیر می‌رسد: خودت.
+- **توصیف**: گفتن دربارهٔ کسب‌وکارت، مشتری‌ها و لحنت به هوش مصنوعی، درست مثل توجیه کردن یک نیروی پاره‌وقت تازه.
+- **تشخیص**: گرفتن چیزهای اشتباه: قیمت‌ها، شمارهٔ قطعه‌ها، ساعت کاری، ادعاها دربارهٔ محصول، لحن.
+- **مسئولیت‌پذیری**: محافظت از دادهٔ مشتری، صداقت دربارهٔ استفاده از هوش مصنوعی و پاسخ‌گو بودن برای هر چیزی که با اسم مغازه‌ات بیرون می‌رود.
+
+دو حلقه: **توصیف ⇄ تشخیص** گفت‌وگوهای روزمره‌ات با هوش مصنوعی را هدایت می‌کند؛ **سپردن ⇄ مسئولیت‌پذیری** تصمیم‌های بزرگ‌تر را، این‌که اصلاً کی و چطور از هوش مصنوعی استفاده کنی.
+
+#example
+**At the rebuild shop:** the owner delegates turning his technician notes into a clear customer FAQ ("Why does my truck's fuel pump relay fail?"). He describes the audience ("drivers, not mechanics; no jargon"). He discerns one answer that names the wrong module for a model year and fixes it. Diligence: he never pastes customers' VINs and addresses into the chat; the FAQ doesn't need them.
+~~
+**در تعمیرگاه بازسازی:** صاحب کار تبدیل یادداشت‌های فنی‌اش به یک «پرسش‌های پرتکرار» روشن برای مشتری‌ها را می‌سپارد («چرا رلهٔ پمپ بنزین وانت من خراب می‌شود؟»). مخاطب را توصیف می‌کند («راننده‌ها، نه مکانیک‌ها؛ بدون اصطلاحات فنی»). تشخیص می‌دهد که یکی از جواب‌ها برای یک سال تولید، ماژول اشتباهی را نام برده و درستش می‌کند. مسئولیت‌پذیری: هیچ‌وقت شمارهٔ شاسی (VIN) و نشانی مشتری‌ها را در گفت‌وگو نمی‌چسباند؛ پرسش‌های پرتکرار به آن‌ها نیازی ندارد.
+
+#analogy
+The 4Ds are like **opening and closing the shop**: you decide what runs while you're away (delegation), leave clear notes (description), check the till at night (discernment), and lock the door (diligence).
+~~
+4D مثل **باز و بسته کردن مغازه** است: تصمیم می‌گیری وقتی نیستی چه کارهایی انجام شود (سپردن)، یادداشت روشن می‌گذاری (توصیف)، شب صندوق را چک می‌کنی (تشخیص) و در را قفل می‌کنی (مسئولیت‌پذیری).
+
+@section How AI works | هوش مصنوعی چطور کار می‌کند
+
+@lesson
+id: ai-capabilities-and-limitations
+en: AI capabilities and limitations
+fa: توانایی‌ها و محدودیت‌های هوش مصنوعی
+url: https://academy.claude.com/courses/ai-fluency-for-small-businesses
+
+#explain
+This lesson gives you a **clear-eyed working picture** of what today's AI does reliably and what it doesn't, and why that matters for a business:
+
+- **Strong**: drafting and rewriting text, summarizing, brainstorming, explaining, translating tone, turning messy notes into structure, writing formulas.
+- **Weak spots**: it can **hallucinate** (state false things fluently), it has a **knowledge cutoff** (it may not know this month's supplier prices or new regulations unless it can search), and it doesn't know *your* business unless you tell it.
+
+So: use AI where a mistake is cheap to catch, and add checks where a mistake would cost money, safety or trust.
+~~
+این درس یک **تصویر کاری روشن و بی‌توهم** به تو می‌دهد از این‌که هوش مصنوعیِ امروز چه کارهایی را مطمئن انجام می‌دهد و چه کارهایی را نه، و چرا این برای یک کسب‌وکار مهم است:
+
+- **قوی در**: پیش‌نویس و بازنویسی متن، خلاصه کردن، ایده‌پردازی، توضیح دادن، عوض کردن لحن، تبدیل یادداشت‌های شلوغ به ساختار، نوشتن فرمول.
+- **نقطه‌های ضعف**: ممکن است **خیال‌بافی کند** (چیزهای غلط را روان و مطمئن بگوید)، **تاریخ برش دانش** دارد (ممکن است قیمت تأمین‌کننده‌های همین ماه یا مقررات تازه را نداند، مگر بتواند جست‌وجو کند) و تا خودت نگویی، کسب‌وکار *تو* را نمی‌شناسد.
+
+پس: هوش مصنوعی را جایی به کار ببر که گرفتن اشتباهش ارزان است و جایی که اشتباه پول، ایمنی یا اعتماد را به خطر می‌اندازد، بازبینی اضافه کن.
+
+#warn
+Food-safety labels, allergen information, legal claims, tax figures and safety instructions for car parts are **never** "AI says so" territory. AI can help you draft or organize them; a qualified human checks them against the official source.
+~~
+برچسب‌های ایمنی غذا، اطلاعات حساسیت‌زاها، ادعاهای حقوقی، رقم‌های مالیاتی و دستورهای ایمنی قطعات خودرو **هرگز** قلمرو «چون هوش مصنوعی گفت» نیستند. هوش مصنوعی می‌تواند در پیش‌نویس یا مرتب کردنشان کمک کند؛ یک آدم صلاحیت‌دار آن‌ها را با منبع رسمی چک می‌کند.
+
+#analogy
+AI is like a **brilliant new hire who read every book but never worked a day in your shop**: great with words, clueless about the regular who always wants the thin cut.
+~~
+هوش مصنوعی مثل یک **نیروی تازهٔ باهوش است که همهٔ کتاب‌ها را خوانده ولی یک روز هم در مغازهٔ تو کار نکرده**: با کلمه‌ها عالی است، ولی هیچ خبر ندارد که آن مشتری همیشگی همیشه برش نازک می‌خواهد.
+
+#terms
+Hallucination = خیال‌بافی (توهم) = وقتی مدل چیزی نادرست را با اطمینان و روان بیان می‌کند.
+Knowledge cutoff = تاریخ برش دانش = تاریخی که دادهٔ آموزشی مدل تا آن‌جا را پوشش می‌دهد.
+
+@section The Description-Discernment loop | حلقهٔ توصیف و تشخیص
+
+@lesson
+id: refining-with-ai
+en: Refining with AI
+fa: پالایش و بهتر کردن با هوش مصنوعی
+url: https://academy.claude.com/courses/ai-fluency-for-small-businesses
+
+#explain
+The inner loop on a real task: **research**. Practice **context-rich prompting** (who you are, what you need, what you'll do with the answer) and **critical evaluation** of what comes back. Then refine: ask follow-ups, point out what's wrong, request sources, narrow the question. The first answer is a starting point, not the finish line.
+~~
+حلقهٔ درونی روی یک کار واقعی: **پژوهش**. **پرامپت پر از زمینه** را تمرین کن (تو کی هستی، چه می‌خواهی، با جواب چه کار می‌کنی) و **ارزیابی انتقادی** چیزی را که برمی‌گردد. بعد پالایش کن: سؤال پیگیری بپرس، اشتباه‌ها را نشان بده، منبع بخواه، سؤال را باریک‌تر کن. جواب اول نقطهٔ شروع است، نه خط پایان.
+
+#prompt
+I run a butcher shop in Brooklyn (6 staff, strong in catering for small office lunches). I'm deciding whether to offer pre-made weeknight meal kits. Research: what do similar independent shops charge, what are typical food-safety requirements for selling prepared raw-meat kits in New York City, and what are the risks? Cite sources and separate facts you found from your own suggestions.
+~~
+من در بروکلین یک قصابی دارم (۶ کارمند، قوی در کترینگ ناهار برای دفترهای کوچک). دارم تصمیم می‌گیرم بسته‌های آمادهٔ شام وسط هفته بفروشم یا نه. پژوهش کن: مغازه‌های مستقل مشابه چقدر قیمت می‌گذارند، شرط‌های معمول ایمنی غذا برای فروش بسته‌های گوشت خام آماده در شهر نیویورک چیست و ریسک‌ها کدام‌اند؟ منبع بیاور و واقعیت‌هایی را که پیدا کردی از پیشنهادهای خودت جدا کن.
+
+#example
+**One refinement round.** The first answer lists "typical prices" without sources and mixes NYC and New Jersey rules. Follow-up: *"Only NYC. For each price, give the shop name and link. Which regulation numbers apply, and which agency enforces them?"* The second answer is narrower, sourced, and you can now verify it with the city's own website.
+~~
+**یک دور پالایش.** جواب اول «قیمت‌های معمول» را بدون منبع فهرست می‌کند و قانون‌های نیویورک و نیوجرسی را قاطی می‌کند. سؤال پیگیری: *«فقط شهر نیویورک. برای هر قیمت، اسم مغازه و لینک را بده. کدام شماره‌های مقررات اعمال می‌شوند و کدام نهاد اجرایشان می‌کند؟»* جواب دوم باریک‌تر و منبع‌دار است و حالا می‌توانی با وب‌سایت خود شهرداری راستی‌آزمایی‌اش کنی.
+
+#tip
+Ask AI to **separate "facts with sources" from "my suggestions"** in two lists. It makes discernment twice as fast: you verify the first list and judge the second.
+~~
+از هوش مصنوعی بخواه **«واقعیت‌های منبع‌دار» را از «پیشنهادهای خودش» در دو فهرست جدا کند**. تشخیص را دو برابر سریع‌تر می‌کند: فهرست اول را راستی‌آزمایی می‌کنی و دربارهٔ فهرست دوم قضاوت.
+
+#analogy
+Refining is like **adjusting a recipe**: taste, add a little salt, taste again. Nobody nails a new dish on the first try.
+~~
+پالایش مثل **تنظیم کردن یک دستور پخت** است: بچش، کمی نمک اضافه کن، دوباره بچش. هیچ‌کس یک غذای تازه را بار اول بی‌نقص درنمی‌آورد.
+
+@section The Delegation-Diligence loop | حلقهٔ سپردن و مسئولیت‌پذیری
+
+@lesson
+id: using-data-with-ai
+en: Transparent AI use
+fa: استفادهٔ شفاف از هوش مصنوعی
+meta: 7 min
+url: https://academy.claude.com/courses/ai-fluency-for-small-businesses/using-data-with-ai
+
+#explain
+The outer loop, applied to **customer data**. The exercises run in sequence:
+
+1. **Decide what data is appropriate** to bring to AI and what stays protected. Purchase patterns by product and month: usually fine. Names, phone numbers, card details, addresses: keep out.
+2. **Strip identifying details** when you do need to work with customer records: replace names with codes, round amounts, remove addresses.
+3. **Be transparent** with customers about how you use AI, especially when they talk to it (a chatbot) or when AI shapes what they receive.
+~~
+حلقهٔ بیرونی، روی **دادهٔ مشتری**. تمرین‌ها پشت سر هم می‌آیند:
+
+1. **تصمیم بگیر چه داده‌ای برای بردن پیش هوش مصنوعی مناسب است** و چه چیزی محافظت‌شده می‌ماند. الگوی خرید بر اساس محصول و ماه: معمولاً مشکلی ندارد. اسم، شمارهٔ تلفن، اطلاعات کارت، نشانی: بیرون نگه دار.
+2. **جزئیات شناسایی‌کننده را پاک کن** وقتی واقعاً باید با سوابق مشتری کار کنی: اسم‌ها را با کد عوض کن، مبلغ‌ها را گرد کن، نشانی‌ها را حذف کن.
+3. **با مشتری‌ها شفاف باش** دربارهٔ این‌که چطور از هوش مصنوعی استفاده می‌کنی، مخصوصاً وقتی مستقیم با آن حرف می‌زنند (یک چت‌بات) یا وقتی هوش مصنوعی چیزی را که به دستشان می‌رسد شکل می‌دهد.
+
+#example
+**A transparency line that builds trust:** "Our online order assistant uses AI to answer common questions. A real person at the shop reviews every custom order, and you can always ask to talk to us directly." Short, honest, and it tells the customer where the human is.
+~~
+**یک جملهٔ شفافیت که اعتماد می‌سازد:** «دستیار سفارش آنلاین ما برای جواب دادن به سؤال‌های رایج از هوش مصنوعی استفاده می‌کند. یک آدم واقعی در مغازه همهٔ سفارش‌های سفارشی را بازبینی می‌کند و همیشه می‌توانی بخواهی مستقیم با ما حرف بزنی.» کوتاه و صادقانه است و به مشتری می‌گوید آدم کجاست.
+
+#warn
+Never paste payment card numbers, bank details or customer passwords into any AI chat, ever. Payment processors (like PayPal) exist precisely so that sensitive financial data stays in protected systems.
+~~
+هیچ‌وقت و در هیچ گفت‌وگوی هوش مصنوعی‌ای شمارهٔ کارت، اطلاعات بانکی یا رمز مشتری‌ها را نچسبان. پردازشگرهای پرداخت (مثل PayPal) دقیقاً برای همین وجود دارند که دادهٔ مالی حساس در سیستم‌های محافظت‌شده بماند.
+
+#analogy
+Customer data is like **the keys customers leave at the repair shop**: you use them to do the job, you never copy them, and you never hand them to someone who doesn't need them.
+~~
+دادهٔ مشتری مثل **کلیدهایی است که مشتری در تعمیرگاه جا می‌گذارد**: برای انجام کار از آن‌ها استفاده می‌کنی، هیچ‌وقت کپی‌شان نمی‌کنی و هیچ‌وقت به کسی که لازمشان ندارد نمی‌دهی‌شان.
+
+@section Putting it all together | کنار هم گذاشتن همه‌چیز
+
+@lesson
+id: tying-it-all-together
+en: Tying it all together
+fa: گره زدن همه‌چیز به هم
+url: https://academy.claude.com/courses/ai-fluency-for-small-businesses
+
+#explain
+Now combine the 4Ds into a **repeatable AI-augmented workflow** for one real task in your business. Choose something that happens every week, map its steps, mark each step as *you*, *AI drafts / you approve*, or *AI*, and write the reusable prompt (with your business card from lesson 1 at the top). Run it for two weeks and adjust.
+~~
+حالا 4D را در یک **روال کاری تکرارپذیر و تقویت‌شده با هوش مصنوعی** برای یک کار واقعی در کسب‌وکارت ترکیب کن. چیزی را انتخاب کن که هر هفته اتفاق می‌افتد، مرحله‌هایش را بنویس، کنار هر مرحله علامت بزن *خودم*، *هوش مصنوعی پیش‌نویس / من تأیید* یا *هوش مصنوعی* و پرامپت قابل‌استفادهٔ دوباره را بنویس (با کارت کسب‌وکارت از درس ۱ در ابتدایش). دو هفته اجرایش کن و تنظیمش کن.
+
+#steps
+1. Monday: export last week's sales by product (no customer names).
+2. AI drafts the weekly specials email from your notes and what's in stock.
+3. You check prices, cuts and allergens against the board, then fix the tone.
+4. AI suggests three social captions; you pick one and add a real photo.
+5. Friday: note what took longer than expected; improve the prompt.
+~~
+1. دوشنبه: فروش هفتهٔ قبل را بر اساس محصول خروجی بگیر (بدون اسم مشتری‌ها).
+2. هوش مصنوعی از روی یادداشت‌های تو و موجودی، ایمیل پیشنهادهای ویژهٔ هفته را پیش‌نویس می‌کند.
+3. قیمت‌ها، نوع برش‌ها و حساسیت‌زاها را با تابلوی مغازه چک می‌کنی، بعد لحن را درست می‌کنی.
+4. هوش مصنوعی سه کپشن برای شبکه‌های اجتماعی پیشنهاد می‌دهد؛ یکی را انتخاب می‌کنی و یک عکس واقعی کنارش می‌گذاری.
+5. جمعه: یادداشت کن چه چیزی بیشتر از انتظار وقت گرفت؛ پرامپت را بهتر کن.
+
+#tip
+A shared **prompt doc** (or a Claude Project with your business card, price list and voice examples) means anyone on staff gets the same quality, not just the owner.
+~~
+یک **سند مشترک پرامپت** (یا یک Project در Claude با کارت کسب‌وکار، فهرست قیمت و نمونه‌های لحن) یعنی هر کسی از کارکنان همان کیفیت را می‌گیرد، نه فقط صاحب مغازه.
+
+@lesson
+id: human-in-the-loop
+en: Human in the loop
+fa: انسان در حلقه
+url: https://academy.claude.com/courses/ai-fluency-for-small-businesses/human-in-the-loop
+
+#explain
+This lesson takes on two real worries: **AI dependency** (what if we forget how to do things ourselves?) and **keeping the human connection** that customers come for. The exercise asks three questions:
+
+- Which tasks do I now **trust to AI**?
+- Which tasks do I **always keep human**?
+- What should **customers and staff know** about our AI use?
+
+Your answers become a short, honest **AI use policy**.
+~~
+این درس با دو نگرانی واقعی روبه‌رو می‌شود: **وابستگی به هوش مصنوعی** (اگر یادمان برود خودمان کارها را چطور انجام بدهیم چه؟) و **حفظ ارتباط انسانی** که مشتری‌ها به خاطرش می‌آیند. تمرین سه سؤال می‌پرسد:
+
+- حالا کدام کارها را **به هوش مصنوعی می‌سپارم**؟
+- کدام کارها را **همیشه انسانی نگه می‌دارم**؟
+- **مشتری‌ها و کارکنان** دربارهٔ استفادهٔ ما از هوش مصنوعی چه چیزهایی باید بدانند؟
+
+جواب‌هایت می‌شود یک **سیاست کوتاه و صادقانهٔ استفاده از هوش مصنوعی**.
+
+#code markdown ai-policy.md: one-page small-business AI policy
+# How we use AI at Prospect Street Meats (example)
+We use AI for: drafting emails & posts, summarizing supplier info,
+  spreadsheet formulas, first drafts of FAQs.
+We always keep human: advice at the counter, custom orders, complaints,
+  pricing decisions, allergen & food-safety info, hiring.
+Customer data: never names, phones, cards or addresses in AI tools.
+Every public message is read by a person before it goes out.
+Customers can always reach a real person: (phone / in store).
+We review this policy every January.
+#end
+
+#warn
+Watch for **skill fade**: if AI writes every supplier email for a year, will a new manager still know how to negotiate? Keep at least one core skill practiced by hand, and train staff on the *why*, not just the prompt.
+~~
+مراقب **کم‌رنگ شدن مهارت** باش: اگر هوش مصنوعی یک سال همهٔ ایمیل‌های تأمین‌کننده‌ها را بنویسد، یک مدیر تازه هنوز بلد است چانه بزند؟ دست‌کم یک مهارت اصلی را دستی تمرین‌شده نگه دار و به کارکنان *چرا*یش را یاد بده، نه فقط پرامپت را.
+
+#analogy
+A good policy is like the **sign on the shop door with your hours**: short, clear, and it tells people what to expect before they walk in.
+~~
+یک سیاست خوب مثل **تابلوی ساعت کاری روی در مغازه** است: کوتاه و روشن، و قبل از این‌که مردم وارد شوند به آن‌ها می‌گوید چه انتظاری داشته باشند.
+
+@section Closure | جمع‌بندی
+
+@lesson
+id: closure-and-looking-forward
+en: Closure and looking forward
+fa: جمع‌بندی و نگاه به جلو
+kind: wrap
+url: https://academy.claude.com/courses/ai-fluency-for-small-businesses/closure-and-looking-forward
+
+#explain
+The final assignment brings everything together: your values–goals–constraints card, one workflow you've actually run, what you learned about where AI helps and where it doesn't, and your AI use policy. Looking forward: tools will keep changing, but the 4Ds won't. Revisit your policy as your business grows, and keep the human parts of your business human on purpose.
+~~
+تکلیف پایانی همه‌چیز را کنار هم می‌گذارد: کارت ارزش‌ها–هدف‌ها–محدودیت‌هایت، یک روال کاری که واقعاً اجرا کرده‌ای، چیزهایی که یاد گرفتی دربارهٔ این‌که هوش مصنوعی کجا کمک می‌کند و کجا نه، و سیاست استفاده از هوش مصنوعی‌ات. نگاه به جلو: ابزارها مدام عوض می‌شوند، ولی 4D نه. همان‌طور که کسب‌وکارت بزرگ می‌شود، سیاستت را دوباره مرور کن و بخش‌های انسانی کسب‌وکارت را آگاهانه انسانی نگه دار.
+
+#tip
+For hands-on next steps, see this handout's Tutorials page: "Using Claude Cowork for your small business" and installing the Claude for Small Business plugin show what delegating whole multi-step tasks looks like.
+~~
+برای قدم‌های عملی بعدی، صفحهٔ «آموزش‌های کوتاه» همین جزوه را ببین: «استفاده از Claude Cowork برای کسب‌وکار کوچکت» و نصب پلاگین Claude for Small Business نشان می‌دهند سپردن کارهای کامل چندمرحله‌ای چه شکلی است.
+
+@lesson
+id: course-quiz
+en: Course quiz and completion badge
+fa: آزمون دوره و نشان پایان دوره
+kind: quiz
+url: https://academy.claude.com/courses/ai-fluency-for-small-businesses
+
+#explain
+A short quiz revisits the 4Ds, AI's limits (hallucinations, knowledge cutoff), the two loops, customer data handling and human-in-the-loop decisions. Pass it to earn the completion badge.
+~~
+یک آزمون کوتاه 4D، محدودیت‌های هوش مصنوعی (خیال‌بافی، تاریخ برش دانش)، دو حلقه، کار با دادهٔ مشتری و تصمیم‌های «انسان در حلقه» را مرور می‌کند. با قبول شدن، نشان پایان دوره را می‌گیری.
+
+@cheatsheet
+- Start with your **values, goals and constraints**, then pick AI uses that fit them.
+- AI is strong at drafting, summarizing, formulas; weak on fresh facts (cutoff) and can **hallucinate**.
+- Safety, allergens, legal, tax and part specs: always checked by a qualified human.
+- Inner loop: **context-rich prompts**, separate sourced facts from suggestions, refine.
+- Outer loop: decide what customer data is OK; **strip identifiers**; **be transparent**.
+- Build one repeatable weekly workflow; save the prompt for the whole team.
+- Write a **one-page AI use policy**; keep counter advice, complaints and custom work human.
+~~
+- از **ارزش‌ها، هدف‌ها و محدودیت‌هایت** شروع کن، بعد کاربردهایی از هوش مصنوعی را انتخاب کن که با آن‌ها جور باشند.
+- هوش مصنوعی در پیش‌نویس، خلاصه و فرمول قوی است؛ در واقعیت‌های تازه (برش دانش) ضعیف است و ممکن است **خیال‌بافی کند**.
+- ایمنی، حساسیت‌زاها، مسائل حقوقی، مالیات و مشخصات قطعه: همیشه با بازبینی یک آدم صلاحیت‌دار.
+- حلقهٔ درونی: **پرامپت پر از زمینه**، جدا کردن واقعیت منبع‌دار از پیشنهاد، پالایش.
+- حلقهٔ بیرونی: تصمیم دربارهٔ این‌که کدام دادهٔ مشتری مجاز است؛ **پاک کردن شناسه‌ها**؛ **شفافیت**.
+- یک روال هفتگی تکرارپذیر بساز؛ پرامپت را برای کل تیم ذخیره کن.
+- یک **سیاست یک‌صفحه‌ای** بنویس؛ مشاورهٔ پشت پیشخوان، شکایت‌ها و کارهای سفارشی انسانی بمانند.
+
+@quiz
+Q: Why might AI give you an outdated supplier price or regulation? || چرا ممکن است هوش مصنوعی قیمت یا مقررات قدیمی به تو بدهد؟
+A: Its knowledge has a cutoff date and it may not search the web unless the tool can; always confirm current facts at the source. || چون دانشش تاریخ برش دارد و اگر ابزار امکان جست‌وجو نداشته باشد، وب را نمی‌گردد؛ واقعیت‌های فعلی را همیشه در منبع تأیید کن.
+Q: You want AI to analyze which products sell best by month. What customer data should you include? || می‌خواهی هوش مصنوعی تحلیل کند کدام محصول‌ها در هر ماه بیشتر فروش می‌روند. چه دادهٔ مشتری‌ای باید وارد کنی؟
+A: None that identifies people: product, month, quantity and amount are enough. || هیچ داده‌ای که آدم‌ها را شناسایی کند: محصول، ماه، تعداد و مبلغ کافی است.
+Q: Name two things a small-business AI policy should say. || دو چیزی را که سیاست هوش مصنوعی یک کسب‌وکار کوچک باید بگوید نام ببر.
+A: Any two of: what AI is used for, what always stays human, customer data rules, human review before publishing, how customers reach a real person, when the policy is reviewed. || هر دو مورد از این‌ها: هوش مصنوعی برای چه استفاده می‌شود، چه چیزی همیشه انسانی می‌ماند، قانون‌های دادهٔ مشتری، بازبینی انسانی قبل از انتشار، مشتری چطور به یک آدم واقعی دسترسی دارد، سیاست کی بازبینی می‌شود.

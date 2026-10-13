@@ -1,0 +1,273 @@
+@page
+slug: teaching-ai-fluency
+kind: course
+group: fluency
+order: 12
+en: Teaching AI Fluency
+fa: آموزش دادن سواد هوش مصنوعی
+stats: 7 lessons · 1 quiz · 4.5 hr · badge
+url: https://academy.claude.com/courses/teaching-ai-fluency
+expect: 8
+who_en: Academic faculty and instructional designers who want to teach and assess AI fluency in instructor-led courses.
+who_fa: استادها، مدرس‌ها و طراحان آموزشی که می‌خواهند سواد هوش مصنوعی را در کلاس‌های حضوری یا با مدرس، آموزش بدهند و ارزیابی کنند.
+blurb_fa: چطور 4D را درس بدهی و بسنجی: چهار رویکرد آموزشی، آموزش دو حلقه، ارزیابی نتیجه‌محور و فرایندمحور و تأملی، طراحی تکلیف با اصالت و تکرار و شفافیت، و تطبیق 4D با رشتهٔ خودت.
+desc_en: For educators who teach AI fluency itself: approaches, the two loops, assessment, assignment design and discipline-specific application.
+
+@intro
+Other editions teach you to **use** AI fluently. This one teaches you to **teach** AI fluency, and to **assess** it, inside your own courses. It assumes you know the 4D Framework (Delegation, Description, Discernment, Diligence) and asks harder questions: in what order should students meet the 4Ds? How do you grade "good discernment"? How do you design assignments where AI use is visible instead of hidden? And what do the 4Ds mean in **your** discipline, whether that's nursing, history or mechanical engineering?
+~~
+نسخه‌های دیگر به تو یاد می‌دهند با هوش مصنوعی **روان کار کنی**. این یکی یاد می‌دهد سواد هوش مصنوعی را **درس بدهی** و **بسنجی**؛ داخل درس‌های خودت. فرض می‌کند چارچوب 4D (سپردن، توصیف، تشخیص، مسئولیت‌پذیری) را بلدی و سؤال‌های سخت‌تری می‌پرسد: دانشجوها به چه ترتیبی با 4D آشنا شوند؟ «تشخیص خوب» را چطور نمره بدهی؟ چطور تکلیف‌هایی طراحی کنی که استفاده از هوش مصنوعی در آن‌ها دیده شود نه پنهان؟ و 4D در رشتهٔ **خودت** چه معنایی دارد، چه پرستاری باشد، چه تاریخ، چه مهندسی مکانیک؟
+
+@section Welcome | خوش آمدی
+
+@lesson
+id: welcome-approaches-to-teaching-ai-fluency
+en: "Welcome & approaches to teaching AI Fluency"
+fa: خوش آمدی و رویکردهای آموزش سواد هوش مصنوعی
+url: https://academy.claude.com/courses/teaching-ai-fluency/welcome-approaches-to-teaching-ai-fluency
+
+#explain
+There's no single right sequence. The lesson describes several **approaches** you can choose from, depending on your course:
+
+- **Linear**: Delegation → Description → Discernment → Diligence, one after another. Clear and easy to plan.
+- **Non-linear**: introduce whichever D the current assignment needs, when it needs it.
+- **Focused**: go deep on one or two Ds that matter most for your field (for example, Discernment in a research-methods course).
+- **Two loops**: teach Description ⇄ Discernment as the tactical, day-to-day loop and Delegation ⇄ Diligence as the strategic loop, because that's how the competencies actually work together.
+~~
+یک ترتیب درستِ واحد وجود ندارد. درس چند **رویکرد** را توصیف می‌کند که بسته به درست می‌توانی انتخاب کنی:
+
+- **خطی**: سپردن ← توصیف ← تشخیص ← مسئولیت‌پذیری، یکی پس از دیگری. روشن و آسان برای برنامه‌ریزی.
+- **غیرخطی**: هر D را همان وقتی معرفی کن که تکلیف فعلی لازمش دارد.
+- **متمرکز**: روی یک یا دو D که برای رشته‌ات از همه مهم‌ترند عمیق شو (مثلاً تشخیص در درس روش تحقیق).
+- **دو حلقه**: توصیف ⇄ تشخیص را به‌عنوان حلقهٔ تاکتیکی و روزمره، و سپردن ⇄ مسئولیت‌پذیری را به‌عنوان حلقهٔ راهبردی درس بده؛ چون توانمندی‌ها در واقعیت همین‌طور با هم کار می‌کنند.
+
+#example
+**A first-year writing course** might go non-linear: week 3 (research) introduces Discernment with a fact-checking exercise; week 6 (drafting) introduces Description; week 10 (final portfolio) brings Diligence through an AI-use statement.
+~~
+**یک درس نگارش سال اول** ممکن است غیرخطی پیش برود: هفتهٔ ۳ (پژوهش) تشخیص را با یک تمرین راستی‌آزمایی معرفی می‌کند؛ هفتهٔ ۶ (پیش‌نویس) توصیف را؛ هفتهٔ ۱۰ (پوشهٔ کار نهایی) مسئولیت‌پذیری را با یک بیانیهٔ استفاده از هوش مصنوعی.
+
+#analogy
+Choosing an approach is like choosing how to teach cooking: **follow the textbook chapters** (linear), **teach each technique when a recipe needs it** (non-linear), **run a baking-only class** (focused), or **teach "taste and adjust" alongside "plan the menu"** (two loops).
+~~
+انتخاب رویکرد مثل انتخاب روش آموزش آشپزی است: **فصل‌های کتاب را به ترتیب برو** (خطی)، **هر تکنیک را وقتی یک دستور پخت لازمش دارد یاد بده** (غیرخطی)، **یک کلاس فقط شیرینی‌پزی بگذار** (متمرکز)، یا **«بچش و تنظیم کن» را کنار «منو را برنامه‌ریزی کن» یاد بده** (دو حلقه).
+
+@section Teaching the two loops | آموزش دو حلقه
+
+@lesson
+id: teaching-the-delegation-diligence-loop
+en: Teaching the Delegation-Diligence loop
+fa: آموزش حلقهٔ سپردن و مسئولیت‌پذیری
+url: https://academy.claude.com/courses/teaching-ai-fluency
+
+#explain
+The **strategic** loop: when and how should AI be used at all, and who is accountable? Students rarely think about this unprompted, so make it explicit:
+
+- Have students **decompose a task** and decide, part by part, what to do themselves, what to do with AI, and why.
+- Discuss **platform awareness**: which tool, what it does with data, what it's good at.
+- Build **diligence habits**: disclosure of AI use, checking before sharing, taking responsibility for errors.
+~~
+حلقهٔ **راهبردی**: اصلاً کی و چطور باید از هوش مصنوعی استفاده شود و چه کسی پاسخ‌گوست؟ دانشجوها به‌ندرت خودبه‌خود به این فکر می‌کنند؛ پس آن را صریح کن:
+
+- از دانشجوها بخواه **یک کار را خرد کنند** و بخش به بخش تصمیم بگیرند چه چیزی را خودشان انجام بدهند، چه چیزی را با هوش مصنوعی و چرا.
+- دربارهٔ **آگاهی از ابزار** بحث کن: کدام ابزار، با داده چه می‌کند، در چه چیزی خوب است.
+- **عادت‌های مسئولیت‌پذیری** بساز: اعلام استفاده از هوش مصنوعی، چک کردن قبل از به اشتراک گذاشتن، پذیرفتن مسئولیت خطاها.
+
+#try
+In class, give pairs a realistic project (e.g., "a public health flyer for a vaccine clinic"). Each pair produces a **delegation plan** table: task part / who does it (me, AI, me + AI) / why / risk / check. Compare plans across pairs: the disagreements are the lesson.
+~~
+در کلاس به گروه‌های دونفره یک پروژهٔ واقعی‌نما بده (مثلاً «بروشور سلامت عمومی برای یک مرکز واکسیناسیون»). هر گروه یک جدول **برنامهٔ سپردن** می‌سازد: بخش کار / چه کسی انجامش می‌دهد (من، هوش مصنوعی، من + هوش مصنوعی) / چرا / ریسک / بازبینی. برنامه‌ها را بین گروه‌ها مقایسه کن: اختلاف‌نظرها همان درس است.
+
+#analogy
+This loop is like **a hospital deciding which tasks nurses, doctors and machines do**, and who signs the chart at the end.
+~~
+این حلقه مثل **بیمارستانی است که تصمیم می‌گیرد کدام کارها را پرستارها، پزشک‌ها و دستگاه‌ها انجام بدهند**، و آخر کار چه کسی پروندهٔ بیمار را امضا می‌کند.
+
+@lesson
+id: teaching-the-description-discernment-loop
+en: Teaching the Description-Discernment loop
+fa: آموزش حلقهٔ توصیف و تشخیص
+url: https://academy.claude.com/courses/teaching-ai-fluency
+
+#explain
+The **tactical** loop: the back-and-forth of actual work. Teach it as a cycle, not two separate skills:
+
+- **Description**: product (what you want), process (how AI should approach it), performance (how it should behave: concise, critical, Socratic).
+- **Discernment**: evaluate the product (accuracy, quality), the process (was the reasoning sound?) and the performance (did it behave as asked?).
+- Then **revise the description** based on what discernment found, and go again.
+~~
+حلقهٔ **تاکتیکی**: رفت‌وبرگشت کار واقعی. آن را به شکل یک چرخه درس بده، نه دو مهارت جدا:
+
+- **توصیف**: محصول (چه می‌خواهی)، فرایند (هوش مصنوعی چطور سراغش برود)، عملکرد (چطور رفتار کند: کوتاه، انتقادی، سقراطی).
+- **تشخیص**: ارزیابی محصول (درستی، کیفیت)، فرایند (استدلال درست بود؟) و عملکرد (همان‌طور که خواسته شد رفتار کرد؟).
+- بعد **توصیف را بر اساس یافته‌های تشخیص اصلاح کن** و دوباره برو.
+
+#example
+**A "prompt autopsy" exercise:** students submit a three-turn conversation with annotations. Next to each AI reply they note what was good, what was wrong, and what they changed in the next prompt because of it. You grade the annotations, not the AI's text.
+~~
+**تمرین «کالبدشکافی پرامپت»:** دانشجوها یک گفت‌وگوی سه‌نوبتی را با حاشیه‌نویسی تحویل می‌دهند. کنار هر جواب هوش مصنوعی یادداشت می‌کنند چه چیزی خوب بود، چه چیزی اشتباه بود و به خاطرش در پرامپت بعدی چه چیزی را عوض کردند. تو حاشیه‌نویسی‌ها را نمره می‌دهی، نه متن هوش مصنوعی را.
+
+#tip
+Show your own messy loop live in class, including a wrong answer you caught. Students learn more from watching an expert **discern** than from any polished example.
+~~
+حلقهٔ شلوغ خودت را زنده در کلاس نشان بده؛ همراه با یک جواب اشتباه که گرفتی. دانشجوها از تماشای **تشخیص** یک متخصص بیشتر یاد می‌گیرند تا از هر مثال صیقل‌خورده‌ای.
+
+@section Assessing AI fluency | ارزیابی سواد هوش مصنوعی
+
+@lesson
+id: how-do-we-assess-the-4ds
+en: How do we assess the 4Ds?
+fa: 4D را چطور ارزیابی کنیم؟
+url: https://academy.claude.com/courses/teaching-ai-fluency
+
+#explain
+Three families of assessment, best used together:
+
+- **Outcome-based**: judge the final product (is the analysis accurate, the argument sound?). Necessary, but it can't tell you *how* AI was used.
+- **Process-based**: look at the work along the way: conversation logs, drafts, delegation plans, revision notes. This is where Description and Discernment become visible.
+- **Reflection-based**: ask students to explain their choices: why they delegated what they did, what they caught, what they'd do differently. This reveals Delegation and Diligence thinking.
+
+The goal is to evaluate the **4D competencies**, not to police whether AI was used.
+~~
+سه خانوادهٔ ارزیابی که بهتر است با هم استفاده شوند:
+
+- **نتیجه‌محور**: محصول نهایی را قضاوت کن (تحلیل درست است؟ استدلال محکم است؟). لازم است، ولی نمی‌تواند بگوید از هوش مصنوعی *چطور* استفاده شده.
+- **فرایندمحور**: به کار در طول مسیر نگاه کن: سوابق گفت‌وگو، پیش‌نویس‌ها، برنامه‌های سپردن، یادداشت‌های بازنویسی. این‌جاست که توصیف و تشخیص دیده می‌شوند.
+- **تأمل‌محور**: از دانشجوها بخواه انتخاب‌هایشان را توضیح بدهند: چرا آن کار را سپردند، چه چیزی را گرفتند، دفعهٔ بعد چه کار دیگری می‌کنند. این تفکر سپردن و مسئولیت‌پذیری را آشکار می‌کند.
+
+هدف ارزیابی **توانمندی‌های 4D** است، نه پلیس‌بازی برای این‌که آیا از هوش مصنوعی استفاده شده یا نه.
+
+#code text A compact 4D rubric (one row each, 0–3 points)
+Delegation   : split the task sensibly; justified what stayed human
+Description  : prompts gave context, constraints, format; improved over turns
+Discernment  : caught ≥1 real error; checked claims against sources
+Diligence    : honest AI-use statement; data/privacy respected; owns errors
+#end
+
+#warn
+AI-detection tools are unreliable and can falsely accuse students, especially non-native writers. Designing for visible process is fairer and more educational than trying to catch hidden use.
+~~
+ابزارهای تشخیص متن هوش مصنوعی قابل‌اعتماد نیستند و ممکن است به‌اشتباه دانشجوها را متهم کنند، مخصوصاً کسانی که به زبان مادری‌شان نمی‌نویسند. طراحی برای فرایند قابل‌دیدن، هم منصفانه‌تر است و هم آموزنده‌تر از تلاش برای گرفتن استفادهٔ پنهان.
+
+#analogy
+Outcome-only grading is like **judging a driving test only by whether the car reached the destination**. Process and reflection check whether the student actually knows how to drive.
+~~
+نمره دادن فقط بر اساس نتیجه مثل **قضاوت امتحان رانندگی فقط با این است که ماشین به مقصد رسید یا نه**. فرایند و تأمل چک می‌کنند که دانشجو واقعاً رانندگی بلد است یا نه.
+
+@lesson
+id: designing-assignments-for-ai-fluency
+en: Designing assignments for AI Fluency
+fa: طراحی تکلیف برای سواد هوش مصنوعی
+url: https://academy.claude.com/courses/teaching-ai-fluency
+
+#explain
+Three design principles make AI use **productive and visible** while keeping grading manageable:
+
+- **Authenticity**: tasks that resemble real work in your field, with real audiences and constraints, so AI fluency is practiced where it matters.
+- **Iteration**: build in drafts, feedback and revision, so the Description-Discernment loop is part of the assignment, not hidden behind it.
+- **Transparency**: ask for a short AI-use statement or annotated log, so Diligence is practiced and you can see the process.
+
+To keep grading manageable, **sample** the process (e.g., grade one annotated conversation, not all of them) and use a short rubric.
+~~
+سه اصل طراحی، استفاده از هوش مصنوعی را **سازنده و قابل‌دیدن** می‌کند و در عین حال نمره دادن را قابل‌مدیریت نگه می‌دارد:
+
+- **اصالت**: کارهایی شبیه کار واقعی در رشته‌ات، با مخاطب و محدودیت واقعی، تا سواد هوش مصنوعی همان‌جایی تمرین شود که مهم است.
+- **تکرار**: پیش‌نویس، بازخورد و بازنویسی را در تکلیف بگذار تا حلقهٔ توصیف و تشخیص بخشی از تکلیف باشد، نه پنهان پشت آن.
+- **شفافیت**: یک بیانیهٔ کوتاه استفاده از هوش مصنوعی یا یک سابقهٔ حاشیه‌نویسی‌شده بخواه تا مسئولیت‌پذیری تمرین شود و تو فرایند را ببینی.
+
+برای قابل‌مدیریت ماندن نمره‌دهی، از فرایند **نمونه بگیر** (مثلاً فقط یک گفت‌وگوی حاشیه‌نویسی‌شده را نمره بده، نه همه را) و از یک روبریک کوتاه استفاده کن.
+
+#example
+**Before:** "Write a 2,000-word essay on the causes of World War I." (AI can do it alone; you see nothing.) **After:** "Use AI to generate the three strongest competing explanations for WWI's outbreak. Fact-check each against two course readings, mark one error you found, then write your own 800-word argument for which explanation is most convincing. Attach your annotated AI conversation."
+~~
+**قبل:** «یک مقالهٔ ۲٬۰۰۰ کلمه‌ای دربارهٔ علت‌های جنگ جهانی اول بنویس.» (هوش مصنوعی تنهایی از پسش برمی‌آید؛ تو هیچ چیز نمی‌بینی.) **بعد:** «با هوش مصنوعی سه توضیح رقیب و قوی برای شروع جنگ جهانی اول بساز. هر کدام را با دو متن از منابع درس راستی‌آزمایی کن، یک خطایی را که پیدا کردی علامت بزن، بعد استدلال ۸۰۰ کلمه‌ای خودت را بنویس که کدام توضیح قانع‌کننده‌تر است. گفت‌وگوی حاشیه‌نویسی‌شده‌ات با هوش مصنوعی را پیوست کن.»
+
+#tip
+A one-paragraph **AI diligence statement** template ("I used [tool] for [tasks]; I checked [what] by [how]; I did not use it for [what]") makes transparency effortless for students. The Tutorials page of this handout covers writing one.
+~~
+یک قالب یک‌پاراگرافی برای **بیانیهٔ مسئولیت‌پذیری هوش مصنوعی** («از [ابزار] برای [کارها] استفاده کردم؛ [چه چیزی] را با [چه روشی] چک کردم؛ برای [چه چیزی] از آن استفاده نکردم») شفافیت را برای دانشجوها بی‌زحمت می‌کند. صفحهٔ «آموزش‌های کوتاه» همین جزوه نوشتنش را توضیح می‌دهد.
+
+@section AI and your discipline | هوش مصنوعی و رشتهٔ تو
+
+@lesson
+id: ais-impact-on-your-discipline
+en: "AI's impact and your discipline"
+fa: اثر هوش مصنوعی و رشتهٔ تو
+url: https://academy.claude.com/courses/teaching-ai-fluency
+
+#explain
+Every field is being changed differently: how professionals in your discipline already use AI, which tasks are shifting, what new risks appear (fabricated citations in law, hallucinated dosages in health, invented sources in history), and what graduates will be expected to do. Teaching AI fluency well means connecting the 4Ds to **that** reality, not to generic chatbot tips.
+~~
+هر رشته به شکل متفاوتی در حال تغییر است: متخصص‌های رشته‌ات همین حالا چطور از هوش مصنوعی استفاده می‌کنند، کدام کارها دارند جابه‌جا می‌شوند، چه ریسک‌های تازه‌ای پیدا شده (ارجاع‌های ساختگی در حقوق، دوزهای خیال‌بافی‌شده در سلامت، منبع‌های جعلی در تاریخ) و از فارغ‌التحصیل‌ها چه انتظاری خواهد بود. آموزش خوب سواد هوش مصنوعی یعنی وصل کردن 4D به **همین** واقعیت، نه به نکته‌های کلی چت‌بات.
+
+#try
+Interview two practitioners in your field (alumni are perfect): "Where does AI help you? Where has it burned you? What do you wish new hires knew?" Turn their answers into one case study for class.
+~~
+با دو نفر از شاغلان رشته‌ات مصاحبه کن (فارغ‌التحصیل‌های خودتان عالی‌اند): «هوش مصنوعی کجا کمکت می‌کند؟ کجا دستت را سوزانده؟ دوست داشتی نیروهای تازه چه چیزی را بدانند؟» جواب‌هایشان را به یک مطالعهٔ موردی برای کلاس تبدیل کن.
+
+@lesson
+id: applying-discipline-expertise-to-ai-fluency
+en: Applying discipline expertise to AI Fluency
+fa: به کار بردن تخصص رشته در سواد هوش مصنوعی
+url: https://academy.claude.com/courses/teaching-ai-fluency/applying-discipline-expertise-to-ai-fluency
+
+#explain
+Each of the 4Ds needs **discipline-specific interpretation**, and that's exactly where your expertise matters. With colleagues, work out:
+
+- **Delegation**: how work in your field decomposes (which steps are routine, which require professional judgment).
+- **Description**: the communication norms of your field (terminology, genres, formats, citation styles).
+- **Discernment**: your field's **quality criteria**: what counts as evidence, rigor, a good design.
+- **Diligence**: your field's **ethical standards**: patient privacy, research integrity, professional codes.
+~~
+هر کدام از 4D به **تفسیر مخصوص هر رشته** نیاز دارد و دقیقاً همین‌جاست که تخصص تو مهم می‌شود. با همکارانت این‌ها را مشخص کن:
+
+- **سپردن**: کار در رشتهٔ تو چطور خرد می‌شود (کدام مرحله‌ها روتین‌اند، کدام قضاوت حرفه‌ای لازم دارند).
+- **توصیف**: هنجارهای ارتباطی رشته‌ات (اصطلاحات، ژانرها، قالب‌ها، شیوه‌های ارجاع).
+- **تشخیص**: **معیارهای کیفیت** رشته‌ات: چه چیزی شاهد حساب می‌شود، دقت یعنی چه، یک طراحی خوب چیست.
+- **مسئولیت‌پذیری**: **استانداردهای اخلاقی** رشته‌ات: حریم بیمار، صداقت پژوهشی، آیین‌نامه‌های حرفه‌ای.
+
+#example
+**Nursing:** Delegation: AI may draft patient-education leaflets, never medication decisions. Description: plain-language, reading-level targets. Discernment: check every dose and contraindication against the formulary. Diligence: no patient identifiers, ever. **Architecture:** Discernment means checking AI-suggested details against building codes and structural logic, not just how the render looks.
+~~
+**پرستاری:** سپردن: هوش مصنوعی می‌تواند بروشورهای آموزش بیمار را پیش‌نویس کند، ولی هرگز تصمیم دارویی نه. توصیف: زبان ساده و سطح خواندن مشخص. تشخیص: هر دوز و منع مصرف را با فهرست رسمی داروها چک کن. مسئولیت‌پذیری: هیچ شناسهٔ بیمار، هیچ‌وقت. **معماری:** تشخیص یعنی چک کردن جزئیاتی که هوش مصنوعی پیشنهاد داده با مقررات ساختمانی و منطق سازه‌ای، نه فقط این‌که رندر چه شکلی است.
+
+#analogy
+The 4D Framework is the **grammar**; your discipline supplies the **vocabulary**. You need both to say anything meaningful.
+~~
+چارچوب 4D **دستور زبان** است؛ رشتهٔ تو **واژگان** را می‌دهد. برای گفتن هر حرف معناداری به هر دو نیاز داری.
+
+@lesson
+id: certificate-of-completion
+en: Course quiz and completion badge
+fa: آزمون دوره و نشان پایان دوره
+kind: quiz
+url: https://academy.claude.com/courses/teaching-ai-fluency/certificate-of-completion
+
+#explain
+Twelve questions revisit approaches to teaching the 4Ds, the Delegation-Diligence and Description-Discernment loops, and the course's assessment and assignment-design strategies. **80% or higher** passes and earns the badge.
+~~
+دوازده سؤال رویکردهای آموزش 4D، حلقه‌های سپردن–مسئولیت‌پذیری و توصیف–تشخیص و راهبردهای ارزیابی و طراحی تکلیفِ دوره را مرور می‌کنند. **۸۰٪ یا بیشتر** قبولی و نشان دوره را به همراه دارد.
+
+@cheatsheet
+- Approaches: **linear, non-linear, focused, two loops**. Pick per course.
+- Strategic loop (Delegation ⇄ Diligence): task decomposition, platform awareness, disclosure.
+- Tactical loop (Description ⇄ Discernment): product / process / performance, then revise.
+- Assess with **outcome + process + reflection**; grade competencies, not "AI or not".
+- Avoid AI detectors; design for visible process.
+- Assignments: **authenticity, iteration, transparency**; sample the process to keep grading manageable.
+- Translate each D into your discipline's decomposition, norms, quality criteria and ethics.
+~~
+- رویکردها: **خطی، غیرخطی، متمرکز، دو حلقه**. برای هر درس انتخاب کن.
+- حلقهٔ راهبردی (سپردن ⇄ مسئولیت‌پذیری): خرد کردن کار، آگاهی از ابزار، اعلام استفاده.
+- حلقهٔ تاکتیکی (توصیف ⇄ تشخیص): محصول / فرایند / عملکرد، بعد اصلاح.
+- ارزیابی با **نتیجه + فرایند + تأمل**؛ توانمندی را نمره بده، نه «هوش مصنوعی بود یا نه».
+- از ابزارهای تشخیص متن هوش مصنوعی دوری کن؛ برای فرایند قابل‌دیدن طراحی کن.
+- تکلیف‌ها: **اصالت، تکرار، شفافیت**؛ از فرایند نمونه بگیر تا نمره‌دهی قابل‌مدیریت بماند.
+- هر D را به خرد کردن کار، هنجارها، معیارهای کیفیت و اخلاق رشتهٔ خودت ترجمه کن.
+
+@quiz
+Q: Why is outcome-based assessment alone not enough for AI fluency? || چرا ارزیابی نتیجه‌محور به‌تنهایی برای سواد هوش مصنوعی کافی نیست؟
+A: A good final product doesn't show how AI was used; process and reflection evidence reveal description, discernment, delegation and diligence. || محصول نهایی خوب نشان نمی‌دهد از هوش مصنوعی چطور استفاده شده؛ شواهد فرایند و تأمل، توصیف، تشخیص، سپردن و مسئولیت‌پذیری را آشکار می‌کنند.
+Q: Turn "write an essay about X" into an AI-fluency assignment. || «یک مقاله دربارهٔ X بنویس» را به یک تکلیف سواد هوش مصنوعی تبدیل کن.
+A: For example: use AI to generate competing views, fact-check them against course sources, mark an error, write your own argument, and attach the annotated conversation (authenticity, iteration, transparency). || مثلاً: با هوش مصنوعی دیدگاه‌های رقیب بساز، با منابع درس راستی‌آزمایی‌شان کن، یک خطا را علامت بزن، استدلال خودت را بنویس و گفت‌وگوی حاشیه‌نویسی‌شده را پیوست کن (اصالت، تکرار، شفافیت).
+Q: What does Discernment mean in your discipline? || تشخیص در رشتهٔ تو یعنی چه؟
+A: Applying your field's own quality criteria (what counts as evidence, rigor or good design) to AI output. || به کار بردن معیارهای کیفیت خود رشته‌ات (چه چیزی شاهد است، دقت یا طراحی خوب یعنی چه) روی خروجی هوش مصنوعی.

@@ -1,0 +1,430 @@
+@page
+slug: ai-fluency-for-nonprofits
+kind: course
+group: fluency
+order: 9
+en: AI Fluency for nonprofits
+fa: سواد هوش مصنوعی برای سازمان‌های غیرانتفاعی (خیریه‌ها و نهادهای مردمی)
+stats: 9 lessons · 1 quiz · 4 hr · badge
+url: https://academy.claude.com/courses/ai-fluency-for-nonprofits
+expect: 10
+who_en: Staff, volunteers and board members of nonprofits who want to use AI for research, writing, data and workflows without risking the trust of donors and communities. Built in partnership with GivingTuesday.
+who_fa: کارمندها، داوطلب‌ها و اعضای هیئت‌مدیرهٔ سازمان‌های غیرانتفاعی که می‌خواهند برای پژوهش، نوشتن، داده و روال‌های کاری از هوش مصنوعی استفاده کنند، بدون این‌که اعتماد اهداکننده‌ها و جامعه را به خطر بیندازند. با همکاری GivingTuesday ساخته شده.
+blurb_fa: چارچوب 4D برای کار خیریه: پیدا کردن فرصت‌های کمک‌مالی، نوشتن پروپوزال با صدای خود سازمان، حفظ حریم دادهٔ اهداکننده و مددجو، تحلیل داده بدون تخصص فنی و نوشتن سیاست هوش مصنوعی سازمان.
+desc_en: The 4D Framework for mission-driven teams: research, grant writing, privacy, data analysis, workflows and an organizational AI policy.
+
+@intro
+Nonprofits do big missions with small teams. A food bank with three staff, an environmental group run mostly by volunteers, a youth mentoring program where the director also writes every grant: for teams like these, hours saved are hours given back to the mission. But nonprofits also carry a special kind of **trust**: donors' personal details, funders' rules, and, often, information about vulnerable people.
+
+This edition, built with **GivingTuesday**, teaches the 4D Framework through the real work of a nonprofit: researching funding, writing proposals in your organization's own voice, protecting data, analyzing numbers, improving workflows, and finally writing an **AI policy** for your organization that keeps humans in the loop.
+~~
+سازمان‌های غیرانتفاعی با تیم‌های کوچک مأموریت‌های بزرگ انجام می‌دهند. یک بانک غذا با سه کارمند، یک گروه محیط‌زیستی که بیشترش با داوطلب‌ها می‌چرخد، یک برنامهٔ منتورینگ نوجوانان که مدیرش همهٔ درخواست‌های کمک‌مالی را هم خودش می‌نویسد: برای تیم‌هایی مثل این‌ها، هر ساعتی که صرفه‌جویی شود، ساعتی است که به مأموریت برمی‌گردد. ولی این سازمان‌ها یک جور **اعتماد** خاص را هم با خودشان حمل می‌کنند: اطلاعات شخصی اهداکننده‌ها، قانون‌های حامیان مالی و خیلی وقت‌ها اطلاعات آدم‌های آسیب‌پذیر.
+
+این نسخه که با همکاری **GivingTuesday** ساخته شده، چارچوب 4D را با کار واقعی یک سازمان غیرانتفاعی یاد می‌دهد: پژوهش برای پیدا کردن منابع مالی، نوشتن پروپوزال با صدای خود سازمان، محافظت از داده، تحلیل عددها، بهتر کردن روال‌های کاری و در آخر نوشتن یک **سیاست هوش مصنوعی** برای سازمانت که آدم‌ها را در حلقه نگه دارد.
+
+@section Welcome | خوش آمدی
+
+@lesson
+id: welcome-to-ai-fluency-for-nonprofits
+en: Welcome to AI Fluency for nonprofits
+fa: خوش آمدی به سواد هوش مصنوعی برای سازمان‌های غیرانتفاعی
+url: https://academy.claude.com/courses/ai-fluency-for-nonprofits/welcome-to-ai-fluency-for-nonprofits
+
+#explain
+The course is for anyone doing nonprofit work: program staff, development and fundraising teams, operations, volunteers and board members. You don't need any technical background. By the end you should be able to:
+
+- use AI to **research** funding opportunities and requirements, and verify what it finds;
+- **write** with AI in your organization's voice;
+- judge how an AI tool **handles data**, and practice good data hygiene;
+- **analyze** program and donor data, even if spreadsheets scare you;
+- redesign a recurring **workflow** with AI and humans in the right places;
+- draft an **organizational AI policy**.
+~~
+این دوره برای هر کسی است که کار غیرانتفاعی می‌کند: کارکنان برنامه‌ها، تیم‌های جذب منابع و جمع‌آوری کمک، عملیات، داوطلب‌ها و اعضای هیئت‌مدیره. هیچ پیش‌زمینهٔ فنی لازم نیست. آخر دوره باید بتوانی:
+
+- با هوش مصنوعی فرصت‌های کمک‌مالی و شرط‌هایشان را **پژوهش** کنی و یافته‌ها را راستی‌آزمایی کنی؛
+- با هوش مصنوعی و با صدای سازمان خودت **بنویسی**؛
+- قضاوت کنی یک ابزار هوش مصنوعی با **داده** چه می‌کند و بهداشت داده را رعایت کنی؛
+- دادهٔ برنامه‌ها و اهداکننده‌ها را **تحلیل** کنی، حتی اگر از صفحه‌گسترده می‌ترسی؛
+- یک **روال کاری** تکراری را دوباره طراحی کنی، طوری که هوش مصنوعی و آدم‌ها هر کدام سر جای درستشان باشند؛
+- یک **سیاست هوش مصنوعی برای سازمان** پیش‌نویس کنی.
+
+#analogy
+Think of AI as a **very capable new volunteer**: fast, eager, available at midnight, but brand new to your organization. It doesn't know your community, your history or your rules until you tell it, and you'd never let a first-day volunteer send a letter to your biggest donor without reading it first.
+~~
+هوش مصنوعی را مثل یک **داوطلب تازه‌وارد خیلی توانا** تصور کن: سریع، مشتاق، حتی نصفه‌شب هم در دسترس، ولی کاملاً تازه‌وارد به سازمان تو. تا خودت به او نگویی، جامعه‌ات، سابقه‌تان و قانون‌هایتان را نمی‌شناسد؛ و تو هیچ‌وقت اجازه نمی‌دهی داوطلبِ روز اول بدون این‌که نامه‌اش را بخوانی، برای بزرگ‌ترین اهداکننده‌ات نامه بفرستد.
+
+#try
+Write down three tasks that eat your time every month but **don't need your relationships or judgment** to start (for example: first drafts of thank-you letters, formatting the monthly report, summarizing meeting notes). Keep this list; you'll use it in the workflow lesson.
+~~
+سه کاری را بنویس که هر ماه وقتت را می‌خورند ولی برای **شروع‌شان به رابطه‌ها یا قضاوت تو نیازی نیست** (مثلاً پیش‌نویس اول نامه‌های تشکر، قالب‌بندی گزارش ماهانه، خلاصه کردن یادداشت‌های جلسه). این فهرست را نگه دار؛ در درس روال کاری لازمش داری.
+
+#tip
+Pick one **"dread task"** (the job you always postpone) and carry it through the whole course. Learning on a real task you care about sticks far better than practice examples.
+~~
+یک **«کار منفور»** انتخاب کن (همان کاری که همیشه عقب می‌اندازی) و آن را در تمام دوره با خودت ببر. یادگیری روی یک کار واقعی که برایت مهم است خیلی بهتر از مثال‌های تمرینی در ذهن می‌ماند.
+
+@section The 4D Framework | چارچوب 4D
+
+@lesson
+id: the-4d-framework
+en: The 4D Framework
+fa: چارچوب 4D
+url: https://academy.claude.com/courses/ai-fluency-for-nonprofits/the-4d-framework
+
+#explain
+The four competencies, in nonprofit language:
+
+- **Delegation**: deciding what to hand to AI, what to share it with, and what stays human. Drafting a newsletter: yes. Deciding which family gets the last emergency grant: no.
+- **Description**: giving AI the context it can't guess: your mission, your audience, your tone, your constraints.
+- **Discernment**: checking what comes back: facts, numbers, deadlines, tone, and cultural sensitivity toward the communities you serve.
+- **Diligence**: taking responsibility: protecting data, being honest with funders and donors about AI use, and owning the final result.
+
+They form two loops: **Description ⇄ Discernment** is the inner loop of each conversation (ask, check, refine), and **Delegation ⇄ Diligence** is the outer loop of decisions (should AI touch this at all, and with what safeguards?).
+~~
+چهار توانمندی، به زبان کار غیرانتفاعی:
+
+- **سپردن (Delegation)**: تصمیم این‌که چه کاری را به هوش مصنوعی بدهی، چه چیزی را با آن در میان بگذاری و چه چیزی انسانی بماند. پیش‌نویس خبرنامه: بله. تصمیم این‌که آخرین کمک اضطراری به کدام خانواده برسد: نه.
+- **توصیف (Description)**: دادن زمینه‌ای که هوش مصنوعی نمی‌تواند حدس بزند: مأموریتت، مخاطبت، لحنت، محدودیت‌هایت.
+- **تشخیص (Discernment)**: چک کردن چیزی که برمی‌گردد: واقعیت‌ها، عددها، مهلت‌ها، لحن و حساسیت فرهنگی نسبت به جامعه‌هایی که به آن‌ها خدمت می‌کنی.
+- **مسئولیت‌پذیری (Diligence)**: پذیرفتن مسئولیت: محافظت از داده، صداقت با حامیان مالی و اهداکننده‌ها دربارهٔ استفاده از هوش مصنوعی و پاسخ‌گو بودن برای نتیجهٔ نهایی.
+
+این‌ها دو حلقه می‌سازند: **توصیف ⇄ تشخیص** حلقهٔ درونی هر گفت‌وگوست (بپرس، چک کن، بهترش کن) و **سپردن ⇄ مسئولیت‌پذیری** حلقهٔ بیرونیِ تصمیم‌هاست (اصلاً هوش مصنوعی باید به این کار دست بزند؟ با چه مراقبت‌هایی؟).
+
+#example
+**A food bank's week, through the 4Ds.** The coordinator delegates the first draft of the volunteer newsletter (low risk) but not the decision about reducing a partner pantry's allocation (people's meals depend on it). She describes the audience ("retired volunteers, warm tone, under 300 words"), discerns that the draft invented a "record 50,000 meals" figure that isn't real, and practices diligence by pasting only aggregate numbers, never client names.
+~~
+**یک هفته در بانک غذا، از دریچهٔ 4D.** هماهنگ‌کننده پیش‌نویس اول خبرنامهٔ داوطلب‌ها را می‌سپارد (کم‌خطر)، ولی تصمیم کم کردن سهمیهٔ یک انبار همکار را نه (غذای آدم‌ها به آن بسته است). مخاطب را توصیف می‌کند («داوطلب‌های بازنشسته، لحن گرم، زیر ۳۰۰ کلمه»)، تشخیص می‌دهد که پیش‌نویس یک رقم «رکورد ۵۰٬۰۰۰ وعدهٔ غذا» از خودش ساخته که واقعی نیست، و مسئولیت‌پذیری را با این رعایت می‌کند که فقط عددهای کلی را وارد می‌کند، هرگز اسم مددجوها را.
+
+#analogy
+The inner loop is like **tasting the soup while you cook**; the outer loop is **deciding the menu and who's allowed in the kitchen**.
+~~
+حلقهٔ درونی مثل **چشیدن سوپ وسط آشپزی** است؛ حلقهٔ بیرونی مثل **انتخاب منو و این‌که چه کسی اجازه دارد وارد آشپزخانه شود**.
+
+#terms
+Delegation = سپردن = تصمیم دربارهٔ این‌که چه کاری با هوش مصنوعی انجام شود و چه کاری انسانی بماند.
+Diligence = مسئولیت‌پذیری = پاسخ‌گو بودن برای نتیجه، حریم داده و شفافیت دربارهٔ استفاده از هوش مصنوعی.
+
+@section Using AI for core nonprofit work | هوش مصنوعی در کارهای اصلی سازمان
+
+@lesson
+id: researching-with-ai
+en: Researching with AI
+fa: پژوهش با هوش مصنوعی
+url: https://academy.claude.com/courses/ai-fluency-for-nonprofits/researching-with-ai
+
+#explain
+Nonprofits research constantly: which foundations fund work like ours? What are the reporting rules for this government grant? Which other groups already serve this neighborhood? AI with web search or a research mode can **scan** a lot of this quickly, and summarize long requirement documents.
+
+Two habits make it trustworthy:
+
+1. **Verify the specific claims** that matter: eligibility, amounts, deadlines, required attachments. Open the funder's own page and confirm.
+2. **Check how current it is.** Grant cycles change every year; a deadline from last year's page is worse than no deadline at all.
+~~
+سازمان‌های غیرانتفاعی مدام پژوهش می‌کنند: کدام بنیادها کاری مثل کار ما را حمایت می‌کنند؟ قانون‌های گزارش‌دهی این کمک‌هزینهٔ دولتی چیست؟ کدام گروه‌های دیگر همین حالا به این محله خدمت می‌کنند؟ هوش مصنوعیِ مجهز به جست‌وجوی وب یا حالت پژوهش می‌تواند خیلی از این‌ها را سریع **مرور کند** و سندهای طولانی شرایط را خلاصه کند.
+
+دو عادت آن را قابل‌اعتماد می‌کند:
+
+1. **ادعاهای مشخص و مهم را راستی‌آزمایی کن**: شرایط واجد بودن، مبلغ‌ها، مهلت‌ها، پیوست‌های لازم. صفحهٔ خود حامی مالی را باز کن و تأیید کن.
+2. **ببین اطلاعات چقدر تازه است.** چرخهٔ کمک‌هزینه‌ها هر سال عوض می‌شود؛ مهلتی که از صفحهٔ سال قبل آمده از نداشتن مهلت هم بدتر است.
+
+#prompt
+Find foundations that fund youth literacy programs in the Pacific Northwest. For each: typical grant size, eligibility rules, the next deadline, and a link to the source page. Mark anything you couldn't confirm on the funder's own website, and tell me the publication date of each source.
+~~
+بنیادهایی را پیدا کن که برنامه‌های سوادآموزی نوجوانان را در شمال‌غربی اقیانوس آرام آمریکا حمایت مالی می‌کنند. برای هر کدام: اندازهٔ معمول کمک، شرایط واجد بودن، مهلت بعدی و لینک صفحهٔ منبع. هر چیزی را که نتوانستی روی وب‌سایت خود حامی مالی تأیید کنی علامت بزن و تاریخ انتشار هر منبع را به من بگو.
+
+#warn
+AI can confidently mix up two foundations with similar names, or present last year's deadline as this year's. A missed deadline costs a whole funding cycle, so the funder's own website is the final word, never the summary.
+~~
+هوش مصنوعی می‌تواند با اطمینان کامل دو بنیاد با اسم‌های شبیه را با هم قاطی کند یا مهلت سال قبل را مهلت امسال جا بزند. از دست دادن یک مهلت یعنی از دست دادن یک چرخهٔ کامل کمک‌مالی؛ پس حرف آخر را وب‌سایت خود حامی مالی می‌زند، نه خلاصه.
+
+#tip
+Use a **"deadline triple-check"**: AI finds it → you confirm it on the funder's page → only then does it go on the team calendar, with the source link in the calendar entry.
+~~
+از **«سه‌بار-چکِ مهلت»** استفاده کن: هوش مصنوعی پیدایش می‌کند ← تو روی صفحهٔ حامی مالی تأییدش می‌کنی ← فقط بعد از آن وارد تقویم تیم می‌شود، با لینک منبع داخل همان رویداد تقویم.
+
+#analogy
+AI research is like a **friend who read every bulletin board in town** and gives you a quick tour. Very helpful, but before you show up at an event, you check the date on the actual poster.
+~~
+پژوهش با هوش مصنوعی مثل **دوستی است که همهٔ تابلوهای اعلانات شهر را خوانده** و برایت یک گشت سریع می‌دهد. خیلی به درد می‌خورد، ولی قبل از این‌که سر یک برنامه بروی، تاریخ را روی خود پوستر چک می‌کنی.
+
+@lesson
+id: writing-with-ai
+en: Writing with AI
+fa: نوشتن با هوش مصنوعی
+meta: 30 min
+url: https://academy.claude.com/courses/ai-fluency-for-nonprofits/writing-with-ai
+
+#explain
+The lesson follows an **environmental justice director** who must write an **emergency grant proposal** under heavy time pressure. Two moves make the AI draft sound like *her* organization instead of a generic charity:
+
+- **Upload past successful work**: a funded proposal, last year's annual report, a strong appeal letter. AI picks up your voice, your vocabulary and your structure from real examples.
+- **Add what AI can't know**: your track record (real numbers), your community relationships, the specific story of why this is urgent now, and the people who will do the work.
+
+AI is great at structure, first drafts, tailoring a narrative to a funder's stated priorities, cutting to word limits and making plain-language versions. The authentic stories, relationships and promises stay yours.
+~~
+این درس داستان یک **مدیر سازمان عدالت محیط‌زیستی** را دنبال می‌کند که باید زیر فشار شدید زمانی یک **پروپوزال کمک‌مالی اضطراری** بنویسد. دو حرکت باعث می‌شود پیش‌نویس هوش مصنوعی صدای سازمانِ *خود او* را بدهد، نه صدای یک خیریهٔ کلیشه‌ای:
+
+- **کارهای موفق قبلی را بارگذاری کن**: یک پروپوزال که بودجه گرفته، گزارش سالانهٔ پارسال، یک نامهٔ درخواست کمک قوی. هوش مصنوعی صدا، واژه‌ها و ساختار تو را از نمونه‌های واقعی یاد می‌گیرد.
+- **چیزهایی را اضافه کن که هوش مصنوعی نمی‌تواند بداند**: سابقهٔ کارت (با عددهای واقعی)، رابطه‌هایت با جامعه، داستان مشخص این‌که چرا همین حالا فوری است و آدم‌هایی که کار را انجام می‌دهند.
+
+هوش مصنوعی در ساختار، پیش‌نویس اول، جور کردن روایت با اولویت‌های اعلام‌شدهٔ حامی مالی، کوتاه کردن تا سقف کلمه‌ها و ساختن نسخهٔ زبان‌ساده عالی است. داستان‌های واقعی، رابطه‌ها و قول‌ها مال خودت می‌مانند.
+
+#prompt
+Attached: our funded 2024 proposal and our annual report (use them for voice and structure only). Draft the "Statement of Need" for an emergency grant: a chemical spill near Riverside Elementary last week; we already run air monitoring with 40 trained resident volunteers. Use only the facts I give you; where you need a number or a quote I haven't provided, write [NEED: ...] instead of guessing. Max 400 words, funder's priority is community-led response.
+~~
+پیوست: پروپوزال سال ۲۰۲۴ ما که بودجه گرفت و گزارش سالانه‌مان (فقط برای صدا و ساختار از آن‌ها استفاده کن). «بیان نیاز» را برای یک کمک‌هزینهٔ اضطراری پیش‌نویس کن: هفتهٔ پیش نزدیک دبستان ریورساید یک نشت مواد شیمیایی رخ داد؛ ما همین حالا با ۴۰ داوطلب آموزش‌دیده از ساکنان محل، پایش هوا انجام می‌دهیم. فقط از واقعیت‌هایی که من می‌دهم استفاده کن؛ هر جا به عدد یا نقل‌قولی نیاز داشتی که ندادم، به جای حدس زدن بنویس [NEED: ...]. حداکثر ۴۰۰ کلمه؛ اولویت حامی مالی، واکنش به رهبری خود جامعه است.
+
+#warn
+Never let AI "improve" your outcomes. If the draft says you served 2,000 families and you served 1,240, a funder who checks will stop trusting everything else you wrote. The **[NEED: ...] placeholder** trick forces gaps to show instead of being filled with invention.
+~~
+هیچ‌وقت نگذار هوش مصنوعی نتیجه‌هایت را «بهتر» کند. اگر پیش‌نویس بگوید به ۲٬۰۰۰ خانواده خدمت کرده‌اید و شما به ۱٬۲۴۰ خانواده خدمت کرده‌اید، حامی مالی‌ای که چک کند دیگر به هیچ چیز دیگری که نوشته‌ای اعتماد نمی‌کند. ترفند **جانگه‌دار [NEED: ...]** مجبورش می‌کند جاهای خالی را نشان دهد، نه این‌که با خیال‌بافی پرشان کند.
+
+#tip
+After drafting, flip roles: ask AI to **act as the grant reviewer** and score your draft against the funder's published criteria, listing the three weakest points. Fix those yourself.
+~~
+بعد از پیش‌نویس، نقش‌ها را عوض کن: از هوش مصنوعی بخواه **نقش داور کمک‌مالی را بازی کند** و پیش‌نویست را بر اساس معیارهای منتشرشدهٔ حامی مالی نمره بدهد و سه نقطهٔ ضعیفش را فهرست کند. آن‌ها را خودت درست کن.
+
+#analogy
+AI is the **sous-chef** who chops, measures and plates quickly; you're the head chef who knows the family recipe and tastes everything before it leaves the kitchen.
+~~
+هوش مصنوعی **کمک‌آشپزی است** که سریع خرد می‌کند، پیمانه می‌کند و می‌چیند؛ تو سرآشپزی هستی که دستور پخت خانوادگی را بلدی و قبل از این‌که چیزی از آشپزخانه بیرون برود، همه‌چیز را می‌چشی.
+
+@lesson
+id: understanding-privacy-and-data
+en: Understanding privacy and data
+fa: شناخت حریم خصوصی و داده
+meta: 30 min
+url: https://academy.claude.com/courses/ai-fluency-for-nonprofits/understanding-privacy-and-data
+
+#explain
+AI brings new privacy questions, especially about **training**: some tools may use what you type to train future models. Three ideas from this lesson:
+
+- **Different plans, different rules.** Free and paid plans can have very different retention and training policies. Read the data policy of the exact plan you use, and match the tool to how sensitive the task is.
+- **Data minimization.** Most pattern analysis doesn't need personal identifiers. "Which zip codes give most in December?" needs zip codes and amounts, not names and emails.
+- **Split the task.** Often you can get the full benefit of AI without ever sharing sensitive details: ask for the template, the formula or the method, then apply it yourself to the real data.
+~~
+هوش مصنوعی پرسش‌های تازه‌ای دربارهٔ حریم خصوصی می‌آورد، مخصوصاً دربارهٔ **آموزش مدل**: بعضی ابزارها ممکن است از چیزی که تایپ می‌کنی برای آموزش مدل‌های بعدی استفاده کنند. سه ایدهٔ این درس:
+
+- **پلن‌های مختلف، قانون‌های مختلف.** پلن‌های رایگان و پولی ممکن است سیاست‌های نگه‌داری داده و آموزش کاملاً متفاوتی داشته باشند. سیاست دادهٔ همان پلنی را که استفاده می‌کنی بخوان و ابزار را با میزان حساسیت کار جور کن.
+- **کمینه‌سازی داده.** بیشتر تحلیل‌های الگو به شناسه‌های شخصی نیاز ندارند. «کدام کدپستی‌ها در دسامبر بیشتر کمک می‌کنند؟» به کدپستی و مبلغ نیاز دارد، نه اسم و ایمیل.
+- **کار را تکه‌تکه کن.** خیلی وقت‌ها می‌توانی کل فایدهٔ هوش مصنوعی را بگیری بدون این‌که هیچ جزئیات حساسی را به اشتراک بگذاری: قالب، فرمول یا روش را بخواه و بعد خودت آن را روی دادهٔ واقعی اجرا کن.
+
+#example
+**Four sensitivity levels for a typical nonprofit:**
+
+- **Public**: annual report, website text, published impact numbers → fine for most tools.
+- **Internal**: budget drafts, strategy notes → only approved, paid/business tools.
+- **Confidential**: donor names, giving history, staff records → minimize or anonymize first; strongest protections only.
+- **Highly sensitive**: case notes about clients, health, immigration status, minors, survivors of violence → keep out of AI unless your policy explicitly allows a specific protected tool, and even then share the minimum.
+~~
+**چهار سطح حساسیت برای یک سازمان غیرانتفاعی معمولی:**
+
+- **عمومی**: گزارش سالانه، متن وب‌سایت، عددهای اثر که منتشر شده‌اند ← برای بیشتر ابزارها مشکلی ندارد.
+- **داخلی**: پیش‌نویس بودجه، یادداشت‌های راهبردی ← فقط ابزارهای تأییدشدهٔ پولی/سازمانی.
+- **محرمانه**: اسم اهداکننده‌ها، سابقهٔ کمک‌هایشان، پرونده‌های کارکنان ← اول کمینه یا ناشناس کن؛ فقط با قوی‌ترین حفاظت‌ها.
+- **خیلی حساس**: یادداشت‌های پرونده دربارهٔ مددجوها، سلامت، وضعیت مهاجرتی، کودکان، بازماندگان خشونت ← بیرون از هوش مصنوعی نگهش دار، مگر سیاست سازمانت صریحاً یک ابزار مشخصِ محافظت‌شده را مجاز کرده باشد؛ و حتی آن موقع کمترین مقدار را به اشتراک بگذار.
+
+#code text Data hygiene: before and after
+BEFORE (don't paste this):
+Maria Lopez, maria.l@email.com, 14 Oak St, gave $250 on 12/03, lost her job in Nov
+
+AFTER (enough for pattern analysis):
+D-0412, zip 97214, $250, December, first-time donor
+#end
+
+#tip
+Settings matter as much as plans. For example, Claude's consumer plans let you choose in your privacy settings whether chats may be used to improve models, while business plans and the API fall under commercial terms. Policies change, so re-check the current terms of whatever tool you use, at least once a year.
+~~
+تنظیمات به اندازهٔ خود پلن مهم‌اند. مثلاً پلن‌های شخصی Claude به تو اجازه می‌دهند در تنظیمات حریم خصوصی انتخاب کنی که گفت‌وگوهایت برای بهتر کردن مدل‌ها استفاده شوند یا نه، در حالی که پلن‌های سازمانی و API زیر شرایط تجاری هستند. سیاست‌ها عوض می‌شوند؛ پس شرایط فعلی هر ابزاری را که استفاده می‌کنی دست‌کم سالی یک بار دوباره چک کن.
+
+#analogy
+Sharing data is like choosing between a **postcard, a sealed letter and a safe**. A postcard (public info) can go anywhere; a sealed letter (internal) goes only with a trusted carrier; what's in the safe (highly sensitive) mostly stays in the safe.
+~~
+به اشتراک گذاشتن داده مثل انتخاب بین **کارت‌پستال، نامهٔ دربسته و گاوصندوق** است. کارت‌پستال (اطلاعات عمومی) هر جایی می‌تواند برود؛ نامهٔ دربسته (داخلی) فقط با یک نامه‌رسان مطمئن؛ چیزی که توی گاوصندوق است (خیلی حساس) بیشتر وقت‌ها همان‌جا می‌ماند.
+
+#terms
+Data minimization = کمینه‌سازی داده = فقط همان مقدار دادهٔ لازم برای کار را به اشتراک گذاشتن.
+PII (personally identifiable information) = اطلاعات شناسایی‌کنندهٔ شخصی = هر اطلاعاتی که یک آدم مشخص را شناسایی کند، مثل اسم، ایمیل، نشانی یا شمارهٔ تلفن.
+Data retention = نگه‌داری داده = این‌که یک سرویس داده‌های تو را چقدر و کجا نگه می‌دارد.
+
+@lesson
+id: data-analysis-with-ai
+en: Data analysis with AI
+fa: تحلیل داده با هوش مصنوعی
+meta: 45 min
+url: https://academy.claude.com/courses/ai-fluency-for-nonprofits/data-analysis-with-ai
+
+#explain
+You don't have to be "a data person" to learn from your data. AI can help you write **Excel or Sheets formulas**, **clean messy data** (five spellings of the same city, duplicate donors), build summaries and charts, and explain what a pattern might mean.
+
+The key method of this lesson: **test the AI on past data where you already know the answers** before you trust it with new questions. If you know last year's total was 1,284 donors and the AI says 1,302, stop and find out why before going further.
+~~
+لازم نیست «آدم داده» باشی تا از داده‌هایت چیز یاد بگیری. هوش مصنوعی می‌تواند کمکت کند **فرمول‌های اکسل یا شیتس** بنویسی، **دادهٔ شلوغ را تمیز کنی** (پنج املای مختلف از اسم یک شهر، اهداکننده‌های تکراری)، خلاصه و نمودار بسازی و توضیح بدهی یک الگو ممکن است چه معنایی داشته باشد.
+
+روش کلیدی این درس: **قبل از این‌که برای پرسش‌های تازه به هوش مصنوعی اعتماد کنی، آن را روی دادهٔ گذشته‌ای امتحان کن که جوابش را از قبل می‌دانی.** اگر می‌دانی پارسال جمعاً ۱٬۲۸۴ اهداکننده داشتید و هوش مصنوعی می‌گوید ۱٬۳۰۲، بایست و قبل از ادامه بفهم چرا.
+
+#prompt
+Attached is last year's anonymized volunteer log (columns: volunteer_id, program, month, hours). First, tell me the total hours per program; I'll compare with our official numbers. Then show which program grew fastest from Q1 to Q4, and give me the exact spreadsheet formula you used so I can rerun it myself.
+~~
+پیوست، دفتر ناشناس‌شدهٔ ساعت‌های داوطلبی پارسال است (ستون‌ها: volunteer_id، program، month، hours). اول، جمع ساعت‌ها را برای هر برنامه بگو؛ من با عددهای رسمی‌مان مقایسه می‌کنم. بعد نشان بده کدام برنامه از فصل اول تا فصل چهارم سریع‌تر رشد کرده و دقیقاً فرمول صفحه‌گسترده‌ای را که استفاده کردی بده تا خودم دوباره اجرایش کنم.
+
+#code text A formula AI might give you (and you can verify)
+=SUMIFS(D:D, B:B, "Reading Buddies", C:C, ">=2025-10-01", C:C, "<=2025-12-31")
+#end
+
+#warn
+Watch two classic traps in impact claims: **correlation isn't causation** ("kids in our program read better", but maybe motivated families joined), and **tiny samples** (a 50% jump from 4 to 6 volunteers isn't a trend). Ask AI to list the limitations of its own analysis.
+~~
+مراقب دو تلهٔ کلاسیک در ادعاهای اثر باش: **همبستگی یعنی علیت نیست** («بچه‌های برنامهٔ ما بهتر می‌خوانند»، ولی شاید خانواده‌های باانگیزه‌تر ثبت‌نام کرده‌اند) و **نمونه‌های خیلی کوچک** (جهش ۵۰٪ از ۴ داوطلب به ۶ داوطلب روند نیست). از هوش مصنوعی بخواه محدودیت‌های تحلیل خودش را فهرست کند.
+
+#tip
+When a tool offers code execution or data analysis, prefer it for math: the numbers are **computed** by running code instead of predicted word by word. Still do your known-answer check.
+~~
+وقتی ابزاری اجرای کد یا تحلیل داده دارد، برای حساب‌وکتاب همان را ترجیح بده: عددها با اجرای کد **محاسبه** می‌شوند، نه این‌که کلمه به کلمه پیش‌بینی شوند. ولی باز هم چک «جواب معلوم» را انجام بده.
+
+#analogy
+The known-answer test is like **checking a new bathroom scale with a 5 kg bag of rice** before you trust it with anything else.
+~~
+آزمون «جواب معلوم» مثل این است که یک ترازوی تازه را **اول با یک کیسه برنج ۵ کیلویی امتحان کنی** و بعد برای چیزهای دیگر به آن اعتماد کنی.
+
+@section Putting it all together | کنار هم گذاشتن همه‌چیز
+
+@lesson
+id: workflow-augmentation
+en: Workflow augmentation
+fa: تقویت روال‌های کاری
+url: https://academy.claude.com/courses/ai-fluency-for-nonprofits/workflow-augmentation
+
+#explain
+Now combine all four competencies on a **recurring workflow**, not a one-off chat. Good candidates are **frequent, low-risk and annoying**: monthly donor thank-you letters, volunteer shift reminders, board report formatting, turning program notes into a newsletter.
+
+For each step, decide its mode: **human only**, **AI drafts, human approves**, or **AI does it, human spot-checks**. Put human checkpoints where facts, money, relationships or sensitive data are involved. Then save your best prompt as a reusable template (or a Project with your style guide) so anyone on the team gets the same quality.
+~~
+حالا هر چهار توانمندی را روی یک **روال کاری تکراری** کنار هم بگذار، نه یک گفت‌وگوی یک‌باره. گزینه‌های خوب **پرتکرار، کم‌خطر و آزاردهنده‌اند**: نامه‌های تشکر ماهانه از اهداکننده‌ها، یادآوری شیفت داوطلب‌ها، قالب‌بندی گزارش هیئت‌مدیره، تبدیل یادداشت‌های برنامه به خبرنامه.
+
+برای هر مرحله حالتش را مشخص کن: **فقط انسان**، **هوش مصنوعی پیش‌نویس می‌کند و انسان تأیید می‌کند**، یا **هوش مصنوعی انجام می‌دهد و انسان سرکشی نمونه‌ای می‌کند**. هر جا پای واقعیت، پول، رابطه یا دادهٔ حساس وسط است، یک ایستگاه بازبینی انسانی بگذار. بعد بهترین پرامپتت را به‌عنوان یک قالب قابل‌استفادهٔ دوباره ذخیره کن (یا یک Project با راهنمای سبک نوشتاری‌تان) تا هر کسی در تیم همان کیفیت را بگیرد.
+
+#steps
+1. Export this month's gifts (IDs, amount, fund, first-time or repeat: no names).
+2. AI drafts three letter variants: first-time donor, monthly donor, major gift.
+3. A staff member personalizes each with names and a real program story, offline.
+4. The development director approves major-gift letters personally.
+5. Track: time spent before vs. after, and any errors caught.
+~~
+1. هدیه‌های این ماه را خروجی بگیر (شناسه، مبلغ، صندوق، اولین بار یا تکراری: بدون اسم).
+2. هوش مصنوعی سه نسخهٔ نامه پیش‌نویس می‌کند: اهداکنندهٔ بار اول، اهداکنندهٔ ماهانه، کمک بزرگ.
+3. یک کارمند هر نامه را بیرون از ابزار، با اسم‌ها و یک داستان واقعی از برنامه شخصی‌سازی می‌کند.
+4. مدیر جذب منابع، نامه‌های کمک‌های بزرگ را شخصاً تأیید می‌کند.
+5. ثبت کن: زمان صرف‌شده قبل و بعد، و هر خطایی که گرفته شد.
+
+#analogy
+A good AI workflow is like a **relay race**: AI runs the straight, fast legs; humans take the baton at the curves where you could fall.
+~~
+یک روال کاری خوب با هوش مصنوعی مثل **مسابقهٔ امدادی** است: هوش مصنوعی مسیرهای صاف و سریع را می‌دود؛ آدم‌ها در پیچ‌هایی که ممکن است زمین بخوری چوب را می‌گیرند.
+
+#tip
+Measure before you celebrate. "We saved 6 hours a month and caught 2 factual errors at the checkpoint" is a story your board (and funders) will trust.
+~~
+قبل از جشن گرفتن، اندازه بگیر. «ماهی ۶ ساعت صرفه‌جویی کردیم و در ایستگاه بازبینی ۲ خطای واقعیتی گرفتیم» داستانی است که هیئت‌مدیره (و حامیان مالی) به آن اعتماد می‌کنند.
+
+@lesson
+id: integration
+en: "Integration: your organizational AI policy"
+fa: یکپارچه‌سازی: سیاست هوش مصنوعی سازمانت
+url: https://academy.claude.com/courses/ai-fluency-for-nonprofits/integration
+
+#explain
+Integration means bringing AI into the **organization**, not just your own desk. The deliverable is a draft **organizational AI policy** that keeps humans in the loop. It answers questions like: Which tools are allowed? What retention and training settings suit different kinds of work? Which sensitivity levels need stronger protections? Who reviews AI-assisted content before it goes public? When do we tell donors, funders or clients that AI helped?
+
+Write it together with staff (and ideally community voices), keep it short enough to actually be read, and set a date to review it, because tools change fast.
+~~
+یکپارچه‌سازی یعنی آوردن هوش مصنوعی به **سازمان**، نه فقط به میز کار خودت. خروجی این درس پیش‌نویس یک **سیاست هوش مصنوعی برای سازمان** است که آدم‌ها را در حلقه نگه دارد. به پرسش‌هایی از این دست جواب می‌دهد: کدام ابزارها مجازند؟ چه تنظیمات نگه‌داری داده و آموزش مدلی برای نوع‌های مختلف کار مناسب است؟ کدام سطح‌های حساسیت حفاظت قوی‌تری لازم دارند؟ چه کسی محتوای ساخته‌شده با کمک هوش مصنوعی را قبل از انتشار بازبینی می‌کند؟ کی به اهداکننده‌ها، حامیان مالی یا مددجوها می‌گوییم که هوش مصنوعی کمک کرده؟
+
+آن را همراه با کارکنان بنویس (و اگر بشود با صدای جامعه)، آن‌قدر کوتاه نگهش دار که واقعاً خوانده شود و یک تاریخ برای بازبینی‌اش بگذار، چون ابزارها سریع عوض می‌شوند.
+
+#code markdown ai-policy.md: a one-page skeleton
+# Our AI Use Policy (v1, review every 6 months)
+## Why we use AI
+To spend more time on our mission, never to replace relationships.
+## Approved tools
+- [Tool + plan], settings: [training off / business terms]
+## Data rules
+- Public/Internal: approved tools OK
+- Confidential (donors, staff): anonymize first
+- Highly sensitive (clients, minors, health): never in AI tools
+## Human review
+- Anything public, financial or sent to funders: human approval
+## Transparency
+- We tell funders when AI substantially drafted a proposal
+## Questions & incidents
+- Ask: [name]. Report mistakes: [channel], no blame.
+#end
+
+#warn
+A total ban often backfires: staff quietly use personal free accounts with organizational data, which is the worst outcome for privacy. A clear, safe path ("use this tool, this way") protects people better than a "no" nobody follows.
+~~
+ممنوعیت کامل اغلب نتیجهٔ برعکس می‌دهد: کارکنان بی‌سروصدا با حساب‌های رایگان شخصی‌شان روی دادهٔ سازمان کار می‌کنند، که برای حریم خصوصی بدترین حالت است. یک مسیر روشن و امن («از این ابزار، به این شکل استفاده کن») خیلی بهتر از یک «نه» که هیچ‌کس رعایتش نمی‌کند از آدم‌ها محافظت می‌کند.
+
+#analogy
+An AI policy is like the **safety rules at a community swimming pool**: they don't stop people from swimming; they make sure everyone knows where the deep end is and who the lifeguard is.
+~~
+سیاست هوش مصنوعی مثل **قانون‌های ایمنی یک استخر محله** است: جلوی شنا کردن مردم را نمی‌گیرد؛ مطمئن می‌شود همه می‌دانند قسمت عمیق کجاست و نجات‌غریق کیست.
+
+@lesson
+id: next-steps
+en: Next steps
+fa: قدم‌های بعدی
+kind: wrap
+url: https://academy.claude.com/courses/ai-fluency-for-nonprofits/next-steps
+
+#explain
+The course closes by pointing you to a **use-case library** of ready blueprints, including grant writing, donor communications and data analysis, so you can keep practicing on real tasks. Anthropic also offers programs and tutorials for nonprofits (see this handout's Tutorials and Use cases pages, for example the Benevity connector tutorial and the grant proposal "assembly line" use case).
+
+Keep the loop going: try one new workflow a month, share what works with your team, and update your policy as you learn.
+~~
+دوره با معرفی یک **کتابخانهٔ موارد استفاده** پر از نقشه‌های آماده تمام می‌شود؛ از جمله نوشتن پروپوزال، ارتباط با اهداکننده‌ها و تحلیل داده، تا بتوانی تمرین روی کارهای واقعی را ادامه بدهی. Anthropic برای سازمان‌های غیرانتفاعی برنامه‌ها و آموزش‌هایی هم دارد (صفحه‌های «آموزش‌های کوتاه» و «موارد استفاده»ی همین جزوه را ببین؛ مثلاً آموزش کانکتور Benevity و مورد استفادهٔ «خط تولید پروپوزال کمک‌مالی»).
+
+حلقه را ادامه بده: هر ماه یک روال کاری تازه را امتحان کن، چیزی را که جواب می‌دهد با تیمت در میان بگذار و همزمان با یاد گرفتن، سیاستت را به‌روز کن.
+
+#try
+Book a 30-minute "AI show-and-tell" with your team: each person shows one prompt that saved them time and one mistake they caught. It spreads good habits faster than any training document.
+~~
+یک جلسهٔ ۳۰ دقیقه‌ای «نشان بده و تعریف کن» دربارهٔ هوش مصنوعی با تیمت بگذار: هر نفر یک پرامپت که وقتش را نجات داده و یک اشتباهی که گرفته را نشان دهد. این کار عادت‌های خوب را سریع‌تر از هر سند آموزشی پخش می‌کند.
+
+@lesson
+id: course-quiz
+en: Course quiz and completion badge
+fa: آزمون دوره و نشان پایان دوره
+kind: quiz
+url: https://academy.claude.com/courses/ai-fluency-for-nonprofits/course-quiz
+
+#explain
+Ten questions cover the 4Ds in nonprofit situations: delegating safely, verifying research, writing in your voice, handling sensitive data, checking analyses and drafting policy. **80% or higher** passes and earns the completion badge.
+~~
+ده سؤال 4D را در موقعیت‌های کار غیرانتفاعی مرور می‌کنند: سپردن امن، راستی‌آزمایی پژوهش، نوشتن با صدای خودت، کار با دادهٔ حساس، چک کردن تحلیل‌ها و پیش‌نویس سیاست. **۸۰٪ یا بیشتر** قبولی و نشان پایان دوره را به همراه دارد.
+
+@cheatsheet
+- AI = a capable **new volunteer**: needs context and supervision.
+- Research: **verify specific claims** at the source and **check dates** (grant cycles change yearly).
+- Writing: upload **past successful work** for voice; add what AI can't know; use **[NEED: ...]** instead of invented numbers.
+- Privacy: plans differ in **retention and training**; sort data by sensitivity; **minimize**; split tasks to avoid sharing identifiers.
+- Data: test on **known answers** first; get the formula; beware correlation ≠ causation and tiny samples.
+- Workflows: frequent, low-risk, annoying tasks first; human checkpoints for facts, money, relationships.
+- Policy: allowed tools, data rules, human review, transparency, review date. A safe path beats a ban.
+~~
+- هوش مصنوعی = یک **داوطلب تازه‌وارد** توانا: زمینه و نظارت لازم دارد.
+- پژوهش: **ادعاهای مشخص را** در منبع **راستی‌آزمایی کن** و **تاریخ‌ها را چک کن** (چرخهٔ کمک‌ها هر سال عوض می‌شود).
+- نوشتن: برای صدا، **کارهای موفق قبلی** را بارگذاری کن؛ چیزهایی را که هوش مصنوعی نمی‌داند اضافه کن؛ به جای عدد ساختگی از **[NEED: ...]** استفاده کن.
+- حریم خصوصی: پلن‌ها در **نگه‌داری داده و آموزش مدل** فرق دارند؛ داده را بر اساس حساسیت دسته‌بندی کن؛ **کمینه کن**؛ کار را تکه‌تکه کن تا شناسه‌ها را به اشتراک نگذاری.
+- داده: اول روی **جواب‌های معلوم** امتحان کن؛ فرمول را بگیر؛ مراقب «همبستگی ≠ علیت» و نمونه‌های خیلی کوچک باش.
+- روال‌های کاری: اول کارهای پرتکرار، کم‌خطر و آزاردهنده؛ ایستگاه بازبینی انسانی برای واقعیت‌ها، پول و رابطه‌ها.
+- سیاست: ابزارهای مجاز، قانون‌های داده، بازبینی انسانی، شفافیت، تاریخ بازبینی. یک مسیر امن بهتر از ممنوعیت است.
+
+@quiz
+Q: A free AI tool would make your donor analysis easy. What should you check first? || یک ابزار رایگان هوش مصنوعی تحلیل اهداکننده‌ها را آسان می‌کند. اول چه چیزی را باید چک کنی؟
+A: Its data retention and training policy, and whether you can do the analysis with anonymized or aggregated data instead of names. || سیاست نگه‌داری داده و آموزش مدلش را، و این‌که می‌توانی تحلیل را به جای اسم‌ها با دادهٔ ناشناس یا تجمیعی انجام بدهی یا نه.
+Q: The AI draft of your proposal says you served 2,000 families. You served 1,240. What went wrong and how do you prevent it? || پیش‌نویس هوش مصنوعیِ پروپوزالت می‌گوید به ۲٬۰۰۰ خانواده خدمت کرده‌اید. شما به ۱٬۲۴۰ خانواده خدمت کرده‌اید. چه چیزی خراب شد و چطور جلویش را بگیری؟
+A: The AI filled a gap with an invented number. Give it your real figures and tell it to write [NEED: ...] where data is missing; then discern every number before sending. || هوش مصنوعی یک جای خالی را با عدد ساختگی پر کرده. عددهای واقعی را به آن بده و بگو هر جا داده نیست [NEED: ...] بنویسد؛ بعد قبل از ارسال، تک‌تک عددها را تشخیص بده و چک کن.
+Q: How can you trust an AI's analysis of new data? || چطور می‌توانی به تحلیل هوش مصنوعی روی دادهٔ تازه اعتماد کنی؟
+A: First test it on past data where you already know the answers, and ask for the exact formula so you can rerun it. || اول آن را روی دادهٔ گذشته‌ای که جوابش را می‌دانی امتحان کن و فرمول دقیق را بخواه تا بتوانی خودت دوباره اجرایش کنی.

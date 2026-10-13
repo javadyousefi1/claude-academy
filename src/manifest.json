@@ -377,5 +377,74 @@
    "slide-deck-and-facilitator-guide",
    "learner-workbook-and-course-complete"
   ]
+ },
+ {
+  "slug": "ai-fluency-for-nonprofits",
+  "kind": "course",
+  "group": "fluency",
+  "en": "AI Fluency for nonprofits",
+  "fa": "سواد هوش مصنوعی برای سازمان‌های غیرانتفاعی (خیریه‌ها و نهادهای مردمی)",
+  "items": [
+   "welcome-to-ai-fluency-for-nonprofits",
+   "the-4d-framework",
+   "researching-with-ai",
+   "writing-with-ai",
+   "understanding-privacy-and-data",
+   "data-analysis-with-ai",
+   "workflow-augmentation",
+   "integration",
+   "next-steps",
+   "course-quiz"
+  ]
+ },
+ {
+  "slug": "ai-fluency-for-small-businesses",
+  "kind": "course",
+  "group": "fluency",
+  "en": "AI Fluency for small businesses",
+  "fa": "سواد هوش مصنوعی برای کسب‌وکارهای کوچک",
+  "items": [
+   "ai-fluency-for-small-businesses",
+   "the-4d-framework",
+   "ai-capabilities-and-limitations",
+   "refining-with-ai",
+   "using-data-with-ai",
+   "tying-it-all-together",
+   "human-in-the-loop",
+   "closure-and-looking-forward",
+   "course-quiz"
+  ]
+ },
+ {
+  "slug": "ai-fluency-for-students",
+  "kind": "course",
+  "group": "fluency",
+  "en": "AI Fluency for students",
+  "fa": "سواد هوش مصنوعی برای دانش‌آموزها و دانشجوها",
+  "items": [
+   "welcome-to-ai-fluency-for-students",
+   "ai-fluency-framework",
+   "ai-as-a-learning-partner",
+   "ai-in-career-planning",
+   "being-the-human-in-the-loop",
+   "certificate-of-completion"
+  ]
+ },
+ {
+  "slug": "teaching-ai-fluency",
+  "kind": "course",
+  "group": "fluency",
+  "en": "Teaching AI Fluency",
+  "fa": "آموزش دادن سواد هوش مصنوعی",
+  "items": [
+   "welcome-approaches-to-teaching-ai-fluency",
+   "teaching-the-delegation-diligence-loop",
+   "teaching-the-description-discernment-loop",
+   "how-do-we-assess-the-4ds",
+   "designing-assignments-for-ai-fluency",
+   "ais-impact-on-your-discipline",
+   "applying-discipline-expertise-to-ai-fluency",
+   "certificate-of-completion"
+  ]
  }
 ]
