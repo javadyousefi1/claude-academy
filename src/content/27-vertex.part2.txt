@@ -1,0 +1,764 @@
+@section Tool use with Claude | استفاده از ابزار با Claude
+
+@lesson
+id: introducing-tool-use
+en: Introducing tool use
+fa: آشنایی با استفاده از ابزار
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/introducing-tool-use
+
+#explain
+Tool schemas in, `tool_use` out, your code runs it, `tool_result` back. Full lesson: [Introducing tool use](page:building-with-the-claude-api#introducing-tool-use). With `AnthropicVertex`, the tool format is exactly the same as the API course.
+~~
+اسکیمای ابزار می‌رود، `tool_use` برمی‌گردد، کد تو اجرایش می‌کند، `tool_result` برمی‌گردد. درس کامل: [آشنایی با استفاده از ابزار](page:building-with-the-claude-api#introducing-tool-use). با `AnthropicVertex`، قالب ابزار دقیقاً همان دورهٔ API است.
+
+@lesson
+id: project-overview
+en: Project overview
+fa: معرفی پروژه
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+A reminder assistant that needs date/time tools. Full lesson: [Project overview](page:building-with-the-claude-api#project-overview).
+~~
+یک دستیار یادآوری که ابزارهای تاریخ و ساعت لازم دارد. درس کامل: [معرفی پروژه](page:building-with-the-claude-api#project-overview).
+
+@lesson
+id: tool-functions
+en: Tool functions
+fa: تابع‌های ابزار
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Functions with descriptive names, validation and helpful errors. Full lesson: [Tool functions](page:building-with-the-claude-api#tool-functions).
+~~
+تابع‌هایی با اسم توصیفی، اعتبارسنجی و خطاهای کمک‌کننده. درس کامل: [تابع‌های ابزار](page:building-with-the-claude-api#tool-functions).
+
+@lesson
+id: tool-schemas
+en: Tool schemas
+fa: اسکیمای ابزارها
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Name, a prescriptive description, JSON Schema inputs; `strict: true` for guaranteed valid arguments. Full lesson: [Tool schemas](page:building-with-the-claude-api#tool-schemas).
+~~
+اسم، یک توضیح دستوری، ورودی‌های اسکیمای JSON؛ `strict: true` برای آرگومان‌هایی که تضمینی معتبرند. درس کامل: [اسکیمای ابزارها](page:building-with-the-claude-api#tool-schemas).
+
+@lesson
+id: handling-message-blocks
+en: Handling message blocks
+fa: کار با بلوک‌های پیام
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Append the whole `response.content`; check `stop_reason == "tool_use"`. Full lesson: [Handling message blocks](page:building-with-the-claude-api#handling-message-blocks).
+~~
+کل `response.content` را اضافه کن؛ `stop_reason == "tool_use"` را چک کن. درس کامل: [کار با بلوک‌های پیام](page:building-with-the-claude-api#handling-message-blocks).
+
+@lesson
+id: sending-tool-results
+en: Sending tool results
+fa: فرستادن نتیجهٔ ابزار
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+One `tool_result` per `tool_use`, same id, `is_error` on failure. Full lesson: [Sending tool results](page:building-with-the-claude-api#sending-tool-results).
+~~
+برای هر `tool_use` یک `tool_result`، با همان شناسه، و `is_error` هنگام شکست. درس کامل: [فرستادن نتیجهٔ ابزار](page:building-with-the-claude-api#sending-tool-results).
+
+@lesson
+id: multi-turn-conversations-with-tools
+en: Multi-turn conversations with tools
+fa: گفت‌وگوهای چندنوبتی با ابزار
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/multi-turn-conversations-with-tools
+
+#explain
+Claude chains tools across several round trips. Full lesson: [Multi-turn conversations with tools](page:building-with-the-claude-api#multi-turn-conversations-with-tools).
+~~
+Claude ابزارها را در چند رفت‌وبرگشت پشت هم صدا می‌زند. درس کامل: [گفت‌وگوهای چندنوبتی با ابزار](page:building-with-the-claude-api#multi-turn-conversations-with-tools).
+
+@lesson
+id: implementing-multiple-turns
+en: Implementing multiple turns
+fa: پیاده‌سازی چند نوبت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+The loop that runs until no more tools are requested (or the tool runner). Full lesson: [Implementing multiple turns](page:building-with-the-claude-api#implementing-multiple-turns).
+~~
+حلقه‌ای که تا وقتی ابزار دیگری درخواست نشود اجرا می‌شود (یا اجراکنندهٔ ابزار). درس کامل: [پیاده‌سازی چند نوبت](page:building-with-the-claude-api#implementing-multiple-turns).
+
+@lesson
+id: using-multiple-tools
+en: Using multiple tools
+fa: استفاده از چند ابزار
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Several tools and parallel calls; return all results in one message. Full lesson: [Using multiple tools](page:building-with-the-claude-api#using-multiple-tools).
+~~
+چند ابزار و فراخوانی‌های موازی؛ همهٔ نتیجه‌ها را در یک پیام برگردان. درس کامل: [استفاده از چند ابزار](page:building-with-the-claude-api#using-multiple-tools).
+
+@lesson
+id: the-batch-tool
+en: The batch tool
+fa: ابزار دسته‌ای
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+When Claude makes independent tool calls **one per turn**, every call costs a full round trip. The **batch tool** is a wrapper tool whose input is a list of other tool calls, so Claude can request several at once; your code runs them (in parallel if you like) and returns all results together.
+~~
+وقتی Claude فراخوانی‌های مستقل را **هر نوبت یکی** انجام می‌دهد، هر فراخوانی یک رفت‌وبرگشت کامل هزینه دارد. **ابزار دسته‌ای** یک ابزار پوششی است که ورودی‌اش فهرستی از فراخوانی‌های ابزارهای دیگر است؛ پس Claude می‌تواند چند تا را با هم درخواست کند؛ کد تو اجرایشان می‌کند (اگر خواستی موازی) و همهٔ نتیجه‌ها را با هم برمی‌گرداند.
+
+#code python A batch tool in Messages API format
+batch_tool_schema = {
+    "name": "batch_tool",
+    "description": "Invoke multiple other tool calls at once. Use it whenever you need "
+                   "two or more independent tool calls.",
+    "input_schema": {
+        "type": "object",
+        "properties": {"invocations": {"type": "array", "items": {
+            "type": "object",
+            "properties": {"name": {"type": "string"},
+                           "arguments": {"type": "string", "description": "JSON-encoded arguments"}},
+            "required": ["name", "arguments"]}}},
+        "required": ["invocations"],
+    },
+}
+
+def run_batch(invocations):
+    return [{"tool": i["name"], "output": run_tool(i["name"], json.loads(i["arguments"]))}
+            for i in invocations]
+#end
+
+#tip
+Measure before adopting it: current Claude models already issue parallel tool calls on their own fairly often. If yours does, the plain approach is simpler.
+~~
+قبل از به کار بردنش اندازه بگیر: مدل‌های فعلی Claude همین حالا هم خیلی وقت‌ها خودشان ابزارها را موازی صدا می‌زنند. اگر مدل تو این کار را می‌کند، روش ساده‌تر بهتر است.
+
+@lesson
+id: tools-for-structured-data
+en: Tools for structured data
+fa: ابزار برای دادهٔ ساختاریافته
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/tools-for-structured-data
+
+#explain
+Compared with prompt-based methods (prefill and stop sequences), the **tool-based** approach is more reliable: define a tool whose JSON schema *is* the structure you want, have Claude call it, and read the tool's input as your data. The course forces the call with `tool_choice={"type": "tool", "name": ...}`; it's more setup, but the output is far more consistent.
+
+**Today:** on the newest models (Opus 5.5, Sonnet 5.5, Fable 5.1) forced `tool_choice` returns a 400. Use **structured outputs** (supported on Vertex) for pure extraction, or `auto` + `strict: true` + an explicit instruction when you really want a tool call.
+~~
+در مقایسه با روش‌های مبتنی بر پرامپت (پیش‌پر کردن و دنبالهٔ توقف)، روش **مبتنی بر ابزار** مطمئن‌تر است: ابزاری تعریف کن که اسکیمای JSON آن *همان* ساختاری است که می‌خواهی، کاری کن Claude صدایش بزند و ورودی ابزار را به‌عنوان داده‌ات بخوان. دوره فراخوانی را با `tool_choice={"type": "tool", "name": ...}` اجباری می‌کند؛ راه‌اندازی بیشتری می‌خواهد، ولی خروجی خیلی یکدست‌تر است.
+
+**امروز:** روی جدیدترین مدل‌ها (Opus 5.5، Sonnet 5.5، Fable 5.1) اجبار `tool_choice` خطای 400 می‌دهد. برای استخراج خالص از **خروجی ساختاریافته** (که Vertex پشتیبانی می‌کند) استفاده کن، یا وقتی واقعاً فراخوانی ابزار می‌خواهی، `auto` + `strict: true` + یک دستور صریح.
+
+#code python Structured extraction on a current model
+r = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=2000,
+    output_config={"format": {"type": "json_schema", "schema": {
+        "type": "object",
+        "properties": {"title": {"type": "string"}, "author": {"type": "string"},
+                       "key_insights": {"type": "array", "items": {"type": "string"}}},
+        "required": ["title", "author", "key_insights"],
+        "additionalProperties": False}}},
+    messages=[{"role": "user", "content": f"<article>{article}</article>\nExtract the summary data."}],
+)
+data = json.loads(next(b.text for b in r.content if b.type == "text"))
+#end
+
+#analogy
+Prompt-based extraction is asking someone to **write their details neatly on a blank page**; tool-based is handing them a **printed form**; structured outputs is a form where the pen **can't write outside the boxes**.
+~~
+استخراج مبتنی بر پرامپت مثل این است که از کسی بخواهی **مشخصاتش را تمیز روی یک برگهٔ سفید بنویسد**؛ مبتنی بر ابزار مثل دادن **یک فرم چاپی** است؛ خروجی ساختاریافته فرمی است که قلم **اصلاً نمی‌تواند بیرون خانه‌ها بنویسد**.
+
+@lesson
+id: fine-grained-tool-calling
+en: Fine-grained tool calling
+fa: فراخوانی ریزدانهٔ ابزار
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Stream tool arguments as they're generated with `eager_input_streaming`, and validate the final JSON yourself. Full lesson: [Fine-grained tool calling](page:building-with-the-claude-api#fine-grained-tool-calling).
+~~
+آرگومان‌های ابزار را همان‌طور که تولید می‌شوند با `eager_input_streaming` استریم کن و JSON نهایی را خودت اعتبارسنجی کن. درس کامل: [فراخوانی ریزدانهٔ ابزار](page:building-with-the-claude-api#fine-grained-tool-calling).
+
+@lesson
+id: the-text-edit-tool
+en: The text edit tool
+fa: ابزار ویرایش متن
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Anthropic-defined, client-executed file editing; confine every path. Full lesson: [The text edit tool](page:building-with-the-claude-api#the-text-edit-tool).
+~~
+ویرایش فایل تعریف‌شده توسط Anthropic و اجراشده سمت تو؛ هر مسیری را محدود کن. درس کامل: [ابزار ویرایش متن](page:building-with-the-claude-api#the-text-edit-tool).
+
+@lesson
+id: the-web-search-tool
+en: The web search tool
+fa: ابزار جست‌وجوی وب
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+A server tool: add it and Claude searches and cites. Full lesson: [The web search tool](page:building-with-the-claude-api#the-web-search-tool). **Vertex difference:** only the basic `web_search_20250305` version is available there (no dynamic filtering), and web fetch isn't offered.
+~~
+یک ابزار سمت سرور: اضافه‌اش کن تا Claude جست‌وجو کند و ارجاع بدهد. درس کامل: [ابزار جست‌وجوی وب](page:building-with-the-claude-api#the-web-search-tool). **تفاوت Vertex:** آن‌جا فقط نسخهٔ پایهٔ `web_search_20250305` در دسترس است (بدون فیلتر پویا) و web fetch ارائه نمی‌شود.
+
+@lesson
+id: quiz-on-tool-use-with-claude
+en: Quiz on tool use with Claude
+fa: آزمونک استفاده از ابزار با Claude
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Checks the tool-use loop, schemas, parallel and batch calls, tools for structured data, and built-in tools on Vertex.
+~~
+حلقهٔ استفاده از ابزار، اسکیماها، فراخوانی موازی و دسته‌ای، ابزار برای دادهٔ ساختاریافته و ابزارهای داخلی روی Vertex را می‌سنجد.
+
+@section Retrieval augmented generation | تولید تقویت‌شده با بازیابی (RAG)
+
+@lesson
+id: introducing-retrieval-augmented-generation
+en: Introducing retrieval augmented generation
+fa: آشنایی با RAG
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/introducing-retrieval-augmented-generation
+
+#explain
+Send only the relevant chunks, not whole libraries. Full lesson: [Introducing RAG](page:building-with-the-claude-api#introducing-retrieval-augmented-generation).
+~~
+فقط تکه‌های مرتبط را بفرست، نه کل کتابخانه را. درس کامل: [آشنایی با RAG](page:building-with-the-claude-api#introducing-retrieval-augmented-generation).
+
+@lesson
+id: text-chunking-strategies
+en: Text chunking strategies
+fa: راهبردهای تکه‌کردن متن
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Size, structure or sentence based. Full lesson: [Text chunking strategies](page:building-with-the-claude-api#text-chunking-strategies).
+~~
+بر اساس اندازه، ساختار یا جمله. درس کامل: [راهبردهای تکه‌کردن متن](page:building-with-the-claude-api#text-chunking-strategies).
+
+@lesson
+id: text-embeddings
+en: Text embeddings
+fa: بردارهای معنایی متن
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Vectors that capture meaning, for semantic search. Full lesson: [Text embeddings](page:building-with-the-claude-api#text-embeddings). Google Cloud also offers its own embedding models; the concept is the same.
+~~
+بردارهایی که معنا را نگه می‌دارند، برای جست‌وجوی معنایی. درس کامل: [بردارهای معنایی متن](page:building-with-the-claude-api#text-embeddings). Google Cloud هم مدل‌های embedding خودش را دارد؛ مفهوم همان است.
+
+@lesson
+id: the-full-rag-flow
+en: The full RAG flow
+fa: جریان کامل RAG
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Index once; per question embed, rank, answer from context. Full lesson: [The full RAG flow](page:building-with-the-claude-api#the-full-rag-flow).
+~~
+یک بار نمایه بساز؛ برای هر سؤال embed کن، رتبه بده، از روی زمینه جواب بده. درس کامل: [جریان کامل RAG](page:building-with-the-claude-api#the-full-rag-flow).
+
+@lesson
+id: implementing-the-rag-flow
+en: Implementing the RAG flow
+fa: پیاده‌سازی جریان RAG
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+A small vector index and a grounded prompt. Full lesson: [Implementing the RAG flow](page:building-with-the-claude-api#implementing-the-rag-flow).
+~~
+یک نمایهٔ برداری کوچک و یک پرامپت متکی به زمینه. درس کامل: [پیاده‌سازی جریان RAG](page:building-with-the-claude-api#implementing-the-rag-flow).
+
+@lesson
+id: bm25-lexical-search
+en: BM25 lexical search
+fa: جست‌وجوی واژگانی BM25
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Keyword search for exact IDs and rare terms. Full lesson: [BM25 lexical search](page:building-with-the-claude-api#bm25-lexical-search).
+~~
+جست‌وجوی کلیدواژه‌ای برای شناسه‌های دقیق و کلمه‌های کمیاب. درس کامل: [جست‌وجوی واژگانی BM25](page:building-with-the-claude-api#bm25-lexical-search).
+
+@lesson
+id: a-multi-index-rag-pipeline
+en: A multi-index RAG pipeline
+fa: خط لولهٔ RAG چندنمایه‌ای
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/a-multi-index-rag-pipeline
+
+#explain
+Vector + BM25 retrievers merged with reciprocal rank fusion. Full lesson: [A multi-index RAG pipeline](page:building-with-the-claude-api#a-multi-index-rag-pipeline).
+~~
+بازیاب‌های برداری و BM25 که با ادغام رتبهٔ معکوس یکی می‌شوند. درس کامل: [خط لولهٔ RAG چندنمایه‌ای](page:building-with-the-claude-api#a-multi-index-rag-pipeline).
+
+@lesson
+id: reranking-results
+en: Reranking results
+fa: رتبه‌بندی دوبارهٔ نتیجه‌ها
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Retrieve extra candidates (say 10), then ask Claude to **reorder them by relevance** to the question and keep the best few. One more call, often much better context for the final answer.
+~~
+کاندیداهای بیشتری بازیابی کن (مثلاً ۱۰ تا)، بعد از Claude بخواه آن‌ها را **بر اساس ارتباط** با سؤال دوباره مرتب کند و چند تای بهتر را نگه دار. یک فراخوانی بیشتر، و اغلب زمینهٔ خیلی بهتر برای جواب نهایی.
+
+#code python Rerank with structured outputs
+from pydantic import BaseModel
+
+class Ranking(BaseModel):
+    doc_ids: list[int]        # most relevant first
+
+def rerank(question, candidates, k=3):
+    docs = "\n".join(f'<doc id="{i}">{c}</doc>' for i, c in enumerate(candidates))
+    r = client.messages.parse(
+        model="claude-haiku-5-5", max_tokens=500,
+        messages=[{"role": "user", "content":
+            f"<question>{question}</question>\n<documents>\n{docs}\n</documents>\n"
+            f"Rank the {k} documents most relevant to the question."}],
+        output_format=Ranking,
+    )
+    return [candidates[i] for i in r.parsed_output.doc_ids[:k] if 0 <= i < len(candidates)]
+#end
+
+#analogy
+The search engine picks the **shortlist**; Claude is the **hiring manager** who orders the final candidates.
+~~
+موتور جست‌وجو **فهرست کوتاه** را انتخاب می‌کند؛ Claude **مدیر استخدامی** است که کاندیداهای نهایی را مرتب می‌کند.
+
+@lesson
+id: contextual-retrieval
+en: Contextual retrieval
+fa: بازیابی زمینه‌دار
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Before indexing, ask Claude to write a **short context sentence** for each chunk based on the whole document ("This chunk is from ACME's Q2 2026 report, discussing revenue"), and index chunk + context. Lost context is restored, so both semantic and BM25 search find the right chunks more often.
+~~
+قبل از نمایه‌سازی، از Claude بخواه بر اساس کل سند برای هر تکه یک **جملهٔ زمینهٔ کوتاه** بنویسد («این تکه از گزارش فصل دوم ۲۰۲۶ شرکت ACME است و دربارهٔ درآمد حرف می‌زند») و تکه + زمینه را نمایه کن. زمینهٔ گم‌شده برمی‌گردد؛ پس هم جست‌وجوی معنایی و هم BM25 بیشتر وقت‌ها تکه‌های درست را پیدا می‌کنند.
+
+#code python Cache the document, contextualize every chunk
+def contextualize(document, chunk):
+    r = client.messages.create(
+        model="claude-haiku-5-5", max_tokens=150,
+        system=[{"type": "text", "text": f"<document>{document}</document>",
+                 "cache_control": {"type": "ephemeral"}}],          # same for every chunk
+        messages=[{"role": "user", "content":
+            f"<chunk>{chunk}</chunk>\nWrite one short sentence situating this chunk within "
+            "the document, to improve search retrieval. Reply with the sentence only."}],
+    )
+    return "".join(b.text for b in r.content if b.type == "text") + "\n" + chunk
+#end
+
+#tip
+The document is identical for every chunk, so caching it (as above) makes contextualizing a long report dramatically cheaper.
+~~
+سند برای همهٔ تکه‌ها یکی است؛ پس کش کردنش (مثل کد بالا) زمینه‌دار کردن یک گزارش طولانی را به‌شدت ارزان‌تر می‌کند.
+
+@lesson
+id: quiz-on-rag
+en: Quiz on retrieval augmented generation
+fa: آزمونک RAG
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Checks chunking, embeddings, hybrid search with RRF, reranking and contextual retrieval.
+~~
+تکه‌کردن، embedding، جست‌وجوی ترکیبی با RRF، رتبه‌بندی دوباره و بازیابی زمینه‌دار را می‌سنجد.
+
+@section Features of Claude | قابلیت‌های Claude
+
+@lesson
+id: extended-thinking
+en: Extended thinking
+fa: تفکر گسترده
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Adaptive thinking with `effort` on the newest models; same parameters on Vertex. Full lesson: [Extended thinking](page:building-with-the-claude-api#extended-thinking).
+~~
+تفکر تطبیقی با `effort` روی جدیدترین مدل‌ها؛ روی Vertex هم همان پارامترها. درس کامل: [تفکر گسترده](page:building-with-the-claude-api#extended-thinking).
+
+@lesson
+id: image-support
+en: Image support
+fa: پشتیبانی از تصویر
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Image blocks plus step-by-step analysis instructions. Full lesson: [Image support](page:building-with-the-claude-api#image-support).
+~~
+بلوک‌های تصویر به‌اضافهٔ دستورهای تحلیل قدم به قدم. درس کامل: [پشتیبانی از تصویر](page:building-with-the-claude-api#image-support).
+
+@lesson
+id: pdf-support
+en: PDF support
+fa: پشتیبانی از PDF
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+PDFs as document blocks: text, tables, charts and images. Full lesson: [PDF support](page:building-with-the-claude-api#pdf-support).
+~~
+PDFها به شکل بلوک سند: متن، جدول، نمودار و تصویر. درس کامل: [پشتیبانی از PDF](page:building-with-the-claude-api#pdf-support).
+
+@lesson
+id: citations
+en: Citations
+fa: ارجاع‌دهی
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Answers with pointers to exact passages. Full lesson: [Citations](page:building-with-the-claude-api#citations).
+~~
+جواب‌هایی با اشاره به بخش‌های دقیق منبع. درس کامل: [ارجاع‌دهی](page:building-with-the-claude-api#citations).
+
+@lesson
+id: prompt-caching
+en: Prompt caching
+fa: کش پرامپت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+`cache_control` after the stable prefix; same syntax on Vertex. Full lesson: [Prompt caching](page:building-with-the-claude-api#prompt-caching).
+~~
+`cache_control` بعد از پیشوند ثابت؛ روی Vertex هم همان نحو. درس کامل: [کش پرامپت](page:building-with-the-claude-api#prompt-caching).
+
+@lesson
+id: rules-of-prompt-caching
+en: Rules of prompt caching
+fa: قانون‌های کش پرامپت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Exact prefix, tools → system → messages, minimum length, short default lifetime. Full lesson: [Rules of prompt caching](page:building-with-the-claude-api#rules-of-prompt-caching).
+~~
+پیشوند دقیق، ابزارها ← سیستم ← پیام‌ها، حداقل طول، عمر پیش‌فرض کوتاه. درس کامل: [قانون‌های کش پرامپت](page:building-with-the-claude-api#rules-of-prompt-caching).
+
+@lesson
+id: prompt-caching-in-action
+en: Prompt caching in action
+fa: کش پرامپت در عمل
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Watch `cache_creation_input_tokens` turn into `cache_read_input_tokens`. Full lesson: [Prompt caching in action](page:building-with-the-claude-api#prompt-caching-in-action).
+~~
+ببین `cache_creation_input_tokens` چطور به `cache_read_input_tokens` تبدیل می‌شود. درس کامل: [کش پرامپت در عمل](page:building-with-the-claude-api#prompt-caching-in-action).
+
+@lesson
+id: quiz-on-features-of-claude
+en: Quiz on features of Claude
+fa: آزمونک قابلیت‌های Claude
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Checks thinking, images, PDFs, citations and caching. Note that code execution and the Files API aren't available on Vertex.
+~~
+تفکر، تصویر، PDF، ارجاع‌دهی و کش را می‌سنجد. توجه کن که اجرای کد و Files API روی Vertex در دسترس نیستند.
+
+@section Model Context Protocol | پروتکل زمینهٔ مدل (MCP)
+
+@lesson
+id: introducing-mcp
+en: Introducing MCP
+fa: آشنایی با MCP
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/introducing-mcp
+
+#explain
+Reusable servers of tools, resources and prompts; works the same whichever platform serves Claude. Full lesson: [Introducing MCP](page:building-with-the-claude-api#introducing-mcp).
+~~
+سرورهای قابل‌استفادهٔ دوباره از ابزار، منبع و پرامپت؛ فرقی نمی‌کند Claude روی کدام سکو اجرا شود. درس کامل: [آشنایی با MCP](page:building-with-the-claude-api#introducing-mcp).
+
+@lesson
+id: mcp-clients
+en: MCP clients
+fa: کلاینت‌های MCP
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Your app's bridge between Claude and MCP servers. Full lesson: [MCP clients](page:building-with-the-claude-api#mcp-clients).
+~~
+پل اپ تو بین Claude و سرورهای MCP. درس کامل: [کلاینت‌های MCP](page:building-with-the-claude-api#mcp-clients).
+
+@lesson
+id: project-setup
+en: Project setup
+fa: راه‌اندازی پروژه
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/project-setup
+
+#explain
+CLI document chat with a server and client to complete. Full lesson: [Project setup](page:building-with-the-claude-api#project-setup).
+~~
+گفت‌وگوی خط فرمان دربارهٔ سندها با یک سرور و کلاینت برای کامل کردن. درس کامل: [راه‌اندازی پروژه](page:building-with-the-claude-api#project-setup).
+
+@lesson
+id: defining-tools-with-mcp
+en: Defining tools with MCP
+fa: تعریف ابزار با MCP
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Decorated, typed functions become tools. Full lesson: [Defining tools with MCP](page:building-with-the-claude-api#defining-tools-with-mcp).
+~~
+تابع‌های نوع‌دار با دکوراتور به ابزار تبدیل می‌شوند. درس کامل: [تعریف ابزار با MCP](page:building-with-the-claude-api#defining-tools-with-mcp).
+
+@lesson
+id: the-server-inspector
+en: The server inspector
+fa: بازرس سرور
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Test servers in the browser with `mcp dev`. Full lesson: [The server inspector](page:building-with-the-claude-api#the-server-inspector).
+~~
+سرورها را با `mcp dev` در مرورگر بیازما. درس کامل: [بازرس سرور](page:building-with-the-claude-api#the-server-inspector).
+
+@lesson
+id: implementing-a-client
+en: Implementing a client
+fa: پیاده‌سازی کلاینت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+`ClientSession`, `list_tools()`, `call_tool()`. Full lesson: [Implementing a client](page:building-with-the-claude-api#implementing-a-client).
+~~
+`ClientSession`، `list_tools()`، `call_tool()`. درس کامل: [پیاده‌سازی کلاینت](page:building-with-the-claude-api#implementing-a-client).
+
+@lesson
+id: defining-resources
+en: Defining resources
+fa: تعریف منابع
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Read-only data at direct and templated URIs. Full lesson: [Defining resources](page:building-with-the-claude-api#defining-resources).
+~~
+دادهٔ فقط‌خواندنی در URIهای مستقیم و الگودار. درس کامل: [تعریف منابع](page:building-with-the-claude-api#defining-resources).
+
+@lesson
+id: accessing-resources
+en: Accessing resources
+fa: دسترسی به منابع
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Read resources and include them as context. Full lesson: [Accessing resources](page:building-with-the-claude-api#accessing-resources).
+~~
+منابع را بخوان و به‌عنوان زمینه اضافه کن. درس کامل: [دسترسی به منابع](page:building-with-the-claude-api#accessing-resources).
+
+@lesson
+id: defining-prompts
+en: Defining prompts
+fa: تعریف پرامپت‌ها
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Server-provided expert prompt templates. Full lesson: [Defining prompts](page:building-with-the-claude-api#defining-prompts).
+~~
+قالب‌های پرامپت حرفه‌ای که سرور ارائه می‌دهد. درس کامل: [تعریف پرامپت‌ها](page:building-with-the-claude-api#defining-prompts).
+
+@lesson
+id: prompts-in-the-client
+en: Prompts in the client
+fa: پرامپت‌ها در کلاینت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Show prompts as slash commands; fetch and send them. Full lesson: [Prompts in the client](page:building-with-the-claude-api#prompts-in-the-client).
+~~
+پرامپت‌ها را به شکل فرمان اسلش نشان بده؛ بگیرشان و بفرستشان. درس کامل: [پرامپت‌ها در کلاینت](page:building-with-the-claude-api#prompts-in-the-client).
+
+@lesson
+id: mcp-review
+en: MCP review
+fa: مرور MCP
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Model-controlled tools, app-controlled resources, user-controlled prompts. Full lesson: [MCP review](page:building-with-the-claude-api#mcp-review).
+~~
+ابزارها در کنترل مدل، منابع در کنترل اپ، پرامپت‌ها در کنترل کاربر. درس کامل: [مرور MCP](page:building-with-the-claude-api#mcp-review).
+
+@section Agents and workflows | ایجنت‌ها و گردش‌کارها
+
+@lesson
+id: agents-and-workflows
+en: Agents and workflows
+fa: ایجنت‌ها و گردش‌کارها
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Workflows: your code fixes the steps. Agents: Claude chooses the steps. Full lesson: [Agents and workflows](page:building-with-the-claude-api#agents-and-workflows).
+~~
+گردش‌کار: کد تو قدم‌ها را تعیین می‌کند. ایجنت: Claude قدم‌ها را انتخاب می‌کند. درس کامل: [ایجنت‌ها و گردش‌کارها](page:building-with-the-claude-api#agents-and-workflows).
+
+@lesson
+id: parallelization-workflows
+en: Parallelization workflows
+fa: گردش‌کارهای موازی
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Independent subtasks at the same time, then aggregate. Full lesson: [Parallelization workflows](page:building-with-the-claude-api#parallelization-workflows). With Vertex, use `AsyncAnthropicVertex` for `asyncio`.
+~~
+زیرکارهای مستقل همزمان، بعد جمع‌بندی. درس کامل: [گردش‌کارهای موازی](page:building-with-the-claude-api#parallelization-workflows). روی Vertex برای `asyncio` از `AsyncAnthropicVertex` استفاده کن.
+
+@lesson
+id: chaining-workflows
+en: Chaining workflows
+fa: گردش‌کارهای زنجیره‌ای
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Sequential focused steps, with checks in between. Full lesson: [Chaining workflows](page:building-with-the-claude-api#chaining-workflows).
+~~
+قدم‌های متمرکز پشت سر هم، با چک‌هایی در میانه. درس کامل: [گردش‌کارهای زنجیره‌ای](page:building-with-the-claude-api#chaining-workflows).
+
+@lesson
+id: routing-workflows
+en: Routing workflows
+fa: گردش‌کارهای مسیریابی
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Classify first, then send to a specialized prompt. Full lesson: [Routing workflows](page:building-with-the-claude-api#routing-workflows).
+~~
+اول دسته‌بندی کن، بعد به یک پرامپت تخصصی بفرست. درس کامل: [گردش‌کارهای مسیریابی](page:building-with-the-claude-api#routing-workflows).
+
+@lesson
+id: agents-and-tools
+en: Agents and tools
+fa: ایجنت‌ها و ابزارها
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/agents-and-tools
+
+#explain
+Give agents general, composable tools rather than many narrow ones. Full lesson: [Agents and tools](page:building-with-the-claude-api#agents-and-tools).
+~~
+به ایجنت‌ها ابزارهای عمومی و ترکیب‌پذیر بده، نه ابزارهای باریک و زیاد. درس کامل: [ایجنت‌ها و ابزارها](page:building-with-the-claude-api#agents-and-tools).
+
+@lesson
+id: environment-inspection
+en: Environment inspection
+fa: وارسی محیط
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Agents must observe the results of their actions. Full lesson: [Environment inspection](page:building-with-the-claude-api#environment-inspection).
+~~
+ایجنت‌ها باید نتیجهٔ کارهایشان را ببینند. درس کامل: [وارسی محیط](page:building-with-the-claude-api#environment-inspection).
+
+@lesson
+id: workflows-vs-agents
+en: Workflows vs agents
+fa: گردش‌کار در برابر ایجنت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/workflows-vs-agents
+
+#explain
+Prefer workflows where possible; use agents when truly needed. Full lesson: [Workflows vs agents](page:building-with-the-claude-api#workflows-vs-agents).
+~~
+هر جا ممکن است گردش‌کار؛ ایجنت فقط وقتی واقعاً لازم است. درس کامل: [گردش‌کار در برابر ایجنت](page:building-with-the-claude-api#workflows-vs-agents).
+
+#tip
+**Cool tip:** Claude Code can also run through your Google Cloud project: set `CLAUDE_CODE_USE_VERTEX=1`, `CLOUD_ML_REGION` (for example `global`) and `ANTHROPIC_VERTEX_PROJECT_ID`, then run `claude`. Same agent, billed to Google Cloud.
+~~
+**نکتهٔ خفن:** Claude Code هم می‌تواند از طریق پروژهٔ Google Cloud تو اجرا شود: `CLAUDE_CODE_USE_VERTEX=1`، `CLOUD_ML_REGION` (مثلاً `global`) و `ANTHROPIC_VERTEX_PROJECT_ID` را تنظیم کن و `claude` را اجرا کن. همان ایجنت، با صورت‌حساب Google Cloud.
+
+@lesson
+id: quiz-on-agents-and-workflows
+en: Quiz on agents and workflows
+fa: آزمونک ایجنت‌ها و گردش‌کارها
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Checks the workflow patterns and what makes agents effective.
+~~
+الگوهای گردش‌کار و چیزهایی که ایجنت‌ها را کارآمد می‌کنند می‌سنجد.
+
+@lesson
+id: final-assessment
+en: Final assessment quiz
+fa: آزمون ارزیابی پایانی
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Covers the whole course on Vertex AI. Passing earns the completion badge.
+~~
+کل دوره روی Vertex AI را پوشش می‌دهد. با قبول شدن، نشان پایان دوره را می‌گیری.
+
+@cheatsheet
+- Enable Claude in **Model Garden**; authenticate with `gcloud auth application-default login` (a service account in production).
+- `pip install "anthropic[vertex]"` → `AnthropicVertex(project_id=..., region="global")` → same `messages.create` as the API course.
+- Copy model IDs from Model Garden (older models may have an `@date` suffix).
+- Output control: prefill + stop sequences on older models; structured outputs on the newest.
+- Tools: same format as the API course; **batch tool** for many independent calls; **tools for structured data** (or structured outputs today).
+- RAG extras: **reranking**, **contextual retrieval** (cache the document while contextualizing).
+- Not on Vertex: code execution, Files API, web fetch, MCP connector; web search is the basic version only.
+- Claude Code on Vertex: `CLAUDE_CODE_USE_VERTEX=1` + region + project ID.
+~~
+- Claude را در **Model Garden** فعال کن؛ با `gcloud auth application-default login` احراز هویت کن (در محیط واقعی با یک حساب سرویس).
+- `pip install "anthropic[vertex]"` ← `AnthropicVertex(project_id=..., region="global")` ← همان `messages.create` دورهٔ API.
+- شناسهٔ مدل‌ها را از Model Garden کپی کن (مدل‌های قدیمی‌تر ممکن است پسوند `@تاریخ` داشته باشند).
+- کنترل خروجی: پیش‌پر کردن + دنبالهٔ توقف روی مدل‌های قدیمی‌تر؛ خروجی ساختاریافته روی جدیدترین‌ها.
+- ابزارها: همان قالب دورهٔ API؛ **ابزار دسته‌ای** برای فراخوانی‌های مستقل زیاد؛ **ابزار برای دادهٔ ساختاریافته** (یا امروزه خروجی ساختاریافته).
+- چیزهای اضافهٔ RAG: **رتبه‌بندی دوباره**، **بازیابی زمینه‌دار** (موقع زمینه‌دار کردن، سند را کش کن).
+- روی Vertex نیست: اجرای کد، Files API، web fetch، MCP connector؛ جست‌وجوی وب فقط نسخهٔ پایه.
+- Claude Code روی Vertex: `CLAUDE_CODE_USE_VERTEX=1` + منطقه + شناسهٔ پروژه.
+
+@quiz
+Q: What replaces the Anthropic API key when using Claude on Vertex AI? || وقتی از Claude روی Vertex AI استفاده می‌کنی، چه چیزی جای کلید API آنتروپیک را می‌گیرد؟
+A: Google Cloud credentials: Application Default Credentials locally or a service account in production, plus Claude enabled in Model Garden. || اعتبارنامه‌های Google Cloud: اعتبارنامه‌های پیش‌فرض اپلیکیشن روی دستگاه خودت یا یک حساب سرویس در محیط واقعی، به‌اضافهٔ فعال بودن Claude در Model Garden.
+Q: Why might the course's `tool_choice={"type": "tool", ...}` fail on Claude Opus 5.5? || چرا ممکن است `tool_choice={"type": "tool", ...}` دوره روی Claude Opus 5.5 شکست بخورد؟
+A: The newest models reject forced tool choice with a 400; use structured outputs, or `auto` with `strict: true` and a clear instruction. || جدیدترین مدل‌ها اجبار به انتخاب ابزار را با خطای 400 رد می‌کنند؛ از خروجی ساختاریافته استفاده کن، یا `auto` با `strict: true` و یک دستور روشن.
+Q: How do you make contextual retrieval affordable on a 200-page report? || چطور بازیابی زمینه‌دار را روی یک گزارش ۲۰۰ صفحه‌ای مقرون‌به‌صرفه کنی؟
+A: Put the whole document in a cached block and use a fast model, so each chunk's request mostly reads from the cache. || کل سند را در یک بلوک کش‌شده بگذار و از یک مدل سریع استفاده کن تا درخواست هر تکه بیشترش از کش خوانده شود.

@@ -1,0 +1,369 @@
+@page
+slug: claude-with-google-cloud-s-vertex-ai
+kind: course
+group: api
+order: 3
+en: Claude with Google Cloud's Vertex AI
+fa: Claude روی Vertex AI در Google Cloud
+stats: 66 lessons · 9 quizzes · 8.5 hr · badge
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+expect: 76
+who_en: Developers on Google Cloud who know Python and have a Google Cloud project with Vertex AI access.
+who_fa: برنامه‌نویس‌هایی که روی Google Cloud کار می‌کنند، پایتون بلدند و یک پروژهٔ Google Cloud با دسترسی به Vertex AI دارند.
+blurb_fa: همان مسیر دورهٔ API، این بار روی Google Cloud: فعال‌سازی Claude در Model Garden، احراز هویت با gcloud، کلاینت AnthropicVertex، کنترل خروجی، ابزار دسته‌ای، ابزار برای دادهٔ ساختاریافته، رتبه‌بندی دوباره، بازیابی زمینه‌دار، MCP و ایجنت‌ها.
+desc_en: The API course path on Google Cloud: Model Garden, gcloud authentication, the AnthropicVertex client, output control, batch and structured-data tools, reranking, contextual retrieval, MCP and agents.
+
+@intro
+This edition teaches the skills of [Building with the Claude API](page:building-with-the-claude-api) **on Google Cloud's Vertex AI**. The good news: Anthropic's Python SDK has a **Vertex client** (`AnthropicVertex`), so after setup your code is almost identical to the API course; you authenticate with Google Cloud credentials instead of an Anthropic API key, and use the model IDs listed in **Model Garden**.
+
+**How to read this page:** Vertex-specific lessons (setup, requests, controlling output, the batch tool, tools for structured data, reranking, contextual retrieval) are explained in full; lessons identical to the API course are marked **"Same as API course"** with a short summary and a link.
+~~
+این نسخه مهارت‌های دورهٔ [ساختن با Claude API](page:building-with-the-claude-api) را **روی Vertex AI در Google Cloud** یاد می‌دهد. خبر خوب: SDK پایتون آنتروپیک یک **کلاینت Vertex** (`AnthropicVertex`) دارد؛ پس بعد از راه‌اندازی، کدت تقریباً مثل دورهٔ API است؛ فقط به جای کلید API آنتروپیک با اعتبارنامه‌های Google Cloud احراز هویت می‌کنی و از شناسه‌های مدلی که در **Model Garden** آمده استفاده می‌کنی.
+
+**این صفحه را چطور بخوانی:** درس‌های مخصوص Vertex (راه‌اندازی، درخواست، کنترل خروجی، ابزار دسته‌ای، ابزار برای دادهٔ ساختاریافته، رتبه‌بندی دوباره، بازیابی زمینه‌دار) کامل توضیح داده شده‌اند؛ درس‌هایی که با دورهٔ API یکی‌اند با **«مشترک با دورهٔ API»** علامت خورده‌اند و یک خلاصهٔ کوتاه و پیوند دارند.
+
+@section Accessing Claude with the API | دسترسی به Claude از طریق API
+
+@lesson
+id: accessing-the-api
+en: Accessing the API
+fa: دسترسی به API
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/accessing-the-api
+
+#explain
+App → your server → Vertex AI → Claude, generating token by token, returning usage and a stop reason. Full lesson: [Accessing the API](page:building-with-the-claude-api#accessing-the-api). The difference: requests are authorized by your **Google Cloud identity** and billed to your **Google Cloud project**.
+~~
+اپ ← سرور تو ← Vertex AI ← Claude، که توکن به توکن تولید می‌کند و مصرف و دلیل توقف را برمی‌گرداند. درس کامل: [دسترسی به API](page:building-with-the-claude-api#accessing-the-api). تفاوت: درخواست‌ها با **هویت Google Cloud** تو مجاز می‌شوند و هزینه به **پروژهٔ Google Cloud** تو نوشته می‌شود.
+
+@lesson
+id: vertex-ai-setup
+en: Vertex AI setup
+fa: راه‌اندازی Vertex AI
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/vertex-ai-setup
+
+#explain
+Four steps before your first request:
+
+1. In your Google Cloud project, open **Model Garden**, find the Claude model you want and **enable** it (accept the terms).
+2. Install the **gcloud CLI** and log in.
+3. Set up **Application Default Credentials** so code can authenticate.
+4. Install the SDK with Vertex support. The Anthropic SDK then picks up your credentials automatically.
+~~
+چهار قدم قبل از اولین درخواست:
+
+1. در پروژهٔ Google Cloud خودت، **Model Garden** را باز کن، مدل Claude مورد نظرت را پیدا کن و **فعالش کن** (شرایط را بپذیر).
+2. **gcloud CLI** را نصب کن و وارد شو.
+3. **اعتبارنامه‌های پیش‌فرض اپلیکیشن (ADC)** را راه بینداز تا کد بتواند احراز هویت کند.
+4. SDK را با پشتیبانی Vertex نصب کن. SDK آنتروپیک بعد از آن اعتبارنامه‌هایت را خودکار پیدا می‌کند.
+
+#code bash Setup
+gcloud auth login
+gcloud config set project my-project-id
+gcloud auth application-default login     # credentials for your code
+pip install "anthropic[vertex]"
+#end
+
+#warn
+In production, don't use your personal login: run your app with a **service account** that has only the Vertex AI permissions it needs.
+~~
+در محیط واقعی از ورود شخصی‌ات استفاده نکن: اپت را با یک **حساب سرویس (service account)** اجرا کن که فقط مجوزهای Vertex AI لازمش را دارد.
+
+#terms
+Model Garden = Model Garden = کاتالوگ مدل‌های Vertex AI که مدل‌ها، از جمله Claude، را از آن‌جا فعال می‌کنی.
+Application Default Credentials = اعتبارنامه‌های پیش‌فرض اپلیکیشن = روش استاندارد Google Cloud برای این‌که کد بدون کلید در کد، هویت تو یا حساب سرویس را پیدا کند.
+
+@lesson
+id: making-a-request
+en: Making a request
+fa: فرستادن یک درخواست
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Create an `AnthropicVertex` client with your **project ID** and a **region** (the `global` endpoint, or a specific region if you need data to stay there), then call `messages.create` exactly as in the API course.
+~~
+یک کلاینت `AnthropicVertex` با **شناسهٔ پروژه** و یک **منطقه** بساز (نقطهٔ `global`، یا یک منطقهٔ مشخص اگر لازم است داده همان‌جا بماند)، بعد `messages.create` را دقیقاً مثل دورهٔ API صدا بزن.
+
+#code python vertex_request.py
+from anthropic import AnthropicVertex
+
+client = AnthropicVertex(project_id="my-project-id", region="global")
+
+message = client.messages.create(
+    model="claude-opus-5-5",          # use the exact ID shown in Model Garden
+    max_tokens=1000,
+    messages=[{"role": "user", "content": "What is quantum computing? One sentence."}],
+)
+print("".join(b.text for b in message.content if b.type == "text"))
+#end
+
+#tip
+Model IDs on Vertex can differ from Anthropic's (some older models carry a version suffix such as `@20251001`). Copy the ID from the model's card in Model Garden.
+~~
+شناسهٔ مدل‌ها روی Vertex ممکن است با شناسه‌های آنتروپیک فرق کند (بعضی مدل‌های قدیمی‌تر یک پسوند نسخه مثل `@20251001` دارند). شناسه را از کارت همان مدل در Model Garden کپی کن.
+
+#analogy
+Same car, different **toll pass**: the driving (your code) doesn't change; only the way you pay at the gate (authentication) does.
+~~
+همان ماشین، با **کارت عوارض** متفاوت: رانندگی (کد تو) عوض نمی‌شود؛ فقط روش پرداخت سر دروازه (احراز هویت) فرق می‌کند.
+
+@lesson
+id: multi-turn-conversations
+en: Multi-turn conversations
+fa: گفت‌وگوهای چندنوبتی
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Stateless API: keep and resend the history. Same code as the [API course](page:building-with-the-claude-api#multi-turn-conversations), with the Vertex client.
+~~
+API بی‌حافظه: تاریخچه را نگه دار و دوباره بفرست. همان کد [دورهٔ API](page:building-with-the-claude-api#multi-turn-conversations)، با کلاینت Vertex.
+
+@lesson
+id: system-prompts
+en: System prompts
+fa: پرامپت‌های سیستمی
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/system-prompts
+
+#explain
+Role, tone and rules via the `system` parameter. Full lesson: [System prompts](page:building-with-the-claude-api#system-prompts).
+~~
+نقش، لحن و قانون‌ها با پارامتر `system`. درس کامل: [پرامپت‌های سیستمی](page:building-with-the-claude-api#system-prompts).
+
+@lesson
+id: temperature
+en: Temperature
+fa: دما (Temperature)
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Randomness control on older models; the newest reject it. Full lesson: [Temperature](page:building-with-the-claude-api#temperature).
+~~
+کنترل تصادفی بودن روی مدل‌های قدیمی‌تر؛ جدیدترین‌ها ردش می‌کنند. درس کامل: [دما](page:building-with-the-claude-api#temperature).
+
+@lesson
+id: response-streaming
+en: Response streaming
+fa: پخش زندهٔ پاسخ
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+`client.messages.stream(...)` and `text_stream`, exactly like the API course. Full lesson: [Response streaming](page:building-with-the-claude-api#response-streaming).
+~~
+`client.messages.stream(...)` و `text_stream`، دقیقاً مثل دورهٔ API. درس کامل: [پخش زندهٔ پاسخ](page:building-with-the-claude-api#response-streaming).
+
+@lesson
+id: controlling-model-output
+en: Controlling model output
+fa: کنترل خروجی مدل
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Two levers: **prefilling** the assistant's reply so Claude continues from your words, and **stop sequences** that end generation at a chosen string. Combined, they extract exactly what you want (for example, just a code block). On the newest models prefill returns a 400, so use **structured outputs** or explicit instructions there; stop sequences still work on every model.
+~~
+دو اهرم: **پیش‌پر کردن** جواب دستیار تا Claude از کلمه‌های تو ادامه بدهد، و **دنباله‌های توقف** که تولید را سر یک رشتهٔ انتخابی تمام می‌کنند. با هم، دقیقاً همان چیزی را که می‌خواهی بیرون می‌کشند (مثلاً فقط یک بلوک کد). روی جدیدترین مدل‌ها پیش‌پر کردن خطای 400 می‌دهد؛ پس آن‌جا از **خروجی ساختاریافته** یا دستورهای صریح استفاده کن؛ دنباله‌های توقف روی همهٔ مدل‌ها کار می‌کنند.
+
+#code python Prefill + stop sequence (on a model that allows prefill)
+r = client.messages.create(
+    model="claude-haiku-4-5@20251001",      # older model on Vertex; check Model Garden
+    max_tokens=200,
+    messages=[
+        {"role": "user", "content": "Give me a bash command that counts lines in all .py files."},
+        {"role": "assistant", "content": "```bash\n"},       # prefill: start inside a code block
+    ],
+    stop_sequences=["```"],                                   # stop at the closing fence
+)
+print(r.content[0].text.strip())
+#end
+
+#tip
+The modern equivalent for the newest models: ask for the exact format ("Respond with only the command, no explanation") or use structured outputs with a schema like `{"command": "string"}`.
+~~
+معادل امروزی برای جدیدترین مدل‌ها: قالب دقیق را بخواه («فقط فرمان را بنویس، بدون توضیح») یا از خروجی ساختاریافته با اسکیمایی مثل `{"command": "string"}` استفاده کن.
+
+@lesson
+id: structured-data
+en: Structured data
+fa: دادهٔ ساختاریافته
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Clean JSON with no chatter: prefill + stop sequence on older models, **structured outputs** (supported on Vertex) on the newest. Full lesson: [Structured data](page:building-with-the-claude-api#structured-data).
+~~
+JSON تمیز بدون حرف اضافه: پیش‌پر کردن + دنبالهٔ توقف روی مدل‌های قدیمی‌تر، **خروجی ساختاریافته** (که Vertex پشتیبانی می‌کند) روی جدیدترین‌ها. درس کامل: [دادهٔ ساختاریافته](page:building-with-the-claude-api#structured-data).
+
+@lesson
+id: quiz-on-accessing-claude-with-the-api
+en: Quiz on accessing Claude with the API
+fa: آزمونک دسترسی به Claude با API
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Checks Vertex setup (Model Garden, gcloud, ADC), the AnthropicVertex client, conversations, system prompts, streaming and output control.
+~~
+راه‌اندازی Vertex (Model Garden، gcloud، ADC)، کلاینت AnthropicVertex، گفت‌وگوها، پرامپت سیستمی، استریم و کنترل خروجی را می‌سنجد.
+
+@section Prompt evaluation | ارزیابی پرامپت
+
+@lesson
+id: prompt-evaluation
+en: Prompt evaluation
+fa: ارزیابی پرامپت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Test prompts systematically, with a score. Full lesson: [Prompt evaluation](page:building-with-the-claude-api#prompt-evaluation).
+~~
+پرامپت‌ها را نظام‌مند و با نمره بیازما. درس کامل: [ارزیابی پرامپت](page:building-with-the-claude-api#prompt-evaluation).
+
+@lesson
+id: a-typical-eval-workflow
+en: A typical eval workflow
+fa: یک گردش‌کار معمول ارزیابی
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Draft → dataset → run → grade → compare. Full lesson: [A typical eval workflow](page:building-with-the-claude-api#a-typical-eval-workflow).
+~~
+پیش‌نویس ← مجموعه‌داده ← اجرا ← نمره ← مقایسه. درس کامل: [یک گردش‌کار معمول ارزیابی](page:building-with-the-claude-api#a-typical-eval-workflow).
+
+@lesson
+id: generating-test-datasets
+en: Generating test datasets
+fa: ساختن مجموعه‌دادهٔ آزمون
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Let a fast model draft varied cases; review them yourself. Full lesson: [Generating test datasets](page:building-with-the-claude-api#generating-test-datasets).
+~~
+بگذار یک مدل سریع موردهای متنوع را پیش‌نویس کند؛ خودت مرورشان کن. درس کامل: [ساختن مجموعه‌دادهٔ آزمون](page:building-with-the-claude-api#generating-test-datasets).
+
+@lesson
+id: running-the-eval
+en: Running the eval
+fa: اجرای ارزیابی
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+A simple loop: run, grade, store, average. Full lesson: [Running the eval](page:building-with-the-claude-api#running-the-eval).
+~~
+یک حلقهٔ ساده: اجرا، نمره، ذخیره، میانگین. درس کامل: [اجرای ارزیابی](page:building-with-the-claude-api#running-the-eval).
+
+@lesson
+id: model-based-grading
+en: Model-based grading
+fa: نمره‌دهی با مدل
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Reasoning first, score second, with a rubric. Full lesson: [Model-based grading](page:building-with-the-claude-api#model-based-grading).
+~~
+اول استدلال، بعد نمره، با روبریک. درس کامل: [نمره‌دهی با مدل](page:building-with-the-claude-api#model-based-grading).
+
+@lesson
+id: code-based-grading
+en: Code-based grading
+fa: نمره‌دهی با کد
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Syntax and rule checks in code, combined with model scores. Full lesson: [Code-based grading](page:building-with-the-claude-api#code-based-grading).
+~~
+چک‌های نحوی و قانونی با کد، ترکیب‌شده با نمرهٔ مدل. درس کامل: [نمره‌دهی با کد](page:building-with-the-claude-api#code-based-grading).
+
+@lesson
+id: quiz-on-prompt-evaluation
+en: Quiz on prompt evaluation
+fa: آزمونک ارزیابی پرامپت
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Checks the eval loop, datasets and grading methods.
+~~
+حلقهٔ ارزیابی، مجموعه‌داده‌ها و روش‌های نمره‌دهی را می‌سنجد.
+
+@section Prompt engineering techniques | تکنیک‌های مهندسی پرامپت
+
+@lesson
+id: prompt-engineering
+en: Prompt engineering
+fa: مهندسی پرامپت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+One technique at a time, measured by your eval. Full lesson: [Prompt engineering](page:building-with-the-claude-api#prompt-engineering).
+~~
+هر بار یک تکنیک، با اندازه‌گیری به کمک ارزیابی‌ات. درس کامل: [مهندسی پرامپت](page:building-with-the-claude-api#prompt-engineering).
+
+@lesson
+id: being-clear-and-direct
+en: Being clear and direct
+fa: روشن و مستقیم بودن
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Lead with an action verb and the exact task. Full lesson: [Being clear and direct](page:building-with-the-claude-api#being-clear-and-direct).
+~~
+با یک فعل عملی و خود کار دقیق شروع کن. درس کامل: [روشن و مستقیم بودن](page:building-with-the-claude-api#being-clear-and-direct).
+
+@lesson
+id: being-specific
+en: Being specific
+fa: مشخص بودن
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/being-specific
+
+#explain
+Guidelines for output qualities plus the steps to follow. Full lesson: [Being specific](page:building-with-the-claude-api#being-specific).
+~~
+رهنمود برای ویژگی‌های خروجی به‌اضافهٔ قدم‌هایی که باید دنبال شود. درس کامل: [مشخص بودن](page:building-with-the-claude-api#being-specific).
+
+@lesson
+id: structure-with-xml-tags
+en: Structure with XML tags
+fa: ساختاردهی با تگ‌های XML
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Descriptive tags separate data from instructions. Full lesson: [Structure with XML tags](page:building-with-the-claude-api#structure-with-xml-tags).
+~~
+تگ‌های توصیفی داده را از دستورها جدا می‌کنند. درس کامل: [ساختاردهی با تگ‌های XML](page:building-with-the-claude-api#structure-with-xml-tags).
+
+@lesson
+id: providing-examples
+en: Providing examples
+fa: آوردن مثال
+kind: brief
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/providing-examples
+
+#explain
+Varied examples, including edge cases, and why they're good. Full lesson: [Providing examples](page:building-with-the-claude-api#providing-examples).
+~~
+مثال‌های متنوع، از جمله موردهای مرزی، و این‌که چرا خوب‌اند. درس کامل: [آوردن مثال](page:building-with-the-claude-api#providing-examples).
+
+@lesson
+id: quiz-on-prompt-engineering
+en: Quiz on prompt engineering techniques
+fa: آزمونک تکنیک‌های مهندسی پرامپت
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai
+
+#explain
+Checks the four techniques and the measure-and-iterate loop.
+~~
+چهار تکنیک و حلقهٔ «اندازه بگیر و تکرار کن» را می‌سنجد.

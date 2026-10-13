@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-lang="both">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Claude روی Vertex AI در Google Cloud | Claude with Google Cloud&#x27;s Vertex AI</title>
+<meta name="description" content="The API course path on Google Cloud: Model Garden, gcloud authentication, the AnthropicVertex client, output control, batch and structured-data tools, reranking, contextual retrieval, MCP and agents.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Lalezar&family=Vazirmatn:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>try{var l=localStorage.getItem("ca-lang");if(l)document.documentElement.setAttribute("data-lang",l)}catch(e){}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+<script src="../assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">پرش به متن اصلی</a>
+
+<header class="topbar">
+  <nav class="crumbs" aria-label="مسیر صفحه"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">C</span><span>جزوهٔ Claude Academy</span></a><span class="crumb-sep" aria-hidden="true">/</span><a href="../index.html#api">ساختن با API</a><span class="crumb-sep" aria-hidden="true">/</span><span>Claude روی Vertex AI در Google Cloud</span></nav>
+  <div class="lang-switch" role="group" aria-label="زبان نمایش">
+    <button type="button" data-set-lang="both" aria-pressed="true">دوزبانه</button>
+    <button type="button" data-set-lang="fa" aria-pressed="false">فارسی</button>
+    <button type="button" data-set-lang="en" aria-pressed="false" lang="en">English</button>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="side-toc" aria-label="فهرست این صفحه"><details open><summary>فهرست این صفحه <span class="toc-count">۷۶ مورد</span></summary><ol><li class="toc-sec">دسترسی به Claude از طریق API</li><li><a href="#claude-with-google-cloud-s-vertex-ai--accessing-the-api" data-toc="claude-with-google-cloud-s-vertex-ai--accessing-the-api"><span class="toc-n">۱</span><span class="toc-t">دسترسی به API</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--vertex-ai-setup" data-toc="claude-with-google-cloud-s-vertex-ai--vertex-ai-setup"><span class="toc-n">۲</span><span class="toc-t">راه‌اندازی Vertex AI</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--making-a-request" data-toc="claude-with-google-cloud-s-vertex-ai--making-a-request"><span class="toc-n">۳</span><span class="toc-t">فرستادن یک درخواست</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--multi-turn-conversations" data-toc="claude-with-google-cloud-s-vertex-ai--multi-turn-conversations"><span class="toc-n">۴</span><span class="toc-t">گفت‌وگوهای چندنوبتی</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--system-prompts" data-toc="claude-with-google-cloud-s-vertex-ai--system-prompts"><span class="toc-n">۵</span><span class="toc-t">پرامپت‌های سیستمی</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--temperature" data-toc="claude-with-google-cloud-s-vertex-ai--temperature"><span class="toc-n">۶</span><span class="toc-t">دما (Temperature)</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--response-streaming" data-toc="claude-with-google-cloud-s-vertex-ai--response-streaming"><span class="toc-n">۷</span><span class="toc-t">پخش زندهٔ پاسخ</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--controlling-model-output" data-toc="claude-with-google-cloud-s-vertex-ai--controlling-model-output"><span class="toc-n">۸</span><span class="toc-t">کنترل خروجی مدل</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--structured-data" data-toc="claude-with-google-cloud-s-vertex-ai--structured-data"><span class="toc-n">۹</span><span class="toc-t">دادهٔ ساختاریافته</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--quiz-on-accessing-claude-with-the-api" data-toc="claude-with-google-cloud-s-vertex-ai--quiz-on-accessing-claude-with-the-api"><span class="toc-n">۱۰</span><span class="toc-t">آزمونک دسترسی به Claude با API</span></a></li><li class="toc-sec">ارزیابی پرامپت</li><li><a href="#claude-with-google-cloud-s-vertex-ai--prompt-evaluation" data-toc="claude-with-google-cloud-s-vertex-ai--prompt-evaluation"><span class="toc-n">۱۱</span><span class="toc-t">ارزیابی پرامپت</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--a-typical-eval-workflow" data-toc="claude-with-google-cloud-s-vertex-ai--a-typical-eval-workflow"><span class="toc-n">۱۲</span><span class="toc-t">یک گردش‌کار معمول ارزیابی</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--generating-test-datasets" data-toc="claude-with-google-cloud-s-vertex-ai--generating-test-datasets"><span class="toc-n">۱۳</span><span class="toc-t">ساختن مجموعه‌دادهٔ آزمون</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--running-the-eval" data-toc="claude-with-google-cloud-s-vertex-ai--running-the-eval"><span class="toc-n">۱۴</span><span class="toc-t">اجرای ارزیابی</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--model-based-grading" data-toc="claude-with-google-cloud-s-vertex-ai--model-based-grading"><span class="toc-n">۱۵</span><span class="toc-t">نمره‌دهی با مدل</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--code-based-grading" data-toc="claude-with-google-cloud-s-vertex-ai--code-based-grading"><span class="toc-n">۱۶</span><span class="toc-t">نمره‌دهی با کد</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--quiz-on-prompt-evaluation" data-toc="claude-with-google-cloud-s-vertex-ai--quiz-on-prompt-evaluation"><span class="toc-n">۱۷</span><span class="toc-t">آزمونک ارزیابی پرامپت</span></a></li><li class="toc-sec">تکنیک‌های مهندسی پرامپت</li><li><a href="#claude-with-google-cloud-s-vertex-ai--prompt-engineering" data-toc="claude-with-google-cloud-s-vertex-ai--prompt-engineering"><span class="toc-n">۱۸</span><span class="toc-t">مهندسی پرامپت</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--being-clear-and-direct" data-toc="claude-with-google-cloud-s-vertex-ai--being-clear-and-direct"><span class="toc-n">۱۹</span><span class="toc-t">روشن و مستقیم بودن</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--being-specific" data-toc="claude-with-google-cloud-s-vertex-ai--being-specific"><span class="toc-n">۲۰</span><span class="toc-t">مشخص بودن</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--structure-with-xml-tags" data-toc="claude-with-google-cloud-s-vertex-ai--structure-with-xml-tags"><span class="toc-n">۲۱</span><span class="toc-t">ساختاردهی با تگ‌های XML</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--providing-examples" data-toc="claude-with-google-cloud-s-vertex-ai--providing-examples"><span class="toc-n">۲۲</span><span class="toc-t">آوردن مثال</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--quiz-on-prompt-engineering" data-toc="claude-with-google-cloud-s-vertex-ai--quiz-on-prompt-engineering"><span class="toc-n">۲۳</span><span class="toc-t">آزمونک تکنیک‌های مهندسی پرامپت</span></a></li><li class="toc-sec">استفاده از ابزار با Claude</li><li><a href="#claude-with-google-cloud-s-vertex-ai--introducing-tool-use" data-toc="claude-with-google-cloud-s-vertex-ai--introducing-tool-use"><span class="toc-n">۲۴</span><span class="toc-t">آشنایی با استفاده از ابزار</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--project-overview" data-toc="claude-with-google-cloud-s-vertex-ai--project-overview"><span class="toc-n">۲۵</span><span class="toc-t">معرفی پروژه</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--tool-functions" data-toc="claude-with-google-cloud-s-vertex-ai--tool-functions"><span class="toc-n">۲۶</span><span class="toc-t">تابع‌های ابزار</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--tool-schemas" data-toc="claude-with-google-cloud-s-vertex-ai--tool-schemas"><span class="toc-n">۲۷</span><span class="toc-t">اسکیمای ابزارها</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--handling-message-blocks" data-toc="claude-with-google-cloud-s-vertex-ai--handling-message-blocks"><span class="toc-n">۲۸</span><span class="toc-t">کار با بلوک‌های پیام</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--sending-tool-results" data-toc="claude-with-google-cloud-s-vertex-ai--sending-tool-results"><span class="toc-n">۲۹</span><span class="toc-t">فرستادن نتیجهٔ ابزار</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--multi-turn-conversations-with-tools" data-toc="claude-with-google-cloud-s-vertex-ai--multi-turn-conversations-with-tools"><span class="toc-n">۳۰</span><span class="toc-t">گفت‌وگوهای چندنوبتی با ابزار</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--implementing-multiple-turns" data-toc="claude-with-google-cloud-s-vertex-ai--implementing-multiple-turns"><span class="toc-n">۳۱</span><span class="toc-t">پیاده‌سازی چند نوبت</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--using-multiple-tools" data-toc="claude-with-google-cloud-s-vertex-ai--using-multiple-tools"><span class="toc-n">۳۲</span><span class="toc-t">استفاده از چند ابزار</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--the-batch-tool" data-toc="claude-with-google-cloud-s-vertex-ai--the-batch-tool"><span class="toc-n">۳۳</span><span class="toc-t">ابزار دسته‌ای</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--tools-for-structured-data" data-toc="claude-with-google-cloud-s-vertex-ai--tools-for-structured-data"><span class="toc-n">۳۴</span><span class="toc-t">ابزار برای دادهٔ ساختاریافته</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--fine-grained-tool-calling" data-toc="claude-with-google-cloud-s-vertex-ai--fine-grained-tool-calling"><span class="toc-n">۳۵</span><span class="toc-t">فراخوانی ریزدانهٔ ابزار</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--the-text-edit-tool" data-toc="claude-with-google-cloud-s-vertex-ai--the-text-edit-tool"><span class="toc-n">۳۶</span><span class="toc-t">ابزار ویرایش متن</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--the-web-search-tool" data-toc="claude-with-google-cloud-s-vertex-ai--the-web-search-tool"><span class="toc-n">۳۷</span><span class="toc-t">ابزار جست‌وجوی وب</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--quiz-on-tool-use-with-claude" data-toc="claude-with-google-cloud-s-vertex-ai--quiz-on-tool-use-with-claude"><span class="toc-n">۳۸</span><span class="toc-t">آزمونک استفاده از ابزار با Claude</span></a></li><li class="toc-sec">تولید تقویت‌شده با بازیابی (RAG)</li><li><a href="#claude-with-google-cloud-s-vertex-ai--introducing-retrieval-augmented-generation" data-toc="claude-with-google-cloud-s-vertex-ai--introducing-retrieval-augmented-generation"><span class="toc-n">۳۹</span><span class="toc-t">آشنایی با RAG</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--text-chunking-strategies" data-toc="claude-with-google-cloud-s-vertex-ai--text-chunking-strategies"><span class="toc-n">۴۰</span><span class="toc-t">راهبردهای تکه‌کردن متن</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--text-embeddings" data-toc="claude-with-google-cloud-s-vertex-ai--text-embeddings"><span class="toc-n">۴۱</span><span class="toc-t">بردارهای معنایی متن</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--the-full-rag-flow" data-toc="claude-with-google-cloud-s-vertex-ai--the-full-rag-flow"><span class="toc-n">۴۲</span><span class="toc-t">جریان کامل RAG</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--implementing-the-rag-flow" data-toc="claude-with-google-cloud-s-vertex-ai--implementing-the-rag-flow"><span class="toc-n">۴۳</span><span class="toc-t">پیاده‌سازی جریان RAG</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--bm25-lexical-search" data-toc="claude-with-google-cloud-s-vertex-ai--bm25-lexical-search"><span class="toc-n">۴۴</span><span class="toc-t">جست‌وجوی واژگانی BM25</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--a-multi-index-rag-pipeline" data-toc="claude-with-google-cloud-s-vertex-ai--a-multi-index-rag-pipeline"><span class="toc-n">۴۵</span><span class="toc-t">خط لولهٔ RAG چندنمایه‌ای</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--reranking-results" data-toc="claude-with-google-cloud-s-vertex-ai--reranking-results"><span class="toc-n">۴۶</span><span class="toc-t">رتبه‌بندی دوبارهٔ نتیجه‌ها</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--contextual-retrieval" data-toc="claude-with-google-cloud-s-vertex-ai--contextual-retrieval"><span class="toc-n">۴۷</span><span class="toc-t">بازیابی زمینه‌دار</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--quiz-on-rag" data-toc="claude-with-google-cloud-s-vertex-ai--quiz-on-rag"><span class="toc-n">۴۸</span><span class="toc-t">آزمونک RAG</span></a></li><li class="toc-sec">قابلیت‌های Claude</li><li><a href="#claude-with-google-cloud-s-vertex-ai--extended-thinking" data-toc="claude-with-google-cloud-s-vertex-ai--extended-thinking"><span class="toc-n">۴۹</span><span class="toc-t">تفکر گسترده</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--image-support" data-toc="claude-with-google-cloud-s-vertex-ai--image-support"><span class="toc-n">۵۰</span><span class="toc-t">پشتیبانی از تصویر</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--pdf-support" data-toc="claude-with-google-cloud-s-vertex-ai--pdf-support"><span class="toc-n">۵۱</span><span class="toc-t">پشتیبانی از PDF</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--citations" data-toc="claude-with-google-cloud-s-vertex-ai--citations"><span class="toc-n">۵۲</span><span class="toc-t">ارجاع‌دهی</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--prompt-caching" data-toc="claude-with-google-cloud-s-vertex-ai--prompt-caching"><span class="toc-n">۵۳</span><span class="toc-t">کش پرامپت</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--rules-of-prompt-caching" data-toc="claude-with-google-cloud-s-vertex-ai--rules-of-prompt-caching"><span class="toc-n">۵۴</span><span class="toc-t">قانون‌های کش پرامپت</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--prompt-caching-in-action" data-toc="claude-with-google-cloud-s-vertex-ai--prompt-caching-in-action"><span class="toc-n">۵۵</span><span class="toc-t">کش پرامپت در عمل</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--quiz-on-features-of-claude" data-toc="claude-with-google-cloud-s-vertex-ai--quiz-on-features-of-claude"><span class="toc-n">۵۶</span><span class="toc-t">آزمونک قابلیت‌های Claude</span></a></li><li class="toc-sec">پروتکل زمینهٔ مدل (MCP)</li><li><a href="#claude-with-google-cloud-s-vertex-ai--introducing-mcp" data-toc="claude-with-google-cloud-s-vertex-ai--introducing-mcp"><span class="toc-n">۵۷</span><span class="toc-t">آشنایی با MCP</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--mcp-clients" data-toc="claude-with-google-cloud-s-vertex-ai--mcp-clients"><span class="toc-n">۵۸</span><span class="toc-t">کلاینت‌های MCP</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--project-setup" data-toc="claude-with-google-cloud-s-vertex-ai--project-setup"><span class="toc-n">۵۹</span><span class="toc-t">راه‌اندازی پروژه</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--defining-tools-with-mcp" data-toc="claude-with-google-cloud-s-vertex-ai--defining-tools-with-mcp"><span class="toc-n">۶۰</span><span class="toc-t">تعریف ابزار با MCP</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--the-server-inspector" data-toc="claude-with-google-cloud-s-vertex-ai--the-server-inspector"><span class="toc-n">۶۱</span><span class="toc-t">بازرس سرور</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--implementing-a-client" data-toc="claude-with-google-cloud-s-vertex-ai--implementing-a-client"><span class="toc-n">۶۲</span><span class="toc-t">پیاده‌سازی کلاینت</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--defining-resources" data-toc="claude-with-google-cloud-s-vertex-ai--defining-resources"><span class="toc-n">۶۳</span><span class="toc-t">تعریف منابع</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--accessing-resources" data-toc="claude-with-google-cloud-s-vertex-ai--accessing-resources"><span class="toc-n">۶۴</span><span class="toc-t">دسترسی به منابع</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--defining-prompts" data-toc="claude-with-google-cloud-s-vertex-ai--defining-prompts"><span class="toc-n">۶۵</span><span class="toc-t">تعریف پرامپت‌ها</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--prompts-in-the-client" data-toc="claude-with-google-cloud-s-vertex-ai--prompts-in-the-client"><span class="toc-n">۶۶</span><span class="toc-t">پرامپت‌ها در کلاینت</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--mcp-review" data-toc="claude-with-google-cloud-s-vertex-ai--mcp-review"><span class="toc-n">۶۷</span><span class="toc-t">مرور MCP</span></a></li><li class="toc-sec">ایجنت‌ها و گردش‌کارها</li><li><a href="#claude-with-google-cloud-s-vertex-ai--agents-and-workflows" data-toc="claude-with-google-cloud-s-vertex-ai--agents-and-workflows"><span class="toc-n">۶۸</span><span class="toc-t">ایجنت‌ها و گردش‌کارها</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--parallelization-workflows" data-toc="claude-with-google-cloud-s-vertex-ai--parallelization-workflows"><span class="toc-n">۶۹</span><span class="toc-t">گردش‌کارهای موازی</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--chaining-workflows" data-toc="claude-with-google-cloud-s-vertex-ai--chaining-workflows"><span class="toc-n">۷۰</span><span class="toc-t">گردش‌کارهای زنجیره‌ای</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--routing-workflows" data-toc="claude-with-google-cloud-s-vertex-ai--routing-workflows"><span class="toc-n">۷۱</span><span class="toc-t">گردش‌کارهای مسیریابی</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--agents-and-tools" data-toc="claude-with-google-cloud-s-vertex-ai--agents-and-tools"><span class="toc-n">۷۲</span><span class="toc-t">ایجنت‌ها و ابزارها</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--environment-inspection" data-toc="claude-with-google-cloud-s-vertex-ai--environment-inspection"><span class="toc-n">۷۳</span><span class="toc-t">وارسی محیط</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--workflows-vs-agents" data-toc="claude-with-google-cloud-s-vertex-ai--workflows-vs-agents"><span class="toc-n">۷۴</span><span class="toc-t">گردش‌کار در برابر ایجنت</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--quiz-on-agents-and-workflows" data-toc="claude-with-google-cloud-s-vertex-ai--quiz-on-agents-and-workflows"><span class="toc-n">۷۵</span><span class="toc-t">آزمونک ایجنت‌ها و گردش‌کارها</span></a></li><li><a href="#claude-with-google-cloud-s-vertex-ai--final-assessment" data-toc="claude-with-google-cloud-s-vertex-ai--final-assessment"><span class="toc-n">۷۶</span><span class="toc-t">آزمون ارزیابی پایانی</span></a></li><li><a href="#cheatsheet"><span class="toc-n">★</span><span class="toc-t">خلاصهٔ یک‌نگاه</span></a></li><li><a href="#selfcheck"><span class="toc-n">؟</span><span class="toc-t">خودت را بسنج</span></a></li></ol></details></nav>
+<main id="main">
+<header class="page-head">
+  <p class="eyebrow">ساختن با API <span lang="en" dir="ltr">· Build with the API</span></p>
+  <h1><span class="h1-fa">Claude روی Vertex AI در Google Cloud</span><span class="h1-en" lang="en" dir="ltr">Claude with Google Cloud's Vertex AI</span></h1>
+  <p class="page-stats"><span lang="en" dir="ltr">66 lessons · 9 quizzes · 8.5 hr · badge</span> <a class="src src-big" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی در Claude Academy<span aria-hidden="true"> ↗</span></a></p>
+  <p class="who"><span class="who-label">مناسب برای</span> <span>برنامه‌نویس‌هایی که روی Google Cloud کار می‌کنند، پایتون بلدند و یک پروژهٔ Google Cloud با دسترسی به Vertex AI دارند.</span> <span class="who-en" lang="en" dir="ltr">Developers on Google Cloud who know Python and have a Google Cloud project with Vertex AI access.</span></p>
+  <p class="progress" data-progress-for="claude-with-google-cloud-s-vertex-ai" data-total="76"><span class="progress-bar"><span></span></span><span class="progress-text">۰ از ۷۶ خوانده شده</span></p>
+</header>
+<div class="page-intro"><div class="pair"><div class="en" lang="en" dir="ltr"><p>This edition teaches the skills of <a class="xref" href="../courses/building-with-the-claude-api.html">Building with the Claude API</a> <strong>on Google Cloud's Vertex AI</strong>. The good news: Anthropic's Python SDK has a <strong>Vertex client</strong> (<code dir="ltr">AnthropicVertex</code>), so after setup your code is almost identical to the API course; you authenticate with Google Cloud credentials instead of an Anthropic API key, and use the model IDs listed in <strong>Model Garden</strong>.</p>
+<p><strong>How to read this page:</strong> Vertex-specific lessons (setup, requests, controlling output, the batch tool, tools for structured data, reranking, contextual retrieval) are explained in full; lessons identical to the API course are marked <strong>"Same as API course"</strong> with a short summary and a link.</p></div><div class="fa" lang="fa" dir="rtl"><p>این نسخه مهارت‌های دورهٔ <a class="xref" href="../courses/building-with-the-claude-api.html">ساختن با Claude API</a> را <strong>روی Vertex AI در Google Cloud</strong> یاد می‌دهد. خبر خوب: SDK پایتون آنتروپیک یک <strong>کلاینت Vertex</strong> (<code dir="ltr">AnthropicVertex</code>) دارد؛ پس بعد از راه‌اندازی، کدت تقریباً مثل دورهٔ API است؛ فقط به جای کلید API آنتروپیک با اعتبارنامه‌های Google Cloud احراز هویت می‌کنی و از شناسه‌های مدلی که در <strong>Model Garden</strong> آمده استفاده می‌کنی.</p>
+<p><strong>این صفحه را چطور بخوانی:</strong> درس‌های مخصوص Vertex (راه‌اندازی، درخواست، کنترل خروجی، ابزار دسته‌ای، ابزار برای دادهٔ ساختاریافته، رتبه‌بندی دوباره، بازیابی زمینه‌دار) کامل توضیح داده شده‌اند؛ درس‌هایی که با دورهٔ API یکی‌اند با <strong>«مشترک با دورهٔ API»</strong> علامت خورده‌اند و یک خلاصهٔ کوتاه و پیوند دارند.</p></div></div></div>
+
+<h2 class="section-title"><span>دسترسی به Claude از طریق API</span><span class="sec-en" lang="en" dir="ltr">Accessing Claude with the API</span></h2>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--accessing-the-api" data-item="claude-with-google-cloud-s-vertex-ai--accessing-the-api">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱ <span lang="en" dir="ltr">· Lesson 1</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">دسترسی به API</span><span class="t-en" lang="en" dir="ltr">Accessing the API</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/accessing-the-api" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--accessing-the-api" data-done="claude-with-google-cloud-s-vertex-ai--accessing-the-api"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>App → your server → Vertex AI → Claude, generating token by token, returning usage and a stop reason. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--accessing-the-api">Accessing the API</a>. The difference: requests are authorized by your <strong>Google Cloud identity</strong> and billed to your <strong>Google Cloud project</strong>.</p></div><div class="fa" lang="fa" dir="rtl"><p>اپ ← سرور تو ← Vertex AI ← Claude، که توکن به توکن تولید می‌کند و مصرف و دلیل توقف را برمی‌گرداند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--accessing-the-api">دسترسی به API</a>. تفاوت: درخواست‌ها با <strong>هویت Google Cloud</strong> تو مجاز می‌شوند و هزینه به <strong>پروژهٔ Google Cloud</strong> تو نوشته می‌شود.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--vertex-ai-setup" data-item="claude-with-google-cloud-s-vertex-ai--vertex-ai-setup">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲ <span lang="en" dir="ltr">· Lesson 2</span> </p>
+      <h3><span class="t-fa">راه‌اندازی Vertex AI</span><span class="t-en" lang="en" dir="ltr">Vertex AI setup</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/vertex-ai-setup" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--vertex-ai-setup" data-done="claude-with-google-cloud-s-vertex-ai--vertex-ai-setup"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Four steps before your first request:</p>
+<ol><li>In your Google Cloud project, open <strong>Model Garden</strong>, find the Claude model you want and <strong>enable</strong> it (accept the terms).</li><li>Install the <strong>gcloud CLI</strong> and log in.</li><li>Set up <strong>Application Default Credentials</strong> so code can authenticate.</li><li>Install the SDK with Vertex support. The Anthropic SDK then picks up your credentials automatically.</li></ol></div><div class="fa" lang="fa" dir="rtl"><p>چهار قدم قبل از اولین درخواست:</p>
+<ol><li>در پروژهٔ Google Cloud خودت، <strong>Model Garden</strong> را باز کن، مدل Claude مورد نظرت را پیدا کن و <strong>فعالش کن</strong> (شرایط را بپذیر).</li><li><strong>gcloud CLI</strong> را نصب کن و وارد شو.</li><li><strong>اعتبارنامه‌های پیش‌فرض اپلیکیشن (ADC)</strong> را راه بینداز تا کد بتواند احراز هویت کند.</li><li>SDK را با پشتیبانی Vertex نصب کن. SDK آنتروپیک بعد از آن اعتبارنامه‌هایت را خودکار پیدا می‌کند.</li></ol></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">bash</span><span class="code-cap">Setup</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-bash">gcloud auth login
+gcloud config set project my-project-id
+gcloud auth application-default login     # credentials for your code
+pip install &quot;anthropic[vertex]&quot;</code></pre></figure>
+<section class="blk blk-warn"><h4 class="blk-label"><span lang="en">Watch out</span><span>حواست باشد</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>In production, don't use your personal login: run your app with a <strong>service account</strong> that has only the Vertex AI permissions it needs.</p></div><div class="fa" lang="fa" dir="rtl"><p>در محیط واقعی از ورود شخصی‌ات استفاده نکن: اپت را با یک <strong>حساب سرویس (service account)</strong> اجرا کن که فقط مجوزهای Vertex AI لازمش را دارد.</p></div></div></section>
+<section class="blk blk-terms"><h4 class="blk-label"><span lang="en">Key words</span><span>واژه‌های کلیدی</span></h4><dl class="terms"><div class="term"><dt><span lang="en" dir="ltr">Model Garden</span><span class="term-fa">Model Garden</span></dt><dd>کاتالوگ مدل‌های Vertex AI که مدل‌ها، از جمله Claude، را از آن‌جا فعال می‌کنی.</dd></div><div class="term"><dt><span lang="en" dir="ltr">Application Default Credentials</span><span class="term-fa">اعتبارنامه‌های پیش‌فرض اپلیکیشن</span></dt><dd>روش استاندارد Google Cloud برای این‌که کد بدون کلید در کد، هویت تو یا حساب سرویس را پیدا کند.</dd></div></dl></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--making-a-request" data-item="claude-with-google-cloud-s-vertex-ai--making-a-request">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳ <span lang="en" dir="ltr">· Lesson 3</span> </p>
+      <h3><span class="t-fa">فرستادن یک درخواست</span><span class="t-en" lang="en" dir="ltr">Making a request</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--making-a-request" data-done="claude-with-google-cloud-s-vertex-ai--making-a-request"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Create an <code dir="ltr">AnthropicVertex</code> client with your <strong>project ID</strong> and a <strong>region</strong> (the <code dir="ltr">global</code> endpoint, or a specific region if you need data to stay there), then call <code dir="ltr">messages.create</code> exactly as in the API course.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک کلاینت <code dir="ltr">AnthropicVertex</code> با <strong>شناسهٔ پروژه</strong> و یک <strong>منطقه</strong> بساز (نقطهٔ <code dir="ltr">global</code>، یا یک منطقهٔ مشخص اگر لازم است داده همان‌جا بماند)، بعد <code dir="ltr">messages.create</code> را دقیقاً مثل دورهٔ API صدا بزن.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">vertex_request.py</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">from anthropic import AnthropicVertex
+
+client = AnthropicVertex(project_id=&quot;my-project-id&quot;, region=&quot;global&quot;)
+
+message = client.messages.create(
+    model=&quot;claude-opus-5-5&quot;,          # use the exact ID shown in Model Garden
+    max_tokens=1000,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;What is quantum computing? One sentence.&quot;}],
+)
+print(&quot;&quot;.join(b.text for b in message.content if b.type == &quot;text&quot;))</code></pre></figure>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Model IDs on Vertex can differ from Anthropic's (some older models carry a version suffix such as <code dir="ltr">@20251001</code>). Copy the ID from the model's card in Model Garden.</p></div><div class="fa" lang="fa" dir="rtl"><p>شناسهٔ مدل‌ها روی Vertex ممکن است با شناسه‌های آنتروپیک فرق کند (بعضی مدل‌های قدیمی‌تر یک پسوند نسخه مثل <code dir="ltr">@20251001</code> دارند). شناسه را از کارت همان مدل در Model Garden کپی کن.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Same car, different <strong>toll pass</strong>: the driving (your code) doesn't change; only the way you pay at the gate (authentication) does.</p></div><div class="fa" lang="fa" dir="rtl"><p>همان ماشین، با <strong>کارت عوارض</strong> متفاوت: رانندگی (کد تو) عوض نمی‌شود؛ فقط روش پرداخت سر دروازه (احراز هویت) فرق می‌کند.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--multi-turn-conversations" data-item="claude-with-google-cloud-s-vertex-ai--multi-turn-conversations">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴ <span lang="en" dir="ltr">· Lesson 4</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">گفت‌وگوهای چندنوبتی</span><span class="t-en" lang="en" dir="ltr">Multi-turn conversations</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--multi-turn-conversations" data-done="claude-with-google-cloud-s-vertex-ai--multi-turn-conversations"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Stateless API: keep and resend the history. Same code as the <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--multi-turn-conversations">API course</a>, with the Vertex client.</p></div><div class="fa" lang="fa" dir="rtl"><p>API بی‌حافظه: تاریخچه را نگه دار و دوباره بفرست. همان کد <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--multi-turn-conversations">دورهٔ API</a>، با کلاینت Vertex.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--system-prompts" data-item="claude-with-google-cloud-s-vertex-ai--system-prompts">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵ <span lang="en" dir="ltr">· Lesson 5</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پرامپت‌های سیستمی</span><span class="t-en" lang="en" dir="ltr">System prompts</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/system-prompts" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--system-prompts" data-done="claude-with-google-cloud-s-vertex-ai--system-prompts"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Role, tone and rules via the <code dir="ltr">system</code> parameter. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--system-prompts">System prompts</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>نقش، لحن و قانون‌ها با پارامتر <code dir="ltr">system</code>. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--system-prompts">پرامپت‌های سیستمی</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--temperature" data-item="claude-with-google-cloud-s-vertex-ai--temperature">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶ <span lang="en" dir="ltr">· Lesson 6</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">دما (Temperature)</span><span class="t-en" lang="en" dir="ltr">Temperature</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--temperature" data-done="claude-with-google-cloud-s-vertex-ai--temperature"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Randomness control on older models; the newest reject it. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--temperature">Temperature</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>کنترل تصادفی بودن روی مدل‌های قدیمی‌تر؛ جدیدترین‌ها ردش می‌کنند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--temperature">دما</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--response-streaming" data-item="claude-with-google-cloud-s-vertex-ai--response-streaming">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۷ <span lang="en" dir="ltr">· Lesson 7</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پخش زندهٔ پاسخ</span><span class="t-en" lang="en" dir="ltr">Response streaming</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--response-streaming" data-done="claude-with-google-cloud-s-vertex-ai--response-streaming"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p><code dir="ltr">client.messages.stream(...)</code> and <code dir="ltr">text_stream</code>, exactly like the API course. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--response-streaming">Response streaming</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p><code dir="ltr">client.messages.stream(...)</code> و <code dir="ltr">text_stream</code>، دقیقاً مثل دورهٔ API. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--response-streaming">پخش زندهٔ پاسخ</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--controlling-model-output" data-item="claude-with-google-cloud-s-vertex-ai--controlling-model-output">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۸ <span lang="en" dir="ltr">· Lesson 8</span> </p>
+      <h3><span class="t-fa">کنترل خروجی مدل</span><span class="t-en" lang="en" dir="ltr">Controlling model output</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--controlling-model-output" data-done="claude-with-google-cloud-s-vertex-ai--controlling-model-output"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Two levers: <strong>prefilling</strong> the assistant's reply so Claude continues from your words, and <strong>stop sequences</strong> that end generation at a chosen string. Combined, they extract exactly what you want (for example, just a code block). On the newest models prefill returns a 400, so use <strong>structured outputs</strong> or explicit instructions there; stop sequences still work on every model.</p></div><div class="fa" lang="fa" dir="rtl"><p>دو اهرم: <strong>پیش‌پر کردن</strong> جواب دستیار تا Claude از کلمه‌های تو ادامه بدهد، و <strong>دنباله‌های توقف</strong> که تولید را سر یک رشتهٔ انتخابی تمام می‌کنند. با هم، دقیقاً همان چیزی را که می‌خواهی بیرون می‌کشند (مثلاً فقط یک بلوک کد). روی جدیدترین مدل‌ها پیش‌پر کردن خطای 400 می‌دهد؛ پس آن‌جا از <strong>خروجی ساختاریافته</strong> یا دستورهای صریح استفاده کن؛ دنباله‌های توقف روی همهٔ مدل‌ها کار می‌کنند.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">Prefill + stop sequence (on a model that allows prefill)</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">r = client.messages.create(
+    model=&quot;claude-haiku-4-5@20251001&quot;,      # older model on Vertex; check Model Garden
+    max_tokens=200,
+    messages=[
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Give me a bash command that counts lines in all .py files.&quot;},
+        {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: &quot;```bash\n&quot;},       # prefill: start inside a code block
+    ],
+    stop_sequences=[&quot;```&quot;],                                   # stop at the closing fence
+)
+print(r.content[0].text.strip())</code></pre></figure>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>The modern equivalent for the newest models: ask for the exact format ("Respond with only the command, no explanation") or use structured outputs with a schema like <code dir="ltr">{"command": "string"}</code>.</p></div><div class="fa" lang="fa" dir="rtl"><p>معادل امروزی برای جدیدترین مدل‌ها: قالب دقیق را بخواه («فقط فرمان را بنویس، بدون توضیح») یا از خروجی ساختاریافته با اسکیمایی مثل <code dir="ltr">{"command": "string"}</code> استفاده کن.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--structured-data" data-item="claude-with-google-cloud-s-vertex-ai--structured-data">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۹ <span lang="en" dir="ltr">· Lesson 9</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">دادهٔ ساختاریافته</span><span class="t-en" lang="en" dir="ltr">Structured data</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--structured-data" data-done="claude-with-google-cloud-s-vertex-ai--structured-data"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Clean JSON with no chatter: prefill + stop sequence on older models, <strong>structured outputs</strong> (supported on Vertex) on the newest. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--structured-data">Structured data</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>JSON تمیز بدون حرف اضافه: پیش‌پر کردن + دنبالهٔ توقف روی مدل‌های قدیمی‌تر، <strong>خروجی ساختاریافته</strong> (که Vertex پشتیبانی می‌کند) روی جدیدترین‌ها. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--structured-data">دادهٔ ساختاریافته</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--quiz-on-accessing-claude-with-the-api" data-item="claude-with-google-cloud-s-vertex-ai--quiz-on-accessing-claude-with-the-api">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۰ <span lang="en" dir="ltr">· Lesson 10</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">آزمونک دسترسی به Claude با API</span><span class="t-en" lang="en" dir="ltr">Quiz on accessing Claude with the API</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--quiz-on-accessing-claude-with-the-api" data-done="claude-with-google-cloud-s-vertex-ai--quiz-on-accessing-claude-with-the-api"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Checks Vertex setup (Model Garden, gcloud, ADC), the AnthropicVertex client, conversations, system prompts, streaming and output control.</p></div><div class="fa" lang="fa" dir="rtl"><p>راه‌اندازی Vertex (Model Garden، gcloud، ADC)، کلاینت AnthropicVertex، گفت‌وگوها، پرامپت سیستمی، استریم و کنترل خروجی را می‌سنجد.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>ارزیابی پرامپت</span><span class="sec-en" lang="en" dir="ltr">Prompt evaluation</span></h2>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--prompt-evaluation" data-item="claude-with-google-cloud-s-vertex-ai--prompt-evaluation">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۱ <span lang="en" dir="ltr">· Lesson 11</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ارزیابی پرامپت</span><span class="t-en" lang="en" dir="ltr">Prompt evaluation</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--prompt-evaluation" data-done="claude-with-google-cloud-s-vertex-ai--prompt-evaluation"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Test prompts systematically, with a score. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-evaluation">Prompt evaluation</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>پرامپت‌ها را نظام‌مند و با نمره بیازما. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-evaluation">ارزیابی پرامپت</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--a-typical-eval-workflow" data-item="claude-with-google-cloud-s-vertex-ai--a-typical-eval-workflow">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۲ <span lang="en" dir="ltr">· Lesson 12</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">یک گردش‌کار معمول ارزیابی</span><span class="t-en" lang="en" dir="ltr">A typical eval workflow</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--a-typical-eval-workflow" data-done="claude-with-google-cloud-s-vertex-ai--a-typical-eval-workflow"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Draft → dataset → run → grade → compare. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--a-typical-eval-workflow">A typical eval workflow</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>پیش‌نویس ← مجموعه‌داده ← اجرا ← نمره ← مقایسه. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--a-typical-eval-workflow">یک گردش‌کار معمول ارزیابی</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--generating-test-datasets" data-item="claude-with-google-cloud-s-vertex-ai--generating-test-datasets">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۳ <span lang="en" dir="ltr">· Lesson 13</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ساختن مجموعه‌دادهٔ آزمون</span><span class="t-en" lang="en" dir="ltr">Generating test datasets</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--generating-test-datasets" data-done="claude-with-google-cloud-s-vertex-ai--generating-test-datasets"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Let a fast model draft varied cases; review them yourself. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--generating-test-datasets">Generating test datasets</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>بگذار یک مدل سریع موردهای متنوع را پیش‌نویس کند؛ خودت مرورشان کن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--generating-test-datasets">ساختن مجموعه‌دادهٔ آزمون</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--running-the-eval" data-item="claude-with-google-cloud-s-vertex-ai--running-the-eval">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۴ <span lang="en" dir="ltr">· Lesson 14</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">اجرای ارزیابی</span><span class="t-en" lang="en" dir="ltr">Running the eval</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--running-the-eval" data-done="claude-with-google-cloud-s-vertex-ai--running-the-eval"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A simple loop: run, grade, store, average. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--running-the-eval">Running the eval</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک حلقهٔ ساده: اجرا، نمره، ذخیره، میانگین. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--running-the-eval">اجرای ارزیابی</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--model-based-grading" data-item="claude-with-google-cloud-s-vertex-ai--model-based-grading">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۵ <span lang="en" dir="ltr">· Lesson 15</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">نمره‌دهی با مدل</span><span class="t-en" lang="en" dir="ltr">Model-based grading</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--model-based-grading" data-done="claude-with-google-cloud-s-vertex-ai--model-based-grading"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Reasoning first, score second, with a rubric. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--model-based-grading">Model-based grading</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>اول استدلال، بعد نمره، با روبریک. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--model-based-grading">نمره‌دهی با مدل</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--code-based-grading" data-item="claude-with-google-cloud-s-vertex-ai--code-based-grading">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۶ <span lang="en" dir="ltr">· Lesson 16</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">نمره‌دهی با کد</span><span class="t-en" lang="en" dir="ltr">Code-based grading</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--code-based-grading" data-done="claude-with-google-cloud-s-vertex-ai--code-based-grading"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Syntax and rule checks in code, combined with model scores. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--code-based-grading">Code-based grading</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>چک‌های نحوی و قانونی با کد، ترکیب‌شده با نمرهٔ مدل. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--code-based-grading">نمره‌دهی با کد</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--quiz-on-prompt-evaluation" data-item="claude-with-google-cloud-s-vertex-ai--quiz-on-prompt-evaluation">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۷ <span lang="en" dir="ltr">· Lesson 17</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">آزمونک ارزیابی پرامپت</span><span class="t-en" lang="en" dir="ltr">Quiz on prompt evaluation</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--quiz-on-prompt-evaluation" data-done="claude-with-google-cloud-s-vertex-ai--quiz-on-prompt-evaluation"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Checks the eval loop, datasets and grading methods.</p></div><div class="fa" lang="fa" dir="rtl"><p>حلقهٔ ارزیابی، مجموعه‌داده‌ها و روش‌های نمره‌دهی را می‌سنجد.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>تکنیک‌های مهندسی پرامپت</span><span class="sec-en" lang="en" dir="ltr">Prompt engineering techniques</span></h2>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--prompt-engineering" data-item="claude-with-google-cloud-s-vertex-ai--prompt-engineering">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۸ <span lang="en" dir="ltr">· Lesson 18</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">مهندسی پرامپت</span><span class="t-en" lang="en" dir="ltr">Prompt engineering</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--prompt-engineering" data-done="claude-with-google-cloud-s-vertex-ai--prompt-engineering"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>One technique at a time, measured by your eval. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-engineering">Prompt engineering</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>هر بار یک تکنیک، با اندازه‌گیری به کمک ارزیابی‌ات. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-engineering">مهندسی پرامپت</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--being-clear-and-direct" data-item="claude-with-google-cloud-s-vertex-ai--being-clear-and-direct">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۹ <span lang="en" dir="ltr">· Lesson 19</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">روشن و مستقیم بودن</span><span class="t-en" lang="en" dir="ltr">Being clear and direct</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--being-clear-and-direct" data-done="claude-with-google-cloud-s-vertex-ai--being-clear-and-direct"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Lead with an action verb and the exact task. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--being-clear-and-direct">Being clear and direct</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>با یک فعل عملی و خود کار دقیق شروع کن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--being-clear-and-direct">روشن و مستقیم بودن</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--being-specific" data-item="claude-with-google-cloud-s-vertex-ai--being-specific">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۰ <span lang="en" dir="ltr">· Lesson 20</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">مشخص بودن</span><span class="t-en" lang="en" dir="ltr">Being specific</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/being-specific" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--being-specific" data-done="claude-with-google-cloud-s-vertex-ai--being-specific"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Guidelines for output qualities plus the steps to follow. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--being-specific">Being specific</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>رهنمود برای ویژگی‌های خروجی به‌اضافهٔ قدم‌هایی که باید دنبال شود. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--being-specific">مشخص بودن</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--structure-with-xml-tags" data-item="claude-with-google-cloud-s-vertex-ai--structure-with-xml-tags">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۱ <span lang="en" dir="ltr">· Lesson 21</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ساختاردهی با تگ‌های XML</span><span class="t-en" lang="en" dir="ltr">Structure with XML tags</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--structure-with-xml-tags" data-done="claude-with-google-cloud-s-vertex-ai--structure-with-xml-tags"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Descriptive tags separate data from instructions. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--structure-with-xml-tags">Structure with XML tags</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>تگ‌های توصیفی داده را از دستورها جدا می‌کنند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--structure-with-xml-tags">ساختاردهی با تگ‌های XML</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--providing-examples" data-item="claude-with-google-cloud-s-vertex-ai--providing-examples">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۲ <span lang="en" dir="ltr">· Lesson 22</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">آوردن مثال</span><span class="t-en" lang="en" dir="ltr">Providing examples</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/providing-examples" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--providing-examples" data-done="claude-with-google-cloud-s-vertex-ai--providing-examples"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Varied examples, including edge cases, and why they're good. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--providing-examples">Providing examples</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>مثال‌های متنوع، از جمله موردهای مرزی، و این‌که چرا خوب‌اند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--providing-examples">آوردن مثال</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--quiz-on-prompt-engineering" data-item="claude-with-google-cloud-s-vertex-ai--quiz-on-prompt-engineering">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۳ <span lang="en" dir="ltr">· Lesson 23</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">آزمونک تکنیک‌های مهندسی پرامپت</span><span class="t-en" lang="en" dir="ltr">Quiz on prompt engineering techniques</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--quiz-on-prompt-engineering" data-done="claude-with-google-cloud-s-vertex-ai--quiz-on-prompt-engineering"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Checks the four techniques and the measure-and-iterate loop.</p></div><div class="fa" lang="fa" dir="rtl"><p>چهار تکنیک و حلقهٔ «اندازه بگیر و تکرار کن» را می‌سنجد.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>استفاده از ابزار با Claude</span><span class="sec-en" lang="en" dir="ltr">Tool use with Claude</span></h2>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--introducing-tool-use" data-item="claude-with-google-cloud-s-vertex-ai--introducing-tool-use">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۴ <span lang="en" dir="ltr">· Lesson 24</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">آشنایی با استفاده از ابزار</span><span class="t-en" lang="en" dir="ltr">Introducing tool use</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/introducing-tool-use" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--introducing-tool-use" data-done="claude-with-google-cloud-s-vertex-ai--introducing-tool-use"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Tool schemas in, <code dir="ltr">tool_use</code> out, your code runs it, <code dir="ltr">tool_result</code> back. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--introducing-tool-use">Introducing tool use</a>. With <code dir="ltr">AnthropicVertex</code>, the tool format is exactly the same as the API course.</p></div><div class="fa" lang="fa" dir="rtl"><p>اسکیمای ابزار می‌رود، <code dir="ltr">tool_use</code> برمی‌گردد، کد تو اجرایش می‌کند، <code dir="ltr">tool_result</code> برمی‌گردد. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--introducing-tool-use">آشنایی با استفاده از ابزار</a>. با <code dir="ltr">AnthropicVertex</code>، قالب ابزار دقیقاً همان دورهٔ API است.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--project-overview" data-item="claude-with-google-cloud-s-vertex-ai--project-overview">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۵ <span lang="en" dir="ltr">· Lesson 25</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">معرفی پروژه</span><span class="t-en" lang="en" dir="ltr">Project overview</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--project-overview" data-done="claude-with-google-cloud-s-vertex-ai--project-overview"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A reminder assistant that needs date/time tools. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--project-overview">Project overview</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک دستیار یادآوری که ابزارهای تاریخ و ساعت لازم دارد. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--project-overview">معرفی پروژه</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--tool-functions" data-item="claude-with-google-cloud-s-vertex-ai--tool-functions">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۶ <span lang="en" dir="ltr">· Lesson 26</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">تابع‌های ابزار</span><span class="t-en" lang="en" dir="ltr">Tool functions</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--tool-functions" data-done="claude-with-google-cloud-s-vertex-ai--tool-functions"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Functions with descriptive names, validation and helpful errors. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--tool-functions">Tool functions</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>تابع‌هایی با اسم توصیفی، اعتبارسنجی و خطاهای کمک‌کننده. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--tool-functions">تابع‌های ابزار</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--tool-schemas" data-item="claude-with-google-cloud-s-vertex-ai--tool-schemas">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۷ <span lang="en" dir="ltr">· Lesson 27</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">اسکیمای ابزارها</span><span class="t-en" lang="en" dir="ltr">Tool schemas</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--tool-schemas" data-done="claude-with-google-cloud-s-vertex-ai--tool-schemas"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Name, a prescriptive description, JSON Schema inputs; <code dir="ltr">strict: true</code> for guaranteed valid arguments. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--tool-schemas">Tool schemas</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>اسم، یک توضیح دستوری، ورودی‌های اسکیمای JSON؛ <code dir="ltr">strict: true</code> برای آرگومان‌هایی که تضمینی معتبرند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--tool-schemas">اسکیمای ابزارها</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--handling-message-blocks" data-item="claude-with-google-cloud-s-vertex-ai--handling-message-blocks">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۸ <span lang="en" dir="ltr">· Lesson 28</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">کار با بلوک‌های پیام</span><span class="t-en" lang="en" dir="ltr">Handling message blocks</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--handling-message-blocks" data-done="claude-with-google-cloud-s-vertex-ai--handling-message-blocks"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Append the whole <code dir="ltr">response.content</code>; check <code dir="ltr">stop_reason == "tool_use"</code>. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--handling-message-blocks">Handling message blocks</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>کل <code dir="ltr">response.content</code> را اضافه کن؛ <code dir="ltr">stop_reason == "tool_use"</code> را چک کن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--handling-message-blocks">کار با بلوک‌های پیام</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--sending-tool-results" data-item="claude-with-google-cloud-s-vertex-ai--sending-tool-results">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۹ <span lang="en" dir="ltr">· Lesson 29</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">فرستادن نتیجهٔ ابزار</span><span class="t-en" lang="en" dir="ltr">Sending tool results</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--sending-tool-results" data-done="claude-with-google-cloud-s-vertex-ai--sending-tool-results"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>One <code dir="ltr">tool_result</code> per <code dir="ltr">tool_use</code>, same id, <code dir="ltr">is_error</code> on failure. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--sending-tool-results">Sending tool results</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>برای هر <code dir="ltr">tool_use</code> یک <code dir="ltr">tool_result</code>، با همان شناسه، و <code dir="ltr">is_error</code> هنگام شکست. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--sending-tool-results">فرستادن نتیجهٔ ابزار</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--multi-turn-conversations-with-tools" data-item="claude-with-google-cloud-s-vertex-ai--multi-turn-conversations-with-tools">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۰ <span lang="en" dir="ltr">· Lesson 30</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">گفت‌وگوهای چندنوبتی با ابزار</span><span class="t-en" lang="en" dir="ltr">Multi-turn conversations with tools</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/multi-turn-conversations-with-tools" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--multi-turn-conversations-with-tools" data-done="claude-with-google-cloud-s-vertex-ai--multi-turn-conversations-with-tools"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Claude chains tools across several round trips. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--multi-turn-conversations-with-tools">Multi-turn conversations with tools</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>Claude ابزارها را در چند رفت‌وبرگشت پشت هم صدا می‌زند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--multi-turn-conversations-with-tools">گفت‌وگوهای چندنوبتی با ابزار</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--implementing-multiple-turns" data-item="claude-with-google-cloud-s-vertex-ai--implementing-multiple-turns">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۱ <span lang="en" dir="ltr">· Lesson 31</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پیاده‌سازی چند نوبت</span><span class="t-en" lang="en" dir="ltr">Implementing multiple turns</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--implementing-multiple-turns" data-done="claude-with-google-cloud-s-vertex-ai--implementing-multiple-turns"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>The loop that runs until no more tools are requested (or the tool runner). Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--implementing-multiple-turns">Implementing multiple turns</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>حلقه‌ای که تا وقتی ابزار دیگری درخواست نشود اجرا می‌شود (یا اجراکنندهٔ ابزار). درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--implementing-multiple-turns">پیاده‌سازی چند نوبت</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--using-multiple-tools" data-item="claude-with-google-cloud-s-vertex-ai--using-multiple-tools">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۲ <span lang="en" dir="ltr">· Lesson 32</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">استفاده از چند ابزار</span><span class="t-en" lang="en" dir="ltr">Using multiple tools</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--using-multiple-tools" data-done="claude-with-google-cloud-s-vertex-ai--using-multiple-tools"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Several tools and parallel calls; return all results in one message. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--using-multiple-tools">Using multiple tools</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>چند ابزار و فراخوانی‌های موازی؛ همهٔ نتیجه‌ها را در یک پیام برگردان. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--using-multiple-tools">استفاده از چند ابزار</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--the-batch-tool" data-item="claude-with-google-cloud-s-vertex-ai--the-batch-tool">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۳ <span lang="en" dir="ltr">· Lesson 33</span> </p>
+      <h3><span class="t-fa">ابزار دسته‌ای</span><span class="t-en" lang="en" dir="ltr">The batch tool</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--the-batch-tool" data-done="claude-with-google-cloud-s-vertex-ai--the-batch-tool"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>When Claude makes independent tool calls <strong>one per turn</strong>, every call costs a full round trip. The <strong>batch tool</strong> is a wrapper tool whose input is a list of other tool calls, so Claude can request several at once; your code runs them (in parallel if you like) and returns all results together.</p></div><div class="fa" lang="fa" dir="rtl"><p>وقتی Claude فراخوانی‌های مستقل را <strong>هر نوبت یکی</strong> انجام می‌دهد، هر فراخوانی یک رفت‌وبرگشت کامل هزینه دارد. <strong>ابزار دسته‌ای</strong> یک ابزار پوششی است که ورودی‌اش فهرستی از فراخوانی‌های ابزارهای دیگر است؛ پس Claude می‌تواند چند تا را با هم درخواست کند؛ کد تو اجرایشان می‌کند (اگر خواستی موازی) و همهٔ نتیجه‌ها را با هم برمی‌گرداند.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">A batch tool in Messages API format</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">batch_tool_schema = {
+    &quot;name&quot;: &quot;batch_tool&quot;,
+    &quot;description&quot;: &quot;Invoke multiple other tool calls at once. Use it whenever you need &quot;
+                   &quot;two or more independent tool calls.&quot;,
+    &quot;input_schema&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {&quot;invocations&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {&quot;name&quot;: {&quot;type&quot;: &quot;string&quot;},
+                           &quot;arguments&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;JSON-encoded arguments&quot;}},
+            &quot;required&quot;: [&quot;name&quot;, &quot;arguments&quot;]}}},
+        &quot;required&quot;: [&quot;invocations&quot;],
+    },
+}
+
+def run_batch(invocations):
+    return [{&quot;tool&quot;: i[&quot;name&quot;], &quot;output&quot;: run_tool(i[&quot;name&quot;], json.loads(i[&quot;arguments&quot;]))}
+            for i in invocations]</code></pre></figure>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Measure before adopting it: current Claude models already issue parallel tool calls on their own fairly often. If yours does, the plain approach is simpler.</p></div><div class="fa" lang="fa" dir="rtl"><p>قبل از به کار بردنش اندازه بگیر: مدل‌های فعلی Claude همین حالا هم خیلی وقت‌ها خودشان ابزارها را موازی صدا می‌زنند. اگر مدل تو این کار را می‌کند، روش ساده‌تر بهتر است.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--tools-for-structured-data" data-item="claude-with-google-cloud-s-vertex-ai--tools-for-structured-data">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۴ <span lang="en" dir="ltr">· Lesson 34</span> </p>
+      <h3><span class="t-fa">ابزار برای دادهٔ ساختاریافته</span><span class="t-en" lang="en" dir="ltr">Tools for structured data</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/tools-for-structured-data" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--tools-for-structured-data" data-done="claude-with-google-cloud-s-vertex-ai--tools-for-structured-data"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Compared with prompt-based methods (prefill and stop sequences), the <strong>tool-based</strong> approach is more reliable: define a tool whose JSON schema *is* the structure you want, have Claude call it, and read the tool's input as your data. The course forces the call with <code dir="ltr">tool_choice={"type": "tool", "name": ...}</code>; it's more setup, but the output is far more consistent.</p>
+<p><strong>Today:</strong> on the newest models (Opus 5.5, Sonnet 5.5, Fable 5.1) forced <code dir="ltr">tool_choice</code> returns a 400. Use <strong>structured outputs</strong> (supported on Vertex) for pure extraction, or <code dir="ltr">auto</code> + <code dir="ltr">strict: true</code> + an explicit instruction when you really want a tool call.</p></div><div class="fa" lang="fa" dir="rtl"><p>در مقایسه با روش‌های مبتنی بر پرامپت (پیش‌پر کردن و دنبالهٔ توقف)، روش <strong>مبتنی بر ابزار</strong> مطمئن‌تر است: ابزاری تعریف کن که اسکیمای JSON آن *همان* ساختاری است که می‌خواهی، کاری کن Claude صدایش بزند و ورودی ابزار را به‌عنوان داده‌ات بخوان. دوره فراخوانی را با <code dir="ltr">tool_choice={"type": "tool", "name": ...}</code> اجباری می‌کند؛ راه‌اندازی بیشتری می‌خواهد، ولی خروجی خیلی یکدست‌تر است.</p>
+<p><strong>امروز:</strong> روی جدیدترین مدل‌ها (Opus 5.5، Sonnet 5.5، Fable 5.1) اجبار <code dir="ltr">tool_choice</code> خطای 400 می‌دهد. برای استخراج خالص از <strong>خروجی ساختاریافته</strong> (که Vertex پشتیبانی می‌کند) استفاده کن، یا وقتی واقعاً فراخوانی ابزار می‌خواهی، <code dir="ltr">auto</code> + <code dir="ltr">strict: true</code> + یک دستور صریح.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">Structured extraction on a current model</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">r = client.messages.create(
+    model=&quot;claude-opus-5-5&quot;,
+    max_tokens=2000,
+    output_config={&quot;format&quot;: {&quot;type&quot;: &quot;json_schema&quot;, &quot;schema&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {&quot;title&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;author&quot;: {&quot;type&quot;: &quot;string&quot;},
+                       &quot;key_insights&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}}},
+        &quot;required&quot;: [&quot;title&quot;, &quot;author&quot;, &quot;key_insights&quot;],
+        &quot;additionalProperties&quot;: False}}},
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: f&quot;&lt;article&gt;{article}&lt;/article&gt;\nExtract the summary data.&quot;}],
+)
+data = json.loads(next(b.text for b in r.content if b.type == &quot;text&quot;))</code></pre></figure>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Prompt-based extraction is asking someone to <strong>write their details neatly on a blank page</strong>; tool-based is handing them a <strong>printed form</strong>; structured outputs is a form where the pen <strong>can't write outside the boxes</strong>.</p></div><div class="fa" lang="fa" dir="rtl"><p>استخراج مبتنی بر پرامپت مثل این است که از کسی بخواهی <strong>مشخصاتش را تمیز روی یک برگهٔ سفید بنویسد</strong>؛ مبتنی بر ابزار مثل دادن <strong>یک فرم چاپی</strong> است؛ خروجی ساختاریافته فرمی است که قلم <strong>اصلاً نمی‌تواند بیرون خانه‌ها بنویسد</strong>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--fine-grained-tool-calling" data-item="claude-with-google-cloud-s-vertex-ai--fine-grained-tool-calling">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۵ <span lang="en" dir="ltr">· Lesson 35</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">فراخوانی ریزدانهٔ ابزار</span><span class="t-en" lang="en" dir="ltr">Fine-grained tool calling</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--fine-grained-tool-calling" data-done="claude-with-google-cloud-s-vertex-ai--fine-grained-tool-calling"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Stream tool arguments as they're generated with <code dir="ltr">eager_input_streaming</code>, and validate the final JSON yourself. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--fine-grained-tool-calling">Fine-grained tool calling</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>آرگومان‌های ابزار را همان‌طور که تولید می‌شوند با <code dir="ltr">eager_input_streaming</code> استریم کن و JSON نهایی را خودت اعتبارسنجی کن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--fine-grained-tool-calling">فراخوانی ریزدانهٔ ابزار</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--the-text-edit-tool" data-item="claude-with-google-cloud-s-vertex-ai--the-text-edit-tool">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۶ <span lang="en" dir="ltr">· Lesson 36</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ابزار ویرایش متن</span><span class="t-en" lang="en" dir="ltr">The text edit tool</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--the-text-edit-tool" data-done="claude-with-google-cloud-s-vertex-ai--the-text-edit-tool"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Anthropic-defined, client-executed file editing; confine every path. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-text-edit-tool">The text edit tool</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>ویرایش فایل تعریف‌شده توسط Anthropic و اجراشده سمت تو؛ هر مسیری را محدود کن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-text-edit-tool">ابزار ویرایش متن</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--the-web-search-tool" data-item="claude-with-google-cloud-s-vertex-ai--the-web-search-tool">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۷ <span lang="en" dir="ltr">· Lesson 37</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ابزار جست‌وجوی وب</span><span class="t-en" lang="en" dir="ltr">The web search tool</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--the-web-search-tool" data-done="claude-with-google-cloud-s-vertex-ai--the-web-search-tool"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A server tool: add it and Claude searches and cites. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-web-search-tool">The web search tool</a>. <strong>Vertex difference:</strong> only the basic <code dir="ltr">web_search_20250305</code> version is available there (no dynamic filtering), and web fetch isn't offered.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک ابزار سمت سرور: اضافه‌اش کن تا Claude جست‌وجو کند و ارجاع بدهد. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-web-search-tool">ابزار جست‌وجوی وب</a>. <strong>تفاوت Vertex:</strong> آن‌جا فقط نسخهٔ پایهٔ <code dir="ltr">web_search_20250305</code> در دسترس است (بدون فیلتر پویا) و web fetch ارائه نمی‌شود.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--quiz-on-tool-use-with-claude" data-item="claude-with-google-cloud-s-vertex-ai--quiz-on-tool-use-with-claude">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۸ <span lang="en" dir="ltr">· Lesson 38</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">آزمونک استفاده از ابزار با Claude</span><span class="t-en" lang="en" dir="ltr">Quiz on tool use with Claude</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--quiz-on-tool-use-with-claude" data-done="claude-with-google-cloud-s-vertex-ai--quiz-on-tool-use-with-claude"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Checks the tool-use loop, schemas, parallel and batch calls, tools for structured data, and built-in tools on Vertex.</p></div><div class="fa" lang="fa" dir="rtl"><p>حلقهٔ استفاده از ابزار، اسکیماها، فراخوانی موازی و دسته‌ای، ابزار برای دادهٔ ساختاریافته و ابزارهای داخلی روی Vertex را می‌سنجد.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>تولید تقویت‌شده با بازیابی (RAG)</span><span class="sec-en" lang="en" dir="ltr">Retrieval augmented generation</span></h2>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--introducing-retrieval-augmented-generation" data-item="claude-with-google-cloud-s-vertex-ai--introducing-retrieval-augmented-generation">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۹ <span lang="en" dir="ltr">· Lesson 39</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">آشنایی با RAG</span><span class="t-en" lang="en" dir="ltr">Introducing retrieval augmented generation</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/introducing-retrieval-augmented-generation" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--introducing-retrieval-augmented-generation" data-done="claude-with-google-cloud-s-vertex-ai--introducing-retrieval-augmented-generation"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Send only the relevant chunks, not whole libraries. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--introducing-retrieval-augmented-generation">Introducing RAG</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>فقط تکه‌های مرتبط را بفرست، نه کل کتابخانه را. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--introducing-retrieval-augmented-generation">آشنایی با RAG</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--text-chunking-strategies" data-item="claude-with-google-cloud-s-vertex-ai--text-chunking-strategies">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۰ <span lang="en" dir="ltr">· Lesson 40</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">راهبردهای تکه‌کردن متن</span><span class="t-en" lang="en" dir="ltr">Text chunking strategies</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--text-chunking-strategies" data-done="claude-with-google-cloud-s-vertex-ai--text-chunking-strategies"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Size, structure or sentence based. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--text-chunking-strategies">Text chunking strategies</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>بر اساس اندازه، ساختار یا جمله. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--text-chunking-strategies">راهبردهای تکه‌کردن متن</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--text-embeddings" data-item="claude-with-google-cloud-s-vertex-ai--text-embeddings">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۱ <span lang="en" dir="ltr">· Lesson 41</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">بردارهای معنایی متن</span><span class="t-en" lang="en" dir="ltr">Text embeddings</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--text-embeddings" data-done="claude-with-google-cloud-s-vertex-ai--text-embeddings"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Vectors that capture meaning, for semantic search. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--text-embeddings">Text embeddings</a>. Google Cloud also offers its own embedding models; the concept is the same.</p></div><div class="fa" lang="fa" dir="rtl"><p>بردارهایی که معنا را نگه می‌دارند، برای جست‌وجوی معنایی. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--text-embeddings">بردارهای معنایی متن</a>. Google Cloud هم مدل‌های embedding خودش را دارد؛ مفهوم همان است.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--the-full-rag-flow" data-item="claude-with-google-cloud-s-vertex-ai--the-full-rag-flow">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۲ <span lang="en" dir="ltr">· Lesson 42</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">جریان کامل RAG</span><span class="t-en" lang="en" dir="ltr">The full RAG flow</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--the-full-rag-flow" data-done="claude-with-google-cloud-s-vertex-ai--the-full-rag-flow"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Index once; per question embed, rank, answer from context. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-full-rag-flow">The full RAG flow</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک بار نمایه بساز؛ برای هر سؤال embed کن، رتبه بده، از روی زمینه جواب بده. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-full-rag-flow">جریان کامل RAG</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--implementing-the-rag-flow" data-item="claude-with-google-cloud-s-vertex-ai--implementing-the-rag-flow">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۳ <span lang="en" dir="ltr">· Lesson 43</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پیاده‌سازی جریان RAG</span><span class="t-en" lang="en" dir="ltr">Implementing the RAG flow</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--implementing-the-rag-flow" data-done="claude-with-google-cloud-s-vertex-ai--implementing-the-rag-flow"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A small vector index and a grounded prompt. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--implementing-the-rag-flow">Implementing the RAG flow</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک نمایهٔ برداری کوچک و یک پرامپت متکی به زمینه. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--implementing-the-rag-flow">پیاده‌سازی جریان RAG</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--bm25-lexical-search" data-item="claude-with-google-cloud-s-vertex-ai--bm25-lexical-search">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۴ <span lang="en" dir="ltr">· Lesson 44</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">جست‌وجوی واژگانی BM25</span><span class="t-en" lang="en" dir="ltr">BM25 lexical search</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--bm25-lexical-search" data-done="claude-with-google-cloud-s-vertex-ai--bm25-lexical-search"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Keyword search for exact IDs and rare terms. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--bm25-lexical-search">BM25 lexical search</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>جست‌وجوی کلیدواژه‌ای برای شناسه‌های دقیق و کلمه‌های کمیاب. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--bm25-lexical-search">جست‌وجوی واژگانی BM25</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--a-multi-index-rag-pipeline" data-item="claude-with-google-cloud-s-vertex-ai--a-multi-index-rag-pipeline">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۵ <span lang="en" dir="ltr">· Lesson 45</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">خط لولهٔ RAG چندنمایه‌ای</span><span class="t-en" lang="en" dir="ltr">A multi-index RAG pipeline</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/a-multi-index-rag-pipeline" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--a-multi-index-rag-pipeline" data-done="claude-with-google-cloud-s-vertex-ai--a-multi-index-rag-pipeline"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Vector + BM25 retrievers merged with reciprocal rank fusion. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--a-multi-index-rag-pipeline">A multi-index RAG pipeline</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>بازیاب‌های برداری و BM25 که با ادغام رتبهٔ معکوس یکی می‌شوند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--a-multi-index-rag-pipeline">خط لولهٔ RAG چندنمایه‌ای</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--reranking-results" data-item="claude-with-google-cloud-s-vertex-ai--reranking-results">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۶ <span lang="en" dir="ltr">· Lesson 46</span> </p>
+      <h3><span class="t-fa">رتبه‌بندی دوبارهٔ نتیجه‌ها</span><span class="t-en" lang="en" dir="ltr">Reranking results</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--reranking-results" data-done="claude-with-google-cloud-s-vertex-ai--reranking-results"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Retrieve extra candidates (say 10), then ask Claude to <strong>reorder them by relevance</strong> to the question and keep the best few. One more call, often much better context for the final answer.</p></div><div class="fa" lang="fa" dir="rtl"><p>کاندیداهای بیشتری بازیابی کن (مثلاً ۱۰ تا)، بعد از Claude بخواه آن‌ها را <strong>بر اساس ارتباط</strong> با سؤال دوباره مرتب کند و چند تای بهتر را نگه دار. یک فراخوانی بیشتر، و اغلب زمینهٔ خیلی بهتر برای جواب نهایی.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">Rerank with structured outputs</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">from pydantic import BaseModel
+
+class Ranking(BaseModel):
+    doc_ids: list[int]        # most relevant first
+
+def rerank(question, candidates, k=3):
+    docs = &quot;\n&quot;.join(f&#x27;&lt;doc id=&quot;{i}&quot;&gt;{c}&lt;/doc&gt;&#x27; for i, c in enumerate(candidates))
+    r = client.messages.parse(
+        model=&quot;claude-haiku-5-5&quot;, max_tokens=500,
+        messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;:
+            f&quot;&lt;question&gt;{question}&lt;/question&gt;\n&lt;documents&gt;\n{docs}\n&lt;/documents&gt;\n&quot;
+            f&quot;Rank the {k} documents most relevant to the question.&quot;}],
+        output_format=Ranking,
+    )
+    return [candidates[i] for i in r.parsed_output.doc_ids[:k] if 0 &lt;= i &lt; len(candidates)]</code></pre></figure>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>The search engine picks the <strong>shortlist</strong>; Claude is the <strong>hiring manager</strong> who orders the final candidates.</p></div><div class="fa" lang="fa" dir="rtl"><p>موتور جست‌وجو <strong>فهرست کوتاه</strong> را انتخاب می‌کند؛ Claude <strong>مدیر استخدامی</strong> است که کاندیداهای نهایی را مرتب می‌کند.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--contextual-retrieval" data-item="claude-with-google-cloud-s-vertex-ai--contextual-retrieval">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۷ <span lang="en" dir="ltr">· Lesson 47</span> </p>
+      <h3><span class="t-fa">بازیابی زمینه‌دار</span><span class="t-en" lang="en" dir="ltr">Contextual retrieval</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--contextual-retrieval" data-done="claude-with-google-cloud-s-vertex-ai--contextual-retrieval"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Before indexing, ask Claude to write a <strong>short context sentence</strong> for each chunk based on the whole document ("This chunk is from ACME's Q2 2026 report, discussing revenue"), and index chunk + context. Lost context is restored, so both semantic and BM25 search find the right chunks more often.</p></div><div class="fa" lang="fa" dir="rtl"><p>قبل از نمایه‌سازی، از Claude بخواه بر اساس کل سند برای هر تکه یک <strong>جملهٔ زمینهٔ کوتاه</strong> بنویسد («این تکه از گزارش فصل دوم ۲۰۲۶ شرکت ACME است و دربارهٔ درآمد حرف می‌زند») و تکه + زمینه را نمایه کن. زمینهٔ گم‌شده برمی‌گردد؛ پس هم جست‌وجوی معنایی و هم BM25 بیشتر وقت‌ها تکه‌های درست را پیدا می‌کنند.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">Cache the document, contextualize every chunk</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">def contextualize(document, chunk):
+    r = client.messages.create(
+        model=&quot;claude-haiku-5-5&quot;, max_tokens=150,
+        system=[{&quot;type&quot;: &quot;text&quot;, &quot;text&quot;: f&quot;&lt;document&gt;{document}&lt;/document&gt;&quot;,
+                 &quot;cache_control&quot;: {&quot;type&quot;: &quot;ephemeral&quot;}}],          # same for every chunk
+        messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;:
+            f&quot;&lt;chunk&gt;{chunk}&lt;/chunk&gt;\nWrite one short sentence situating this chunk within &quot;
+            &quot;the document, to improve search retrieval. Reply with the sentence only.&quot;}],
+    )
+    return &quot;&quot;.join(b.text for b in r.content if b.type == &quot;text&quot;) + &quot;\n&quot; + chunk</code></pre></figure>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>The document is identical for every chunk, so caching it (as above) makes contextualizing a long report dramatically cheaper.</p></div><div class="fa" lang="fa" dir="rtl"><p>سند برای همهٔ تکه‌ها یکی است؛ پس کش کردنش (مثل کد بالا) زمینه‌دار کردن یک گزارش طولانی را به‌شدت ارزان‌تر می‌کند.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--quiz-on-rag" data-item="claude-with-google-cloud-s-vertex-ai--quiz-on-rag">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۸ <span lang="en" dir="ltr">· Lesson 48</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">آزمونک RAG</span><span class="t-en" lang="en" dir="ltr">Quiz on retrieval augmented generation</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--quiz-on-rag" data-done="claude-with-google-cloud-s-vertex-ai--quiz-on-rag"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Checks chunking, embeddings, hybrid search with RRF, reranking and contextual retrieval.</p></div><div class="fa" lang="fa" dir="rtl"><p>تکه‌کردن، embedding، جست‌وجوی ترکیبی با RRF، رتبه‌بندی دوباره و بازیابی زمینه‌دار را می‌سنجد.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>قابلیت‌های Claude</span><span class="sec-en" lang="en" dir="ltr">Features of Claude</span></h2>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--extended-thinking" data-item="claude-with-google-cloud-s-vertex-ai--extended-thinking">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۹ <span lang="en" dir="ltr">· Lesson 49</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">تفکر گسترده</span><span class="t-en" lang="en" dir="ltr">Extended thinking</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--extended-thinking" data-done="claude-with-google-cloud-s-vertex-ai--extended-thinking"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Adaptive thinking with <code dir="ltr">effort</code> on the newest models; same parameters on Vertex. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--extended-thinking">Extended thinking</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>تفکر تطبیقی با <code dir="ltr">effort</code> روی جدیدترین مدل‌ها؛ روی Vertex هم همان پارامترها. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--extended-thinking">تفکر گسترده</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--image-support" data-item="claude-with-google-cloud-s-vertex-ai--image-support">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۰ <span lang="en" dir="ltr">· Lesson 50</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پشتیبانی از تصویر</span><span class="t-en" lang="en" dir="ltr">Image support</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--image-support" data-done="claude-with-google-cloud-s-vertex-ai--image-support"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Image blocks plus step-by-step analysis instructions. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--image-support">Image support</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>بلوک‌های تصویر به‌اضافهٔ دستورهای تحلیل قدم به قدم. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--image-support">پشتیبانی از تصویر</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--pdf-support" data-item="claude-with-google-cloud-s-vertex-ai--pdf-support">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۱ <span lang="en" dir="ltr">· Lesson 51</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پشتیبانی از PDF</span><span class="t-en" lang="en" dir="ltr">PDF support</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--pdf-support" data-done="claude-with-google-cloud-s-vertex-ai--pdf-support"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>PDFs as document blocks: text, tables, charts and images. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--pdf-support">PDF support</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>PDFها به شکل بلوک سند: متن، جدول، نمودار و تصویر. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--pdf-support">پشتیبانی از PDF</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--citations" data-item="claude-with-google-cloud-s-vertex-ai--citations">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۲ <span lang="en" dir="ltr">· Lesson 52</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ارجاع‌دهی</span><span class="t-en" lang="en" dir="ltr">Citations</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--citations" data-done="claude-with-google-cloud-s-vertex-ai--citations"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Answers with pointers to exact passages. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--citations">Citations</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>جواب‌هایی با اشاره به بخش‌های دقیق منبع. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--citations">ارجاع‌دهی</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--prompt-caching" data-item="claude-with-google-cloud-s-vertex-ai--prompt-caching">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۳ <span lang="en" dir="ltr">· Lesson 53</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">کش پرامپت</span><span class="t-en" lang="en" dir="ltr">Prompt caching</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--prompt-caching" data-done="claude-with-google-cloud-s-vertex-ai--prompt-caching"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p><code dir="ltr">cache_control</code> after the stable prefix; same syntax on Vertex. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-caching">Prompt caching</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p><code dir="ltr">cache_control</code> بعد از پیشوند ثابت؛ روی Vertex هم همان نحو. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-caching">کش پرامپت</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--rules-of-prompt-caching" data-item="claude-with-google-cloud-s-vertex-ai--rules-of-prompt-caching">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۴ <span lang="en" dir="ltr">· Lesson 54</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">قانون‌های کش پرامپت</span><span class="t-en" lang="en" dir="ltr">Rules of prompt caching</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--rules-of-prompt-caching" data-done="claude-with-google-cloud-s-vertex-ai--rules-of-prompt-caching"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Exact prefix, tools → system → messages, minimum length, short default lifetime. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--rules-of-prompt-caching">Rules of prompt caching</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>پیشوند دقیق، ابزارها ← سیستم ← پیام‌ها، حداقل طول، عمر پیش‌فرض کوتاه. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--rules-of-prompt-caching">قانون‌های کش پرامپت</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--prompt-caching-in-action" data-item="claude-with-google-cloud-s-vertex-ai--prompt-caching-in-action">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۵ <span lang="en" dir="ltr">· Lesson 55</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">کش پرامپت در عمل</span><span class="t-en" lang="en" dir="ltr">Prompt caching in action</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--prompt-caching-in-action" data-done="claude-with-google-cloud-s-vertex-ai--prompt-caching-in-action"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Watch <code dir="ltr">cache_creation_input_tokens</code> turn into <code dir="ltr">cache_read_input_tokens</code>. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-caching-in-action">Prompt caching in action</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>ببین <code dir="ltr">cache_creation_input_tokens</code> چطور به <code dir="ltr">cache_read_input_tokens</code> تبدیل می‌شود. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-caching-in-action">کش پرامپت در عمل</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--quiz-on-features-of-claude" data-item="claude-with-google-cloud-s-vertex-ai--quiz-on-features-of-claude">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۶ <span lang="en" dir="ltr">· Lesson 56</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">آزمونک قابلیت‌های Claude</span><span class="t-en" lang="en" dir="ltr">Quiz on features of Claude</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--quiz-on-features-of-claude" data-done="claude-with-google-cloud-s-vertex-ai--quiz-on-features-of-claude"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Checks thinking, images, PDFs, citations and caching. Note that code execution and the Files API aren't available on Vertex.</p></div><div class="fa" lang="fa" dir="rtl"><p>تفکر، تصویر، PDF، ارجاع‌دهی و کش را می‌سنجد. توجه کن که اجرای کد و Files API روی Vertex در دسترس نیستند.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>پروتکل زمینهٔ مدل (MCP)</span><span class="sec-en" lang="en" dir="ltr">Model Context Protocol</span></h2>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--introducing-mcp" data-item="claude-with-google-cloud-s-vertex-ai--introducing-mcp">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۷ <span lang="en" dir="ltr">· Lesson 57</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">آشنایی با MCP</span><span class="t-en" lang="en" dir="ltr">Introducing MCP</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/introducing-mcp" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--introducing-mcp" data-done="claude-with-google-cloud-s-vertex-ai--introducing-mcp"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Reusable servers of tools, resources and prompts; works the same whichever platform serves Claude. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--introducing-mcp">Introducing MCP</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>سرورهای قابل‌استفادهٔ دوباره از ابزار، منبع و پرامپت؛ فرقی نمی‌کند Claude روی کدام سکو اجرا شود. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--introducing-mcp">آشنایی با MCP</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--mcp-clients" data-item="claude-with-google-cloud-s-vertex-ai--mcp-clients">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۸ <span lang="en" dir="ltr">· Lesson 58</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">کلاینت‌های MCP</span><span class="t-en" lang="en" dir="ltr">MCP clients</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--mcp-clients" data-done="claude-with-google-cloud-s-vertex-ai--mcp-clients"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Your app's bridge between Claude and MCP servers. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--mcp-clients">MCP clients</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>پل اپ تو بین Claude و سرورهای MCP. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--mcp-clients">کلاینت‌های MCP</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--project-setup" data-item="claude-with-google-cloud-s-vertex-ai--project-setup">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۹ <span lang="en" dir="ltr">· Lesson 59</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">راه‌اندازی پروژه</span><span class="t-en" lang="en" dir="ltr">Project setup</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/project-setup" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--project-setup" data-done="claude-with-google-cloud-s-vertex-ai--project-setup"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>CLI document chat with a server and client to complete. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--project-setup">Project setup</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>گفت‌وگوی خط فرمان دربارهٔ سندها با یک سرور و کلاینت برای کامل کردن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--project-setup">راه‌اندازی پروژه</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--defining-tools-with-mcp" data-item="claude-with-google-cloud-s-vertex-ai--defining-tools-with-mcp">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۰ <span lang="en" dir="ltr">· Lesson 60</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">تعریف ابزار با MCP</span><span class="t-en" lang="en" dir="ltr">Defining tools with MCP</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--defining-tools-with-mcp" data-done="claude-with-google-cloud-s-vertex-ai--defining-tools-with-mcp"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Decorated, typed functions become tools. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--defining-tools-with-mcp">Defining tools with MCP</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>تابع‌های نوع‌دار با دکوراتور به ابزار تبدیل می‌شوند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--defining-tools-with-mcp">تعریف ابزار با MCP</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--the-server-inspector" data-item="claude-with-google-cloud-s-vertex-ai--the-server-inspector">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۱ <span lang="en" dir="ltr">· Lesson 61</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">بازرس سرور</span><span class="t-en" lang="en" dir="ltr">The server inspector</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--the-server-inspector" data-done="claude-with-google-cloud-s-vertex-ai--the-server-inspector"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Test servers in the browser with <code dir="ltr">mcp dev</code>. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-server-inspector">The server inspector</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>سرورها را با <code dir="ltr">mcp dev</code> در مرورگر بیازما. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-server-inspector">بازرس سرور</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--implementing-a-client" data-item="claude-with-google-cloud-s-vertex-ai--implementing-a-client">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۲ <span lang="en" dir="ltr">· Lesson 62</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پیاده‌سازی کلاینت</span><span class="t-en" lang="en" dir="ltr">Implementing a client</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--implementing-a-client" data-done="claude-with-google-cloud-s-vertex-ai--implementing-a-client"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p><code dir="ltr">ClientSession</code>, <code dir="ltr">list_tools()</code>, <code dir="ltr">call_tool()</code>. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--implementing-a-client">Implementing a client</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p><code dir="ltr">ClientSession</code>، <code dir="ltr">list_tools()</code>، <code dir="ltr">call_tool()</code>. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--implementing-a-client">پیاده‌سازی کلاینت</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--defining-resources" data-item="claude-with-google-cloud-s-vertex-ai--defining-resources">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۳ <span lang="en" dir="ltr">· Lesson 63</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">تعریف منابع</span><span class="t-en" lang="en" dir="ltr">Defining resources</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--defining-resources" data-done="claude-with-google-cloud-s-vertex-ai--defining-resources"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Read-only data at direct and templated URIs. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--defining-resources">Defining resources</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>دادهٔ فقط‌خواندنی در URIهای مستقیم و الگودار. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--defining-resources">تعریف منابع</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--accessing-resources" data-item="claude-with-google-cloud-s-vertex-ai--accessing-resources">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۴ <span lang="en" dir="ltr">· Lesson 64</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">دسترسی به منابع</span><span class="t-en" lang="en" dir="ltr">Accessing resources</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--accessing-resources" data-done="claude-with-google-cloud-s-vertex-ai--accessing-resources"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Read resources and include them as context. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--accessing-resources">Accessing resources</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>منابع را بخوان و به‌عنوان زمینه اضافه کن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--accessing-resources">دسترسی به منابع</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--defining-prompts" data-item="claude-with-google-cloud-s-vertex-ai--defining-prompts">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۵ <span lang="en" dir="ltr">· Lesson 65</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">تعریف پرامپت‌ها</span><span class="t-en" lang="en" dir="ltr">Defining prompts</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--defining-prompts" data-done="claude-with-google-cloud-s-vertex-ai--defining-prompts"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Server-provided expert prompt templates. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--defining-prompts">Defining prompts</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>قالب‌های پرامپت حرفه‌ای که سرور ارائه می‌دهد. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--defining-prompts">تعریف پرامپت‌ها</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--prompts-in-the-client" data-item="claude-with-google-cloud-s-vertex-ai--prompts-in-the-client">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۶ <span lang="en" dir="ltr">· Lesson 66</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پرامپت‌ها در کلاینت</span><span class="t-en" lang="en" dir="ltr">Prompts in the client</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--prompts-in-the-client" data-done="claude-with-google-cloud-s-vertex-ai--prompts-in-the-client"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Show prompts as slash commands; fetch and send them. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompts-in-the-client">Prompts in the client</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>پرامپت‌ها را به شکل فرمان اسلش نشان بده؛ بگیرشان و بفرستشان. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompts-in-the-client">پرامپت‌ها در کلاینت</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--mcp-review" data-item="claude-with-google-cloud-s-vertex-ai--mcp-review">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۷ <span lang="en" dir="ltr">· Lesson 67</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">مرور MCP</span><span class="t-en" lang="en" dir="ltr">MCP review</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--mcp-review" data-done="claude-with-google-cloud-s-vertex-ai--mcp-review"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Model-controlled tools, app-controlled resources, user-controlled prompts. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--mcp-review">MCP review</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>ابزارها در کنترل مدل، منابع در کنترل اپ، پرامپت‌ها در کنترل کاربر. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--mcp-review">مرور MCP</a>.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>ایجنت‌ها و گردش‌کارها</span><span class="sec-en" lang="en" dir="ltr">Agents and workflows</span></h2>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--agents-and-workflows" data-item="claude-with-google-cloud-s-vertex-ai--agents-and-workflows">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۸ <span lang="en" dir="ltr">· Lesson 68</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ایجنت‌ها و گردش‌کارها</span><span class="t-en" lang="en" dir="ltr">Agents and workflows</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--agents-and-workflows" data-done="claude-with-google-cloud-s-vertex-ai--agents-and-workflows"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Workflows: your code fixes the steps. Agents: Claude chooses the steps. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--agents-and-workflows">Agents and workflows</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>گردش‌کار: کد تو قدم‌ها را تعیین می‌کند. ایجنت: Claude قدم‌ها را انتخاب می‌کند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--agents-and-workflows">ایجنت‌ها و گردش‌کارها</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--parallelization-workflows" data-item="claude-with-google-cloud-s-vertex-ai--parallelization-workflows">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۹ <span lang="en" dir="ltr">· Lesson 69</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">گردش‌کارهای موازی</span><span class="t-en" lang="en" dir="ltr">Parallelization workflows</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--parallelization-workflows" data-done="claude-with-google-cloud-s-vertex-ai--parallelization-workflows"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Independent subtasks at the same time, then aggregate. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--parallelization-workflows">Parallelization workflows</a>. With Vertex, use <code dir="ltr">AsyncAnthropicVertex</code> for <code dir="ltr">asyncio</code>.</p></div><div class="fa" lang="fa" dir="rtl"><p>زیرکارهای مستقل همزمان، بعد جمع‌بندی. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--parallelization-workflows">گردش‌کارهای موازی</a>. روی Vertex برای <code dir="ltr">asyncio</code> از <code dir="ltr">AsyncAnthropicVertex</code> استفاده کن.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--chaining-workflows" data-item="claude-with-google-cloud-s-vertex-ai--chaining-workflows">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۷۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۷۰ <span lang="en" dir="ltr">· Lesson 70</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">گردش‌کارهای زنجیره‌ای</span><span class="t-en" lang="en" dir="ltr">Chaining workflows</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--chaining-workflows" data-done="claude-with-google-cloud-s-vertex-ai--chaining-workflows"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Sequential focused steps, with checks in between. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--chaining-workflows">Chaining workflows</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>قدم‌های متمرکز پشت سر هم، با چک‌هایی در میانه. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--chaining-workflows">گردش‌کارهای زنجیره‌ای</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--routing-workflows" data-item="claude-with-google-cloud-s-vertex-ai--routing-workflows">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۷۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۷۱ <span lang="en" dir="ltr">· Lesson 71</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">گردش‌کارهای مسیریابی</span><span class="t-en" lang="en" dir="ltr">Routing workflows</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--routing-workflows" data-done="claude-with-google-cloud-s-vertex-ai--routing-workflows"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Classify first, then send to a specialized prompt. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--routing-workflows">Routing workflows</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>اول دسته‌بندی کن، بعد به یک پرامپت تخصصی بفرست. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--routing-workflows">گردش‌کارهای مسیریابی</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--agents-and-tools" data-item="claude-with-google-cloud-s-vertex-ai--agents-and-tools">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۷۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۷۲ <span lang="en" dir="ltr">· Lesson 72</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ایجنت‌ها و ابزارها</span><span class="t-en" lang="en" dir="ltr">Agents and tools</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/agents-and-tools" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--agents-and-tools" data-done="claude-with-google-cloud-s-vertex-ai--agents-and-tools"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Give agents general, composable tools rather than many narrow ones. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--agents-and-tools">Agents and tools</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>به ایجنت‌ها ابزارهای عمومی و ترکیب‌پذیر بده، نه ابزارهای باریک و زیاد. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--agents-and-tools">ایجنت‌ها و ابزارها</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--environment-inspection" data-item="claude-with-google-cloud-s-vertex-ai--environment-inspection">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۷۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۷۳ <span lang="en" dir="ltr">· Lesson 73</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">وارسی محیط</span><span class="t-en" lang="en" dir="ltr">Environment inspection</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--environment-inspection" data-done="claude-with-google-cloud-s-vertex-ai--environment-inspection"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Agents must observe the results of their actions. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--environment-inspection">Environment inspection</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>ایجنت‌ها باید نتیجهٔ کارهایشان را ببینند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--environment-inspection">وارسی محیط</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--workflows-vs-agents" data-item="claude-with-google-cloud-s-vertex-ai--workflows-vs-agents">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۷۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۷۴ <span lang="en" dir="ltr">· Lesson 74</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">گردش‌کار در برابر ایجنت</span><span class="t-en" lang="en" dir="ltr">Workflows vs agents</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai/workflows-vs-agents" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--workflows-vs-agents" data-done="claude-with-google-cloud-s-vertex-ai--workflows-vs-agents"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Prefer workflows where possible; use agents when truly needed. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--workflows-vs-agents">Workflows vs agents</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>هر جا ممکن است گردش‌کار؛ ایجنت فقط وقتی واقعاً لازم است. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--workflows-vs-agents">گردش‌کار در برابر ایجنت</a>.</p></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p><strong>Cool tip:</strong> Claude Code can also run through your Google Cloud project: set <code dir="ltr">CLAUDE_CODE_USE_VERTEX=1</code>, <code dir="ltr">CLOUD_ML_REGION</code> (for example <code dir="ltr">global</code>) and <code dir="ltr">ANTHROPIC_VERTEX_PROJECT_ID</code>, then run <code dir="ltr">claude</code>. Same agent, billed to Google Cloud.</p></div><div class="fa" lang="fa" dir="rtl"><p><strong>نکتهٔ خفن:</strong> Claude Code هم می‌تواند از طریق پروژهٔ Google Cloud تو اجرا شود: <code dir="ltr">CLAUDE_CODE_USE_VERTEX=1</code>، <code dir="ltr">CLOUD_ML_REGION</code> (مثلاً <code dir="ltr">global</code>) و <code dir="ltr">ANTHROPIC_VERTEX_PROJECT_ID</code> را تنظیم کن و <code dir="ltr">claude</code> را اجرا کن. همان ایجنت، با صورت‌حساب Google Cloud.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--quiz-on-agents-and-workflows" data-item="claude-with-google-cloud-s-vertex-ai--quiz-on-agents-and-workflows">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۷۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۷۵ <span lang="en" dir="ltr">· Lesson 75</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">آزمونک ایجنت‌ها و گردش‌کارها</span><span class="t-en" lang="en" dir="ltr">Quiz on agents and workflows</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--quiz-on-agents-and-workflows" data-done="claude-with-google-cloud-s-vertex-ai--quiz-on-agents-and-workflows"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Checks the workflow patterns and what makes agents effective.</p></div><div class="fa" lang="fa" dir="rtl"><p>الگوهای گردش‌کار و چیزهایی که ایجنت‌ها را کارآمد می‌کنند می‌سنجد.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-google-cloud-s-vertex-ai--final-assessment" data-item="claude-with-google-cloud-s-vertex-ai--final-assessment">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۷۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۷۶ <span lang="en" dir="ltr">· Lesson 76</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">آزمون ارزیابی پایانی</span><span class="t-en" lang="en" dir="ltr">Final assessment quiz</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-google-cloud-s-vertex-ai" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-google-cloud-s-vertex-ai--final-assessment" data-done="claude-with-google-cloud-s-vertex-ai--final-assessment"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Covers the whole course on Vertex AI. Passing earns the completion badge.</p></div><div class="fa" lang="fa" dir="rtl"><p>کل دوره روی Vertex AI را پوشش می‌دهد. با قبول شدن، نشان پایان دوره را می‌گیری.</p></div></div></section>
+  </div>
+</article>
+<section class="cheatsheet" id="cheatsheet"><h2 class="section-title"><span>خلاصهٔ یک‌نگاه</span><span class="sec-en" lang="en" dir="ltr">Cheat sheet</span></h2><div class="pair"><div class="en" lang="en" dir="ltr"><ul><li>Enable Claude in <strong>Model Garden</strong>; authenticate with <code dir="ltr">gcloud auth application-default login</code> (a service account in production).</li><li><code dir="ltr">pip install "anthropic[vertex]"</code> → <code dir="ltr">AnthropicVertex(project_id=..., region="global")</code> → same <code dir="ltr">messages.create</code> as the API course.</li><li>Copy model IDs from Model Garden (older models may have an <code dir="ltr">@date</code> suffix).</li><li>Output control: prefill + stop sequences on older models; structured outputs on the newest.</li><li>Tools: same format as the API course; <strong>batch tool</strong> for many independent calls; <strong>tools for structured data</strong> (or structured outputs today).</li><li>RAG extras: <strong>reranking</strong>, <strong>contextual retrieval</strong> (cache the document while contextualizing).</li><li>Not on Vertex: code execution, Files API, web fetch, MCP connector; web search is the basic version only.</li><li>Claude Code on Vertex: <code dir="ltr">CLAUDE_CODE_USE_VERTEX=1</code> + region + project ID.</li></ul></div><div class="fa" lang="fa" dir="rtl"><ul><li>Claude را در <strong>Model Garden</strong> فعال کن؛ با <code dir="ltr">gcloud auth application-default login</code> احراز هویت کن (در محیط واقعی با یک حساب سرویس).</li><li><code dir="ltr">pip install "anthropic[vertex]"</code> ← <code dir="ltr">AnthropicVertex(project_id=..., region="global")</code> ← همان <code dir="ltr">messages.create</code> دورهٔ API.</li><li>شناسهٔ مدل‌ها را از Model Garden کپی کن (مدل‌های قدیمی‌تر ممکن است پسوند <code dir="ltr">@تاریخ</code> داشته باشند).</li><li>کنترل خروجی: پیش‌پر کردن + دنبالهٔ توقف روی مدل‌های قدیمی‌تر؛ خروجی ساختاریافته روی جدیدترین‌ها.</li><li>ابزارها: همان قالب دورهٔ API؛ <strong>ابزار دسته‌ای</strong> برای فراخوانی‌های مستقل زیاد؛ <strong>ابزار برای دادهٔ ساختاریافته</strong> (یا امروزه خروجی ساختاریافته).</li><li>چیزهای اضافهٔ RAG: <strong>رتبه‌بندی دوباره</strong>، <strong>بازیابی زمینه‌دار</strong> (موقع زمینه‌دار کردن، سند را کش کن).</li><li>روی Vertex نیست: اجرای کد، Files API، web fetch، MCP connector؛ جست‌وجوی وب فقط نسخهٔ پایه.</li><li>Claude Code روی Vertex: <code dir="ltr">CLAUDE_CODE_USE_VERTEX=1</code> + منطقه + شناسهٔ پروژه.</li></ul></div></div></section>
+<section class="selfcheck" id="selfcheck"><h2 class="section-title"><span>خودت را بسنج</span><span class="sec-en" lang="en" dir="ltr">Check yourself</span></h2><p class="hint">اول جواب را در ذهنت بگو، بعد روی سؤال بزن تا پاسخ باز شود.</p><details class="q"><summary><span class="q-n">۱</span><div class="pair pair-q"><div class="en" lang="en" dir="ltr">What replaces the Anthropic API key when using Claude on Vertex AI?</div><div class="fa" lang="fa" dir="rtl">وقتی از Claude روی Vertex AI استفاده می‌کنی، چه چیزی جای کلید API آنتروپیک را می‌گیرد؟</div></div></summary><div class="a"><div class="pair"><div class="en" lang="en" dir="ltr">Google Cloud credentials: Application Default Credentials locally or a service account in production, plus Claude enabled in Model Garden.</div><div class="fa" lang="fa" dir="rtl">اعتبارنامه‌های Google Cloud: اعتبارنامه‌های پیش‌فرض اپلیکیشن روی دستگاه خودت یا یک حساب سرویس در محیط واقعی، به‌اضافهٔ فعال بودن Claude در Model Garden.</div></div></div></details><details class="q"><summary><span class="q-n">۲</span><div class="pair pair-q"><div class="en" lang="en" dir="ltr">Why might the course's <code dir="ltr">tool_choice={"type": "tool", ...}</code> fail on Claude Opus 5.5?</div><div class="fa" lang="fa" dir="rtl">چرا ممکن است <code dir="ltr">tool_choice={"type": "tool", ...}</code> دوره روی Claude Opus 5.5 شکست بخورد؟</div></div></summary><div class="a"><div class="pair"><div class="en" lang="en" dir="ltr">The newest models reject forced tool choice with a 400; use structured outputs, or <code dir="ltr">auto</code> with <code dir="ltr">strict: true</code> and a clear instruction.</div><div class="fa" lang="fa" dir="rtl">جدیدترین مدل‌ها اجبار به انتخاب ابزار را با خطای 400 رد می‌کنند؛ از خروجی ساختاریافته استفاده کن، یا <code dir="ltr">auto</code> با <code dir="ltr">strict: true</code> و یک دستور روشن.</div></div></div></details><details class="q"><summary><span class="q-n">۳</span><div class="pair pair-q"><div class="en" lang="en" dir="ltr">How do you make contextual retrieval affordable on a 200-page report?</div><div class="fa" lang="fa" dir="rtl">چطور بازیابی زمینه‌دار را روی یک گزارش ۲۰۰ صفحه‌ای مقرون‌به‌صرفه کنی؟</div></div></summary><div class="a"><div class="pair"><div class="en" lang="en" dir="ltr">Put the whole document in a cached block and use a fast model, so each chunk's request mostly reads from the cache.</div><div class="fa" lang="fa" dir="rtl">کل سند را در یک بلوک کش‌شده بگذار و از یک مدل سریع استفاده کن تا درخواست هر تکه بیشترش از کش خوانده شود.</div></div></div></details></section>
+<nav class="pager" aria-label="صفحهٔ قبلی و بعدی"><a class="prev" href="../courses/claude-with-amazon-bedrock.html"><span class="pager-label">قبلی</span><span>Claude روی Amazon Bedrock (سرویس هوش مصنوعی AWS)</span></a></nav>
+</main>
+</div>
+
+<footer class="site-foot">
+  <p>این جزوه یک بازنویسی آموزشی و آزاد از مطالب <a href="https://academy.claude.com" target="_blank" rel="noopener">Claude Academy</a> است؛ متن‌ها، تشبیه‌ها و مثال‌ها تازه نوشته شده‌اند. برای جدیدترین نسخه همیشه به صفحهٔ رسمی هر درس سر بزن.</p>
+  <p lang="en" dir="ltr">An independent study companion to Claude Academy. Explanations and examples are original; follow each "official page" link for the source lesson.</p>
+  <p><a href="../index.html">بازگشت به فهرست کامل</a> · <a href="../glossary.html">واژه‌نامه</a></p>
+</footer>
+
+</body>
+</html>
