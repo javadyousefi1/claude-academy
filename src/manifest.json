@@ -1,0 +1,24 @@
+[
+ {
+  "slug": "claude-101",
+  "kind": "course",
+  "group": "start",
+  "en": "Claude 101",
+  "fa": "Claude 101؛ اولین قدم‌ها با Claude",
+  "items": [
+   "what-is-claude",
+   "your-first-conversation-with-claude",
+   "getting-better-results",
+   "claude-desktop-app-chat-cowork-code",
+   "introduction-to-projects",
+   "creating-with-artifacts",
+   "working-with-skills",
+   "connecting-your-tools",
+   "enterprise-search",
+   "research-mode-for-deep-dives",
+   "claude-in-action-use-cases-by-role",
+   "other-ways-to-work-with-claude",
+   "what-s-next"
+  ]
+ }
+]

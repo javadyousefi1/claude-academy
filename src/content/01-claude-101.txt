@@ -1,0 +1,605 @@
+@page
+slug: claude-101
+kind: course
+group: start
+order: 1
+en: Claude 101
+fa: Claude 101؛ اولین قدم‌ها با Claude
+stats: 13 lessons · 1 quiz · 2.5 hr · badge
+url: https://academy.claude.com/courses/claude-101
+expect: 13
+who_en: Anyone with a Claude account, on any plan. A few hands-on parts need a paid plan.
+who_fa: هر کسی که حساب Claude دارد، با هر پلنی. چند تمرین عملی پلن پولی لازم دارد.
+blurb_fa: نقطهٔ شروع همه: از اولین گفت‌وگو تا پروژه‌ها، آرتیفکت‌ها، اسکیل‌ها، کانکتورها و حالت Research.
+desc_en: Everyday work with Claude, from the first chat to projects, artifacts, skills and connected tools.
+
+@intro
+Claude 101 is the front door of Claude Academy. It teaches **everyday work with Claude**: how to talk to it, how to get better answers, how to keep work organized in Projects, how to build things with artifacts, how to teach Claude your habits with skills, and how to connect it to the tools you already use.
+
+Imagine you just got a brilliant new teammate. This course is the "how we work together" talk you would have on day one.
+~~
+Claude 101 درِ ورودی Claude Academy است. این دوره **کار روزمره با Claude** را یاد می‌دهد: چطور با آن حرف بزنی، چطور جواب‌های بهتری بگیری، چطور کارهایت را در پروژه‌ها مرتب نگه داری، چطور با آرتیفکت‌ها چیز بسازی، چطور با اسکیل‌ها عادت‌های کاری‌ات را به Claude یاد بدهی و چطور آن را به ابزارهایی که همین حالا استفاده می‌کنی وصل کنی.
+
+فرض کن یک هم‌تیمی تازه و خیلی باهوش پیدا کرده‌ای. این دوره همان گپ روز اول است که در آن قرار می‌گذارید «ما با هم این‌طوری کار می‌کنیم».
+
+@section Meet Claude | آشنایی با Claude
+
+@lesson
+id: what-is-claude
+en: What is Claude?
+fa: Claude چیست؟
+url: https://academy.claude.com/courses/claude-101/what-is-claude
+
+#explain
+**Claude is an AI model made by Anthropic.** You talk to it in normal language, and it can read, write, explain, summarize, analyze data, brainstorm and write code with you.
+
+Claude is not a search engine and not a database. It learned patterns from a huge amount of text, and it uses that, plus whatever you give it in the conversation, to write the most helpful answer it can. That is why it is great at *working with* information, and why it can sometimes be confidently wrong about facts.
+
+You can reach Claude in many places: the website (claude.ai), the desktop and phone apps, and special tools such as Claude Code for programmers or Claude in Slack. There is also a **learning mode** that guides your thinking with questions instead of handing you the answer, which is great when your goal is to understand, not just to finish.
+~~
+**Claude یک مدل هوش مصنوعی است که شرکت Anthropic ساخته.** با زبان معمولی با آن حرف می‌زنی و او می‌تواند همراهت بخواند، بنویسد، توضیح بدهد، خلاصه کند، داده تحلیل کند، ایده بدهد و کد بنویسد.
+
+Claude موتور جست‌وجو یا بانک اطلاعات نیست. از حجم بسیار زیادی متن، الگوها را یاد گرفته و با همین دانش، به‌اضافهٔ هر چیزی که تو در گفت‌وگو به او می‌دهی، مفیدترین جوابی را که بتواند می‌نویسد. برای همین در **کار کردن روی اطلاعات** فوق‌العاده است، و برای همین گاهی ممکن است دربارهٔ یک واقعیت، با اطمینان کامل اشتباه کند.
+
+Claude را جاهای مختلفی پیدا می‌کنی: وب‌سایت (claude.ai)، اپ دسکتاپ و موبایل، و ابزارهای ویژه مثل Claude Code برای برنامه‌نویس‌ها یا Claude در اسلک. یک **حالت یادگیری** (learning mode) هم دارد که به‌جای دادن جواب آماده، با سؤال‌هایش ذهنت را راهنمایی می‌کند؛ وقتی هدفت فهمیدن است و نه فقط تمام کردن کار، عالی است.
+
+#analogy
+Claude is like a **new intern who has read an enormous library** but met you five minutes ago. They know a lot about the world in general, and nothing about your project until you tell them.
+~~
+Claude مثل **کارآموز تازه‌واردی است که یک کتابخانهٔ عظیم را خوانده** ولی پنج دقیقه است تو را دیده. دربارهٔ دنیا خیلی چیزها می‌داند، اما دربارهٔ پروژهٔ تو هیچ چیز نمی‌داند، مگر این‌که خودت برایش تعریف کنی.
+
+#example
+Sara runs a small bakery. In one morning she asks Claude to: write three Instagram captions for a new saffron cake, turn a messy WhatsApp price list into a clean table, and draft a polite email to a flour supplier who delivered late. Three different jobs, one assistant, about ten minutes.
+~~
+سارا یک قنادی کوچک دارد. در یک صبح از Claude می‌خواهد: سه کپشن اینستاگرام برای کیک زعفرانی جدیدش بنویسد، لیست قیمت شلوغی را که در واتس‌اپ فرستاده به یک جدول مرتب تبدیل کند، و یک ایمیل مؤدبانه برای تأمین‌کنندهٔ آردی که دیر جنس آورده بنویسد. سه کار متفاوت، یک دستیار، حدود ده دقیقه.
+
+#tip
+When a fact really matters (a law, a dose, a price, a date), ask Claude to **show its sources** or turn on web search, then open one or two sources yourself. Claude is a thinking partner, not the final judge.
+~~
+وقتی یک واقعیت واقعاً مهم است (یک قانون، دوز دارو، یک قیمت، یک تاریخ)، از Claude بخواه **منبعش را نشان بدهد** یا جست‌وجوی وب را روشن کن و بعد خودت یکی دو منبع را باز کن. Claude هم‌فکر توست، نه داور نهایی.
+
+#terms
+AI model = مدل هوش مصنوعی = برنامه‌ای که از روی حجم زیادی داده الگو یاد گرفته و می‌تواند متن بفهمد و بسازد.
+Anthropic = آنتروپیک = شرکتی که Claude را می‌سازد و روی ایمنی هوش مصنوعی تمرکز دارد.
+Learning mode = حالت یادگیری = حالتی که Claude به‌جای جواب مستقیم، با سؤال و راهنمایی کمکت می‌کند خودت به جواب برسی.
+
+@lesson
+id: your-first-conversation-with-claude
+en: Your first conversation with Claude
+fa: اولین گفت‌وگویت با Claude
+url: https://academy.claude.com/courses/claude-101/your-first-conversation-with-claude
+
+#explain
+A good first message has **three ingredients**:
+
+1. **Who you are and why** (role and goal): "I'm a teacher preparing for parent meetings."
+2. **What you want** (the task): "Write a short checklist for each meeting."
+3. **How you want it** (style, rules, examples): "Friendly tone, max 6 items, avoid jargon."
+
+You can attach files, screenshots or examples of what you like. Then **keep talking**: a conversation is a draft-and-improve loop. Say "shorter", "more formal", "you missed the budget part", just like you would with a colleague.
+
+Two settings help Claude remember you. **Instructions for Claude** (in your settings) is a short note Claude considers in every chat, such as who you are and how you like answers. **Memory** lets Claude remember useful things across chats; you can turn it on or off and review, edit or delete what it saved in Settings.
+~~
+یک پیام اول خوب **سه جزء** دارد:
+
+1. **تو کی هستی و چرا** (نقش و هدف): «معلمم و دارم برای جلسه‌های اولیا آماده می‌شوم.»
+2. **چه می‌خواهی** (کار): «برای هر جلسه یک چک‌لیست کوتاه بنویس.»
+3. **چطور می‌خواهی** (سبک، قانون‌ها، نمونه): «لحن دوستانه، حداکثر ۶ مورد، بدون اصطلاحات تخصصی.»
+
+می‌توانی فایل، اسکرین‌شات یا نمونه‌ای از چیزی که دوست داری ضمیمه کنی. بعد **حرف زدن را ادامه بده**: گفت‌وگو یعنی چرخهٔ «پیش‌نویس، بعد بهتر کردن». بگو «کوتاه‌تر»، «رسمی‌تر»، «بخش بودجه را جا انداختی»؛ درست مثل حرف زدن با یک همکار.
+
+دو تنظیم کمک می‌کند Claude تو را به خاطر بسپارد. **Instructions for Claude** (در تنظیمات) یادداشت کوتاهی است که Claude در همهٔ گفت‌وگوها در نظر می‌گیرد؛ مثلاً این‌که تو کی هستی و جواب‌ها را چطور دوست داری. **حافظه** (Memory) به Claude اجازه می‌دهد چیزهای مفید را بین گفت‌وگوها یادش بماند؛ می‌توانی روشن یا خاموشش کنی و هر چه ذخیره کرده را در تنظیمات ببینی، ویرایش یا پاک کنی.
+
+#analogy
+Asking Claude for "a sandwich" gets you a sandwich. Asking for "a toasted whole-wheat sandwich, no onions, extra cheese, cut in half for my kid" gets you **your** sandwich. Details are not bossy; they are kind.
+~~
+اگر از Claude فقط «یک ساندویچ» بخواهی، یک ساندویچ می‌گیری. اگر بگویی «ساندویچ نان سبوس‌دار تست‌شده، بدون پیاز، پنیر اضافه، از وسط نصف‌شده برای بچه‌ام»، ساندویچِ **خودت** را می‌گیری. جزئیات دادن زورگویی نیست؛ لطف است.
+
+#prompt
+I'm the founder of a small app that helps Persian speakers learn English. I'm pitching to two investors next week. Write an outline for a 10-slide pitch deck: problem, solution, market, traction, business model, team, ask. Keep each slide to a title and 3 bullet points. Tone: confident but not hype. Here is our one-page summary: [attached]
+~~
+من مؤسس یک اپ کوچکم که به فارسی‌زبان‌ها کمک می‌کند انگلیسی یاد بگیرند. هفتهٔ بعد برای دو سرمایه‌گذار ارائه دارم. یک طرح کلی برای پیچ‌دک ۱۰ اسلایدی بنویس: مسئله، راه‌حل، بازار، رشد تا امروز، مدل درآمدی، تیم، مبلغ درخواستی. هر اسلاید فقط یک عنوان و ۳ بولت داشته باشد. لحن: مطمئن، ولی بدون اغراق. خلاصهٔ یک‌صفحه‌ای ما ضمیمه است: [پیوست]
+
+#tip
+Don't start a new chat for every small change. Reply inside the same chat: "Good. Now make slide 4 more concrete with numbers." Claude still has everything you said above, so each round gets sharper.
+~~
+برای هر تغییر کوچک گفت‌وگوی تازه باز نکن. در همان گفت‌وگو جواب بده: «خوب است. حالا اسلاید ۴ را با عدد ملموس‌تر کن.» Claude هنوز همهٔ حرف‌های قبلی‌ات را دارد، پس هر دور تیزتر می‌شود.
+
+#warn
+Never paste passwords, bank details, or private information about other people that you are not allowed to share. Treat a chat like an email to a trusted colleague at work: useful, but not a safe for secrets.
+~~
+هیچ‌وقت رمز عبور، اطلاعات بانکی یا اطلاعات خصوصی دیگران را که اجازهٔ اشتراکش را نداری در گفت‌وگو نگذار. با چت مثل ایمیل به یک همکار مورد اعتماد رفتار کن: مفید است، ولی گاوصندوق رازها نیست.
+
+#try
+Open Claude and write one message with all three ingredients about something real in your week. Then improve the answer twice with short feedback ("simpler", "add an example"). Notice how much better round three is than round one.
+~~
+Claude را باز کن و یک پیام با هر سه جزء دربارهٔ کار واقعی همین هفته‌ات بنویس. بعد دو بار با بازخورد کوتاه جواب را بهتر کن («ساده‌تر»، «یک مثال اضافه کن»). ببین دور سوم چقدر از دور اول بهتر است.
+
+#terms
+Prompt = پرامپت (درخواست) = پیامی که به هوش مصنوعی می‌دهی تا بگویی چه می‌خواهی.
+Memory = حافظه = قابلیتی که به Claude اجازه می‌دهد اطلاعات مفید را بین گفت‌وگوهای مختلف به خاطر بسپارد.
+Instructions for Claude = دستورهای همیشگی = یادداشتی در تنظیمات که Claude در همهٔ گفت‌وگوها در نظر می‌گیرد.
+
+@lesson
+id: getting-better-results
+en: Getting better results
+fa: گرفتن نتیجه‌های بهتر
+url: https://academy.claude.com/courses/claude-101/getting-better-results
+
+#explain
+Most "bad answers" come from missing information, not from a weak model. A few habits fix most problems:
+
+- **Show, don't only tell.** Paste an example of a good result. Claude copies the style of examples very well.
+- **Give the material.** Upload the report, the data, the old version. Claude can only use what it can see.
+- **Ask for a plan first** for big jobs: "First give me an outline, wait for my OK, then write."
+- **Let Claude ask you questions**: "Before you start, ask me anything you need to know."
+- **Pick the right model and thinking level.** Lighter models (like Haiku) are fast and save your usage; Sonnet is the everyday all-rounder; Opus and Fable think deeper for hard, long or high-stakes work. Turning on extended thinking helps with math, multi-step logic and trade-offs, and only slows down simple tasks.
+- **Check the result** against something you already know. If Claude analyzed a spreadsheet, spot-check two numbers yourself.
+~~
+بیشتر «جواب‌های بد» به‌خاطر اطلاعات ناقص است، نه مدل ضعیف. چند عادت ساده بیشتر مشکل‌ها را حل می‌کند:
+
+- **نشان بده، فقط توضیح نده.** یک نمونه از نتیجهٔ خوب بگذار. Claude سبک نمونه‌ها را خیلی خوب تقلید می‌کند.
+- **مواد اولیه را بده.** گزارش، داده یا نسخهٔ قبلی را آپلود کن. Claude فقط از چیزی استفاده می‌کند که می‌بیند.
+- **برای کارهای بزرگ اول نقشه بخواه:** «اول یک طرح کلی بده، صبر کن تأیید کنم، بعد بنویس.»
+- **بگذار Claude از تو سؤال کند:** «قبل از شروع، هر چه لازم داری بدانی از من بپرس.»
+- **مدل و سطح فکر کردن مناسب را انتخاب کن.** مدل‌های سبک‌تر (مثل Haiku) سریع‌اند و سهمیهٔ مصرفت را کمتر می‌خورند؛ Sonnet همه‌کارهٔ روزمره است؛ Opus و Fable برای کارهای سخت، طولانی یا حساس عمیق‌تر فکر می‌کنند. روشن کردن «تفکر گسترده» (extended thinking) در ریاضی، منطق چندمرحله‌ای و سبک‌سنگین کردن گزینه‌ها کمک می‌کند و در کارهای ساده فقط کندت می‌کند.
+- **نتیجه را با چیزی که خودت می‌دانی بسنج.** اگر Claude یک فایل اکسل را تحلیل کرده، دو عددش را خودت چک کن.
+
+#analogy
+A prompt is like an address in a GPS. "Tehran" gets you somewhere in a big city. "Valiasr St., No. 1200, second floor" gets you to the right door.
+~~
+پرامپت مثل آدرس دادن به مسیریاب است. «تهران» تو را به جایی در یک شهر بزرگ می‌برد. «خیابان ولیعصر، پلاک ۱۲۰۰، طبقهٔ دوم» تو را دقیقاً پشت درِ درست می‌رساند.
+
+#example
+Weak: "Summarize this report."
+Strong: "Summarize this 30-page report for my manager, who has 2 minutes. Start with the 3 decisions she needs to make, then the risks, then one sentence on cost. Use bullet points. If something in the report is unclear, list it at the end as 'open questions'."
+~~
+ضعیف: «این گزارش را خلاصه کن.»
+قوی: «این گزارش ۳۰ صفحه‌ای را برای مدیرم خلاصه کن که فقط ۲ دقیقه وقت دارد. اول ۳ تصمیمی را که باید بگیرد بگو، بعد ریسک‌ها، بعد یک جمله دربارهٔ هزینه. بولت‌وار بنویس. اگر جایی از گزارش مبهم است، آخر کار با عنوان «سؤال‌های باز» فهرستش کن.»
+
+#prompt
+Before you write anything, ask me up to 5 short questions that would most improve the result. Wait for my answers, then write the first draft.
+~~
+قبل از این‌که چیزی بنویسی، حداکثر ۵ سؤال کوتاه از من بپرس که بیشترین تأثیر را در بهتر شدن نتیجه دارند. صبر کن جواب بدهم، بعد پیش‌نویس اول را بنویس.
+
+#tip
+The "interview me first" trick above is one of the most powerful habits in this whole handout. It turns a vague request into a precise one, and Claude does the hard part of figuring out what is missing.
+~~
+ترفند «اول از من مصاحبه کن» بالا یکی از قوی‌ترین عادت‌های کل این جزوه است. یک درخواست مبهم را دقیق می‌کند و سخت‌ترین قسمت، یعنی پیدا کردن چیزهایی که جا افتاده، را خود Claude انجام می‌دهد.
+
+#warn
+A longer prompt is not automatically a better prompt. Ten clear sentences beat fifty sentences that repeat themselves or contradict each other.
+~~
+پرامپت طولانی‌تر خودبه‌خود بهتر نیست. ده جملهٔ روشن از پنجاه جمله‌ای که تکراری‌اند یا با هم تناقض دارند بهتر است.
+
+#terms
+Extended thinking = تفکر گسترده = حالتی که مدل قبل از جواب نهایی، قدم‌به‌قدم فکر می‌کند؛ برای مسئله‌های سخت مفید است.
+Example (few-shot) = نمونه‌دادن = گذاشتن یک یا چند نمونه از خروجی دلخواه در پرامپت تا مدل سبکش را تقلید کند.
+
+@lesson
+id: claude-desktop-app-chat-cowork-code
+en: How you'll work with Claude on your desktop
+fa: کار با Claude روی کامپیوترت
+meta: 10 min
+url: https://academy.claude.com/courses/claude-101/claude-desktop-app-chat-cowork-code
+
+#explain
+The Claude desktop app gives you **three ways of working**, each in its own tab:
+
+- **Chat**: turn-by-turn conversation. Best for quick questions, brainstorming and drafting where you want to stay involved in every step. Desktop extras include a quick-entry shortcut, sharing screenshots and dictation.
+- **Cowork**: hand off a whole multi-step task. Claude can work with folders on your computer, your connected apps, a browser, plugins and scheduled tasks, then come back with a finished result. Available on paid plans (Pro, Max, Team, Enterprise).
+- **Code**: a workspace for building software. Claude works on a local folder or a connected GitHub repository, and you choose how much it must ask before acting, from approving every step to planning first.
+
+The simple rule: **want to be in the loop on every turn? Chat. Want to come back to a finished job? Cowork. Building software? Code.**
+~~
+اپ دسکتاپ Claude **سه شیوهٔ کار** به تو می‌دهد که هر کدام تب خودش را دارد:
+
+- **Chat (گفت‌وگو):** رفت‌وبرگشت پیام‌به‌پیام. برای سؤال‌های سریع، طوفان فکری و پیش‌نویس، وقتی می‌خواهی در هر قدم حضور داشته باشی. امکانات مخصوص دسکتاپ هم دارد: میان‌بر سریع برای باز کردن، فرستادن اسکرین‌شات و دیکته با صدا.
+- **Cowork (همکار):** یک کار چندمرحله‌ای کامل را می‌سپاری. Claude می‌تواند با پوشه‌های کامپیوترت، اپ‌های وصل‌شده، مرورگر، پلاگین‌ها و کارهای زمان‌بندی‌شده کار کند و با نتیجهٔ تمام‌شده برگردد. روی پلن‌های پولی (Pro، Max، Team، Enterprise) هست.
+- **Code (کد):** فضای کار برای ساختن نرم‌افزار. Claude روی یک پوشهٔ محلی یا یک مخزن گیت‌هاب کار می‌کند و تو تعیین می‌کنی قبل از هر کار چقدر اجازه بگیرد؛ از تأیید تک‌تک قدم‌ها تا «اول برنامه بریز».
+
+قانون ساده: **می‌خواهی در هر نوبت حضور داشته باشی؟ Chat. می‌خواهی برگردی و کار تمام‌شده را ببینی؟ Cowork. داری نرم‌افزار می‌سازی؟ Code.**
+
+#analogy
+Chat is talking with a helper at your desk. Cowork is giving the helper a to-do list and going to lunch. Code is inviting the helper into your workshop to build furniture with you.
+~~
+Chat مثل حرف زدن با دستیار پشت میز خودت است. Cowork یعنی یک فهرست کار به دستیار بدهی و بروی ناهار. Code یعنی دستیار را به کارگاهت دعوت کنی تا با هم مبل بسازید.
+
+#example
+- Chat: "Give me 20 name ideas for my Persian cooking podcast."
+- Cowork: "Go through my Downloads folder, rename every invoice as `date - company - amount`, move them into a `Receipts 2026` folder and make a summary spreadsheet."
+- Code: "The contact form on my website stopped sending emails. Find out why and fix it."
+~~
+- Chat: «۲۰ پیشنهاد اسم برای پادکست آشپزی ایرانی‌ام بده.»
+- Cowork: «پوشهٔ Downloads من را بگرد، اسم همهٔ فاکتورها را به شکل `تاریخ - شرکت - مبلغ` عوض کن، همه را به پوشهٔ `Receipts 2026` ببر و یک فایل اکسل خلاصه بساز.»
+- Code: «فرم تماس سایتم دیگر ایمیل نمی‌فرستد. پیدا کن چرا و درستش کن.»
+
+#tip
+Cowork shows you a plan before it changes things on your computer. Read that plan like a contract: if a step looks risky (deleting, sending, overwriting), say so before you approve.
+~~
+Cowork قبل از تغییر دادن چیزی روی کامپیوترت، برنامه‌اش را نشانت می‌دهد. آن برنامه را مثل یک قرارداد بخوان: اگر قدمی خطرناک به نظر می‌رسد (پاک کردن، فرستادن، رونویسی)، قبل از تأیید بگو.
+
+@section Organizing your work and knowledge | مرتب کردن کارها و دانسته‌ها
+
+@lesson
+id: introduction-to-projects
+en: Introduction to projects
+fa: آشنایی با پروژه‌ها (Projects)
+url: https://academy.claude.com/courses/claude-101/introduction-to-projects
+
+#explain
+A **Project** is a workspace for one ongoing piece of work. It has two special things that every chat inside it can use:
+
+- **Project knowledge**: files you upload once (briefs, notes, data, style guides).
+- **Project instructions**: rules for every chat in the project, such as tone, level of detail, or "always answer in Persian and English".
+
+So instead of re-explaining your situation in every new chat, you set it up once. Project instructions work together with your personal preferences and any writing style you chose. On Team and Enterprise plans, projects can be shared with teammates, so everyone starts from the same knowledge.
+~~
+**پروژه** (Project) یک فضای کاری برای یک کار ادامه‌دار است. دو چیز ویژه دارد که همهٔ گفت‌وگوهای داخلش از آن استفاده می‌کنند:
+
+- **دانش پروژه** (Project knowledge): فایل‌هایی که یک بار آپلود می‌کنی (بریف‌ها، یادداشت‌ها، داده‌ها، راهنمای سبک).
+- **دستورهای پروژه** (Project instructions): قانون‌هایی برای همهٔ گفت‌وگوهای پروژه؛ مثل لحن، میزان جزئیات، یا «همیشه به فارسی و انگلیسی جواب بده».
+
+پس به‌جای این‌که در هر گفت‌وگوی تازه وضعیتت را از اول توضیح بدهی، یک بار همه‌چیز را تنظیم می‌کنی. دستورهای پروژه کنار ترجیحات شخصی‌ات و سبک نوشتاری انتخابی‌ات کار می‌کنند. در پلن‌های Team و Enterprise می‌توانی پروژه را با هم‌تیمی‌ها به اشتراک بگذاری تا همه از یک دانش مشترک شروع کنند.
+
+#analogy
+A Project is a **labeled binder** for one subject. Everything about "Biology exam" lives inside, and a sticky note on the cover says "explain like I'm 15 and quiz me at the end".
+~~
+پروژه مثل یک **کلاسور برچسب‌دار** برای یک موضوع است. هر چه دربارهٔ «امتحان زیست» داری داخلش است و روی جلدش یک یادداشت چسبی نوشته: «مثل یک نوجوان ۱۵ ساله برایم توضیح بده و آخرش از من سؤال بپرس».
+
+#example
+Maryam is planning her wedding. She creates a Project called "Wedding" with the budget spreadsheet, guest list and venue contract. Instructions: "Amounts in Toman. Be short. Always flag anything that changes the budget." Every new chat ("compare these two caterers", "draft the invitation text") already knows the whole picture.
+~~
+مریم دارد عروسی‌اش را برنامه‌ریزی می‌کند. یک پروژه به اسم «عروسی» می‌سازد و فایل بودجه، لیست مهمان‌ها و قرارداد تالار را داخلش می‌گذارد. دستورها: «مبلغ‌ها به تومان. کوتاه بنویس. هر چیزی که بودجه را تغییر می‌دهد علامت بزن.» حالا هر گفت‌وگوی تازه («این دو کیترینگ را مقایسه کن»، «متن کارت دعوت را بنویس») از اول کل تصویر را می‌داند.
+
+#tip
+Put **stable** things in project knowledge (rules, references, background) and **changing** things in the chat (today's question, this week's numbers). Curate the files: ten relevant documents beat a hundred random ones.
+~~
+چیزهای **ثابت** را در دانش پروژه بگذار (قانون‌ها، مرجع‌ها، پیش‌زمینه) و چیزهای **متغیر** را در خود گفت‌وگو (سؤال امروز، عددهای این هفته). فایل‌ها را گزینش کن: ده سند مرتبط از صد سند پراکنده بهتر است.
+
+#try
+Make a Project for something you do every week (a class, a client, a hobby). Add two files and three lines of instructions. Then start two different chats inside it and notice that you never had to repeat the background.
+~~
+برای کاری که هر هفته انجامش می‌دهی (یک کلاس، یک مشتری، یک سرگرمی) یک پروژه بساز. دو فایل و سه خط دستور اضافه کن. بعد داخلش دو گفت‌وگوی متفاوت شروع کن و ببین که دیگر لازم نشد پیش‌زمینه را تکرار کنی.
+
+#terms
+Project = پروژه = فضای کاری با فایل‌ها و دستورهای مشترک برای همهٔ گفت‌وگوهای یک موضوع.
+Knowledge base = پایگاه دانش = مجموعهٔ فایل‌هایی که Claude در یک پروژه به آن‌ها دسترسی دارد.
+
+@lesson
+id: creating-with-artifacts
+en: Creating with artifacts
+fa: ساختن با آرتیفکت‌ها
+url: https://academy.claude.com/courses/claude-101/creating-with-artifacts
+
+#explain
+When Claude makes something substantial (a document, a chart, a small app), it can open it as an **artifact**: a separate panel next to the chat that you can view, edit, download and share.
+
+Some artifact types have their own editor:
+
+- **Claude Design**: screens, flows and prototypes laid out as artboards you can also edit by hand.
+- **Claude Slides**: a deck you can present right in Claude, or export to PowerPoint, PDF or Google Slides.
+- **Claude Docs**: a document your team can read, comment on and edit together with Claude.
+- **Claude Dashboards**: charts of your data, each showing when its data was last refreshed.
+
+Anything else becomes an **interactive artifact**: ask for a planner, a calculator, a quiz or a game and Claude builds it so you can use it right there. Design, Slides and Docs are in beta on paid plans; on Enterprise an admin decides when they are turned on. On Team and Enterprise, shared links stay inside your organization by default.
+~~
+وقتی Claude چیز قابل‌توجهی می‌سازد (یک سند، یک نمودار، یک برنامهٔ کوچک)، می‌تواند آن را به شکل **آرتیفکت** (artifact) باز کند: پنلی جدا کنار گفت‌وگو که می‌توانی ببینی، ویرایش کنی، دانلود کنی و به اشتراک بگذاری.
+
+بعضی نوع‌های آرتیفکت ویرایشگر مخصوص خودشان را دارند:
+
+- **Claude Design:** صفحه‌ها، مسیرهای کاربری و نمونه‌های اولیه که روی آرت‌بورد چیده می‌شوند و خودت هم می‌توانی دستی ویرایششان کنی.
+- **Claude Slides:** یک ارائهٔ اسلایدی که همان‌جا در Claude نمایشش می‌دهی یا به پاورپوینت، PDF یا گوگل اسلاید خروجی می‌گیری.
+- **Claude Docs:** سندی که تیمت می‌تواند همراه Claude بخواند، رویش نظر بگذارد و ویرایشش کند.
+- **Claude Dashboards:** نمودارهای داده‌هایت که هر کدام نشان می‌دهد آخرین بار کی به‌روز شده.
+
+هر چیز دیگری یک **آرتیفکت تعاملی** می‌شود: یک برنامه‌ریز، ماشین‌حساب، آزمونک یا بازی بخواه تا Claude بسازد و همان‌جا استفاده‌اش کنی. Design و Slides و Docs در پلن‌های پولی به‌صورت بتا هستند و در Enterprise مدیر سازمان تصمیم می‌گیرد کی روشن شوند. در Team و Enterprise لینک‌های اشتراکی به‌طور پیش‌فرض فقط داخل سازمان باز می‌شوند.
+
+#analogy
+The chat is your conversation with a carpenter. The artifact is **the actual table** they build next to you while you talk: you can touch it, ask for changes, and take it home.
+~~
+گفت‌وگو، حرف زدن تو با نجار است. آرتیفکت **همان میزی است** که نجار همان‌طور که حرف می‌زنید کنارت می‌سازد: می‌توانی دستش بزنی، تغییر بخواهی و با خودت ببری خانه.
+
+#prompt
+Build me a simple monthly expense tracker. I want to add rows with date, category and amount in Toman, see the total at the top, and a pie chart by category. Use Persian labels and right-to-left layout.
+~~
+برایم یک ردیاب سادهٔ خرج ماهانه بساز. می‌خواهم ردیف با تاریخ، دسته و مبلغ به تومان اضافه کنم، جمع کل را بالای صفحه ببینم و یک نمودار دایره‌ای بر اساس دسته‌ها داشته باشم. برچسب‌ها فارسی و چیدمان راست‌به‌چپ باشد.
+
+#tip
+You don't need to know any code to change an artifact. Just describe the change: "make the buttons bigger", "add a dark mode", "sort the table by amount". Claude edits it in place and keeps earlier versions, so you can always go back.
+~~
+برای تغییر دادن آرتیفکت لازم نیست کدنویسی بلد باشی. فقط تغییر را توصیف کن: «دکمه‌ها را بزرگ‌تر کن»، «حالت تاریک اضافه کن»، «جدول را بر اساس مبلغ مرتب کن». Claude همان را ویرایش می‌کند و نسخه‌های قبلی را نگه می‌دارد تا هر وقت خواستی برگردی.
+
+#warn
+An interactive artifact is built for your request, not checked by an expert. If it calculates money, grades or anything important, test it with a few numbers you already know the answer to.
+~~
+آرتیفکت تعاملی برای درخواست تو ساخته شده، نه این‌که یک متخصص چکش کرده باشد. اگر پول، نمره یا چیز مهمی را حساب می‌کند، با چند عدد که جوابشان را می‌دانی امتحانش کن.
+
+#terms
+Artifact = آرتیفکت = محتوای مستقلی (سند، کد، نمودار، اپ کوچک) که Claude در پنلی کنار گفت‌وگو می‌سازد.
+Interactive artifact = آرتیفکت تعاملی = ابزار کوچکی که داخل Claude کار می‌کند؛ مثل ماشین‌حساب یا آزمونک.
+
+@lesson
+id: working-with-skills
+en: Working with skills
+fa: کار با اسکیل‌ها (Skills)
+url: https://academy.claude.com/courses/claude-101/working-with-skills
+
+#explain
+A **skill** is a reusable package of instructions (and sometimes templates or small scripts) that Claude loads **only when the task needs it**. Each skill has a short description that tells Claude when to use it.
+
+Why not just use your personal instructions? Because those apply to every chat and should stay short ("keep explanations concise"). Skills can be long and detailed, and they stay out of the way until they are relevant: your brand guidelines, your weekly report format, your company's way of writing documentation.
+
+Anthropic provides ready-made skills (for example for creating Excel, Word, PowerPoint and PDF files), and you can create your own. You can even ask Claude to help you build a skill through a normal conversation. Skills are turned on in Settings, depending on your plan.
+~~
+**اسکیل** (skill) یک بستهٔ قابل‌استفادهٔ دوباره از دستورالعمل‌هاست (و گاهی قالب‌ها یا اسکریپت‌های کوچک) که Claude **فقط وقتی کار لازمش دارد** بارش می‌کند. هر اسکیل یک توضیح کوتاه دارد که به Claude می‌گوید کی از آن استفاده کند.
+
+چرا همان دستورهای شخصی کافی نیست؟ چون آن‌ها روی همهٔ گفت‌وگوها اثر می‌گذارند و باید کوتاه بمانند («توضیح‌ها را خلاصه بنویس»). اسکیل‌ها می‌توانند بلند و پرجزئیات باشند و تا وقتی لازم نشده‌اند مزاحم نمی‌شوند: راهنمای برند تو، قالب گزارش هفتگی‌ات، روش شرکتت برای نوشتن مستندات.
+
+Anthropic اسکیل‌های آماده دارد (مثلاً برای ساختن فایل اکسل، ورد، پاورپوینت و PDF) و خودت هم می‌توانی اسکیل بسازی. حتی می‌توانی از Claude بخواهی در یک گفت‌وگوی معمولی کمکت کند اسکیل بسازی. اسکیل‌ها بسته به پلنت از تنظیمات روشن می‌شوند.
+
+#analogy
+Skills are **recipe cards in a kitchen drawer**. The chef doesn't memorize every recipe. When someone orders lasagna, the chef pulls out the lasagna card, follows it exactly, and puts it back.
+~~
+اسکیل‌ها مثل **کارت‌های دستور پخت در کشوی آشپزخانه‌اند**. آشپز همهٔ دستورها را حفظ نیست. وقتی کسی لازانیا سفارش می‌دهد، کارت لازانیا را درمی‌آورد، دقیق دنبالش می‌کند و دوباره سر جایش می‌گذارد.
+
+#example
+Ali writes a status update for his team every Friday. He creates a "weekly update" skill: sections (Done, Next, Blocked), tone (calm, no blame), length (under 200 words), plus one good example. Now on Fridays he pastes his messy notes and writes only: "weekly update please". The format is perfect every time.
+~~
+علی هر جمعه برای تیمش گزارش وضعیت می‌نویسد. یک اسکیل «گزارش هفتگی» می‌سازد: بخش‌ها (انجام شد، قدم بعد، گیر کرده)، لحن (آرام، بدون مقصر دانستن)، طول (کمتر از ۲۰۰ کلمه) و یک نمونهٔ خوب. حالا جمعه‌ها فقط یادداشت‌های درهمش را می‌چسباند و می‌نویسد: «گزارش هفتگی لطفاً». قالب هر بار بی‌نقص است.
+
+#prompt
+Help me turn my weekly report format into a skill. Interview me about the sections, tone and length, ask me for one good past example, then write the skill so you'll use it whenever I ask for a weekly update.
+~~
+کمکم کن قالب گزارش هفتگی‌ام را به یک اسکیل تبدیل کنیم. دربارهٔ بخش‌ها، لحن و طولش از من سؤال کن، یک نمونهٔ خوب قدیمی بخواه، بعد اسکیل را طوری بنویس که هر وقت گزارش هفتگی خواستم از آن استفاده کنی.
+
+#tip
+The **description** is the most important line of a skill: Claude reads it to decide *when* to use the skill. Write it like a trigger: "Use when the user asks for a weekly update, status report or Friday summary."
+~~
+**توضیح** (description) مهم‌ترین خط هر اسکیل است: Claude آن را می‌خواند تا تصمیم بگیرد *کی* از اسکیل استفاده کند. مثل یک ماشهٔ شروع بنویسش: «وقتی کاربر گزارش هفتگی، گزارش وضعیت یا جمع‌بندی جمعه خواست، از این استفاده کن.»
+
+#note
+Quick comparison: **Personal instructions** = short, always on, about you. **Project instructions** = about one workspace. **Skills** = detailed procedures that switch on by themselves when the task matches.
+~~
+مقایسهٔ سریع: **دستورهای شخصی** = کوتاه، همیشه روشن، دربارهٔ خود تو. **دستورهای پروژه** = دربارهٔ یک فضای کاری. **اسکیل‌ها** = روش‌های کاری پرجزئیات که وقتی کار جور باشد خودشان روشن می‌شوند.
+
+#terms
+Skill = اسکیل (مهارت) = بسته‌ای از دستورالعمل و فایل که Claude فقط هنگام نیاز بارش می‌کند.
+Description = توضیح = متن کوتاهی در اسکیل که مشخص می‌کند Claude کی باید از آن استفاده کند.
+
+@section Expanding Claude's reach | بیشتر کردن دسترسی Claude
+
+@lesson
+id: connecting-your-tools
+en: Connecting your tools
+fa: وصل کردن ابزارهایت
+url: https://academy.claude.com/courses/claude-101/connecting-your-tools
+
+#explain
+**Connectors** let Claude look inside the apps you already use, such as Google Drive, Gmail, Calendar, Slack, Notion, Asana, Canva or Microsoft 365, and in some cases take actions there. They are built on the **Model Context Protocol (MCP)**, an open standard for plugging tools into AI.
+
+How to add one: open the connector directory, pick the app, click **Connect**, sign in, and grant the permissions it asks for. After that, you can switch the connector on in a chat, and Claude can search it and quote from it.
+
+On Team and Enterprise plans, an organization Owner must add a connector for the organization before members can use it. Also check each connector's description: some can only read and search, others can create or change things.
+~~
+**کانکتورها** (Connectors) به Claude اجازه می‌دهند داخل اپ‌هایی که همین حالا استفاده می‌کنی را ببیند؛ مثل گوگل درایو، جیمیل، تقویم، اسلک، نوشن، آسانا، کنوا یا مایکروسافت ۳۶۵، و در بعضی موارد آن‌جا کاری هم انجام دهد. این‌ها بر پایهٔ **پروتکل MCP** (Model Context Protocol) ساخته شده‌اند؛ یک استاندارد باز برای وصل کردن ابزارها به هوش مصنوعی.
+
+برای اضافه کردن: فهرست کانکتورها را باز کن، اپ را انتخاب کن، روی **Connect** بزن، وارد حسابت شو و اجازه‌هایی را که می‌خواهد بده. بعد از آن می‌توانی کانکتور را در یک گفت‌وگو روشن کنی و Claude در آن جست‌وجو می‌کند و از آن نقل‌قول می‌آورد.
+
+در پلن‌های Team و Enterprise، اول یک مالک (Owner) سازمان باید کانکتور را برای سازمان اضافه کند تا اعضا بتوانند استفاده‌اش کنند. توضیح هر کانکتور را هم بخوان: بعضی فقط می‌توانند بخوانند و جست‌وجو کنند، بعضی می‌توانند چیزی بسازند یا تغییر دهند.
+
+#analogy
+Connecting a tool is like giving your assistant **a key to one specific room**, not the whole house. The calendar key lets them see your schedule; it does not open your bank drawer.
+~~
+وصل کردن یک ابزار مثل دادن **کلید یک اتاق مشخص** به دستیارت است، نه کلید کل خانه. کلید تقویم به او اجازه می‌دهد برنامه‌ات را ببیند؛ کشوی حساب بانکی‌ات را باز نمی‌کند.
+
+#prompt
+Look at my calendar for next week and my unread emails from the Ariana project. Make a prep list: for each meeting, what I need to read or decide before it, with links.
+~~
+تقویم هفتهٔ بعدم و ایمیل‌های خوانده‌نشده‌ام از پروژهٔ آریانا را نگاه کن. یک فهرست آمادگی بساز: برای هر جلسه، چه چیزی را باید قبلش بخوانم یا دربارهٔ چه چیزی تصمیم بگیرم، همراه با لینک.
+
+#warn
+A connected tool works with **your** permissions. Connect only what the task needs, and read carefully before approving any action that sends, deletes or shares something.
+~~
+ابزار وصل‌شده با **دسترسی‌های خود تو** کار می‌کند. فقط چیزی را وصل کن که کار لازم دارد و قبل از تأیید هر کاری که چیزی را می‌فرستد، پاک می‌کند یا به اشتراک می‌گذارد، دقیق بخوان.
+
+#terms
+Connector = کانکتور = اتصالی که به Claude اجازه می‌دهد داخل یک اپ دیگر جست‌وجو کند یا کاری انجام دهد.
+MCP (Model Context Protocol) = پروتکل MCP = استاندارد بازی برای وصل کردن ابزارها و داده‌ها به مدل‌های هوش مصنوعی.
+
+@lesson
+id: enterprise-search
+en: Enterprise search
+fa: جست‌وجوی سازمانی
+url: https://academy.claude.com/courses/claude-101/enterprise-search
+
+#explain
+In a company, knowledge is scattered: a decision in a Slack thread, the numbers in a spreadsheet on Drive, the promise to the customer in an email. **Enterprise search** lets Claude search across your organization's connected tools **at the same time** and give you one answer with links to where each piece came from.
+
+It works with the tools your organization has connected and respects what you personally are allowed to see. It is most useful for questions like "where did we decide…", "what's the latest on…" or "who knows about…".
+~~
+در یک شرکت، دانش پخش و پلاست: یک تصمیم در یک رشته‌پیام اسلک، عددها در یک فایل اکسل روی درایو، قولی که به مشتری داده شده در یک ایمیل. **جست‌وجوی سازمانی** (Enterprise search) به Claude اجازه می‌دهد **هم‌زمان** در همهٔ ابزارهای وصل‌شدهٔ سازمانت بگردد و یک جواب واحد بدهد، با لینک به جایی که هر تکه از آن آمده.
+
+با ابزارهایی کار می‌کند که سازمانت وصل کرده و به این‌که خود تو اجازهٔ دیدن چه چیزهایی را داری احترام می‌گذارد. برای سؤال‌هایی مثل «کجا تصمیم گرفتیم…»، «آخرین خبر دربارهٔ … چیست» یا «چه کسی دربارهٔ … اطلاع دارد» از همه مفیدتر است.
+
+#analogy
+It's like a **librarian who knows every shelf in the building**, including the messy ones in the basement, and brings you the three pages you actually need.
+~~
+مثل **کتابداری است که همهٔ قفسه‌های ساختمان را می‌شناسد**، حتی قفسه‌های شلوغ زیرزمین را، و همان سه صفحه‌ای را که واقعاً لازم داری برایت می‌آورد.
+
+#prompt
+What did we promise Kowsar Co. about the delivery date for phase 2? Check Slack, Drive and email. Give me the answer first, then each source with its date and link.
+~~
+به شرکت کوثر دربارهٔ تاریخ تحویل فاز ۲ چه قولی دادیم؟ اسلک، درایو و ایمیل را بگرد. اول جواب را بگو، بعد هر منبع را با تاریخ و لینکش.
+
+#tip
+Always ask for **the date of each source**. Companies change their minds; an old document can be "true" and still out of date.
+~~
+همیشه **تاریخ هر منبع** را هم بخواه. شرکت‌ها نظرشان را عوض می‌کنند؛ یک سند قدیمی می‌تواند «درست» باشد و با این حال کهنه شده باشد.
+
+@lesson
+id: research-mode-for-deep-dives
+en: Research for deep dives
+fa: حالت Research برای بررسی‌های عمیق
+url: https://academy.claude.com/courses/claude-101/research-mode-for-deep-dives
+
+#explain
+Normal chat answers in seconds. **Research** is different: Claude plans a set of searches, runs many of them (on the web and, if connected, in your work tools), reads what it finds, and writes **one report with citations**. It can take several minutes, so save it for bigger questions where you would otherwise spend an afternoon reading.
+~~
+گفت‌وگوی معمولی در چند ثانیه جواب می‌دهد. **Research** فرق دارد: Claude یک برنامهٔ جست‌وجو می‌ریزد، تعداد زیادی جست‌وجو انجام می‌دهد (در وب و اگر وصل باشد در ابزارهای کاری‌ات)، چیزهایی را که پیدا کرده می‌خواند و **یک گزارش با ارجاع به منابع** می‌نویسد. ممکن است چند دقیقه طول بکشد؛ پس آن را برای سؤال‌های بزرگ‌تری نگه دار که وگرنه باید یک بعدازظهر کامل برایشان مطالعه می‌کردی.
+
+#analogy
+A quick chat is asking a friend a question in the hallway. Research is sending a careful student to the library for the afternoon and getting back a neat report with every book listed.
+~~
+گفت‌وگوی سریع مثل پرسیدن یک سؤال از دوستت در راهرو است. Research یعنی یک دانشجوی دقیق را یک بعدازظهر به کتابخانه بفرستی و یک گزارش مرتب تحویل بگیری که اسم همهٔ کتاب‌ها در آن آمده.
+
+#prompt
+Research project-management tools for a 10-person nonprofit. Compare at least 4 options on price, Persian/RTL support, offline use and learning curve. Prefer official pricing pages and reviews from 2025-2026. Start with a summary table, then a recommendation with reasons.
+~~
+دربارهٔ ابزارهای مدیریت پروژه برای یک مؤسسهٔ خیریهٔ ۱۰ نفره تحقیق کن. دست‌کم ۴ گزینه را از نظر قیمت، پشتیبانی از فارسی و راست‌به‌چپ، کار آفلاین و سختی یادگیری مقایسه کن. صفحه‌های رسمی قیمت و نقدهای ۲۰۲۵ تا ۲۰۲۶ را ترجیح بده. با یک جدول خلاصه شروع کن، بعد یک پیشنهاد با دلیل‌هایش بده.
+
+#tip
+Give Research a **scope**: time range, region, kinds of sources to prefer or avoid, and the shape of the output (table first, then details). A well-fenced question gives a sharper report.
+~~
+به Research **محدوده** بده: بازهٔ زمانی، منطقه، نوع منابعی که ترجیح می‌دهی یا نمی‌خواهی، و شکل خروجی (اول جدول، بعد جزئیات). سؤالی که خوب حصارکشی شده، گزارش دقیق‌تری می‌دهد.
+
+#warn
+Citations make a report look trustworthy, but they still need a check. Open two or three of the cited pages and confirm they really say what the report claims.
+~~
+ارجاع‌ها گزارش را قابل‌اعتماد نشان می‌دهند، ولی باز هم باید چکشان کرد. دو سه صفحه از منابع را باز کن و مطمئن شو واقعاً همان چیزی را می‌گویند که گزارش ادعا کرده.
+
+@section Putting it all together | همه‌چیز کنار هم
+
+@lesson
+id: claude-in-action-use-cases-by-role
+en: "Claude in action: use cases by role"
+fa: Claude در عمل: کاربردها بر اساس نقش شغلی
+url: https://academy.claude.com/courses/claude-101/claude-in-action-use-cases-by-role
+
+#explain
+This lesson is a tour of real jobs, grouped by role. Each one links to a step-by-step guide in the Use Case gallery (you'll find all of them in the "Use cases" part of this handout):
+
+- **Everyone:** find patterns in customer feedback, write project status reports.
+- **Sales:** prepare for a deal, build a battle-card library on competitors, create sales reports.
+- **Finance:** build financial models, understand and extend a spreadsheet someone else made.
+- **HR:** create onboarding guides for new hires.
+- **Legal:** organize contract reviews with a Project that holds your review playbook.
+- **Research:** plan a literature review, double-check statistics from raw data.
+
+The point is not the list. It is learning to look at your own week and spot the jobs that fit.
+~~
+این درس یک گشت در میان کارهای واقعی است که بر اساس نقش شغلی دسته‌بندی شده‌اند. هر کدام به یک راهنمای قدم‌به‌قدم در گالری کاربردها لینک دارد (همه‌شان را در بخش «کاربردهای واقعی» همین جزوه پیدا می‌کنی):
+
+- **همه:** پیدا کردن الگو در بازخورد مشتری‌ها، نوشتن گزارش وضعیت پروژه.
+- **فروش:** آماده شدن برای یک معامله، ساختن کارت‌های رقابتی دربارهٔ رقبا، ساختن گزارش فروش.
+- **مالی:** ساختن مدل مالی، فهمیدن و گسترش دادن فایل اکسلی که کس دیگری ساخته.
+- **منابع انسانی:** نوشتن راهنمای ورود برای نیروهای تازه.
+- **حقوقی:** نظم دادن به بررسی قراردادها با پروژه‌ای که دستورالعمل بررسی تو را در خود دارد.
+- **پژوهش:** برنامه‌ریزی مرور ادبیات، دوباره‌سنجی آمار از روی دادهٔ خام.
+
+نکته فهرست نیست؛ نکته این است که یاد بگیری به هفتهٔ خودت نگاه کنی و کارهایی را که به این الگوها می‌خورند پیدا کنی.
+
+#analogy
+It's like walking through a gym with a trainer who shows you what each machine is for. You won't use them all, but now you know which three fit your goals.
+~~
+مثل گشتن در باشگاه همراه مربی است که کاربرد هر دستگاه را نشانت می‌دهد. از همه‌شان استفاده نمی‌کنی، ولی حالا می‌دانی کدام سه‌تا به هدف تو می‌خورند.
+
+#try
+Write down three tasks that take you more than 30 minutes **every week**. For each, ask: is it reading a lot, writing a draft, comparing options, or cleaning data? Those four are where Claude saves the most time.
+~~
+سه کاری را که **هر هفته** بیش از ۳۰ دقیقه وقتت را می‌گیرند بنویس. برای هر کدام بپرس: آیا خواندن زیاد است، نوشتن پیش‌نویس است، مقایسهٔ گزینه‌هاست یا تمیز کردن داده؟ Claude در همین چهار نوع کار بیشترین وقت را برایت ذخیره می‌کند.
+
+@lesson
+id: other-ways-to-work-with-claude
+en: Other ways to work with Claude
+fa: راه‌های دیگر کار با Claude
+meta: 15 min
+url: https://academy.claude.com/courses/claude-101/other-ways-to-work-with-claude
+
+#explain
+Claude also lives inside other tools, so you can use it where the work already happens:
+
+- **Claude Code**: for developers. Builds features, debugs from error messages, handles chores like fixing lint errors and merge conflicts.
+- **Claude Tag**: Claude inside Slack. Tag it in a channel or thread to draft replies, summarize long threads or prepare meeting briefs.
+- **Claude Design**: visual design work such as screens and prototypes (beta, paid plans; admins control it on Team and Enterprise).
+- **Claude for Microsoft 365**: Claude as an add-in inside Word, Excel, PowerPoint and Outlook, working on the file you have open. For example, build the analysis in Excel, then hand it to PowerPoint to make the slide.
+- **Claude in Chrome**: a browser extension that opens Claude in a side panel and lets it read and interact with web pages.
+- **Cowork**: the hand-off-a-whole-task mode from lesson 4.
+~~
+Claude داخل ابزارهای دیگر هم زندگی می‌کند تا بتوانی همان‌جا که کار انجام می‌شود از آن استفاده کنی:
+
+- **Claude Code:** برای برنامه‌نویس‌ها. قابلیت می‌سازد، از روی پیام خطا اشکال را پیدا می‌کند و کارهای روتین مثل رفع خطاهای lint و حل تداخل‌های merge را انجام می‌دهد.
+- **Claude Tag:** Claude داخل اسلک. در یک کانال یا رشته‌پیام تگش کن تا جواب پیش‌نویس کند، رشته‌پیام‌های طولانی را خلاصه کند یا برای جلسه خلاصهٔ آمادگی بسازد.
+- **Claude Design:** کار طراحی بصری مثل صفحه‌ها و نمونه‌های اولیه (بتا، روی پلن‌های پولی؛ در Team و Enterprise مدیرها کنترلش می‌کنند).
+- **Claude for Microsoft 365:** Claude به‌شکل افزونه داخل ورد، اکسل، پاورپوینت و اوت‌لوک که روی همان فایلی که باز کرده‌ای کار می‌کند. مثلاً تحلیل را در اکسل بساز و بعد به پاورپوینت بده تا اسلایدش را درست کند.
+- **Claude in Chrome:** افزونهٔ مرورگر که Claude را در یک پنل کناری باز می‌کند و اجازه می‌دهد صفحه‌های وب را بخواند و با آن‌ها کار کند.
+- **Cowork:** همان حالت «سپردن یک کار کامل» که در درس ۴ دیدی.
+
+#analogy
+Same chef, different kitchens. Claude is one helper who can work at your desk, in the team chat room, in your spreadsheet, or in your browser, wherever the ingredients already are.
+~~
+یک آشپز، چند آشپزخانه. Claude یک دستیار است که می‌تواند پشت میزت، در اتاق گفت‌وگوی تیم، داخل فایل اکسلت یا در مرورگرت کار کند؛ هر جا که مواد اولیه همان‌جاست.
+
+#example
+A marketing manager's day: in Slack she tags Claude to summarize a 90-message thread; in Excel she asks Claude to explain a strange jump in last month's numbers; in PowerPoint she asks for a slide from that analysis that follows the company template; in Chrome she asks Claude to compare three competitor pricing pages.
+~~
+یک روز یک مدیر بازاریابی: در اسلک Claude را تگ می‌کند تا یک رشته‌پیام ۹۰ تایی را خلاصه کند؛ در اکسل می‌پرسد پرش عجیب عددهای ماه قبل از کجا آمده؛ در پاورپوینت از روی همان تحلیل یک اسلاید با قالب شرکت می‌خواهد؛ در کروم از Claude می‌خواهد صفحه‌های قیمت سه رقیب را مقایسه کند.
+
+#tip
+Choosing is easy if you ask "where is the stuff I'm working on?" If it's a file, use the add-in in that app. If it's a website, use Chrome. If it's a team conversation, use Slack. If it's many things at once, use Cowork.
+~~
+انتخاب ساده است اگر بپرسی «چیزی که رویش کار می‌کنم کجاست؟» اگر یک فایل است، افزونهٔ همان برنامه. اگر یک وب‌سایت است، کروم. اگر گفت‌وگوی تیمی است، اسلک. اگر چند چیز با هم است، Cowork.
+
+@lesson
+id: what-s-next
+en: "Conclusion, quiz and badge: what's next?"
+fa: جمع‌بندی، آزمون و نشان؛ قدم بعدی چیست؟
+kind: wrap
+url: https://academy.claude.com/courses/claude-101/what-s-next
+
+#explain
+You now know the whole map: talk to Claude with context, task and style; improve answers by iterating; keep ongoing work in Projects; build with artifacts; save your methods as skills; connect your tools; and use Research for big questions. The course ends with a short quiz and a completion badge.
+
+Good next steps: **Introduction to Claude Cowork** (hand off whole tasks), **AI Fluency: Framework and foundations** (how to collaborate with AI well, in any tool), and **Claude Code 101** if you build software.
+~~
+حالا کل نقشه را بلدی: با Claude با «زمینه، کار و سبک» حرف بزن؛ با رفت‌وبرگشت جواب‌ها را بهتر کن؛ کارهای ادامه‌دار را در پروژه‌ها نگه دار؛ با آرتیفکت‌ها بساز؛ روش‌هایت را به شکل اسکیل ذخیره کن؛ ابزارهایت را وصل کن و برای سؤال‌های بزرگ از Research استفاده کن. دوره با یک آزمون کوتاه و نشان پایان دوره (badge) تمام می‌شود.
+
+قدم‌های بعدی خوب: **آشنایی با Claude Cowork** (سپردن کارهای کامل)، **سواد هوش مصنوعی: چارچوب و مبانی** (چطور در هر ابزاری خوب با هوش مصنوعی همکاری کنیم) و اگر نرم‌افزار می‌سازی، **Claude Code 101**.
+
+#try
+A 7-day practice plan: Day 1, a three-ingredient prompt. Day 2, the "interview me first" trick. Day 3, create a Project. Day 4, build one artifact. Day 5, make one skill. Day 6, connect one tool. Day 7, run one Research question and check two citations.
+~~
+برنامهٔ تمرین ۷ روزه: روز ۱، یک پرامپت سه‌جزئی. روز ۲، ترفند «اول از من سؤال کن». روز ۳، ساختن یک پروژه. روز ۴، ساختن یک آرتیفکت. روز ۵، ساختن یک اسکیل. روز ۶، وصل کردن یک ابزار. روز ۷، اجرای یک سؤال در Research و چک کردن دو ارجاع.
+
+@cheatsheet
+- **Good prompt = context + task + style.** Add an example when you can.
+- **Iterate in the same chat**; feedback beats starting over.
+- **Interview trick:** "Ask me up to 5 questions first."
+- **Chat** = stay involved · **Cowork** = hand off · **Code** = build software.
+- **Projects** = shared files + instructions for one ongoing job.
+- **Artifacts** = things you can see, edit and share (Design, Slides, Docs, Dashboards, mini apps).
+- **Skills** = detailed procedures that load only when needed. The description is the trigger.
+- **Connectors (MCP)** = keys to specific apps. Connect only what you need.
+- **Research** = minutes of searching, one cited report. Check two citations.
+~~
+- **پرامپت خوب = زمینه + کار + سبک.** هر وقت توانستی نمونه هم بگذار.
+- **در همان گفت‌وگو بهترش کن**؛ بازخورد دادن از شروع دوباره بهتر است.
+- **ترفند مصاحبه:** «اول حداکثر ۵ سؤال از من بپرس.»
+- **Chat** = در کار حاضر بمان · **Cowork** = کار را بسپار · **Code** = نرم‌افزار بساز.
+- **پروژه‌ها** = فایل‌ها و دستورهای مشترک برای یک کار ادامه‌دار.
+- **آرتیفکت‌ها** = چیزهایی که می‌بینی، ویرایش می‌کنی و به اشتراک می‌گذاری (Design، Slides، Docs، Dashboards، اپ‌های کوچک).
+- **اسکیل‌ها** = روش‌های کاری پرجزئیات که فقط هنگام نیاز بار می‌شوند. توضیحشان ماشهٔ شروع است.
+- **کانکتورها (MCP)** = کلید اپ‌های مشخص. فقط چیزی را وصل کن که لازم است.
+- **Research** = چند دقیقه جست‌وجو، یک گزارش با منبع. دو ارجاعش را چک کن.
+
+@quiz
+Q: What are the three ingredients of a good first prompt? || سه جزء یک پرامپت اول خوب چیست؟
+A: Context (who you are and why), the task (what you want), and the style or rules (how you want it), ideally with an example. || زمینه (تو کی هستی و چرا)، کار (چه می‌خواهی) و سبک یا قانون‌ها (چطور می‌خواهی)؛ و اگر بشود یک نمونه.
+Q: You want Claude to sort 300 files on your computer while you are in a meeting. Chat, Cowork or Code? || می‌خواهی Claude وقتی تو در جلسه‌ای ۳۰۰ فایل روی کامپیوترت را مرتب کند. Chat، Cowork یا Code؟
+A: Cowork, because it is a multi-step job you hand off and come back to. || Cowork؛ چون یک کار چندمرحله‌ای است که می‌سپاری و بعد برمی‌گردی سراغش.
+Q: What is the difference between project instructions and a skill? || فرق دستورهای پروژه با یک اسکیل چیست؟
+A: Project instructions apply to every chat in one workspace. A skill is a detailed procedure that Claude loads anywhere, but only when the task matches its description. || دستورهای پروژه روی همهٔ گفت‌وگوهای یک فضای کاری اثر دارند. اسکیل روش کاری پرجزئیاتی است که Claude هر جا لازم باشد، اما فقط وقتی کار با توضیحش جور باشد، بارش می‌کند.
+Q: Why should you check citations in a Research report? || چرا باید ارجاع‌های یک گزارش Research را چک کنی؟
+A: Because a source can be misread, outdated or not say exactly what the report claims. Citations make checking easy; they don't replace it. || چون ممکن است منبع بد فهمیده شده باشد، کهنه باشد یا دقیقاً آن چیزی را که گزارش ادعا می‌کند نگوید. ارجاع چک کردن را آسان می‌کند، جایش را نمی‌گیرد.
+Q: On a Team plan, a connector you want is missing from your list. What is the most likely reason? || در پلن Team کانکتوری که می‌خواهی در فهرستت نیست. محتمل‌ترین دلیلش چیست؟
+A: An organization Owner has not added that connector for the organization yet. || هنوز یک مالک سازمان آن کانکتور را برای سازمان اضافه نکرده است.
