@@ -1,0 +1,421 @@
+@page
+slug: claude-with-amazon-bedrock
+kind: course
+group: api
+order: 2
+en: Claude with Amazon Bedrock
+fa: Claude روی Amazon Bedrock (سرویس هوش مصنوعی AWS)
+stats: 65 lessons · 8 quizzes · 8 hr · badge
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+expect: 69
+who_en: Developers on AWS who know Python and have an AWS account with Amazon Bedrock access.
+who_fa: برنامه‌نویس‌هایی که روی AWS کار می‌کنند، پایتون بلدند و یک حساب AWS با دسترسی به Amazon Bedrock دارند.
+blurb_fa: همان مسیر دورهٔ API، این بار روی AWS: دسترسی به مدل در Bedrock، پروفایل‌های استنتاج بین‌منطقه‌ای، Converse API با boto3، ابزارها، RAG با رتبه‌بندی دوباره و بازیابی زمینه‌دار، کش، MCP، Claude Code و استفاده از کامپیوتر.
+desc_en: The API course path on AWS: Bedrock model access, inference profiles, the Converse API, tools, RAG with reranking and contextual retrieval, caching, MCP, Claude Code and computer use.
+
+@intro
+This edition teaches the same skills as [Building with the Claude API](page:building-with-the-claude-api), but **through Amazon Bedrock**, AWS's managed AI service. The ideas (prompting, evals, tools, RAG, MCP, agents) are identical; what changes is **how you connect**: AWS credentials and IAM instead of an Anthropic API key, Bedrock **model IDs** and **inference profiles**, and the boto3 **Converse API** message format.
+
+**How to read this page:** lessons that are AWS-specific (setup, requests, streaming, the Converse tool format, reranking, contextual retrieval, Claude Code on Bedrock, computer use) are explained in full. Lessons that are the same as the API course are marked **"Same as API course"**, summarized in a few lines, and linked to the full lesson.
+~~
+این نسخه همان مهارت‌های دورهٔ [ساختن با Claude API](page:building-with-the-claude-api) را یاد می‌دهد، ولی **از طریق Amazon Bedrock**؛ سرویس مدیریت‌شدهٔ هوش مصنوعی AWS. ایده‌ها (پرامپت، ارزیابی، ابزار، RAG، MCP، ایجنت) یکسان‌اند؛ چیزی که عوض می‌شود **روش وصل شدن** است: اعتبارنامه‌های AWS و IAM به جای کلید API آنتروپیک، **شناسهٔ مدل‌ها** و **پروفایل‌های استنتاج** Bedrock و قالب پیام **Converse API** در boto3.
+
+**این صفحه را چطور بخوانی:** درس‌هایی که مخصوص AWS هستند (راه‌اندازی، درخواست، استریم، قالب ابزار در Converse، رتبه‌بندی دوباره، بازیابی زمینه‌دار، Claude Code روی Bedrock، استفاده از کامپیوتر) کامل توضیح داده شده‌اند. درس‌هایی که با دورهٔ API یکی‌اند با **«مشترک با دورهٔ API»** علامت خورده‌اند، در چند خط خلاصه شده‌اند و به درس کامل پیوند دارند.
+
+@section Course introduction | مقدمهٔ دوره
+
+@lesson
+id: overview-of-claude-models
+en: Overview of Claude models
+fa: مروری بر مدل‌های Claude
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Claude comes in families that trade **intelligence, speed and cost**: **Opus** (most capable for complex, long-running work), **Sonnet** (balanced, great for high-volume production) and **Haiku** (fastest and cheapest, ideal for simple, high-volume tasks like classification or routing). The course's examples use **Claude Haiku 4.5** because it's fast and inexpensive while you learn. On Bedrock you must first **enable access** to each model you want in the Bedrock console, in your chosen region.
+~~
+Claude در خانواده‌هایی می‌آید که بین **هوش، سرعت و هزینه** تعادل برقرار می‌کنند: **Opus** (تواناترین برای کارهای پیچیده و طولانی)، **Sonnet** (متعادل؛ عالی برای محصولات پرحجم) و **Haiku** (سریع‌ترین و ارزان‌ترین؛ ایدئال برای کارهای ساده و پرحجم مثل دسته‌بندی یا مسیریابی). مثال‌های دوره از **Claude Haiku 4.5** استفاده می‌کنند چون موقع یادگیری سریع و ارزان است. روی Bedrock اول باید در کنسول Bedrock و در منطقهٔ انتخابی‌ات، **دسترسی به هر مدلی را که می‌خواهی فعال کنی**.
+
+#analogy
+Choosing a model is like choosing a **vehicle**: a sports car (Opus) for the hardest roads, a reliable sedan (Sonnet) for daily commuting, a scooter (Haiku) for quick trips around the block.
+~~
+انتخاب مدل مثل انتخاب **وسیلهٔ نقلیه** است: یک ماشین اسپرت (Opus) برای سخت‌ترین جاده‌ها، یک سدان مطمئن (Sonnet) برای رفت‌وآمد روزانه، یک اسکوتر (Haiku) برای رفتن سریع تا سر کوچه.
+
+#tip
+Newer models (like Claude Opus 5.5) also exist on Bedrock. Check the Bedrock model catalog for which models and features each region and integration offers before you design around one.
+~~
+مدل‌های جدیدتر (مثل Claude Opus 5.5) هم روی Bedrock هستند. قبل از این‌که طراحی‌ات را به یک مدل گره بزنی، در فهرست مدل‌های Bedrock ببین هر منطقه و هر روش اتصال کدام مدل‌ها و قابلیت‌ها را ارائه می‌دهد.
+
+@section Working with the API | کار با API
+
+@lesson
+id: accessing-the-api
+en: Accessing the API
+fa: دسترسی به API
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/accessing-the-api
+
+#explain
+The request flow is the same as with Anthropic's API (your app → your server → Bedrock → Claude), but security is **AWS-native**. You need:
+
+- an **AWS account** with Bedrock enabled in a region where Claude is available;
+- **model access** granted for the Claude models you'll use;
+- **IAM permissions** for your user or role (for example `bedrock:InvokeModel` and `bedrock:InvokeModelWithResponseStream`, which also cover the Converse API);
+- AWS **credentials** that boto3 can find (environment variables, `~/.aws/credentials`, or an IAM role when running on AWS).
+
+There's no Anthropic API key at all: access is controlled by IAM, and usage is billed to your AWS account.
+~~
+جریان درخواست همان جریان API آنتروپیک است (اپ تو ← سرور تو ← Bedrock ← Claude)، ولی امنیت **بومیِ AWS** است. این‌ها را لازم داری:
+
+- یک **حساب AWS** که Bedrock در منطقه‌ای که Claude در دسترس است فعال باشد؛
+- **دسترسی مدل** برای مدل‌های Claude که استفاده می‌کنی؛
+- **مجوزهای IAM** برای کاربر یا نقش تو (مثلاً `bedrock:InvokeModel` و `bedrock:InvokeModelWithResponseStream` که Converse API را هم پوشش می‌دهند)؛
+- **اعتبارنامه‌های** AWS که boto3 بتواند پیدایشان کند (متغیرهای محیطی، `~/.aws/credentials` یا یک نقش IAM وقتی روی AWS اجرا می‌شوی).
+
+اصلاً کلید API آنتروپیک وجود ندارد: دسترسی با IAM کنترل می‌شود و هزینه به حساب AWS تو نوشته می‌شود.
+
+#code bash Setup
+pip install boto3
+aws configure          # or use SSO / environment variables / an IAM role
+aws bedrock list-foundation-models --by-provider anthropic --region us-west-2 \
+    --query "modelSummaries[].modelId"
+#end
+
+#warn
+Give your app's IAM role **only** the Bedrock actions and models it needs (least privilege), never your personal admin credentials.
+~~
+به نقش IAM اپت **فقط** همان کارها و مدل‌های Bedrock را بده که لازم دارد (کمترین دسترسی)، هرگز اعتبارنامه‌های مدیر شخصی خودت را.
+
+#analogy
+IAM is the **building's badge system**: instead of one master key (an API key), each person's badge opens only the doors they need.
+~~
+IAM مثل **سیستم کارت ورود یک ساختمان** است: به جای یک شاه‌کلید (کلید API)، کارت هر نفر فقط درهایی را باز می‌کند که لازم دارد.
+
+#terms
+IAM = مدیریت هویت و دسترسی = سیستم AWS برای تعریف این‌که چه کسی به چه منبعی و با چه مجوزی دسترسی دارد.
+
+@lesson
+id: making-a-request
+en: Making a request
+fa: فرستادن یک درخواست
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/making-a-request
+
+#explain
+The course uses boto3's `bedrock-runtime` client and the **Converse API**: a model ID, a list of messages, and an inference config. Two Bedrock details:
+
+- **Message content is a list of blocks**, even for plain text: `[{"text": "..."}]`.
+- **Inference profiles** route your request to a region where the model is hosted. Their IDs add a geographic prefix to the model ID (for example `us.` or `global.`), which also helps with capacity.
+~~
+دوره از کلاینت `bedrock-runtime` در boto3 و **Converse API** استفاده می‌کند: یک شناسهٔ مدل، فهرستی از پیام‌ها و تنظیمات استنتاج. دو جزئیات Bedrock:
+
+- **محتوای پیام فهرستی از بلوک‌هاست**، حتی برای متن ساده: `[{"text": "..."}]`.
+- **پروفایل‌های استنتاج (inference profiles)** درخواستت را به منطقه‌ای می‌فرستند که مدل آن‌جا میزبانی می‌شود. شناسه‌شان یک پیشوند جغرافیایی به شناسهٔ مدل اضافه می‌کند (مثلاً `us.` یا `global.`) که به ظرفیت هم کمک می‌کند.
+
+#code python bedrock_request.py
+import boto3
+
+client = boto3.client("bedrock-runtime", region_name="us-west-2")
+MODEL_ID = "us.anthropic.claude-haiku-4-5-20251001-v1:0"   # cross-region inference profile
+
+response = client.converse(
+    modelId=MODEL_ID,
+    messages=[{"role": "user", "content": [{"text": "What is quantum computing? One sentence."}]}],
+    inferenceConfig={"maxTokens": 300},
+)
+print(response["output"]["message"]["content"][0]["text"])
+print(response["stopReason"], response["usage"])     # e.g. end_turn, {'inputTokens': ..., ...}
+#end
+
+#tip
+**Cool tip:** for the newest models and API features you can also use Anthropic's own SDK against Bedrock (`pip install "anthropic[bedrock]"`, the `AnthropicBedrockMantle` client, model IDs like `anthropic.claude-opus-5-5`). Then your code looks exactly like the [API course](page:building-with-the-claude-api#making-a-request), with AWS doing the authentication.
+~~
+**نکتهٔ خفن:** برای جدیدترین مدل‌ها و قابلیت‌های API می‌توانی SDK خود آنتروپیک را هم روی Bedrock به کار ببری (`pip install "anthropic[bedrock]"`، کلاینت `AnthropicBedrockMantle`، شناسه‌هایی مثل `anthropic.claude-opus-5-5`). آن وقت کدت دقیقاً مثل [دورهٔ API](page:building-with-the-claude-api#making-a-request) می‌شود و احراز هویت را AWS انجام می‌دهد.
+
+#code python The same request with the Anthropic SDK on Bedrock
+from anthropic import AnthropicBedrockMantle
+
+client = AnthropicBedrockMantle(aws_region="us-west-2")   # uses your AWS credentials
+message = client.messages.create(
+    model="anthropic.claude-opus-5-5",
+    max_tokens=1000,
+    messages=[{"role": "user", "content": "What is quantum computing? One sentence."}],
+)
+print("".join(b.text for b in message.content if b.type == "text"))
+#end
+
+#terms
+Inference profile = پروفایل استنتاج = شناسه‌ای در Bedrock که درخواست را بین منطقه‌های مختلف AWS که مدل را میزبانی می‌کنند مسیریابی می‌کند.
+Converse API = Converse API = رابط یکدست Bedrock برای گفت‌وگو با مدل‌های مختلف با یک قالب پیام مشترک.
+
+@lesson
+id: multi-turn-conversations
+en: Multi-turn conversations
+fa: گفت‌وگوهای چندنوبتی
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Same idea as the [API course lesson](page:building-with-the-claude-api#multi-turn-conversations): Bedrock is stateless too, so you keep the history and resend it. With Converse, append the assistant's `response["output"]["message"]` as is, then your next `{"role": "user", "content": [{"text": ...}]}`.
+~~
+همان ایدهٔ [درس دورهٔ API](page:building-with-the-claude-api#multi-turn-conversations): Bedrock هم بی‌حافظه است؛ پس تاریخچه را نگه می‌داری و دوباره می‌فرستی. با Converse، `response["output"]["message"]` دستیار را همان‌طور که هست اضافه کن و بعد پیام بعدی‌ات را به شکل `{"role": "user", "content": [{"text": ...}]}`.
+
+@lesson
+id: system-prompts
+en: System prompts
+fa: پرامپت‌های سیستمی
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/system-prompts
+
+#explain
+Same purpose as in the [API course](page:building-with-the-claude-api#system-prompts): role, tone and rules for the whole conversation. In Converse, pass it as a list of blocks: `system=[{"text": "You are a patient math tutor..."}]`.
+~~
+همان کاربرد [دورهٔ API](page:building-with-the-claude-api#system-prompts): نقش، لحن و قانون‌ها برای کل گفت‌وگو. در Converse آن را به شکل فهرستی از بلوک‌ها بفرست: `system=[{"text": "You are a patient math tutor..."}]`.
+
+@lesson
+id: temperature
+en: Temperature
+fa: دما (Temperature)
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Same concept as the [API course lesson](page:building-with-the-claude-api#temperature). In Converse it lives in `inferenceConfig={"temperature": 0.7}`. Remember: the newest Claude models reject temperature; steer variety with your prompt instead.
+~~
+همان مفهوم [درس دورهٔ API](page:building-with-the-claude-api#temperature). در Converse داخل `inferenceConfig={"temperature": 0.7}` قرار می‌گیرد. یادت باشد: جدیدترین مدل‌های Claude دما را رد می‌کنند؛ تنوع را با پرامپتت هدایت کن.
+
+@lesson
+id: streaming
+en: Streaming
+fa: استریم پاسخ
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/streaming
+
+#explain
+`converse_stream` returns an event stream. Text arrives in `contentBlockDelta` events; `messageStop` tells you why generation ended, and a final `metadata` event carries token usage. Print deltas as they arrive for a responsive UI.
+~~
+`converse_stream` یک جریان رویداد برمی‌گرداند. متن در رویدادهای `contentBlockDelta` می‌رسد؛ `messageStop` می‌گوید چرا تولید تمام شد و یک رویداد `metadata` در پایان، مصرف توکن را می‌آورد. برای رابط کاربری پاسخ‌گو، تکه‌ها را همان لحظهٔ رسیدن چاپ کن.
+
+#code python bedrock_stream.py
+response = client.converse_stream(
+    modelId=MODEL_ID,
+    messages=[{"role": "user", "content": [{"text": "Write a 3-line poem about the sea."}]}],
+    inferenceConfig={"maxTokens": 300},
+)
+for event in response["stream"]:
+    if "contentBlockDelta" in event:
+        print(event["contentBlockDelta"]["delta"].get("text", ""), end="", flush=True)
+    elif "messageStop" in event:
+        print("\nstop:", event["messageStop"]["stopReason"])
+    elif "metadata" in event:
+        print("usage:", event["metadata"]["usage"])
+#end
+
+#analogy
+Same as the API course: a **phone call** instead of waiting for a **letter**.
+~~
+مثل دورهٔ API: **تماس تلفنی** به جای منتظر ماندن برای **نامه**.
+
+@lesson
+id: controlling-model-output
+en: Controlling model output
+fa: کنترل خروجی مدل
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/controlling-model-output
+
+#explain
+Two classic levers for shaping output:
+
+- **Prefilling**: end the messages with a partial assistant turn so Claude continues from your words (for example, forcing it to start with a specific opinion or format).
+- **Stop sequences**: strings that end generation immediately, set in `inferenceConfig={"stopSequences": [...]}`.
+
+**What changed:** prefill is rejected by the newest Claude models (use structured outputs or a clear instruction instead); stop sequences still work everywhere.
+~~
+دو اهرم کلاسیک برای شکل دادن به خروجی:
+
+- **پیش‌پر کردن**: پیام‌ها را با یک نوبت ناتمام دستیار تمام کن تا Claude از کلمه‌های تو ادامه بدهد (مثلاً مجبورش کنی با یک نظر یا قالب خاص شروع کند).
+- **دنباله‌های توقف**: رشته‌هایی که تولید را فوراً تمام می‌کنند و در `inferenceConfig={"stopSequences": [...]}` تنظیم می‌شوند.
+
+**چه چیزی عوض شده:** جدیدترین مدل‌های Claude پیش‌پر کردن را رد می‌کنند (به جایش از خروجی ساختاریافته یا یک دستور روشن استفاده کن)؛ دنباله‌های توقف همه‌جا کار می‌کنند.
+
+#code python Prefill + stop sequence (works on Haiku 4.5)
+response = client.converse(
+    modelId=MODEL_ID,
+    messages=[
+        {"role": "user", "content": [{"text": "Is tea or coffee better? Give a one-line verdict."}]},
+        {"role": "assistant", "content": [{"text": "Coffee is better because"}]},   # prefill
+    ],
+    inferenceConfig={"maxTokens": 100, "stopSequences": ["\n"]},               # stop at line end
+)
+print("Coffee is better because" + response["output"]["message"]["content"][0]["text"])
+#end
+
+#analogy
+Prefill is **starting someone's sentence** for them; a stop sequence is **raising your hand to say "that's enough"**.
+~~
+پیش‌پر کردن مثل **شروع کردن جملهٔ کسی به جای خودش** است؛ دنبالهٔ توقف مثل **بالا بردن دست برای گفتن «کافی است»**.
+
+@lesson
+id: structured-data
+en: Structured data
+fa: دادهٔ ساختاریافته
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Same goal as the [API course lesson](page:building-with-the-claude-api#structured-data): clean JSON with no extra words. The course combines prefill with a stop sequence; on newer models, use **structured outputs** (supported on Bedrock) or the tool-based method in "Structured data with tools" below.
+~~
+همان هدف [درس دورهٔ API](page:building-with-the-claude-api#structured-data): JSON تمیز بدون کلمه‌های اضافه. دوره پیش‌پر کردن را با دنبالهٔ توقف ترکیب می‌کند؛ روی مدل‌های جدیدتر از **خروجی ساختاریافته** (که Bedrock پشتیبانی می‌کند) یا روش مبتنی بر ابزار در درس «دادهٔ ساختاریافته با ابزارها» در ادامه استفاده کن.
+
+@lesson
+id: quiz-on-working-with-the-api
+en: Quiz on working with the API
+fa: آزمونک کار با API
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Checks: model access and IAM, inference profiles, the Converse message format, system prompts, streaming events, prefill and stop sequences.
+~~
+می‌سنجد: دسترسی مدل و IAM، پروفایل‌های استنتاج، قالب پیام Converse، پرامپت سیستمی، رویدادهای استریم، پیش‌پر کردن و دنبالهٔ توقف.
+
+@section Prompt evaluation and prompt engineering | ارزیابی و مهندسی پرامپت
+
+@lesson
+id: prompt-evaluation
+en: Prompt evaluation
+fa: ارزیابی پرامپت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Test prompts systematically instead of trying them twice. Full lesson: [Prompt evaluation](page:building-with-the-claude-api#prompt-evaluation).
+~~
+پرامپت‌ها را به‌شکل نظام‌مند بیازما، نه با دو بار امتحان. درس کامل: [ارزیابی پرامپت](page:building-with-the-claude-api#prompt-evaluation).
+
+@lesson
+id: a-typical-eval-workflow
+en: A typical eval workflow
+fa: یک گردش‌کار معمول ارزیابی
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Draft → dataset → run → grade → compare versions. Full lesson: [A typical eval workflow](page:building-with-the-claude-api#a-typical-eval-workflow).
+~~
+پیش‌نویس ← مجموعه‌داده ← اجرا ← نمره ← مقایسهٔ نسخه‌ها. درس کامل: [یک گردش‌کار معمول ارزیابی](page:building-with-the-claude-api#a-typical-eval-workflow).
+
+@lesson
+id: generating-test-datasets
+en: Generating test datasets
+fa: ساختن مجموعه‌دادهٔ آزمون
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Use a fast model (Haiku) to generate varied test cases as JSON, then review them by hand. Full lesson: [Generating test datasets](page:building-with-the-claude-api#generating-test-datasets).
+~~
+با یک مدل سریع (Haiku) موردهای آزمون متنوع به شکل JSON بساز و بعد دستی مرورشان کن. درس کامل: [ساختن مجموعه‌دادهٔ آزمون](page:building-with-the-claude-api#generating-test-datasets).
+
+@lesson
+id: running-the-eval
+en: Running the eval
+fa: اجرای ارزیابی
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Loop over cases, call Claude (here via `client.converse`), grade, average. Full lesson: [Running the eval](page:building-with-the-claude-api#running-the-eval).
+~~
+روی موردها حلقه بزن، Claude را صدا بزن (این‌جا با `client.converse`)، نمره بده، میانگین بگیر. درس کامل: [اجرای ارزیابی](page:building-with-the-claude-api#running-the-eval).
+
+@lesson
+id: model-based-grading
+en: Model-based grading
+fa: نمره‌دهی با مدل
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+A grader model writes strengths, weaknesses and reasoning, then a 1-10 score. Full lesson: [Model-based grading](page:building-with-the-claude-api#model-based-grading).
+~~
+یک مدل نمره‌دهنده نقطه‌های قوت، ضعف و استدلال را می‌نویسد و بعد نمرهٔ ۱ تا ۱۰ می‌دهد. درس کامل: [نمره‌دهی با مدل](page:building-with-the-claude-api#model-based-grading).
+
+@lesson
+id: code-based-grading
+en: Code-based grading
+fa: نمره‌دهی با کد
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Check what code can check (valid JSON, parseable Python, compiling regex) and combine with the model score. Full lesson: [Code-based grading](page:building-with-the-claude-api#code-based-grading).
+~~
+هر چیزی را که کد می‌تواند چک کند، با کد چک کن (JSON معتبر، پایتون قابل‌تجزیه، regex قابل‌کامپایل) و با نمرهٔ مدل ترکیب کن. درس کامل: [نمره‌دهی با کد](page:building-with-the-claude-api#code-based-grading).
+
+@lesson
+id: prompt-engineering
+en: Prompt engineering
+fa: مهندسی پرامپت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Improve one technique at a time and re-measure with your eval. Full lesson: [Prompt engineering](page:building-with-the-claude-api#prompt-engineering).
+~~
+هر بار یک تکنیک را بهتر کن و با ارزیابی‌ات دوباره اندازه بگیر. درس کامل: [مهندسی پرامپت](page:building-with-the-claude-api#prompt-engineering).
+
+@lesson
+id: being-clear-and-direct
+en: Being clear and direct
+fa: روشن و مستقیم بودن
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Open with a clear action verb and the exact task. Full lesson: [Being clear and direct](page:building-with-the-claude-api#being-clear-and-direct).
+~~
+با یک فعل عملی روشن و خود کار دقیق شروع کن. درس کامل: [روشن و مستقیم بودن](page:building-with-the-claude-api#being-clear-and-direct).
+
+@lesson
+id: being-specific
+en: Being specific
+fa: مشخص بودن
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Add guidelines for output qualities and the steps to follow. Full lesson: [Being specific](page:building-with-the-claude-api#being-specific).
+~~
+برای ویژگی‌های خروجی و قدم‌هایی که باید دنبال شود رهنمود اضافه کن. درس کامل: [مشخص بودن](page:building-with-the-claude-api#being-specific).
+
+@lesson
+id: structure-with-xml-tags
+en: Structure with XML tags
+fa: ساختاردهی با تگ‌های XML
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Wrap data in descriptive tags to separate it from instructions. Full lesson: [Structure with XML tags](page:building-with-the-claude-api#structure-with-xml-tags).
+~~
+داده را در تگ‌های توصیفی بپیچان تا از دستورها جدا شود. درس کامل: [ساختاردهی با تگ‌های XML](page:building-with-the-claude-api#structure-with-xml-tags).
+
+@lesson
+id: providing-examples
+en: Providing examples
+fa: آوردن مثال
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+One-shot or multi-shot examples in `<sample_input>`/`<ideal_output>` tags, including tricky cases. Full lesson: [Providing examples](page:building-with-the-claude-api#providing-examples).
+~~
+مثال‌های تکی یا چندتایی در تگ‌های `<sample_input>`/`<ideal_output>`، همراه با موردهای فریبنده. درس کامل: [آوردن مثال](page:building-with-the-claude-api#providing-examples).
+
+@lesson
+id: quiz-on-prompt-evaluation-and-engineering
+en: Quizzes on prompt evaluation and prompt engineering
+fa: آزمونک‌های ارزیابی و مهندسی پرامپت
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Checks the eval loop, grading methods, and the four prompt engineering techniques.
+~~
+حلقهٔ ارزیابی، روش‌های نمره‌دهی و چهار تکنیک مهندسی پرامپت را می‌سنجد.

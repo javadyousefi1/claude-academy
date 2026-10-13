@@ -1,0 +1,1155 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-lang="both">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Claude روی Amazon Bedrock (سرویس هوش مصنوعی AWS) | Claude with Amazon Bedrock</title>
+<meta name="description" content="The API course path on AWS: Bedrock model access, inference profiles, the Converse API, tools, RAG with reranking and contextual retrieval, caching, MCP, Claude Code and computer use.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Lalezar&family=Vazirmatn:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>try{var l=localStorage.getItem("ca-lang");if(l)document.documentElement.setAttribute("data-lang",l)}catch(e){}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+<script src="../assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">پرش به متن اصلی</a>
+
+<header class="topbar">
+  <nav class="crumbs" aria-label="مسیر صفحه"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">C</span><span>جزوهٔ Claude Academy</span></a><span class="crumb-sep" aria-hidden="true">/</span><a href="../index.html#api">ساختن با API</a><span class="crumb-sep" aria-hidden="true">/</span><span>Claude روی Amazon Bedrock (سرویس هوش مصنوعی AWS)</span></nav>
+  <div class="lang-switch" role="group" aria-label="زبان نمایش">
+    <button type="button" data-set-lang="both" aria-pressed="true">دوزبانه</button>
+    <button type="button" data-set-lang="fa" aria-pressed="false">فارسی</button>
+    <button type="button" data-set-lang="en" aria-pressed="false" lang="en">English</button>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="side-toc" aria-label="فهرست این صفحه"><details open><summary>فهرست این صفحه <span class="toc-count">۶۹ مورد</span></summary><ol><li class="toc-sec">مقدمهٔ دوره</li><li><a href="#claude-with-amazon-bedrock--overview-of-claude-models" data-toc="claude-with-amazon-bedrock--overview-of-claude-models"><span class="toc-n">۱</span><span class="toc-t">مروری بر مدل‌های Claude</span></a></li><li class="toc-sec">کار با API</li><li><a href="#claude-with-amazon-bedrock--accessing-the-api" data-toc="claude-with-amazon-bedrock--accessing-the-api"><span class="toc-n">۲</span><span class="toc-t">دسترسی به API</span></a></li><li><a href="#claude-with-amazon-bedrock--making-a-request" data-toc="claude-with-amazon-bedrock--making-a-request"><span class="toc-n">۳</span><span class="toc-t">فرستادن یک درخواست</span></a></li><li><a href="#claude-with-amazon-bedrock--multi-turn-conversations" data-toc="claude-with-amazon-bedrock--multi-turn-conversations"><span class="toc-n">۴</span><span class="toc-t">گفت‌وگوهای چندنوبتی</span></a></li><li><a href="#claude-with-amazon-bedrock--system-prompts" data-toc="claude-with-amazon-bedrock--system-prompts"><span class="toc-n">۵</span><span class="toc-t">پرامپت‌های سیستمی</span></a></li><li><a href="#claude-with-amazon-bedrock--temperature" data-toc="claude-with-amazon-bedrock--temperature"><span class="toc-n">۶</span><span class="toc-t">دما (Temperature)</span></a></li><li><a href="#claude-with-amazon-bedrock--streaming" data-toc="claude-with-amazon-bedrock--streaming"><span class="toc-n">۷</span><span class="toc-t">استریم پاسخ</span></a></li><li><a href="#claude-with-amazon-bedrock--controlling-model-output" data-toc="claude-with-amazon-bedrock--controlling-model-output"><span class="toc-n">۸</span><span class="toc-t">کنترل خروجی مدل</span></a></li><li><a href="#claude-with-amazon-bedrock--structured-data" data-toc="claude-with-amazon-bedrock--structured-data"><span class="toc-n">۹</span><span class="toc-t">دادهٔ ساختاریافته</span></a></li><li><a href="#claude-with-amazon-bedrock--quiz-on-working-with-the-api" data-toc="claude-with-amazon-bedrock--quiz-on-working-with-the-api"><span class="toc-n">۱۰</span><span class="toc-t">آزمونک کار با API</span></a></li><li class="toc-sec">ارزیابی و مهندسی پرامپت</li><li><a href="#claude-with-amazon-bedrock--prompt-evaluation" data-toc="claude-with-amazon-bedrock--prompt-evaluation"><span class="toc-n">۱۱</span><span class="toc-t">ارزیابی پرامپت</span></a></li><li><a href="#claude-with-amazon-bedrock--a-typical-eval-workflow" data-toc="claude-with-amazon-bedrock--a-typical-eval-workflow"><span class="toc-n">۱۲</span><span class="toc-t">یک گردش‌کار معمول ارزیابی</span></a></li><li><a href="#claude-with-amazon-bedrock--generating-test-datasets" data-toc="claude-with-amazon-bedrock--generating-test-datasets"><span class="toc-n">۱۳</span><span class="toc-t">ساختن مجموعه‌دادهٔ آزمون</span></a></li><li><a href="#claude-with-amazon-bedrock--running-the-eval" data-toc="claude-with-amazon-bedrock--running-the-eval"><span class="toc-n">۱۴</span><span class="toc-t">اجرای ارزیابی</span></a></li><li><a href="#claude-with-amazon-bedrock--model-based-grading" data-toc="claude-with-amazon-bedrock--model-based-grading"><span class="toc-n">۱۵</span><span class="toc-t">نمره‌دهی با مدل</span></a></li><li><a href="#claude-with-amazon-bedrock--code-based-grading" data-toc="claude-with-amazon-bedrock--code-based-grading"><span class="toc-n">۱۶</span><span class="toc-t">نمره‌دهی با کد</span></a></li><li><a href="#claude-with-amazon-bedrock--prompt-engineering" data-toc="claude-with-amazon-bedrock--prompt-engineering"><span class="toc-n">۱۷</span><span class="toc-t">مهندسی پرامپت</span></a></li><li><a href="#claude-with-amazon-bedrock--being-clear-and-direct" data-toc="claude-with-amazon-bedrock--being-clear-and-direct"><span class="toc-n">۱۸</span><span class="toc-t">روشن و مستقیم بودن</span></a></li><li><a href="#claude-with-amazon-bedrock--being-specific" data-toc="claude-with-amazon-bedrock--being-specific"><span class="toc-n">۱۹</span><span class="toc-t">مشخص بودن</span></a></li><li><a href="#claude-with-amazon-bedrock--structure-with-xml-tags" data-toc="claude-with-amazon-bedrock--structure-with-xml-tags"><span class="toc-n">۲۰</span><span class="toc-t">ساختاردهی با تگ‌های XML</span></a></li><li><a href="#claude-with-amazon-bedrock--providing-examples" data-toc="claude-with-amazon-bedrock--providing-examples"><span class="toc-n">۲۱</span><span class="toc-t">آوردن مثال</span></a></li><li><a href="#claude-with-amazon-bedrock--quiz-on-prompt-evaluation-and-engineering" data-toc="claude-with-amazon-bedrock--quiz-on-prompt-evaluation-and-engineering"><span class="toc-n">۲۲</span><span class="toc-t">آزمونک‌های ارزیابی و مهندسی پرامپت</span></a></li><li class="toc-sec">استفاده از ابزار</li><li><a href="#claude-with-amazon-bedrock--introducing-tool-use" data-toc="claude-with-amazon-bedrock--introducing-tool-use"><span class="toc-n">۲۳</span><span class="toc-t">آشنایی با استفاده از ابزار</span></a></li><li><a href="#claude-with-amazon-bedrock--project-overview" data-toc="claude-with-amazon-bedrock--project-overview"><span class="toc-n">۲۴</span><span class="toc-t">معرفی پروژه</span></a></li><li><a href="#claude-with-amazon-bedrock--tool-functions" data-toc="claude-with-amazon-bedrock--tool-functions"><span class="toc-n">۲۵</span><span class="toc-t">تابع‌های ابزار</span></a></li><li><a href="#claude-with-amazon-bedrock--tool-schemas" data-toc="claude-with-amazon-bedrock--tool-schemas"><span class="toc-n">۲۶</span><span class="toc-t">اسکیمای ابزارها (قالب Converse)</span></a></li><li><a href="#claude-with-amazon-bedrock--handling-tool-use-responses" data-toc="claude-with-amazon-bedrock--handling-tool-use-responses"><span class="toc-n">۲۷</span><span class="toc-t">کار با پاسخ‌های استفاده از ابزار</span></a></li><li><a href="#claude-with-amazon-bedrock--sending-tool-results" data-toc="claude-with-amazon-bedrock--sending-tool-results"><span class="toc-n">۲۸</span><span class="toc-t">فرستادن نتیجهٔ ابزار</span></a></li><li><a href="#claude-with-amazon-bedrock--multi-turn-conversations-with-tools" data-toc="claude-with-amazon-bedrock--multi-turn-conversations-with-tools"><span class="toc-n">۲۹</span><span class="toc-t">گفت‌وگوهای چندنوبتی با ابزار</span></a></li><li><a href="#claude-with-amazon-bedrock--using-multiple-tools" data-toc="claude-with-amazon-bedrock--using-multiple-tools"><span class="toc-n">۳۰</span><span class="toc-t">استفاده از چند ابزار</span></a></li><li><a href="#claude-with-amazon-bedrock--batch-tool-use" data-toc="claude-with-amazon-bedrock--batch-tool-use"><span class="toc-n">۳۱</span><span class="toc-t">استفادهٔ دسته‌ای از ابزار</span></a></li><li><a href="#claude-with-amazon-bedrock--structured-data-with-tools" data-toc="claude-with-amazon-bedrock--structured-data-with-tools"><span class="toc-n">۳۲</span><span class="toc-t">دادهٔ ساختاریافته با ابزارها</span></a></li><li><a href="#claude-with-amazon-bedrock--the-text-edit-tool" data-toc="claude-with-amazon-bedrock--the-text-edit-tool"><span class="toc-n">۳۳</span><span class="toc-t">ابزار ویرایش متن</span></a></li><li><a href="#claude-with-amazon-bedrock--quiz-on-tool-use" data-toc="claude-with-amazon-bedrock--quiz-on-tool-use"><span class="toc-n">۳۴</span><span class="toc-t">آزمونک استفاده از ابزار</span></a></li><li class="toc-sec">تولید تقویت‌شده با بازیابی (RAG)</li><li><a href="#claude-with-amazon-bedrock--introducing-retrieval-augmented-generation" data-toc="claude-with-amazon-bedrock--introducing-retrieval-augmented-generation"><span class="toc-n">۳۵</span><span class="toc-t">آشنایی با RAG</span></a></li><li><a href="#claude-with-amazon-bedrock--text-chunking-strategies" data-toc="claude-with-amazon-bedrock--text-chunking-strategies"><span class="toc-n">۳۶</span><span class="toc-t">راهبردهای تکه‌کردن متن</span></a></li><li><a href="#claude-with-amazon-bedrock--text-embeddings" data-toc="claude-with-amazon-bedrock--text-embeddings"><span class="toc-n">۳۷</span><span class="toc-t">بردارهای معنایی متن</span></a></li><li><a href="#claude-with-amazon-bedrock--the-full-rag-flow" data-toc="claude-with-amazon-bedrock--the-full-rag-flow"><span class="toc-n">۳۸</span><span class="toc-t">جریان کامل RAG</span></a></li><li><a href="#claude-with-amazon-bedrock--implementing-the-rag-flow" data-toc="claude-with-amazon-bedrock--implementing-the-rag-flow"><span class="toc-n">۳۹</span><span class="toc-t">پیاده‌سازی جریان RAG</span></a></li><li><a href="#claude-with-amazon-bedrock--bm25-lexical-search" data-toc="claude-with-amazon-bedrock--bm25-lexical-search"><span class="toc-n">۴۰</span><span class="toc-t">جست‌وجوی واژگانی BM25</span></a></li><li><a href="#claude-with-amazon-bedrock--a-multi-search-rag-pipeline" data-toc="claude-with-amazon-bedrock--a-multi-search-rag-pipeline"><span class="toc-n">۴۱</span><span class="toc-t">خط لولهٔ RAG با چند جست‌وجو</span></a></li><li><a href="#claude-with-amazon-bedrock--reranking-results" data-toc="claude-with-amazon-bedrock--reranking-results"><span class="toc-n">۴۲</span><span class="toc-t">رتبه‌بندی دوبارهٔ نتیجه‌ها</span></a></li><li><a href="#claude-with-amazon-bedrock--contextual-retrieval" data-toc="claude-with-amazon-bedrock--contextual-retrieval"><span class="toc-n">۴۳</span><span class="toc-t">بازیابی زمینه‌دار</span></a></li><li class="toc-sec">قابلیت‌های Claude</li><li><a href="#claude-with-amazon-bedrock--extended-thinking" data-toc="claude-with-amazon-bedrock--extended-thinking"><span class="toc-n">۴۴</span><span class="toc-t">تفکر گسترده</span></a></li><li><a href="#claude-with-amazon-bedrock--image-support" data-toc="claude-with-amazon-bedrock--image-support"><span class="toc-n">۴۵</span><span class="toc-t">پشتیبانی از تصویر</span></a></li><li><a href="#claude-with-amazon-bedrock--pdf-support" data-toc="claude-with-amazon-bedrock--pdf-support"><span class="toc-n">۴۶</span><span class="toc-t">پشتیبانی از PDF</span></a></li><li><a href="#claude-with-amazon-bedrock--citations" data-toc="claude-with-amazon-bedrock--citations"><span class="toc-n">۴۷</span><span class="toc-t">ارجاع‌دهی</span></a></li><li><a href="#claude-with-amazon-bedrock--prompt-caching" data-toc="claude-with-amazon-bedrock--prompt-caching"><span class="toc-n">۴۸</span><span class="toc-t">کش پرامپت (cachePoint)</span></a></li><li><a href="#claude-with-amazon-bedrock--rules-of-prompt-caching" data-toc="claude-with-amazon-bedrock--rules-of-prompt-caching"><span class="toc-n">۴۹</span><span class="toc-t">قانون‌های کش پرامپت</span></a></li><li><a href="#claude-with-amazon-bedrock--prompt-caching-in-action" data-toc="claude-with-amazon-bedrock--prompt-caching-in-action"><span class="toc-n">۵۰</span><span class="toc-t">کش پرامپت در عمل</span></a></li><li><a href="#claude-with-amazon-bedrock--quiz-on-features-of-claude" data-toc="claude-with-amazon-bedrock--quiz-on-features-of-claude"><span class="toc-n">۵۱</span><span class="toc-t">آزمونک قابلیت‌های Claude</span></a></li><li class="toc-sec">پروتکل زمینهٔ مدل (MCP)</li><li><a href="#claude-with-amazon-bedrock--introducing-mcp" data-toc="claude-with-amazon-bedrock--introducing-mcp"><span class="toc-n">۵۲</span><span class="toc-t">آشنایی با MCP</span></a></li><li><a href="#claude-with-amazon-bedrock--mcp-clients" data-toc="claude-with-amazon-bedrock--mcp-clients"><span class="toc-n">۵۳</span><span class="toc-t">کلاینت‌های MCP</span></a></li><li><a href="#claude-with-amazon-bedrock--project-setup" data-toc="claude-with-amazon-bedrock--project-setup"><span class="toc-n">۵۴</span><span class="toc-t">راه‌اندازی پروژه</span></a></li><li><a href="#claude-with-amazon-bedrock--defining-tools-with-mcp" data-toc="claude-with-amazon-bedrock--defining-tools-with-mcp"><span class="toc-n">۵۵</span><span class="toc-t">تعریف ابزار با MCP</span></a></li><li><a href="#claude-with-amazon-bedrock--the-server-inspector" data-toc="claude-with-amazon-bedrock--the-server-inspector"><span class="toc-n">۵۶</span><span class="toc-t">بازرس سرور</span></a></li><li><a href="#claude-with-amazon-bedrock--implementing-a-client" data-toc="claude-with-amazon-bedrock--implementing-a-client"><span class="toc-n">۵۷</span><span class="toc-t">پیاده‌سازی کلاینت</span></a></li><li><a href="#claude-with-amazon-bedrock--defining-resources" data-toc="claude-with-amazon-bedrock--defining-resources"><span class="toc-n">۵۸</span><span class="toc-t">تعریف منابع</span></a></li><li><a href="#claude-with-amazon-bedrock--accessing-resources" data-toc="claude-with-amazon-bedrock--accessing-resources"><span class="toc-n">۵۹</span><span class="toc-t">دسترسی به منابع</span></a></li><li><a href="#claude-with-amazon-bedrock--defining-prompts" data-toc="claude-with-amazon-bedrock--defining-prompts"><span class="toc-n">۶۰</span><span class="toc-t">تعریف پرامپت‌ها</span></a></li><li><a href="#claude-with-amazon-bedrock--prompts-in-the-client" data-toc="claude-with-amazon-bedrock--prompts-in-the-client"><span class="toc-n">۶۱</span><span class="toc-t">پرامپت‌ها در کلاینت</span></a></li><li><a href="#claude-with-amazon-bedrock--mcp-review" data-toc="claude-with-amazon-bedrock--mcp-review"><span class="toc-n">۶۲</span><span class="toc-t">مرور MCP</span></a></li><li class="toc-sec">ایجنت‌ها: Claude Code و استفاده از کامپیوتر</li><li><a href="#claude-with-amazon-bedrock--claude-code-on-bedrock" data-toc="claude-with-amazon-bedrock--claude-code-on-bedrock"><span class="toc-n">۶۳</span><span class="toc-t">راه‌اندازی Claude Code روی Bedrock</span></a></li><li><a href="#claude-with-amazon-bedrock--claude-code-in-action" data-toc="claude-with-amazon-bedrock--claude-code-in-action"><span class="toc-n">۶۴</span><span class="toc-t">Claude Code در عمل</span></a></li><li><a href="#claude-with-amazon-bedrock--parallelizing-claude-code" data-toc="claude-with-amazon-bedrock--parallelizing-claude-code"><span class="toc-n">۶۵</span><span class="toc-t">اجرای موازی Claude Code</span></a></li><li><a href="#claude-with-amazon-bedrock--automated-debugging" data-toc="claude-with-amazon-bedrock--automated-debugging"><span class="toc-n">۶۶</span><span class="toc-t">اشکال‌زدایی خودکار</span></a></li><li><a href="#claude-with-amazon-bedrock--computer-use" data-toc="claude-with-amazon-bedrock--computer-use"><span class="toc-n">۶۷</span><span class="toc-t">استفاده از کامپیوتر</span></a></li><li><a href="#claude-with-amazon-bedrock--how-computer-use-works" data-toc="claude-with-amazon-bedrock--how-computer-use-works"><span class="toc-n">۶۸</span><span class="toc-t">استفاده از کامپیوتر چطور کار می‌کند</span></a></li><li><a href="#claude-with-amazon-bedrock--final-assessment" data-toc="claude-with-amazon-bedrock--final-assessment"><span class="toc-n">۶۹</span><span class="toc-t">ارزیابی پایانی</span></a></li><li><a href="#cheatsheet"><span class="toc-n">★</span><span class="toc-t">خلاصهٔ یک‌نگاه</span></a></li><li><a href="#selfcheck"><span class="toc-n">؟</span><span class="toc-t">خودت را بسنج</span></a></li></ol></details></nav>
+<main id="main">
+<header class="page-head">
+  <p class="eyebrow">ساختن با API <span lang="en" dir="ltr">· Build with the API</span></p>
+  <h1><span class="h1-fa">Claude روی Amazon Bedrock (سرویس هوش مصنوعی AWS)</span><span class="h1-en" lang="en" dir="ltr">Claude with Amazon Bedrock</span></h1>
+  <p class="page-stats"><span lang="en" dir="ltr">65 lessons · 8 quizzes · 8 hr · badge</span> <a class="src src-big" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی در Claude Academy<span aria-hidden="true"> ↗</span></a></p>
+  <p class="who"><span class="who-label">مناسب برای</span> <span>برنامه‌نویس‌هایی که روی AWS کار می‌کنند، پایتون بلدند و یک حساب AWS با دسترسی به Amazon Bedrock دارند.</span> <span class="who-en" lang="en" dir="ltr">Developers on AWS who know Python and have an AWS account with Amazon Bedrock access.</span></p>
+  <p class="progress" data-progress-for="claude-with-amazon-bedrock" data-total="69"><span class="progress-bar"><span></span></span><span class="progress-text">۰ از ۶۹ خوانده شده</span></p>
+</header>
+<div class="page-intro"><div class="pair"><div class="en" lang="en" dir="ltr"><p>This edition teaches the same skills as <a class="xref" href="../courses/building-with-the-claude-api.html">Building with the Claude API</a>, but <strong>through Amazon Bedrock</strong>, AWS's managed AI service. The ideas (prompting, evals, tools, RAG, MCP, agents) are identical; what changes is <strong>how you connect</strong>: AWS credentials and IAM instead of an Anthropic API key, Bedrock <strong>model IDs</strong> and <strong>inference profiles</strong>, and the boto3 <strong>Converse API</strong> message format.</p>
+<p><strong>How to read this page:</strong> lessons that are AWS-specific (setup, requests, streaming, the Converse tool format, reranking, contextual retrieval, Claude Code on Bedrock, computer use) are explained in full. Lessons that are the same as the API course are marked <strong>"Same as API course"</strong>, summarized in a few lines, and linked to the full lesson.</p></div><div class="fa" lang="fa" dir="rtl"><p>این نسخه همان مهارت‌های دورهٔ <a class="xref" href="../courses/building-with-the-claude-api.html">ساختن با Claude API</a> را یاد می‌دهد، ولی <strong>از طریق Amazon Bedrock</strong>؛ سرویس مدیریت‌شدهٔ هوش مصنوعی AWS. ایده‌ها (پرامپت، ارزیابی، ابزار، RAG، MCP، ایجنت) یکسان‌اند؛ چیزی که عوض می‌شود <strong>روش وصل شدن</strong> است: اعتبارنامه‌های AWS و IAM به جای کلید API آنتروپیک، <strong>شناسهٔ مدل‌ها</strong> و <strong>پروفایل‌های استنتاج</strong> Bedrock و قالب پیام <strong>Converse API</strong> در boto3.</p>
+<p><strong>این صفحه را چطور بخوانی:</strong> درس‌هایی که مخصوص AWS هستند (راه‌اندازی، درخواست، استریم، قالب ابزار در Converse، رتبه‌بندی دوباره، بازیابی زمینه‌دار، Claude Code روی Bedrock، استفاده از کامپیوتر) کامل توضیح داده شده‌اند. درس‌هایی که با دورهٔ API یکی‌اند با <strong>«مشترک با دورهٔ API»</strong> علامت خورده‌اند، در چند خط خلاصه شده‌اند و به درس کامل پیوند دارند.</p></div></div></div>
+
+<h2 class="section-title"><span>مقدمهٔ دوره</span><span class="sec-en" lang="en" dir="ltr">Course introduction</span></h2>
+<article class="item" id="claude-with-amazon-bedrock--overview-of-claude-models" data-item="claude-with-amazon-bedrock--overview-of-claude-models">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱ <span lang="en" dir="ltr">· Lesson 1</span> </p>
+      <h3><span class="t-fa">مروری بر مدل‌های Claude</span><span class="t-en" lang="en" dir="ltr">Overview of Claude models</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--overview-of-claude-models" data-done="claude-with-amazon-bedrock--overview-of-claude-models"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Claude comes in families that trade <strong>intelligence, speed and cost</strong>: <strong>Opus</strong> (most capable for complex, long-running work), <strong>Sonnet</strong> (balanced, great for high-volume production) and <strong>Haiku</strong> (fastest and cheapest, ideal for simple, high-volume tasks like classification or routing). The course's examples use <strong>Claude Haiku 4.5</strong> because it's fast and inexpensive while you learn. On Bedrock you must first <strong>enable access</strong> to each model you want in the Bedrock console, in your chosen region.</p></div><div class="fa" lang="fa" dir="rtl"><p>Claude در خانواده‌هایی می‌آید که بین <strong>هوش، سرعت و هزینه</strong> تعادل برقرار می‌کنند: <strong>Opus</strong> (تواناترین برای کارهای پیچیده و طولانی)، <strong>Sonnet</strong> (متعادل؛ عالی برای محصولات پرحجم) و <strong>Haiku</strong> (سریع‌ترین و ارزان‌ترین؛ ایدئال برای کارهای ساده و پرحجم مثل دسته‌بندی یا مسیریابی). مثال‌های دوره از <strong>Claude Haiku 4.5</strong> استفاده می‌کنند چون موقع یادگیری سریع و ارزان است. روی Bedrock اول باید در کنسول Bedrock و در منطقهٔ انتخابی‌ات، <strong>دسترسی به هر مدلی را که می‌خواهی فعال کنی</strong>.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Choosing a model is like choosing a <strong>vehicle</strong>: a sports car (Opus) for the hardest roads, a reliable sedan (Sonnet) for daily commuting, a scooter (Haiku) for quick trips around the block.</p></div><div class="fa" lang="fa" dir="rtl"><p>انتخاب مدل مثل انتخاب <strong>وسیلهٔ نقلیه</strong> است: یک ماشین اسپرت (Opus) برای سخت‌ترین جاده‌ها، یک سدان مطمئن (Sonnet) برای رفت‌وآمد روزانه، یک اسکوتر (Haiku) برای رفتن سریع تا سر کوچه.</p></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Newer models (like Claude Opus 5.5) also exist on Bedrock. Check the Bedrock model catalog for which models and features each region and integration offers before you design around one.</p></div><div class="fa" lang="fa" dir="rtl"><p>مدل‌های جدیدتر (مثل Claude Opus 5.5) هم روی Bedrock هستند. قبل از این‌که طراحی‌ات را به یک مدل گره بزنی، در فهرست مدل‌های Bedrock ببین هر منطقه و هر روش اتصال کدام مدل‌ها و قابلیت‌ها را ارائه می‌دهد.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>کار با API</span><span class="sec-en" lang="en" dir="ltr">Working with the API</span></h2>
+<article class="item" id="claude-with-amazon-bedrock--accessing-the-api" data-item="claude-with-amazon-bedrock--accessing-the-api">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲ <span lang="en" dir="ltr">· Lesson 2</span> </p>
+      <h3><span class="t-fa">دسترسی به API</span><span class="t-en" lang="en" dir="ltr">Accessing the API</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/accessing-the-api" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--accessing-the-api" data-done="claude-with-amazon-bedrock--accessing-the-api"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>The request flow is the same as with Anthropic's API (your app → your server → Bedrock → Claude), but security is <strong>AWS-native</strong>. You need:</p>
+<ul><li>an <strong>AWS account</strong> with Bedrock enabled in a region where Claude is available;</li><li><strong>model access</strong> granted for the Claude models you'll use;</li><li><strong>IAM permissions</strong> for your user or role (for example <code dir="ltr">bedrock:InvokeModel</code> and <code dir="ltr">bedrock:InvokeModelWithResponseStream</code>, which also cover the Converse API);</li><li>AWS <strong>credentials</strong> that boto3 can find (environment variables, <code dir="ltr">~/.aws/credentials</code>, or an IAM role when running on AWS).</li></ul>
+<p>There's no Anthropic API key at all: access is controlled by IAM, and usage is billed to your AWS account.</p></div><div class="fa" lang="fa" dir="rtl"><p>جریان درخواست همان جریان API آنتروپیک است (اپ تو ← سرور تو ← Bedrock ← Claude)، ولی امنیت <strong>بومیِ AWS</strong> است. این‌ها را لازم داری:</p>
+<ul><li>یک <strong>حساب AWS</strong> که Bedrock در منطقه‌ای که Claude در دسترس است فعال باشد؛</li><li><strong>دسترسی مدل</strong> برای مدل‌های Claude که استفاده می‌کنی؛</li><li><strong>مجوزهای IAM</strong> برای کاربر یا نقش تو (مثلاً <code dir="ltr">bedrock:InvokeModel</code> و <code dir="ltr">bedrock:InvokeModelWithResponseStream</code> که Converse API را هم پوشش می‌دهند)؛</li><li><strong>اعتبارنامه‌های</strong> AWS که boto3 بتواند پیدایشان کند (متغیرهای محیطی، <code dir="ltr">~/.aws/credentials</code> یا یک نقش IAM وقتی روی AWS اجرا می‌شوی).</li></ul>
+<p>اصلاً کلید API آنتروپیک وجود ندارد: دسترسی با IAM کنترل می‌شود و هزینه به حساب AWS تو نوشته می‌شود.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">bash</span><span class="code-cap">Setup</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-bash">pip install boto3
+aws configure          # or use SSO / environment variables / an IAM role
+aws bedrock list-foundation-models --by-provider anthropic --region us-west-2 \
+    --query &quot;modelSummaries[].modelId&quot;</code></pre></figure>
+<section class="blk blk-warn"><h4 class="blk-label"><span lang="en">Watch out</span><span>حواست باشد</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Give your app's IAM role <strong>only</strong> the Bedrock actions and models it needs (least privilege), never your personal admin credentials.</p></div><div class="fa" lang="fa" dir="rtl"><p>به نقش IAM اپت <strong>فقط</strong> همان کارها و مدل‌های Bedrock را بده که لازم دارد (کمترین دسترسی)، هرگز اعتبارنامه‌های مدیر شخصی خودت را.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>IAM is the <strong>building's badge system</strong>: instead of one master key (an API key), each person's badge opens only the doors they need.</p></div><div class="fa" lang="fa" dir="rtl"><p>IAM مثل <strong>سیستم کارت ورود یک ساختمان</strong> است: به جای یک شاه‌کلید (کلید API)، کارت هر نفر فقط درهایی را باز می‌کند که لازم دارد.</p></div></div></section>
+<section class="blk blk-terms"><h4 class="blk-label"><span lang="en">Key words</span><span>واژه‌های کلیدی</span></h4><dl class="terms"><div class="term"><dt><span lang="en" dir="ltr">IAM</span><span class="term-fa">مدیریت هویت و دسترسی</span></dt><dd>سیستم AWS برای تعریف این‌که چه کسی به چه منبعی و با چه مجوزی دسترسی دارد.</dd></div></dl></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--making-a-request" data-item="claude-with-amazon-bedrock--making-a-request">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳ <span lang="en" dir="ltr">· Lesson 3</span> </p>
+      <h3><span class="t-fa">فرستادن یک درخواست</span><span class="t-en" lang="en" dir="ltr">Making a request</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/making-a-request" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--making-a-request" data-done="claude-with-amazon-bedrock--making-a-request"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>The course uses boto3's <code dir="ltr">bedrock-runtime</code> client and the <strong>Converse API</strong>: a model ID, a list of messages, and an inference config. Two Bedrock details:</p>
+<ul><li><strong>Message content is a list of blocks</strong>, even for plain text: <code dir="ltr">[{"text": "..."}]</code>.</li><li><strong>Inference profiles</strong> route your request to a region where the model is hosted. Their IDs add a geographic prefix to the model ID (for example <code dir="ltr">us.</code> or <code dir="ltr">global.</code>), which also helps with capacity.</li></ul></div><div class="fa" lang="fa" dir="rtl"><p>دوره از کلاینت <code dir="ltr">bedrock-runtime</code> در boto3 و <strong>Converse API</strong> استفاده می‌کند: یک شناسهٔ مدل، فهرستی از پیام‌ها و تنظیمات استنتاج. دو جزئیات Bedrock:</p>
+<ul><li><strong>محتوای پیام فهرستی از بلوک‌هاست</strong>، حتی برای متن ساده: <code dir="ltr">[{"text": "..."}]</code>.</li><li><strong>پروفایل‌های استنتاج (inference profiles)</strong> درخواستت را به منطقه‌ای می‌فرستند که مدل آن‌جا میزبانی می‌شود. شناسه‌شان یک پیشوند جغرافیایی به شناسهٔ مدل اضافه می‌کند (مثلاً <code dir="ltr">us.</code> یا <code dir="ltr">global.</code>) که به ظرفیت هم کمک می‌کند.</li></ul></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">bedrock_request.py</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">import boto3
+
+client = boto3.client(&quot;bedrock-runtime&quot;, region_name=&quot;us-west-2&quot;)
+MODEL_ID = &quot;us.anthropic.claude-haiku-4-5-20251001-v1:0&quot;   # cross-region inference profile
+
+response = client.converse(
+    modelId=MODEL_ID,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: [{&quot;text&quot;: &quot;What is quantum computing? One sentence.&quot;}]}],
+    inferenceConfig={&quot;maxTokens&quot;: 300},
+)
+print(response[&quot;output&quot;][&quot;message&quot;][&quot;content&quot;][0][&quot;text&quot;])
+print(response[&quot;stopReason&quot;], response[&quot;usage&quot;])     # e.g. end_turn, {&#x27;inputTokens&#x27;: ..., ...}</code></pre></figure>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p><strong>Cool tip:</strong> for the newest models and API features you can also use Anthropic's own SDK against Bedrock (<code dir="ltr">pip install "anthropic[bedrock]"</code>, the <code dir="ltr">AnthropicBedrockMantle</code> client, model IDs like <code dir="ltr">anthropic.claude-opus-5-5</code>). Then your code looks exactly like the <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--making-a-request">API course</a>, with AWS doing the authentication.</p></div><div class="fa" lang="fa" dir="rtl"><p><strong>نکتهٔ خفن:</strong> برای جدیدترین مدل‌ها و قابلیت‌های API می‌توانی SDK خود آنتروپیک را هم روی Bedrock به کار ببری (<code dir="ltr">pip install "anthropic[bedrock]"</code>، کلاینت <code dir="ltr">AnthropicBedrockMantle</code>، شناسه‌هایی مثل <code dir="ltr">anthropic.claude-opus-5-5</code>). آن وقت کدت دقیقاً مثل <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--making-a-request">دورهٔ API</a> می‌شود و احراز هویت را AWS انجام می‌دهد.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">The same request with the Anthropic SDK on Bedrock</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">from anthropic import AnthropicBedrockMantle
+
+client = AnthropicBedrockMantle(aws_region=&quot;us-west-2&quot;)   # uses your AWS credentials
+message = client.messages.create(
+    model=&quot;anthropic.claude-opus-5-5&quot;,
+    max_tokens=1000,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;What is quantum computing? One sentence.&quot;}],
+)
+print(&quot;&quot;.join(b.text for b in message.content if b.type == &quot;text&quot;))</code></pre></figure>
+<section class="blk blk-terms"><h4 class="blk-label"><span lang="en">Key words</span><span>واژه‌های کلیدی</span></h4><dl class="terms"><div class="term"><dt><span lang="en" dir="ltr">Inference profile</span><span class="term-fa">پروفایل استنتاج</span></dt><dd>شناسه‌ای در Bedrock که درخواست را بین منطقه‌های مختلف AWS که مدل را میزبانی می‌کنند مسیریابی می‌کند.</dd></div><div class="term"><dt><span lang="en" dir="ltr">Converse API</span><span class="term-fa">Converse API</span></dt><dd>رابط یکدست Bedrock برای گفت‌وگو با مدل‌های مختلف با یک قالب پیام مشترک.</dd></div></dl></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--multi-turn-conversations" data-item="claude-with-amazon-bedrock--multi-turn-conversations">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴ <span lang="en" dir="ltr">· Lesson 4</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">گفت‌وگوهای چندنوبتی</span><span class="t-en" lang="en" dir="ltr">Multi-turn conversations</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--multi-turn-conversations" data-done="claude-with-amazon-bedrock--multi-turn-conversations"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Same idea as the <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--multi-turn-conversations">API course lesson</a>: Bedrock is stateless too, so you keep the history and resend it. With Converse, append the assistant's <code dir="ltr">response["output"]["message"]</code> as is, then your next <code dir="ltr">{"role": "user", "content": [{"text": ...}]}</code>.</p></div><div class="fa" lang="fa" dir="rtl"><p>همان ایدهٔ <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--multi-turn-conversations">درس دورهٔ API</a>: Bedrock هم بی‌حافظه است؛ پس تاریخچه را نگه می‌داری و دوباره می‌فرستی. با Converse، <code dir="ltr">response["output"]["message"]</code> دستیار را همان‌طور که هست اضافه کن و بعد پیام بعدی‌ات را به شکل <code dir="ltr">{"role": "user", "content": [{"text": ...}]}</code>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--system-prompts" data-item="claude-with-amazon-bedrock--system-prompts">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵ <span lang="en" dir="ltr">· Lesson 5</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پرامپت‌های سیستمی</span><span class="t-en" lang="en" dir="ltr">System prompts</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/system-prompts" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--system-prompts" data-done="claude-with-amazon-bedrock--system-prompts"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Same purpose as in the <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--system-prompts">API course</a>: role, tone and rules for the whole conversation. In Converse, pass it as a list of blocks: <code dir="ltr">system=[{"text": "You are a patient math tutor..."}]</code>.</p></div><div class="fa" lang="fa" dir="rtl"><p>همان کاربرد <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--system-prompts">دورهٔ API</a>: نقش، لحن و قانون‌ها برای کل گفت‌وگو. در Converse آن را به شکل فهرستی از بلوک‌ها بفرست: <code dir="ltr">system=[{"text": "You are a patient math tutor..."}]</code>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--temperature" data-item="claude-with-amazon-bedrock--temperature">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶ <span lang="en" dir="ltr">· Lesson 6</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">دما (Temperature)</span><span class="t-en" lang="en" dir="ltr">Temperature</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--temperature" data-done="claude-with-amazon-bedrock--temperature"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Same concept as the <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--temperature">API course lesson</a>. In Converse it lives in <code dir="ltr">inferenceConfig={"temperature": 0.7}</code>. Remember: the newest Claude models reject temperature; steer variety with your prompt instead.</p></div><div class="fa" lang="fa" dir="rtl"><p>همان مفهوم <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--temperature">درس دورهٔ API</a>. در Converse داخل <code dir="ltr">inferenceConfig={"temperature": 0.7}</code> قرار می‌گیرد. یادت باشد: جدیدترین مدل‌های Claude دما را رد می‌کنند؛ تنوع را با پرامپتت هدایت کن.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--streaming" data-item="claude-with-amazon-bedrock--streaming">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۷ <span lang="en" dir="ltr">· Lesson 7</span> </p>
+      <h3><span class="t-fa">استریم پاسخ</span><span class="t-en" lang="en" dir="ltr">Streaming</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/streaming" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--streaming" data-done="claude-with-amazon-bedrock--streaming"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p><code dir="ltr">converse_stream</code> returns an event stream. Text arrives in <code dir="ltr">contentBlockDelta</code> events; <code dir="ltr">messageStop</code> tells you why generation ended, and a final <code dir="ltr">metadata</code> event carries token usage. Print deltas as they arrive for a responsive UI.</p></div><div class="fa" lang="fa" dir="rtl"><p><code dir="ltr">converse_stream</code> یک جریان رویداد برمی‌گرداند. متن در رویدادهای <code dir="ltr">contentBlockDelta</code> می‌رسد؛ <code dir="ltr">messageStop</code> می‌گوید چرا تولید تمام شد و یک رویداد <code dir="ltr">metadata</code> در پایان، مصرف توکن را می‌آورد. برای رابط کاربری پاسخ‌گو، تکه‌ها را همان لحظهٔ رسیدن چاپ کن.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">bedrock_stream.py</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">response = client.converse_stream(
+    modelId=MODEL_ID,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: [{&quot;text&quot;: &quot;Write a 3-line poem about the sea.&quot;}]}],
+    inferenceConfig={&quot;maxTokens&quot;: 300},
+)
+for event in response[&quot;stream&quot;]:
+    if &quot;contentBlockDelta&quot; in event:
+        print(event[&quot;contentBlockDelta&quot;][&quot;delta&quot;].get(&quot;text&quot;, &quot;&quot;), end=&quot;&quot;, flush=True)
+    elif &quot;messageStop&quot; in event:
+        print(&quot;\nstop:&quot;, event[&quot;messageStop&quot;][&quot;stopReason&quot;])
+    elif &quot;metadata&quot; in event:
+        print(&quot;usage:&quot;, event[&quot;metadata&quot;][&quot;usage&quot;])</code></pre></figure>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Same as the API course: a <strong>phone call</strong> instead of waiting for a <strong>letter</strong>.</p></div><div class="fa" lang="fa" dir="rtl"><p>مثل دورهٔ API: <strong>تماس تلفنی</strong> به جای منتظر ماندن برای <strong>نامه</strong>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--controlling-model-output" data-item="claude-with-amazon-bedrock--controlling-model-output">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۸ <span lang="en" dir="ltr">· Lesson 8</span> </p>
+      <h3><span class="t-fa">کنترل خروجی مدل</span><span class="t-en" lang="en" dir="ltr">Controlling model output</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/controlling-model-output" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--controlling-model-output" data-done="claude-with-amazon-bedrock--controlling-model-output"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Two classic levers for shaping output:</p>
+<ul><li><strong>Prefilling</strong>: end the messages with a partial assistant turn so Claude continues from your words (for example, forcing it to start with a specific opinion or format).</li><li><strong>Stop sequences</strong>: strings that end generation immediately, set in <code dir="ltr">inferenceConfig={"stopSequences": [...]}</code>.</li></ul>
+<p><strong>What changed:</strong> prefill is rejected by the newest Claude models (use structured outputs or a clear instruction instead); stop sequences still work everywhere.</p></div><div class="fa" lang="fa" dir="rtl"><p>دو اهرم کلاسیک برای شکل دادن به خروجی:</p>
+<ul><li><strong>پیش‌پر کردن</strong>: پیام‌ها را با یک نوبت ناتمام دستیار تمام کن تا Claude از کلمه‌های تو ادامه بدهد (مثلاً مجبورش کنی با یک نظر یا قالب خاص شروع کند).</li><li><strong>دنباله‌های توقف</strong>: رشته‌هایی که تولید را فوراً تمام می‌کنند و در <code dir="ltr">inferenceConfig={"stopSequences": [...]}</code> تنظیم می‌شوند.</li></ul>
+<p><strong>چه چیزی عوض شده:</strong> جدیدترین مدل‌های Claude پیش‌پر کردن را رد می‌کنند (به جایش از خروجی ساختاریافته یا یک دستور روشن استفاده کن)؛ دنباله‌های توقف همه‌جا کار می‌کنند.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">Prefill + stop sequence (works on Haiku 4.5)</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">response = client.converse(
+    modelId=MODEL_ID,
+    messages=[
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: [{&quot;text&quot;: &quot;Is tea or coffee better? Give a one-line verdict.&quot;}]},
+        {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: [{&quot;text&quot;: &quot;Coffee is better because&quot;}]},   # prefill
+    ],
+    inferenceConfig={&quot;maxTokens&quot;: 100, &quot;stopSequences&quot;: [&quot;\n&quot;]},               # stop at line end
+)
+print(&quot;Coffee is better because&quot; + response[&quot;output&quot;][&quot;message&quot;][&quot;content&quot;][0][&quot;text&quot;])</code></pre></figure>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Prefill is <strong>starting someone's sentence</strong> for them; a stop sequence is <strong>raising your hand to say "that's enough"</strong>.</p></div><div class="fa" lang="fa" dir="rtl"><p>پیش‌پر کردن مثل <strong>شروع کردن جملهٔ کسی به جای خودش</strong> است؛ دنبالهٔ توقف مثل <strong>بالا بردن دست برای گفتن «کافی است»</strong>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--structured-data" data-item="claude-with-amazon-bedrock--structured-data">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۹ <span lang="en" dir="ltr">· Lesson 9</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">دادهٔ ساختاریافته</span><span class="t-en" lang="en" dir="ltr">Structured data</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--structured-data" data-done="claude-with-amazon-bedrock--structured-data"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Same goal as the <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--structured-data">API course lesson</a>: clean JSON with no extra words. The course combines prefill with a stop sequence; on newer models, use <strong>structured outputs</strong> (supported on Bedrock) or the tool-based method in "Structured data with tools" below.</p></div><div class="fa" lang="fa" dir="rtl"><p>همان هدف <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--structured-data">درس دورهٔ API</a>: JSON تمیز بدون کلمه‌های اضافه. دوره پیش‌پر کردن را با دنبالهٔ توقف ترکیب می‌کند؛ روی مدل‌های جدیدتر از <strong>خروجی ساختاریافته</strong> (که Bedrock پشتیبانی می‌کند) یا روش مبتنی بر ابزار در درس «دادهٔ ساختاریافته با ابزارها» در ادامه استفاده کن.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--quiz-on-working-with-the-api" data-item="claude-with-amazon-bedrock--quiz-on-working-with-the-api">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۰ <span lang="en" dir="ltr">· Lesson 10</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">آزمونک کار با API</span><span class="t-en" lang="en" dir="ltr">Quiz on working with the API</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--quiz-on-working-with-the-api" data-done="claude-with-amazon-bedrock--quiz-on-working-with-the-api"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Checks: model access and IAM, inference profiles, the Converse message format, system prompts, streaming events, prefill and stop sequences.</p></div><div class="fa" lang="fa" dir="rtl"><p>می‌سنجد: دسترسی مدل و IAM، پروفایل‌های استنتاج، قالب پیام Converse، پرامپت سیستمی، رویدادهای استریم، پیش‌پر کردن و دنبالهٔ توقف.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>ارزیابی و مهندسی پرامپت</span><span class="sec-en" lang="en" dir="ltr">Prompt evaluation and prompt engineering</span></h2>
+<article class="item" id="claude-with-amazon-bedrock--prompt-evaluation" data-item="claude-with-amazon-bedrock--prompt-evaluation">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۱ <span lang="en" dir="ltr">· Lesson 11</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ارزیابی پرامپت</span><span class="t-en" lang="en" dir="ltr">Prompt evaluation</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--prompt-evaluation" data-done="claude-with-amazon-bedrock--prompt-evaluation"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Test prompts systematically instead of trying them twice. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-evaluation">Prompt evaluation</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>پرامپت‌ها را به‌شکل نظام‌مند بیازما، نه با دو بار امتحان. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-evaluation">ارزیابی پرامپت</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--a-typical-eval-workflow" data-item="claude-with-amazon-bedrock--a-typical-eval-workflow">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۲ <span lang="en" dir="ltr">· Lesson 12</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">یک گردش‌کار معمول ارزیابی</span><span class="t-en" lang="en" dir="ltr">A typical eval workflow</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--a-typical-eval-workflow" data-done="claude-with-amazon-bedrock--a-typical-eval-workflow"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Draft → dataset → run → grade → compare versions. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--a-typical-eval-workflow">A typical eval workflow</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>پیش‌نویس ← مجموعه‌داده ← اجرا ← نمره ← مقایسهٔ نسخه‌ها. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--a-typical-eval-workflow">یک گردش‌کار معمول ارزیابی</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--generating-test-datasets" data-item="claude-with-amazon-bedrock--generating-test-datasets">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۳ <span lang="en" dir="ltr">· Lesson 13</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ساختن مجموعه‌دادهٔ آزمون</span><span class="t-en" lang="en" dir="ltr">Generating test datasets</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--generating-test-datasets" data-done="claude-with-amazon-bedrock--generating-test-datasets"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Use a fast model (Haiku) to generate varied test cases as JSON, then review them by hand. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--generating-test-datasets">Generating test datasets</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>با یک مدل سریع (Haiku) موردهای آزمون متنوع به شکل JSON بساز و بعد دستی مرورشان کن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--generating-test-datasets">ساختن مجموعه‌دادهٔ آزمون</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--running-the-eval" data-item="claude-with-amazon-bedrock--running-the-eval">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۴ <span lang="en" dir="ltr">· Lesson 14</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">اجرای ارزیابی</span><span class="t-en" lang="en" dir="ltr">Running the eval</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--running-the-eval" data-done="claude-with-amazon-bedrock--running-the-eval"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Loop over cases, call Claude (here via <code dir="ltr">client.converse</code>), grade, average. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--running-the-eval">Running the eval</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>روی موردها حلقه بزن، Claude را صدا بزن (این‌جا با <code dir="ltr">client.converse</code>)، نمره بده، میانگین بگیر. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--running-the-eval">اجرای ارزیابی</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--model-based-grading" data-item="claude-with-amazon-bedrock--model-based-grading">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۵ <span lang="en" dir="ltr">· Lesson 15</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">نمره‌دهی با مدل</span><span class="t-en" lang="en" dir="ltr">Model-based grading</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--model-based-grading" data-done="claude-with-amazon-bedrock--model-based-grading"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A grader model writes strengths, weaknesses and reasoning, then a 1-10 score. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--model-based-grading">Model-based grading</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک مدل نمره‌دهنده نقطه‌های قوت، ضعف و استدلال را می‌نویسد و بعد نمرهٔ ۱ تا ۱۰ می‌دهد. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--model-based-grading">نمره‌دهی با مدل</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--code-based-grading" data-item="claude-with-amazon-bedrock--code-based-grading">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۶ <span lang="en" dir="ltr">· Lesson 16</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">نمره‌دهی با کد</span><span class="t-en" lang="en" dir="ltr">Code-based grading</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--code-based-grading" data-done="claude-with-amazon-bedrock--code-based-grading"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Check what code can check (valid JSON, parseable Python, compiling regex) and combine with the model score. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--code-based-grading">Code-based grading</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>هر چیزی را که کد می‌تواند چک کند، با کد چک کن (JSON معتبر، پایتون قابل‌تجزیه، regex قابل‌کامپایل) و با نمرهٔ مدل ترکیب کن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--code-based-grading">نمره‌دهی با کد</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--prompt-engineering" data-item="claude-with-amazon-bedrock--prompt-engineering">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۷ <span lang="en" dir="ltr">· Lesson 17</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">مهندسی پرامپت</span><span class="t-en" lang="en" dir="ltr">Prompt engineering</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--prompt-engineering" data-done="claude-with-amazon-bedrock--prompt-engineering"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Improve one technique at a time and re-measure with your eval. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-engineering">Prompt engineering</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>هر بار یک تکنیک را بهتر کن و با ارزیابی‌ات دوباره اندازه بگیر. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-engineering">مهندسی پرامپت</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--being-clear-and-direct" data-item="claude-with-amazon-bedrock--being-clear-and-direct">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۸ <span lang="en" dir="ltr">· Lesson 18</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">روشن و مستقیم بودن</span><span class="t-en" lang="en" dir="ltr">Being clear and direct</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--being-clear-and-direct" data-done="claude-with-amazon-bedrock--being-clear-and-direct"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Open with a clear action verb and the exact task. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--being-clear-and-direct">Being clear and direct</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>با یک فعل عملی روشن و خود کار دقیق شروع کن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--being-clear-and-direct">روشن و مستقیم بودن</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--being-specific" data-item="claude-with-amazon-bedrock--being-specific">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۱۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۱۹ <span lang="en" dir="ltr">· Lesson 19</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">مشخص بودن</span><span class="t-en" lang="en" dir="ltr">Being specific</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--being-specific" data-done="claude-with-amazon-bedrock--being-specific"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Add guidelines for output qualities and the steps to follow. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--being-specific">Being specific</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>برای ویژگی‌های خروجی و قدم‌هایی که باید دنبال شود رهنمود اضافه کن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--being-specific">مشخص بودن</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--structure-with-xml-tags" data-item="claude-with-amazon-bedrock--structure-with-xml-tags">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۰ <span lang="en" dir="ltr">· Lesson 20</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ساختاردهی با تگ‌های XML</span><span class="t-en" lang="en" dir="ltr">Structure with XML tags</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--structure-with-xml-tags" data-done="claude-with-amazon-bedrock--structure-with-xml-tags"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Wrap data in descriptive tags to separate it from instructions. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--structure-with-xml-tags">Structure with XML tags</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>داده را در تگ‌های توصیفی بپیچان تا از دستورها جدا شود. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--structure-with-xml-tags">ساختاردهی با تگ‌های XML</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--providing-examples" data-item="claude-with-amazon-bedrock--providing-examples">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۱ <span lang="en" dir="ltr">· Lesson 21</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">آوردن مثال</span><span class="t-en" lang="en" dir="ltr">Providing examples</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--providing-examples" data-done="claude-with-amazon-bedrock--providing-examples"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>One-shot or multi-shot examples in <code dir="ltr">&lt;sample_input&gt;</code>/<code dir="ltr">&lt;ideal_output&gt;</code> tags, including tricky cases. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--providing-examples">Providing examples</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>مثال‌های تکی یا چندتایی در تگ‌های <code dir="ltr">&lt;sample_input&gt;</code>/<code dir="ltr">&lt;ideal_output&gt;</code>، همراه با موردهای فریبنده. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--providing-examples">آوردن مثال</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--quiz-on-prompt-evaluation-and-engineering" data-item="claude-with-amazon-bedrock--quiz-on-prompt-evaluation-and-engineering">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۲ <span lang="en" dir="ltr">· Lesson 22</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">آزمونک‌های ارزیابی و مهندسی پرامپت</span><span class="t-en" lang="en" dir="ltr">Quizzes on prompt evaluation and prompt engineering</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--quiz-on-prompt-evaluation-and-engineering" data-done="claude-with-amazon-bedrock--quiz-on-prompt-evaluation-and-engineering"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Checks the eval loop, grading methods, and the four prompt engineering techniques.</p></div><div class="fa" lang="fa" dir="rtl"><p>حلقهٔ ارزیابی، روش‌های نمره‌دهی و چهار تکنیک مهندسی پرامپت را می‌سنجد.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>استفاده از ابزار</span><span class="sec-en" lang="en" dir="ltr">Tool use</span></h2>
+<article class="item" id="claude-with-amazon-bedrock--introducing-tool-use" data-item="claude-with-amazon-bedrock--introducing-tool-use">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۳ <span lang="en" dir="ltr">· Lesson 23</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">آشنایی با استفاده از ابزار</span><span class="t-en" lang="en" dir="ltr">Introducing tool use</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--introducing-tool-use" data-done="claude-with-amazon-bedrock--introducing-tool-use"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Claude asks for a tool, your code runs it, you send the result back. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--introducing-tool-use">Introducing tool use</a>. On Bedrock, tools go in <code dir="ltr">toolConfig</code> and blocks use Converse names (<code dir="ltr">toolUse</code>, <code dir="ltr">toolResult</code>), shown in the next lessons.</p></div><div class="fa" lang="fa" dir="rtl"><p>Claude ابزاری می‌خواهد، کد تو اجرایش می‌کند و نتیجه را برمی‌گردانی. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--introducing-tool-use">آشنایی با استفاده از ابزار</a>. روی Bedrock ابزارها در <code dir="ltr">toolConfig</code> قرار می‌گیرند و بلوک‌ها اسم‌های Converse را دارند (<code dir="ltr">toolUse</code>، <code dir="ltr">toolResult</code>) که در درس‌های بعد می‌بینی.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--project-overview" data-item="claude-with-amazon-bedrock--project-overview">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۴ <span lang="en" dir="ltr">· Lesson 24</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">معرفی پروژه</span><span class="t-en" lang="en" dir="ltr">Project overview</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--project-overview" data-done="claude-with-amazon-bedrock--project-overview"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A reminder assistant that needs date/time tools Claude doesn't have. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--project-overview">Project overview</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک دستیار یادآوری که به ابزارهای تاریخ و ساعتی نیاز دارد که Claude ندارد. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--project-overview">معرفی پروژه</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--tool-functions" data-item="claude-with-amazon-bedrock--tool-functions">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۵ <span lang="en" dir="ltr">· Lesson 25</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">تابع‌های ابزار</span><span class="t-en" lang="en" dir="ltr">Tool functions</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--tool-functions" data-done="claude-with-amazon-bedrock--tool-functions"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Plain Python functions with validation and clear error messages. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--tool-functions">Tool functions</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>تابع‌های سادهٔ پایتون با اعتبارسنجی و پیام خطای روشن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--tool-functions">تابع‌های ابزار</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--tool-schemas" data-item="claude-with-amazon-bedrock--tool-schemas">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۶ <span lang="en" dir="ltr">· Lesson 26</span> </p>
+      <h3><span class="t-fa">اسکیمای ابزارها (قالب Converse)</span><span class="t-en" lang="en" dir="ltr">Tool schemas (Converse format)</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--tool-schemas" data-done="claude-with-amazon-bedrock--tool-schemas"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>The schema content is the same (name, a good description, JSON Schema for inputs), but Converse wraps it differently: each tool is a <code dir="ltr">toolSpec</code>, and the schema goes under <code dir="ltr">inputSchema.json</code>.</p></div><div class="fa" lang="fa" dir="rtl"><p>محتوای اسکیما همان است (اسم، یک توضیح خوب، اسکیمای JSON برای ورودی‌ها)، ولی Converse آن را متفاوت بسته‌بندی می‌کند: هر ابزار یک <code dir="ltr">toolSpec</code> است و اسکیما زیر <code dir="ltr">inputSchema.json</code> می‌آید.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">A Converse tool definition</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">get_current_datetime_tool = {
+    &quot;toolSpec&quot;: {
+        &quot;name&quot;: &quot;get_current_datetime&quot;,
+        &quot;description&quot;: &quot;Returns the current date and time. Call this for any relative date &quot;
+                       &quot;like &#x27;today&#x27; or &#x27;in 3 weeks&#x27;.&quot;,
+        &quot;inputSchema&quot;: {&quot;json&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {&quot;date_format&quot;: {&quot;type&quot;: &quot;string&quot;,
+                                           &quot;description&quot;: &quot;Python strftime format&quot;}},
+            &quot;required&quot;: [&quot;date_format&quot;],
+        }},
+    }
+}
+tool_config = {&quot;tools&quot;: [get_current_datetime_tool]}</code></pre></figure>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Same menu description, different <strong>menu holder</strong>: Anthropic's API and Bedrock just print it in different frames.</p></div><div class="fa" lang="fa" dir="rtl"><p>همان توضیح منو، با <strong>جامنوی</strong> متفاوت: API آنتروپیک و Bedrock فقط آن را در قاب‌های متفاوت چاپ می‌کنند.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--handling-tool-use-responses" data-item="claude-with-amazon-bedrock--handling-tool-use-responses">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۷ <span lang="en" dir="ltr">· Lesson 27</span> </p>
+      <h3><span class="t-fa">کار با پاسخ‌های استفاده از ابزار</span><span class="t-en" lang="en" dir="ltr">Handling tool use responses</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/handling-tool-use-responses" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--handling-tool-use-responses" data-done="claude-with-amazon-bedrock--handling-tool-use-responses"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>When Claude wants a tool, <code dir="ltr">response["stopReason"] == "tool_use"</code> and the assistant message contains <code dir="ltr">toolUse</code> blocks, each with a <code dir="ltr">toolUseId</code>, <code dir="ltr">name</code> and <code dir="ltr">input</code>. Append the assistant message to your history unchanged, then run the tools.</p></div><div class="fa" lang="fa" dir="rtl"><p>وقتی Claude ابزاری می‌خواهد، <code dir="ltr">response["stopReason"] == "tool_use"</code> است و پیام دستیار بلوک‌های <code dir="ltr">toolUse</code> دارد که هر کدام <code dir="ltr">toolUseId</code>، <code dir="ltr">name</code> و <code dir="ltr">input</code> دارند. پیام دستیار را بدون تغییر به تاریخچه اضافه کن، بعد ابزارها را اجرا کن.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">Reading toolUse blocks</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">response = client.converse(modelId=MODEL_ID, messages=messages, toolConfig=tool_config,
+                           inferenceConfig={&quot;maxTokens&quot;: 1000})
+assistant_message = response[&quot;output&quot;][&quot;message&quot;]
+messages.append(assistant_message)                         # keep every block
+
+if response[&quot;stopReason&quot;] == &quot;tool_use&quot;:
+    for block in assistant_message[&quot;content&quot;]:
+        if &quot;toolUse&quot; in block:
+            tu = block[&quot;toolUse&quot;]
+            print(tu[&quot;toolUseId&quot;], tu[&quot;name&quot;], tu[&quot;input&quot;])</code></pre></figure>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--sending-tool-results" data-item="claude-with-amazon-bedrock--sending-tool-results">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۸ <span lang="en" dir="ltr">· Lesson 28</span> </p>
+      <h3><span class="t-fa">فرستادن نتیجهٔ ابزار</span><span class="t-en" lang="en" dir="ltr">Sending tool results</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--sending-tool-results" data-done="claude-with-amazon-bedrock--sending-tool-results"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Answer with a <strong>user</strong> message containing one <code dir="ltr">toolResult</code> per <code dir="ltr">toolUse</code>, matched by <code dir="ltr">toolUseId</code>. Content can be text or JSON; add <code dir="ltr">"status": "error"</code> when the tool failed so Claude can recover.</p></div><div class="fa" lang="fa" dir="rtl"><p>با یک پیام <strong>کاربر</strong> جواب بده که برای هر <code dir="ltr">toolUse</code> یک <code dir="ltr">toolResult</code> دارد و با <code dir="ltr">toolUseId</code> جفت می‌شود. محتوا می‌تواند متن یا JSON باشد؛ وقتی ابزار شکست خورد <code dir="ltr">"status": "error"</code> اضافه کن تا Claude بتواند جبران کند.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">Building toolResult blocks</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">results = []
+for block in assistant_message[&quot;content&quot;]:
+    if &quot;toolUse&quot; in block:
+        tu = block[&quot;toolUse&quot;]
+        try:
+            output = run_tool(tu[&quot;name&quot;], tu[&quot;input&quot;])
+            results.append({&quot;toolResult&quot;: {&quot;toolUseId&quot;: tu[&quot;toolUseId&quot;],
+                                           &quot;content&quot;: [{&quot;text&quot;: str(output)}]}})
+        except Exception as e:
+            results.append({&quot;toolResult&quot;: {&quot;toolUseId&quot;: tu[&quot;toolUseId&quot;],
+                                           &quot;content&quot;: [{&quot;text&quot;: f&quot;Error: {e}&quot;}],
+                                           &quot;status&quot;: &quot;error&quot;}})
+messages.append({&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: results})</code></pre></figure>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--multi-turn-conversations-with-tools" data-item="claude-with-amazon-bedrock--multi-turn-conversations-with-tools">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۲۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۲۹ <span lang="en" dir="ltr">· Lesson 29</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">گفت‌وگوهای چندنوبتی با ابزار</span><span class="t-en" lang="en" dir="ltr">Multi-turn conversations with tools</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--multi-turn-conversations-with-tools" data-done="claude-with-amazon-bedrock--multi-turn-conversations-with-tools"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Loop until <code dir="ltr">stopReason</code> is no longer <code dir="ltr">"tool_use"</code>; Claude may chain several tools. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--multi-turn-conversations-with-tools">Multi-turn conversations with tools</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>تا وقتی <code dir="ltr">stopReason</code> دیگر <code dir="ltr">"tool_use"</code> نیست حلقه بزن؛ Claude ممکن است چند ابزار را پشت هم صدا بزند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--multi-turn-conversations-with-tools">گفت‌وگوهای چندنوبتی با ابزار</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--using-multiple-tools" data-item="claude-with-amazon-bedrock--using-multiple-tools">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۰ <span lang="en" dir="ltr">· Lesson 30</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">استفاده از چند ابزار</span><span class="t-en" lang="en" dir="ltr">Using multiple tools</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--using-multiple-tools" data-done="claude-with-amazon-bedrock--using-multiple-tools"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Several tools, possibly several <code dir="ltr">toolUse</code> blocks in one reply: return all results in one message. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--using-multiple-tools">Using multiple tools</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>چند ابزار، و احتمالاً چند بلوک <code dir="ltr">toolUse</code> در یک جواب: همهٔ نتیجه‌ها را در یک پیام برگردان. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--using-multiple-tools">استفاده از چند ابزار</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--batch-tool-use" data-item="claude-with-amazon-bedrock--batch-tool-use">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۱ <span lang="en" dir="ltr">· Lesson 31</span> </p>
+      <h3><span class="t-fa">استفادهٔ دسته‌ای از ابزار</span><span class="t-en" lang="en" dir="ltr">Batch tool use</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--batch-tool-use" data-done="claude-with-amazon-bedrock--batch-tool-use"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Sometimes Claude calls tools <strong>one at a time</strong> even when they're independent, which means extra round trips. The <strong>batch tool</strong> pattern adds one more tool, <code dir="ltr">batch_tool</code>, whose input is a <strong>list of other tool calls</strong>. Claude can then request several operations at once, and your code runs them all (even in parallel) and returns the combined results. Current models do parallel tool calls on their own more often, but the pattern is still handy when you want to encourage it.</p></div><div class="fa" lang="fa" dir="rtl"><p>گاهی Claude ابزارها را <strong>یکی‌یکی</strong> صدا می‌زند، حتی وقتی مستقل‌اند؛ یعنی رفت‌وبرگشت‌های اضافه. الگوی <strong>ابزار دسته‌ای</strong> یک ابزار دیگر به اسم <code dir="ltr">batch_tool</code> اضافه می‌کند که ورودی‌اش <strong>فهرستی از فراخوانی‌های ابزارهای دیگر</strong> است. آن وقت Claude می‌تواند چند عملیات را با هم درخواست کند و کد تو همه را اجرا می‌کند (حتی موازی) و نتیجه‌های ترکیبی را برمی‌گرداند. مدل‌های فعلی بیشتر وقت‌ها خودشان ابزارها را موازی صدا می‌زنند، ولی این الگو وقتی می‌خواهی تشویقش کنی هنوز به درد می‌خورد.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">The batch tool</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">batch_tool = {&quot;toolSpec&quot;: {
+    &quot;name&quot;: &quot;batch_tool&quot;,
+    &quot;description&quot;: &quot;Invoke several other tools at once. Use it whenever you need two or &quot;
+                   &quot;more independent tool calls.&quot;,
+    &quot;inputSchema&quot;: {&quot;json&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {&quot;invocations&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {&quot;name&quot;: {&quot;type&quot;: &quot;string&quot;},
+                           &quot;arguments&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;JSON-encoded arguments&quot;}},
+            &quot;required&quot;: [&quot;name&quot;, &quot;arguments&quot;]}}},
+        &quot;required&quot;: [&quot;invocations&quot;],
+    }},
+}}
+
+def run_batch(invocations):
+    return [{&quot;tool&quot;: i[&quot;name&quot;], &quot;output&quot;: run_tool(i[&quot;name&quot;], json.loads(i[&quot;arguments&quot;]))}
+            for i in invocations]</code></pre></figure>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Like giving a waiter <strong>one order slip with the whole table's dishes</strong> instead of calling them back for each plate.</p></div><div class="fa" lang="fa" dir="rtl"><p>مثل این است که به گارسون <strong>یک برگهٔ سفارش با غذای همهٔ سر میز</strong> بدهی، به جای این‌که برای هر بشقاب دوباره صدایش کنی.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--structured-data-with-tools" data-item="claude-with-amazon-bedrock--structured-data-with-tools">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۲ <span lang="en" dir="ltr">· Lesson 32</span> </p>
+      <h3><span class="t-fa">دادهٔ ساختاریافته با ابزارها</span><span class="t-en" lang="en" dir="ltr">Structured data with tools</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--structured-data-with-tools" data-done="claude-with-amazon-bedrock--structured-data-with-tools"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A reliable way to get structured data: define a tool whose <strong>input schema is exactly the data shape you want</strong> (for example <code dir="ltr">article_summary</code> with <code dir="ltr">title</code>, <code dir="ltr">author</code>, <code dir="ltr">key_insights</code>), then make Claude call it. You never run the tool; you just <strong>read its input</strong>, which is your structured data. The course forces the call with <code dir="ltr">toolChoice={"tool": {"name": ...}}</code>.</p>
+<p><strong>Note:</strong> on the newest models, forcing a specific tool may be rejected; use <strong>structured outputs</strong> instead, or <code dir="ltr">auto</code> with a clear instruction, and check that the call arrived.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک راه مطمئن برای گرفتن دادهٔ ساختاریافته: ابزاری تعریف کن که <strong>اسکیمای ورودی‌اش دقیقاً شکل داده‌ای است که می‌خواهی</strong> (مثلاً <code dir="ltr">article_summary</code> با <code dir="ltr">title</code>، <code dir="ltr">author</code>، <code dir="ltr">key_insights</code>)، بعد کاری کن Claude صدایش بزند. هیچ‌وقت ابزار را اجرا نمی‌کنی؛ فقط <strong>ورودی‌اش را می‌خوانی</strong> که همان دادهٔ ساختاریافتهٔ توست. دوره فراخوانی را با <code dir="ltr">toolChoice={"tool": {"name": ...}}</code> اجباری می‌کند.</p>
+<p><strong>توجه:</strong> روی جدیدترین مدل‌ها اجبار به یک ابزار مشخص ممکن است رد شود؛ به جایش از <strong>خروجی ساختاریافته</strong> استفاده کن، یا <code dir="ltr">auto</code> با یک دستور روشن، و چک کن فراخوانی رسیده باشد.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">The tool-as-schema trick</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">summary_tool = {&quot;toolSpec&quot;: {
+    &quot;name&quot;: &quot;article_summary&quot;,
+    &quot;description&quot;: &quot;Record a structured summary of the article.&quot;,
+    &quot;inputSchema&quot;: {&quot;json&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {
+        &quot;title&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;author&quot;: {&quot;type&quot;: &quot;string&quot;},
+        &quot;key_insights&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}}},
+        &quot;required&quot;: [&quot;title&quot;, &quot;author&quot;, &quot;key_insights&quot;]}},
+}}
+response = client.converse(
+    modelId=MODEL_ID,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: [{&quot;text&quot;: f&quot;&lt;article&gt;{article}&lt;/article&gt;\nSummarize it.&quot;}]}],
+    toolConfig={&quot;tools&quot;: [summary_tool], &quot;toolChoice&quot;: {&quot;tool&quot;: {&quot;name&quot;: &quot;article_summary&quot;}}},
+    inferenceConfig={&quot;maxTokens&quot;: 1000},
+)
+data = next(b[&quot;toolUse&quot;][&quot;input&quot;] for b in response[&quot;output&quot;][&quot;message&quot;][&quot;content&quot;] if &quot;toolUse&quot; in b)</code></pre></figure>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>It's like handing someone a <strong>form with labeled boxes</strong> and saying "fill this in": the form's shape *is* the answer's shape.</p></div><div class="fa" lang="fa" dir="rtl"><p>مثل این است که <strong>فرمی با خانه‌های برچسب‌دار</strong> دست کسی بدهی و بگویی «این را پر کن»: شکل فرم *همان* شکل جواب است.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--the-text-edit-tool" data-item="claude-with-amazon-bedrock--the-text-edit-tool">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۳ <span lang="en" dir="ltr">· Lesson 33</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ابزار ویرایش متن</span><span class="t-en" lang="en" dir="ltr">The text edit tool</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--the-text-edit-tool" data-done="claude-with-amazon-bedrock--the-text-edit-tool"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Anthropic-defined, client-executed file editing (view, create, str_replace, insert). Confine paths to one folder. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-text-edit-tool">The text edit tool</a>. Note that Anthropic's <strong>server</strong> tools such as web search aren't available on Bedrock, so on AWS you'd implement search as your own tool.</p></div><div class="fa" lang="fa" dir="rtl"><p>ویرایش فایل که Anthropic تعریفش کرده و سمت تو اجرا می‌شود (view، create، str_replace، insert). مسیرها را به یک پوشه محدود کن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-text-edit-tool">ابزار ویرایش متن</a>. توجه کن که ابزارهای <strong>سمت سرور</strong> Anthropic مثل جست‌وجوی وب روی Bedrock در دسترس نیستند؛ پس روی AWS جست‌وجو را به شکل ابزار خودت پیاده می‌کنی.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--quiz-on-tool-use" data-item="claude-with-amazon-bedrock--quiz-on-tool-use">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۴ <span lang="en" dir="ltr">· Lesson 34</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">آزمونک استفاده از ابزار</span><span class="t-en" lang="en" dir="ltr">Quiz on tool use</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--quiz-on-tool-use" data-done="claude-with-amazon-bedrock--quiz-on-tool-use"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Checks the Converse tool format (<code dir="ltr">toolSpec</code>, <code dir="ltr">toolUse</code>, <code dir="ltr">toolResult</code>), multi-turn loops, the batch tool and structured data with tools.</p></div><div class="fa" lang="fa" dir="rtl"><p>قالب ابزار در Converse (<code dir="ltr">toolSpec</code>، <code dir="ltr">toolUse</code>، <code dir="ltr">toolResult</code>)، حلقه‌های چندنوبتی، ابزار دسته‌ای و دادهٔ ساختاریافته با ابزارها را می‌سنجد.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>تولید تقویت‌شده با بازیابی (RAG)</span><span class="sec-en" lang="en" dir="ltr">Retrieval augmented generation</span></h2>
+<article class="item" id="claude-with-amazon-bedrock--introducing-retrieval-augmented-generation" data-item="claude-with-amazon-bedrock--introducing-retrieval-augmented-generation">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۵ <span lang="en" dir="ltr">· Lesson 35</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">آشنایی با RAG</span><span class="t-en" lang="en" dir="ltr">Introducing retrieval augmented generation</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/introducing-retrieval-augmented-generation" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--introducing-retrieval-augmented-generation" data-done="claude-with-amazon-bedrock--introducing-retrieval-augmented-generation"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Retrieve only the relevant chunks instead of sending whole documents. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--introducing-retrieval-augmented-generation">Introducing RAG</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>به جای فرستادن کل سندها، فقط تکه‌های مرتبط را بازیابی کن. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--introducing-retrieval-augmented-generation">آشنایی با RAG</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--text-chunking-strategies" data-item="claude-with-amazon-bedrock--text-chunking-strategies">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۶ <span lang="en" dir="ltr">· Lesson 36</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">راهبردهای تکه‌کردن متن</span><span class="t-en" lang="en" dir="ltr">Text chunking strategies</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--text-chunking-strategies" data-done="claude-with-amazon-bedrock--text-chunking-strategies"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Size-based with overlap, structure-based, sentence-based. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--text-chunking-strategies">Text chunking strategies</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>بر اساس اندازه با هم‌پوشانی، بر اساس ساختار، بر اساس جمله. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--text-chunking-strategies">راهبردهای تکه‌کردن متن</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--text-embeddings" data-item="claude-with-amazon-bedrock--text-embeddings">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۷ <span lang="en" dir="ltr">· Lesson 37</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">بردارهای معنایی متن</span><span class="t-en" lang="en" dir="ltr">Text embeddings</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--text-embeddings" data-done="claude-with-amazon-bedrock--text-embeddings"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Turn chunks into vectors that capture meaning. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--text-embeddings">Text embeddings</a>. On AWS you can also use embedding models hosted on Bedrock; the idea is identical.</p></div><div class="fa" lang="fa" dir="rtl"><p>تکه‌ها را به بردارهایی تبدیل کن که معنا را نگه می‌دارند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--text-embeddings">بردارهای معنایی متن</a>. روی AWS می‌توانی از مدل‌های embedding میزبانی‌شده روی Bedrock هم استفاده کنی؛ ایده دقیقاً همان است.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--the-full-rag-flow" data-item="claude-with-amazon-bedrock--the-full-rag-flow">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۸ <span lang="en" dir="ltr">· Lesson 38</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">جریان کامل RAG</span><span class="t-en" lang="en" dir="ltr">The full RAG flow</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--the-full-rag-flow" data-done="claude-with-amazon-bedrock--the-full-rag-flow"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Index once (chunk, embed, store); per question embed, rank by cosine similarity, answer from the top chunks. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-full-rag-flow">The full RAG flow</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک بار نمایه بساز (تکه، embed، ذخیره)؛ برای هر سؤال embed کن، با شباهت کسینوسی رتبه بده و از تکه‌های برتر جواب بده. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-full-rag-flow">جریان کامل RAG</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--implementing-the-rag-flow" data-item="claude-with-amazon-bedrock--implementing-the-rag-flow">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۳۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۳۹ <span lang="en" dir="ltr">· Lesson 39</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پیاده‌سازی جریان RAG</span><span class="t-en" lang="en" dir="ltr">Implementing the RAG flow</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--implementing-the-rag-flow" data-done="claude-with-amazon-bedrock--implementing-the-rag-flow"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A small in-memory vector index plus "answer only from the context". Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--implementing-the-rag-flow">Implementing the RAG flow</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک نمایهٔ برداری کوچک داخل حافظه به‌اضافهٔ «فقط از روی زمینه جواب بده». درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--implementing-the-rag-flow">پیاده‌سازی جریان RAG</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--bm25-lexical-search" data-item="claude-with-amazon-bedrock--bm25-lexical-search">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۰ <span lang="en" dir="ltr">· Lesson 40</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">جست‌وجوی واژگانی BM25</span><span class="t-en" lang="en" dir="ltr">BM25 lexical search</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--bm25-lexical-search" data-done="claude-with-amazon-bedrock--bm25-lexical-search"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Keyword ranking that catches exact IDs and rare terms semantic search misses. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--bm25-lexical-search">BM25 lexical search</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>رتبه‌بندی کلیدواژه‌ای که شناسه‌های دقیق و کلمه‌های کمیابی را که جست‌وجوی معنایی جا می‌اندازد می‌گیرد. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--bm25-lexical-search">جست‌وجوی واژگانی BM25</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--a-multi-search-rag-pipeline" data-item="claude-with-amazon-bedrock--a-multi-search-rag-pipeline">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۱ <span lang="en" dir="ltr">· Lesson 41</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">خط لولهٔ RAG با چند جست‌وجو</span><span class="t-en" lang="en" dir="ltr">A multi-search RAG pipeline</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/a-multi-search-rag-pipeline" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--a-multi-search-rag-pipeline" data-done="claude-with-amazon-bedrock--a-multi-search-rag-pipeline"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>One retriever over a vector index and BM25, merged with reciprocal rank fusion (you can't add raw scores from different systems directly). Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--a-multi-index-rag-pipeline">A multi-index RAG pipeline</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک بازیاب روی یک نمایهٔ برداری و BM25 که با ادغام رتبهٔ معکوس یکی می‌شوند (امتیازهای خامِ سیستم‌های مختلف را نمی‌شود مستقیم جمع زد). درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--a-multi-index-rag-pipeline">خط لولهٔ RAG چندنمایه‌ای</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--reranking-results" data-item="claude-with-amazon-bedrock--reranking-results">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۲ <span lang="en" dir="ltr">· Lesson 42</span> </p>
+      <h3><span class="t-fa">رتبه‌بندی دوبارهٔ نتیجه‌ها</span><span class="t-en" lang="en" dir="ltr">Reranking results</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--reranking-results" data-done="claude-with-amazon-bedrock--reranking-results"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Hybrid search finds good <strong>candidates</strong>, but its order isn't always the best for the actual question. <strong>Reranking</strong> adds one step: retrieve more candidates than you need (say 10), then ask Claude to <strong>reorder them by relevance</strong> to the question and keep the top 3. It costs one extra call but often improves answer quality noticeably, especially for subtle questions.</p></div><div class="fa" lang="fa" dir="rtl"><p>جست‌وجوی ترکیبی <strong>کاندیداهای</strong> خوبی پیدا می‌کند، ولی ترتیبش همیشه برای سؤال واقعی بهترین نیست. <strong>رتبه‌بندی دوباره</strong> یک قدم اضافه می‌کند: بیشتر از نیازت کاندیدا بازیابی کن (مثلاً ۱۰ تا)، بعد از Claude بخواه آن‌ها را <strong>بر اساس ارتباط</strong> با سؤال دوباره مرتب کند و ۳ تای برتر را نگه دار. یک فراخوانی اضافه هزینه دارد، ولی اغلب کیفیت جواب را محسوس بهتر می‌کند، مخصوصاً برای سؤال‌های ظریف.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">Rerank with Claude</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">def rerank(question, candidates, k=3):
+    listing = &quot;\n&quot;.join(f&#x27;&lt;doc id=&quot;{i}&quot;&gt;{c}&lt;/doc&gt;&#x27; for i, c in enumerate(candidates))
+    prompt = (f&quot;&lt;question&gt;{question}&lt;/question&gt;\n&lt;documents&gt;\n{listing}\n&lt;/documents&gt;\n&quot;
+              f&quot;Return the ids of the {k} most relevant documents, most relevant first, &quot;
+              f&quot;as a comma-separated list of numbers and nothing else.&quot;)
+    response = client.converse(modelId=MODEL_ID,
+                               messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: [{&quot;text&quot;: prompt}]}],
+                               inferenceConfig={&quot;maxTokens&quot;: 50})
+    ids = response[&quot;output&quot;][&quot;message&quot;][&quot;content&quot;][0][&quot;text&quot;].split(&quot;,&quot;)
+    return [candidates[int(i)] for i in ids if i.strip().isdigit()][:k]</code></pre></figure>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Search is the <strong>first audition round</strong> that picks 10 singers; reranking is the <strong>judges' final ranking</strong> of those 10.</p></div><div class="fa" lang="fa" dir="rtl"><p>جست‌وجو <strong>دور اول تست خوانندگی</strong> است که ۱۰ خواننده را انتخاب می‌کند؛ رتبه‌بندی دوباره <strong>رتبه‌بندی نهایی داورها</strong> بین همان ۱۰ نفر است.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--contextual-retrieval" data-item="claude-with-amazon-bedrock--contextual-retrieval">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۳ <span lang="en" dir="ltr">· Lesson 43</span> </p>
+      <h3><span class="t-fa">بازیابی زمینه‌دار</span><span class="t-en" lang="en" dir="ltr">Contextual retrieval</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/contextual-retrieval" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--contextual-retrieval" data-done="claude-with-amazon-bedrock--contextual-retrieval"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A chunk cut out of a long document often <strong>loses its context</strong>: "Revenue grew 3% over the previous quarter" (which company? which quarter?). <strong>Contextual retrieval</strong> fixes this at indexing time: for each chunk, ask Claude to write a short <strong>context sentence</strong> based on the whole document, prepend it to the chunk, and index the combined text (for both embeddings and BM25). Searches now match on that context too.</p></div><div class="fa" lang="fa" dir="rtl"><p>تکه‌ای که از یک سند طولانی بریده می‌شود اغلب <strong>زمینه‌اش را از دست می‌دهد</strong>: «درآمد نسبت به فصل قبل ۳٪ رشد کرد» (کدام شرکت؟ کدام فصل؟). <strong>بازیابی زمینه‌دار</strong> این را موقع نمایه‌سازی درست می‌کند: برای هر تکه از Claude بخواه بر اساس کل سند یک <strong>جملهٔ زمینه</strong> کوتاه بنویسد، آن را به اول تکه بچسبان و متن ترکیبی را نمایه کن (هم برای embedding و هم برای BM25). حالا جست‌وجوها روی همان زمینه هم تطبیق پیدا می‌کنند.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">Add context to each chunk before indexing</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">def contextualize(document, chunk):
+    prompt = (f&quot;&lt;document&gt;{document}&lt;/document&gt;\n&quot;
+              f&quot;Here is a chunk from the document:\n&lt;chunk&gt;{chunk}&lt;/chunk&gt;\n&quot;
+              &quot;Write one short sentence situating this chunk within the overall document &quot;
+              &quot;to improve search retrieval. Answer with the sentence only.&quot;)
+    r = client.converse(modelId=MODEL_ID,
+                        messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: [{&quot;text&quot;: prompt}]}],
+                        inferenceConfig={&quot;maxTokens&quot;: 100})
+    return r[&quot;output&quot;][&quot;message&quot;][&quot;content&quot;][0][&quot;text&quot;] + &quot;\n&quot; + chunk
+
+indexed_chunks = [contextualize(report_text, c) for c in chunks]</code></pre></figure>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p><strong>Cool tip:</strong> the whole document is the same for every chunk, so put it in a <strong>cached</strong> block (Converse uses a <code dir="ltr">cachePoint</code> block, covered below). You then pay full price for the document once, and a fraction for every other chunk.</p></div><div class="fa" lang="fa" dir="rtl"><p><strong>نکتهٔ خفن:</strong> کل سند برای همهٔ تکه‌ها یکی است؛ پس آن را در یک بلوک <strong>کش‌شده</strong> بگذار (Converse از بلوک <code dir="ltr">cachePoint</code> استفاده می‌کند که در ادامه می‌آید). آن وقت قیمت کامل سند را فقط یک بار می‌دهی و برای بقیهٔ تکه‌ها بخش کوچکی از آن را.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>It's like writing <strong>"From: Chapter 3, The Ocean"</strong> at the top of every photocopied page, so a loose page still makes sense.</p></div><div class="fa" lang="fa" dir="rtl"><p>مثل این است که بالای هر صفحهٔ کپی‌شده بنویسی <strong>«از: فصل ۳، اقیانوس»</strong> تا یک برگهٔ جدا افتاده هم معنا داشته باشد.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>قابلیت‌های Claude</span><span class="sec-en" lang="en" dir="ltr">Features of Claude</span></h2>
+<article class="item" id="claude-with-amazon-bedrock--extended-thinking" data-item="claude-with-amazon-bedrock--extended-thinking">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۴ <span lang="en" dir="ltr">· Lesson 44</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">تفکر گسترده</span><span class="t-en" lang="en" dir="ltr">Extended thinking</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--extended-thinking" data-done="claude-with-amazon-bedrock--extended-thinking"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Step-by-step reasoning before the answer. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--extended-thinking">Extended thinking</a>. Older models used a token budget; the newest use adaptive thinking with <code dir="ltr">effort</code>. With Converse, model-specific options go in <code dir="ltr">additionalModelRequestFields</code>; with the Anthropic SDK on Bedrock, the parameters are identical to the API course.</p></div><div class="fa" lang="fa" dir="rtl"><p>استدلال قدم به قدم قبل از جواب. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--extended-thinking">تفکر گسترده</a>. مدل‌های قدیمی‌تر بودجهٔ توکن داشتند؛ جدیدترین‌ها تفکر تطبیقی با <code dir="ltr">effort</code> دارند. با Converse، گزینه‌های مخصوص مدل در <code dir="ltr">additionalModelRequestFields</code> قرار می‌گیرند؛ با SDK آنتروپیک روی Bedrock، پارامترها دقیقاً مثل دورهٔ API هستند.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--image-support" data-item="claude-with-amazon-bedrock--image-support">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۵ <span lang="en" dir="ltr">· Lesson 45</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پشتیبانی از تصویر</span><span class="t-en" lang="en" dir="ltr">Image support</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--image-support" data-done="claude-with-amazon-bedrock--image-support"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Same prompting advice as the <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--image-support">API course</a>. Converse takes raw bytes (boto3 handles the encoding): <code dir="ltr">{"image": {"format": "png", "source": {"bytes": open("photo.png", "rb").read()}}}</code>.</p></div><div class="fa" lang="fa" dir="rtl"><p>همان توصیه‌های پرامپت‌نویسی <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--image-support">دورهٔ API</a>. Converse بایت‌های خام می‌گیرد (boto3 رمزگذاری را انجام می‌دهد): <code dir="ltr">{"image": {"format": "png", "source": {"bytes": open("photo.png", "rb").read()}}}</code>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--pdf-support" data-item="claude-with-amazon-bedrock--pdf-support">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۶ <span lang="en" dir="ltr">· Lesson 46</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پشتیبانی از PDF</span><span class="t-en" lang="en" dir="ltr">PDF support</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--pdf-support" data-done="claude-with-amazon-bedrock--pdf-support"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Send PDFs as document blocks: <code dir="ltr">{"document": {"format": "pdf", "name": "report", "source": {"bytes": pdf_bytes}}}</code>. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--pdf-support">PDF support</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>PDFها را به شکل بلوک سند بفرست: <code dir="ltr">{"document": {"format": "pdf", "name": "report", "source": {"bytes": pdf_bytes}}}</code>. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--pdf-support">پشتیبانی از PDF</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--citations" data-item="claude-with-amazon-bedrock--citations">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۷ <span lang="en" dir="ltr">· Lesson 47</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">ارجاع‌دهی</span><span class="t-en" lang="en" dir="ltr">Citations</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--citations" data-done="claude-with-amazon-bedrock--citations"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Answers that point to the exact passages they came from. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--citations">Citations</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>جواب‌هایی که دقیقاً به بخش‌هایی که از آن آمده‌اند اشاره می‌کنند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--citations">ارجاع‌دهی</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--prompt-caching" data-item="claude-with-amazon-bedrock--prompt-caching">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۸ <span lang="en" dir="ltr">· Lesson 48</span> </p>
+      <h3><span class="t-fa">کش پرامپت (cachePoint)</span><span class="t-en" lang="en" dir="ltr">Prompt caching (cachePoint)</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--prompt-caching" data-done="claude-with-amazon-bedrock--prompt-caching"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>The idea is identical to the <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-caching">API course</a>: reuse a processed prefix for cheaper, faster requests. In Converse you mark the end of the cacheable part with a <strong><code dir="ltr">cachePoint</code> block</strong> (in <code dir="ltr">system</code>, in a message's <code dir="ltr">content</code>, or in the tools list). The response's <code dir="ltr">usage</code> then reports <code dir="ltr">cacheWriteInputTokens</code> and <code dir="ltr">cacheReadInputTokens</code>.</p></div><div class="fa" lang="fa" dir="rtl"><p>ایده دقیقاً همان <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-caching">دورهٔ API</a> است: استفادهٔ دوباره از یک پیشوند پردازش‌شده برای درخواست‌های ارزان‌تر و سریع‌تر. در Converse پایان بخش قابل‌کش را با یک <strong>بلوک <code dir="ltr">cachePoint</code></strong> علامت می‌زنی (در <code dir="ltr">system</code>، در <code dir="ltr">content</code> یک پیام یا در فهرست ابزارها). بعد <code dir="ltr">usage</code> در پاسخ، <code dir="ltr">cacheWriteInputTokens</code> و <code dir="ltr">cacheReadInputTokens</code> را گزارش می‌دهد.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">python</span><span class="code-cap">A cached system prompt in Converse</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-python">response = client.converse(
+    modelId=MODEL_ID,
+    system=[
+        {&quot;text&quot;: LONG_STYLE_GUIDE},          # thousands of stable tokens
+        {&quot;cachePoint&quot;: {&quot;type&quot;: &quot;default&quot;}},  # cache everything above
+    ],
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: [{&quot;text&quot;: &quot;Rewrite this headline in our style: ...&quot;}]}],
+    inferenceConfig={&quot;maxTokens&quot;: 300},
+)
+u = response[&quot;usage&quot;]
+print(u.get(&quot;cacheWriteInputTokens&quot;), u.get(&quot;cacheReadInputTokens&quot;))</code></pre></figure>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--rules-of-prompt-caching" data-item="claude-with-amazon-bedrock--rules-of-prompt-caching">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۴۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۴۹ <span lang="en" dir="ltr">· Lesson 49</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">قانون‌های کش پرامپت</span><span class="t-en" lang="en" dir="ltr">Rules of prompt caching</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--rules-of-prompt-caching" data-done="claude-with-amazon-bedrock--rules-of-prompt-caching"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Exact prefix match, order tools → system → messages, limited breakpoints, model-specific minimum length, 5-minute default lifetime. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--rules-of-prompt-caching">Rules of prompt caching</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>تطابق دقیق پیشوند، ترتیب ابزارها ← سیستم ← پیام‌ها، تعداد محدود نقطهٔ کش، حداقل طول وابسته به مدل، عمر پیش‌فرض ۵ دقیقه. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--rules-of-prompt-caching">قانون‌های کش پرامپت</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--prompt-caching-in-action" data-item="claude-with-amazon-bedrock--prompt-caching-in-action">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۰ <span lang="en" dir="ltr">· Lesson 50</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">کش پرامپت در عمل</span><span class="t-en" lang="en" dir="ltr">Prompt caching in action</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--prompt-caching-in-action" data-done="claude-with-amazon-bedrock--prompt-caching-in-action"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Send the same prefix twice and watch the write turn into a read. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-caching-in-action">Prompt caching in action</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک پیشوند را دو بار بفرست و ببین «نوشتن» به «خواندن» تبدیل می‌شود. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompt-caching-in-action">کش پرامپت در عمل</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--quiz-on-features-of-claude" data-item="claude-with-amazon-bedrock--quiz-on-features-of-claude">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۱ <span lang="en" dir="ltr">· Lesson 51</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">آزمونک قابلیت‌های Claude</span><span class="t-en" lang="en" dir="ltr">Quiz on features of Claude</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--quiz-on-features-of-claude" data-done="claude-with-amazon-bedrock--quiz-on-features-of-claude"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Checks thinking, image and PDF blocks in Converse, citations and prompt caching with <code dir="ltr">cachePoint</code>.</p></div><div class="fa" lang="fa" dir="rtl"><p>تفکر، بلوک‌های تصویر و PDF در Converse، ارجاع‌دهی و کش پرامپت با <code dir="ltr">cachePoint</code> را می‌سنجد.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>پروتکل زمینهٔ مدل (MCP)</span><span class="sec-en" lang="en" dir="ltr">Model Context Protocol</span></h2>
+<article class="item" id="claude-with-amazon-bedrock--introducing-mcp" data-item="claude-with-amazon-bedrock--introducing-mcp">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۲ <span lang="en" dir="ltr">· Lesson 52</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">آشنایی با MCP</span><span class="t-en" lang="en" dir="ltr">Introducing MCP</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/introducing-mcp" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--introducing-mcp" data-done="claude-with-amazon-bedrock--introducing-mcp"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Servers package tools, resources and prompts; your app is the client. MCP is independent of where Claude runs, so it works the same with Bedrock. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--introducing-mcp">Introducing MCP</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>سرورها ابزارها، منابع و پرامپت‌ها را بسته‌بندی می‌کنند؛ اپ تو کلاینت است. MCP به این‌که Claude کجا اجرا می‌شود بستگی ندارد؛ پس با Bedrock هم همان‌طور کار می‌کند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--introducing-mcp">آشنایی با MCP</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--mcp-clients" data-item="claude-with-amazon-bedrock--mcp-clients">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۳ <span lang="en" dir="ltr">· Lesson 53</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">کلاینت‌های MCP</span><span class="t-en" lang="en" dir="ltr">MCP clients</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--mcp-clients" data-done="claude-with-amazon-bedrock--mcp-clients"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>The client lists the server's tools, passes them to Claude (converted to <code dir="ltr">toolSpec</code> for Converse) and runs calls through the server. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--mcp-clients">MCP clients</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>کلاینت ابزارهای سرور را فهرست می‌کند، آن‌ها را به Claude می‌دهد (برای Converse به <code dir="ltr">toolSpec</code> تبدیل‌شده) و فراخوانی‌ها را از طریق سرور اجرا می‌کند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--mcp-clients">کلاینت‌های MCP</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--project-setup" data-item="claude-with-amazon-bedrock--project-setup">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۴ <span lang="en" dir="ltr">· Lesson 54</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">راه‌اندازی پروژه</span><span class="t-en" lang="en" dir="ltr">Project setup</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/project-setup" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--project-setup" data-done="claude-with-amazon-bedrock--project-setup"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>A CLI document chat with an MCP server and client to complete. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--project-setup">Project setup</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک گفت‌وگوی خط فرمان دربارهٔ سندها با یک سرور و یک کلاینت MCP که باید کاملشان کنی. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--project-setup">راه‌اندازی پروژه</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--defining-tools-with-mcp" data-item="claude-with-amazon-bedrock--defining-tools-with-mcp">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۵ <span lang="en" dir="ltr">· Lesson 55</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">تعریف ابزار با MCP</span><span class="t-en" lang="en" dir="ltr">Defining tools with MCP</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--defining-tools-with-mcp" data-done="claude-with-amazon-bedrock--defining-tools-with-mcp"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p><code dir="ltr">@mcp.tool</code> turns a typed function into a tool with an automatic schema. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--defining-tools-with-mcp">Defining tools with MCP</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p><code dir="ltr">@mcp.tool</code> یک تابع نوع‌دار را به ابزاری با اسکیمای خودکار تبدیل می‌کند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--defining-tools-with-mcp">تعریف ابزار با MCP</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--the-server-inspector" data-item="claude-with-amazon-bedrock--the-server-inspector">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۶ <span lang="en" dir="ltr">· Lesson 56</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">بازرس سرور</span><span class="t-en" lang="en" dir="ltr">The server inspector</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--the-server-inspector" data-done="claude-with-amazon-bedrock--the-server-inspector"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p><code dir="ltr">mcp dev mcp_server.py</code> opens a browser tester for tools, resources and prompts. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-server-inspector">The server inspector</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p><code dir="ltr">mcp dev mcp_server.py</code> یک آزمایشگر مرورگری برای ابزارها، منابع و پرامپت‌ها باز می‌کند. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--the-server-inspector">بازرس سرور</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--implementing-a-client" data-item="claude-with-amazon-bedrock--implementing-a-client">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۷ <span lang="en" dir="ltr">· Lesson 57</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پیاده‌سازی کلاینت</span><span class="t-en" lang="en" dir="ltr">Implementing a client</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/implementing-a-client" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--implementing-a-client" data-done="claude-with-amazon-bedrock--implementing-a-client"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Wrap <code dir="ltr">ClientSession</code> with <code dir="ltr">list_tools()</code> and <code dir="ltr">call_tool()</code>. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--implementing-a-client">Implementing a client</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p><code dir="ltr">ClientSession</code> را با <code dir="ltr">list_tools()</code> و <code dir="ltr">call_tool()</code> بپیچان. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--implementing-a-client">پیاده‌سازی کلاینت</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--defining-resources" data-item="claude-with-amazon-bedrock--defining-resources">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۸ <span lang="en" dir="ltr">· Lesson 58</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">تعریف منابع</span><span class="t-en" lang="en" dir="ltr">Defining resources</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--defining-resources" data-done="claude-with-amazon-bedrock--defining-resources"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Read-only data at direct or templated URIs. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--defining-resources">Defining resources</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>دادهٔ فقط‌خواندنی در URIهای مستقیم یا الگودار. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--defining-resources">تعریف منابع</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--accessing-resources" data-item="claude-with-amazon-bedrock--accessing-resources">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۵۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۵۹ <span lang="en" dir="ltr">· Lesson 59</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">دسترسی به منابع</span><span class="t-en" lang="en" dir="ltr">Accessing resources</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--accessing-resources" data-done="claude-with-amazon-bedrock--accessing-resources"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p><code dir="ltr">read_resource(uri)</code> plus MIME-type parsing; <code dir="ltr">@mentions</code> to attach documents. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--accessing-resources">Accessing resources</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p><code dir="ltr">read_resource(uri)</code> به‌اضافهٔ تجزیه بر اساس نوع MIME؛ <code dir="ltr">@اشاره</code> برای پیوست کردن سندها. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--accessing-resources">دسترسی به منابع</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--defining-prompts" data-item="claude-with-amazon-bedrock--defining-prompts">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۰</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۰ <span lang="en" dir="ltr">· Lesson 60</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">تعریف پرامپت‌ها</span><span class="t-en" lang="en" dir="ltr">Defining prompts</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/defining-prompts" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--defining-prompts" data-done="claude-with-amazon-bedrock--defining-prompts"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Expert, reusable instruction templates offered by the server. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--defining-prompts">Defining prompts</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>قالب‌های دستوری حرفه‌ای و قابل‌استفادهٔ دوباره که سرور ارائه می‌دهد. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--defining-prompts">تعریف پرامپت‌ها</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--prompts-in-the-client" data-item="claude-with-amazon-bedrock--prompts-in-the-client">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۱</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۱ <span lang="en" dir="ltr">· Lesson 61</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">پرامپت‌ها در کلاینت</span><span class="t-en" lang="en" dir="ltr">Prompts in the client</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--prompts-in-the-client" data-done="claude-with-amazon-bedrock--prompts-in-the-client"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>List prompts as slash commands, fetch with <code dir="ltr">get_prompt</code>, send the messages to Claude. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompts-in-the-client">Prompts in the client</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>پرامپت‌ها را به شکل فرمان اسلش فهرست کن، با <code dir="ltr">get_prompt</code> بگیرشان و پیام‌ها را برای Claude بفرست. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--prompts-in-the-client">پرامپت‌ها در کلاینت</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--mcp-review" data-item="claude-with-amazon-bedrock--mcp-review">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۲</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۲ <span lang="en" dir="ltr">· Lesson 62</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">مرور MCP</span><span class="t-en" lang="en" dir="ltr">MCP review</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--mcp-review" data-done="claude-with-amazon-bedrock--mcp-review"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Tools = model-controlled, resources = app-controlled, prompts = user-controlled. Full lesson: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--mcp-review">MCP review</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>ابزارها در کنترل مدل، منابع در کنترل اپ، پرامپت‌ها در کنترل کاربر. درس کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--mcp-review">مرور MCP</a>.</p></div></div></section>
+  </div>
+</article>
+<h2 class="section-title"><span>ایجنت‌ها: Claude Code و استفاده از کامپیوتر</span><span class="sec-en" lang="en" dir="ltr">Agents: Claude Code and computer use</span></h2>
+<article class="item" id="claude-with-amazon-bedrock--claude-code-on-bedrock" data-item="claude-with-amazon-bedrock--claude-code-on-bedrock">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۳</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۳ <span lang="en" dir="ltr">· Lesson 63</span> </p>
+      <h3><span class="t-fa">راه‌اندازی Claude Code روی Bedrock</span><span class="t-en" lang="en" dir="ltr">Claude Code setup on Bedrock</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--claude-code-on-bedrock" data-done="claude-with-amazon-bedrock--claude-code-on-bedrock"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Claude Code can run <strong>through your AWS account</strong>, so usage is billed and governed by AWS. Set an environment variable that tells it to use Bedrock, set your region, and make sure your AWS credentials are available. Everything else (CLAUDE.md, plan mode, MCP servers) works the same.</p></div><div class="fa" lang="fa" dir="rtl"><p>Claude Code می‌تواند <strong>از طریق حساب AWS تو</strong> اجرا شود؛ پس هزینه و مدیریتش با AWS است. یک متغیر محیطی تنظیم کن که به آن بگوید از Bedrock استفاده کند، منطقه‌ات را تعیین کن و مطمئن شو اعتبارنامه‌های AWS در دسترس‌اند. بقیهٔ چیزها (CLAUDE.md، حالت برنامه‌ریزی، سرورهای MCP) همان‌طور کار می‌کنند.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">bash</span><span class="code-cap">Point Claude Code at Bedrock</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-bash">export CLAUDE_CODE_USE_BEDROCK=1
+export AWS_REGION=us-west-2
+aws sso login            # or any other way of providing AWS credentials
+claude</code></pre></figure>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>In a company, admins can set these in a managed settings file so every developer's Claude Code goes through the company's AWS account automatically.</p></div><div class="fa" lang="fa" dir="rtl"><p>در یک شرکت، مدیرها می‌توانند این‌ها را در یک فایل تنظیمات مدیریت‌شده بگذارند تا Claude Code همهٔ برنامه‌نویس‌ها خودکار از حساب AWS شرکت رد شود.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--claude-code-in-action" data-item="claude-with-amazon-bedrock--claude-code-in-action">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۴</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۴ <span lang="en" dir="ltr">· Lesson 64</span> <span class="badge badge-brief"><span lang="en">Same as API course</span> · مشترک با دورهٔ API</span></p>
+      <h3><span class="t-fa">Claude Code در عمل</span><span class="t-en" lang="en" dir="ltr">Claude Code in action</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/claude-code-in-action" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--claude-code-in-action" data-done="claude-with-amazon-bedrock--claude-code-in-action"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Explore, plan, code, commit, with tests as the feedback loop. Full lessons: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--claude-code-in-action">Claude Code in action (API course)</a> and <a class="xref" href="../courses/claude-code-101.html">Claude Code 101</a>.</p></div><div class="fa" lang="fa" dir="rtl"><p>کشف، برنامه‌ریزی، کدنویسی، کامیت، با تست‌ها به‌عنوان حلقهٔ بازخورد. درس‌های کامل: <a class="xref" href="../courses/building-with-the-claude-api.html#building-with-the-claude-api--claude-code-in-action">Claude Code در عمل (دورهٔ API)</a> و <a class="xref" href="../courses/claude-code-101.html">Claude Code 101</a>.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--parallelizing-claude-code" data-item="claude-with-amazon-bedrock--parallelizing-claude-code">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۵</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۵ <span lang="en" dir="ltr">· Lesson 65</span> </p>
+      <h3><span class="t-fa">اجرای موازی Claude Code</span><span class="t-en" lang="en" dir="ltr">Parallelizing Claude Code</span></h3>
+      <div class="item-tools"><span class="item-meta">13 min</span><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/parallelizing-claude-code" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--parallelizing-claude-code" data-done="claude-with-amazon-bedrock--parallelizing-claude-code"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Running several Claude Code sessions on the same folder makes them trip over each other's edits. The solution: give <strong>each instance its own workspace</strong>, typically a <strong>git worktree</strong> (a separate checkout of the same repository on its own branch). Each Claude works in isolation, and you merge the finished branches back. You can even write a custom command that creates the worktree and starts the task for you.</p></div><div class="fa" lang="fa" dir="rtl"><p>اجرای چند جلسهٔ Claude Code روی یک پوشه باعث می‌شود ویرایش‌هایشان به هم بخورد. راه‌حل: به <strong>هر نمونه فضای کاری خودش</strong> را بده؛ معمولاً یک <strong>git worktree</strong> (یک نسخهٔ جدا از همان مخزن روی شاخهٔ خودش). هر Claude جدا کار می‌کند و تو شاخه‌های تمام‌شده را دوباره ادغام می‌کنی. حتی می‌توانی یک فرمان سفارشی بنویسی که worktree را بسازد و کار را برایت شروع کند.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">bash</span><span class="code-cap">Two features at once with worktrees</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-bash">git worktree add ../app-dark-mode -b feature/dark-mode
+git worktree add ../app-search    -b feature/search
+(cd ../app-dark-mode &amp;&amp; claude &quot;Add a dark mode toggle to the settings page&quot;)
+(cd ../app-search    &amp;&amp; claude &quot;Add full-text search to the notes list&quot;)
+# when both are done: review, then merge each branch</code></pre></figure>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Two chefs can't share <strong>one cutting board</strong>; give each a station, then plate the dishes together.</p></div><div class="fa" lang="fa" dir="rtl"><p>دو آشپز نمی‌توانند <strong>یک تخته‌برش</strong> را با هم استفاده کنند؛ به هر کدام یک ایستگاه بده، بعد غذاها را با هم بچین.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--automated-debugging" data-item="claude-with-amazon-bedrock--automated-debugging">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۶</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۶ <span lang="en" dir="ltr">· Lesson 66</span> </p>
+      <h3><span class="t-fa">اشکال‌زدایی خودکار</span><span class="t-en" lang="en" dir="ltr">Automated debugging</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--automated-debugging" data-done="claude-with-amazon-bedrock--automated-debugging"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Claude Code doesn't have to be interactive. In <strong>headless mode</strong> (<code dir="ltr">claude -p "..."</code>) it can run inside scripts and CI: when a test or deployment fails, a job hands Claude the error logs, lets it investigate the code, and produces a proposed fix (as a patch or a pull request) for a human to review. The key is giving it the evidence (logs, failing test output) and a way to verify (rerun the tests).</p></div><div class="fa" lang="fa" dir="rtl"><p>Claude Code لازم نیست حتماً تعاملی باشد. در <strong>حالت بی‌سر (headless)</strong> (<code dir="ltr">claude -p "..."</code>) می‌تواند داخل اسکریپت‌ها و CI اجرا شود: وقتی یک تست یا استقرار شکست می‌خورد، یک کار خودکار لاگ‌های خطا را به Claude می‌دهد، اجازه می‌دهد کد را بررسی کند و یک اصلاح پیشنهادی (به شکل patch یا pull request) برای بازبینی یک آدم می‌سازد. کلید کار، دادن شواهد (لاگ‌ها، خروجی تست شکست‌خورده) و یک راه راستی‌آزمایی (اجرای دوبارهٔ تست‌ها) است.</p></div></div></section>
+<figure class="code" dir="ltr"><figcaption><span class="code-lang">bash</span><span class="code-cap">A CI step that asks Claude to diagnose a failure</span><button type="button" class="copy" data-copy-target="code">کپی</button></figcaption><pre><code class="language-bash">pytest 2&gt;&amp;1 | tee test-output.txt || \
+claude -p &quot;The test suite failed. Output is in test-output.txt. Find the root cause, \
+fix it with the smallest change, rerun pytest, and summarize what you changed.&quot; \
+  --allowedTools &quot;Read&quot; &quot;Edit&quot; &quot;Bash(pytest:*)&quot;</code></pre></figure>
+<section class="blk blk-warn"><h4 class="blk-label"><span lang="en">Watch out</span><span>حواست باشد</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Keep a human in the loop: let automated fixes arrive as <strong>pull requests</strong>, never as direct pushes to production branches, and limit which tools the headless run may use.</p></div><div class="fa" lang="fa" dir="rtl"><p>یک آدم را در حلقه نگه دار: بگذار اصلاح‌های خودکار به شکل <strong>pull request</strong> برسند، هرگز به شکل push مستقیم روی شاخه‌های اصلی، و محدود کن اجرای بی‌سر از کدام ابزارها استفاده کند.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--computer-use" data-item="claude-with-amazon-bedrock--computer-use">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۷</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۷ <span lang="en" dir="ltr">· Lesson 67</span> </p>
+      <h3><span class="t-fa">استفاده از کامپیوتر</span><span class="t-en" lang="en" dir="ltr">Computer use</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/computer-use" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--computer-use" data-done="claude-with-amazon-bedrock--computer-use"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p><strong>Computer use</strong> lets Claude operate a desktop environment: take screenshots, move the mouse, click, type. It's useful for tasks without an API, like <strong>automated QA testing</strong> of a web app ("sign up, add an item to the cart, check the total") or legacy software. It's slower and less precise than APIs, so use it where nothing better exists, and always in an <strong>isolated virtual machine or container</strong>.</p></div><div class="fa" lang="fa" dir="rtl"><p><strong>استفاده از کامپیوتر</strong> به Claude اجازه می‌دهد یک محیط دسکتاپ را بچرخاند: اسکرین‌شات بگیرد، ماوس را حرکت دهد، کلیک کند، تایپ کند. برای کارهایی که API ندارند مفید است، مثل <strong>آزمون خودکار کیفیت (QA)</strong> یک وب‌اپ («ثبت‌نام کن، یک کالا به سبد اضافه کن، جمع را چک کن») یا نرم‌افزارهای قدیمی. از APIها کندتر و کم‌دقت‌تر است؛ پس جایی به کارش ببر که گزینهٔ بهتری نیست، و همیشه در یک <strong>ماشین مجازی یا کانتینر ایزوله</strong>.</p></div></div></section>
+<section class="blk blk-warn"><h4 class="blk-label"><span lang="en">Watch out</span><span>حواست باشد</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Treat everything on screen as untrusted: a web page could contain text that tries to give Claude instructions. Don't give the environment access to sensitive accounts, and require confirmation for consequential actions.</p></div><div class="fa" lang="fa" dir="rtl"><p>هر چیزی را که روی صفحه است غیرقابل‌اعتماد حساب کن: یک صفحهٔ وب ممکن است متنی داشته باشد که سعی کند به Claude دستور بدهد. به آن محیط دسترسی به حساب‌های حساس نده و برای کارهای پیامددار تأیید بخواه.</p></div></div></section>
+<section class="blk blk-analogy"><h4 class="blk-label"><span lang="en">Think of it like this</span><span>مثل این است که…</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Computer use is a <strong>remote helper looking at your screen through a video call</strong>: capable, but you don't let them near your bank account.</p></div><div class="fa" lang="fa" dir="rtl"><p>استفاده از کامپیوتر مثل <strong>کمک‌کننده‌ای از راه دور است که از طریق تماس تصویری صفحه‌ات را می‌بیند</strong>: توانا است، ولی نمی‌گذاری به حساب بانکی‌ات نزدیک شود.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--how-computer-use-works" data-item="claude-with-amazon-bedrock--how-computer-use-works">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۸</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۸ <span lang="en" dir="ltr">· Lesson 68</span> </p>
+      <h3><span class="t-fa">استفاده از کامپیوتر چطور کار می‌کند</span><span class="t-en" lang="en" dir="ltr">How computer use works</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock/how-computer-use-works" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--how-computer-use-works" data-done="claude-with-amazon-bedrock--how-computer-use-works"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Under the hood it's the <strong>same tool-use loop</strong> you built earlier. You declare Anthropic's computer-use tool (with the screen size); Claude returns <code dir="ltr">tool_use</code> actions like "screenshot", "left_click at (x, y)" or "type 'hello'"; <strong>your code</strong> performs them in the virtual desktop and returns a <strong>screenshot</strong> as the tool result; Claude looks at it and decides the next action. Anthropic provides a reference implementation (a Docker container with a desktop) to start from.</p></div><div class="fa" lang="fa" dir="rtl"><p>در باطن همان <strong>حلقهٔ استفاده از ابزار</strong> است که قبلاً ساختی. ابزار computer use آنتروپیک را (با اندازهٔ صفحه) اعلام می‌کنی؛ Claude کارهایی مثل «اسکرین‌شات»، «کلیک چپ روی (x, y)» یا «تایپ 'hello'» را به شکل <code dir="ltr">tool_use</code> برمی‌گرداند؛ <strong>کد تو</strong> آن‌ها را در دسکتاپ مجازی انجام می‌دهد و یک <strong>اسکرین‌شات</strong> را به‌عنوان نتیجهٔ ابزار برمی‌گرداند؛ Claude نگاهش می‌کند و کار بعدی را تصمیم می‌گیرد. Anthropic یک پیاده‌سازی مرجع (یک کانتینر Docker با دسکتاپ) برای شروع ارائه می‌دهد.</p></div></div></section>
+<section class="blk blk-steps"><h4 class="blk-label"><span lang="en">Step by step</span><span>قدم‌به‌قدم</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><ol><li>Declare the computer-use tool with the display size.</li><li>Claude asks for an action (e.g., take a screenshot).</li><li>Your code performs it in the VM.</li><li>Return a fresh screenshot as the tool result.</li><li>Repeat until the task is done.</li></ol></div><div class="fa" lang="fa" dir="rtl"><ol><li>ابزار computer use را با اندازهٔ صفحه اعلام کن.</li><li>Claude یک کار می‌خواهد (مثلاً گرفتن اسکرین‌شات).</li><li>کد تو آن را در ماشین مجازی انجام می‌دهد.</li><li>یک اسکرین‌شات تازه را به‌عنوان نتیجهٔ ابزار برگردان.</li><li>تا تمام شدن کار تکرار کن.</li></ol></div></div></section>
+<section class="blk blk-tip"><h4 class="blk-label"><span lang="en">Pro tip</span><span>نکتهٔ طلایی</span></h4><div class="pair"><div class="en" lang="en" dir="ltr"><p>Computer use is still versioned and evolving: the newest models use a newer computer <strong>toolset</strong> declaration on some platforms (Bedrock still accepts the earlier version for some models). Copy the declaration from the current docs, not from old blog posts.</p></div><div class="fa" lang="fa" dir="rtl"><p>استفاده از کامپیوتر هنوز نسخه‌دار و در حال تکامل است: جدیدترین مدل‌ها روی بعضی سکوها از اعلان تازه‌تری به اسم <strong>toolset</strong> استفاده می‌کنند (Bedrock هنوز نسخهٔ قبلی را برای بعضی مدل‌ها می‌پذیرد). اعلان را از مستندات فعلی کپی کن، نه از پست‌های قدیمی وبلاگ‌ها.</p></div></div></section>
+  </div>
+</article>
+<article class="item" id="claude-with-amazon-bedrock--final-assessment" data-item="claude-with-amazon-bedrock--final-assessment">
+  <header class="item-head">
+    <div class="item-num" aria-hidden="true">۶۹</div>
+    <div class="item-titles">
+      <p class="item-kicker">درس ۶۹ <span lang="en" dir="ltr">· Lesson 69</span> <span class="badge badge-quiz"><span lang="en">Quiz</span> · آزمون</span></p>
+      <h3><span class="t-fa">ارزیابی پایانی</span><span class="t-en" lang="en" dir="ltr">Final assessment</span></h3>
+      <div class="item-tools"><a class="src" href="https://academy.claude.com/courses/claude-with-amazon-bedrock" target="_blank" rel="noopener">صفحهٔ رسمی<span aria-hidden="true"> ↗</span></a><label class="done"><input type="checkbox" id="done-claude-with-amazon-bedrock--final-assessment" data-done="claude-with-amazon-bedrock--final-assessment"> خواندم</label></div>
+    </div>
+  </header>
+  <div class="item-body">
+<section class="blk blk-explain"><div class="pair"><div class="en" lang="en" dir="ltr"><p>Covers the whole course on AWS: access and IAM, Converse requests and streaming, evals and prompting, tools, RAG with reranking and contextual retrieval, caching, MCP, Claude Code and computer use. Passing earns the completion badge.</p></div><div class="fa" lang="fa" dir="rtl"><p>کل دوره روی AWS را پوشش می‌دهد: دسترسی و IAM، درخواست و استریم با Converse، ارزیابی و پرامپت‌نویسی، ابزارها، RAG با رتبه‌بندی دوباره و بازیابی زمینه‌دار، کش، MCP، Claude Code و استفاده از کامپیوتر. با قبول شدن، نشان پایان دوره را می‌گیری.</p></div></div></section>
+  </div>
+</article>
+<section class="cheatsheet" id="cheatsheet"><h2 class="section-title"><span>خلاصهٔ یک‌نگاه</span><span class="sec-en" lang="en" dir="ltr">Cheat sheet</span></h2><div class="pair"><div class="en" lang="en" dir="ltr"><ul><li>No Anthropic key: <strong>IAM + AWS credentials</strong>; enable <strong>model access</strong> per region.</li><li><code dir="ltr">boto3.client("bedrock-runtime").converse(modelId=..., messages=[{"role": "user", "content": [{"text": ...}]}])</code>.</li><li><strong>Inference profiles</strong> (<code dir="ltr">us.</code> / <code dir="ltr">global.</code> prefixes) route to regions with capacity.</li><li>Streaming: <code dir="ltr">converse_stream</code> → <code dir="ltr">contentBlockDelta</code> events.</li><li>Tools: <code dir="ltr">toolConfig={"tools": [{"toolSpec": ...}]}</code> → <code dir="ltr">toolUse</code> → <code dir="ltr">toolResult</code> (same <code dir="ltr">toolUseId</code>).</li><li>Structured data: tool-as-schema, or structured outputs on newer models.</li><li>RAG extras: <strong>reranking</strong> with Claude, <strong>contextual retrieval</strong> (context sentence per chunk).</li><li>Caching: <code dir="ltr">{"cachePoint": {"type": "default"}}</code> after the stable part.</li><li>Not on Bedrock: Anthropic server tools (web search, code execution), Files API, Message Batches.</li><li>Newest models/features: Anthropic SDK <code dir="ltr">AnthropicBedrockMantle</code> with <code dir="ltr">anthropic.</code>-prefixed model IDs.</li><li>Claude Code: <code dir="ltr">CLAUDE_CODE_USE_BEDROCK=1</code>; parallelize with <strong>git worktrees</strong>.</li></ul></div><div class="fa" lang="fa" dir="rtl"><ul><li>بدون کلید آنتروپیک: <strong>IAM + اعتبارنامه‌های AWS</strong>؛ <strong>دسترسی مدل</strong> را برای هر منطقه فعال کن.</li><li><code dir="ltr">boto3.client("bedrock-runtime").converse(modelId=..., messages=[{"role": "user", "content": [{"text": ...}]}])</code>.</li><li><strong>پروفایل‌های استنتاج</strong> (پیشوندهای <code dir="ltr">us.</code> / <code dir="ltr">global.</code>) به منطقه‌هایی با ظرفیت مسیریابی می‌کنند.</li><li>استریم: <code dir="ltr">converse_stream</code> ← رویدادهای <code dir="ltr">contentBlockDelta</code>.</li><li>ابزارها: <code dir="ltr">toolConfig={"tools": [{"toolSpec": ...}]}</code> ← <code dir="ltr">toolUse</code> ← <code dir="ltr">toolResult</code> (با همان <code dir="ltr">toolUseId</code>).</li><li>دادهٔ ساختاریافته: ابزار به‌عنوان اسکیما، یا خروجی ساختاریافته روی مدل‌های جدیدتر.</li><li>چیزهای اضافهٔ RAG: <strong>رتبه‌بندی دوباره</strong> با Claude، <strong>بازیابی زمینه‌دار</strong> (یک جملهٔ زمینه برای هر تکه).</li><li>کش: <code dir="ltr">{"cachePoint": {"type": "default"}}</code> بعد از بخش ثابت.</li><li>روی Bedrock نیست: ابزارهای سمت سرور آنتروپیک (جست‌وجوی وب، اجرای کد)، Files API، Message Batches.</li><li>جدیدترین مدل‌ها و قابلیت‌ها: SDK آنتروپیک با کلاینت <code dir="ltr">AnthropicBedrockMantle</code> و شناسه‌های مدل با پیشوند <code dir="ltr">anthropic.</code>.</li><li>Claude Code: <code dir="ltr">CLAUDE_CODE_USE_BEDROCK=1</code>؛ اجرای موازی با <strong>git worktree</strong>.</li></ul></div></div></section>
+<section class="selfcheck" id="selfcheck"><h2 class="section-title"><span>خودت را بسنج</span><span class="sec-en" lang="en" dir="ltr">Check yourself</span></h2><p class="hint">اول جواب را در ذهنت بگو، بعد روی سؤال بزن تا پاسخ باز شود.</p><details class="q"><summary><span class="q-n">۱</span><div class="pair pair-q"><div class="en" lang="en" dir="ltr">Your Bedrock call fails with an access error even though your code is correct. What do you check first?</div><div class="fa" lang="fa" dir="rtl">فراخوانی Bedrock تو با خطای دسترسی شکست می‌خورد، با این‌که کدت درست است. اول چه چیزی را چک می‌کنی؟</div></div></summary><div class="a"><div class="pair"><div class="en" lang="en" dir="ltr">That model access is enabled for that Claude model in that region, and that your IAM role allows the Bedrock invoke actions.</div><div class="fa" lang="fa" dir="rtl">این‌که دسترسی به آن مدل Claude در همان منطقه فعال باشد و نقش IAM تو اجازهٔ کارهای فراخوانی Bedrock را بدهد.</div></div></div></details><details class="q"><summary><span class="q-n">۲</span><div class="pair pair-q"><div class="en" lang="en" dir="ltr">What's the difference between the content of a Converse message and an Anthropic API message?</div><div class="fa" lang="fa" dir="rtl">فرق محتوای یک پیام Converse با یک پیام API آنتروپیک چیست؟</div></div></summary><div class="a"><div class="pair"><div class="en" lang="en" dir="ltr">Converse content is always a list of blocks like <code dir="ltr">[{"text": "..."}]</code>; tool blocks are named <code dir="ltr">toolUse</code> / <code dir="ltr">toolResult</code> and tools are wrapped in <code dir="ltr">toolSpec</code>.</div><div class="fa" lang="fa" dir="rtl">محتوای Converse همیشه فهرستی از بلوک‌ها مثل <code dir="ltr">[{"text": "..."}]</code> است؛ بلوک‌های ابزار <code dir="ltr">toolUse</code> / <code dir="ltr">toolResult</code> نام دارند و ابزارها در <code dir="ltr">toolSpec</code> پیچیده می‌شوند.</div></div></div></details><details class="q"><summary><span class="q-n">۳</span><div class="pair pair-q"><div class="en" lang="en" dir="ltr">Why add a context sentence to each chunk before indexing?</div><div class="fa" lang="fa" dir="rtl">چرا قبل از نمایه‌سازی به هر تکه یک جملهٔ زمینه اضافه کنیم؟</div></div></summary><div class="a"><div class="pair"><div class="en" lang="en" dir="ltr">Chunks lose their context when cut from a document; the sentence restores it so both semantic and keyword search can match it (contextual retrieval).</div><div class="fa" lang="fa" dir="rtl">تکه‌ها وقتی از سند بریده می‌شوند زمینه‌شان را از دست می‌دهند؛ این جمله آن را برمی‌گرداند تا هم جست‌وجوی معنایی و هم کلیدواژه‌ای بتوانند پیدایش کنند (بازیابی زمینه‌دار).</div></div></div></details></section>
+<nav class="pager" aria-label="صفحهٔ قبلی و بعدی"><a class="prev" href="../courses/building-with-the-claude-api.html"><span class="pager-label">قبلی</span><span>ساختن با Claude API (رابط برنامه‌نویسی Claude)</span></a></nav>
+</main>
+</div>
+
+<footer class="site-foot">
+  <p>این جزوه یک بازنویسی آموزشی و آزاد از مطالب <a href="https://academy.claude.com" target="_blank" rel="noopener">Claude Academy</a> است؛ متن‌ها، تشبیه‌ها و مثال‌ها تازه نوشته شده‌اند. برای جدیدترین نسخه همیشه به صفحهٔ رسمی هر درس سر بزن.</p>
+  <p lang="en" dir="ltr">An independent study companion to Claude Academy. Explanations and examples are original; follow each "official page" link for the source lesson.</p>
+  <p><a href="../index.html">بازگشت به فهرست کامل</a> · <a href="../glossary.html">واژه‌نامه</a></p>
+</footer>
+
+</body>
+</html>

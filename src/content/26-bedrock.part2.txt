@@ -1,0 +1,819 @@
+@section Tool use | استفاده از ابزار
+
+@lesson
+id: introducing-tool-use
+en: Introducing tool use
+fa: آشنایی با استفاده از ابزار
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Claude asks for a tool, your code runs it, you send the result back. Full lesson: [Introducing tool use](page:building-with-the-claude-api#introducing-tool-use). On Bedrock, tools go in `toolConfig` and blocks use Converse names (`toolUse`, `toolResult`), shown in the next lessons.
+~~
+Claude ابزاری می‌خواهد، کد تو اجرایش می‌کند و نتیجه را برمی‌گردانی. درس کامل: [آشنایی با استفاده از ابزار](page:building-with-the-claude-api#introducing-tool-use). روی Bedrock ابزارها در `toolConfig` قرار می‌گیرند و بلوک‌ها اسم‌های Converse را دارند (`toolUse`، `toolResult`) که در درس‌های بعد می‌بینی.
+
+@lesson
+id: project-overview
+en: Project overview
+fa: معرفی پروژه
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+A reminder assistant that needs date/time tools Claude doesn't have. Full lesson: [Project overview](page:building-with-the-claude-api#project-overview).
+~~
+یک دستیار یادآوری که به ابزارهای تاریخ و ساعتی نیاز دارد که Claude ندارد. درس کامل: [معرفی پروژه](page:building-with-the-claude-api#project-overview).
+
+@lesson
+id: tool-functions
+en: Tool functions
+fa: تابع‌های ابزار
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Plain Python functions with validation and clear error messages. Full lesson: [Tool functions](page:building-with-the-claude-api#tool-functions).
+~~
+تابع‌های سادهٔ پایتون با اعتبارسنجی و پیام خطای روشن. درس کامل: [تابع‌های ابزار](page:building-with-the-claude-api#tool-functions).
+
+@lesson
+id: tool-schemas
+en: Tool schemas (Converse format)
+fa: اسکیمای ابزارها (قالب Converse)
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+The schema content is the same (name, a good description, JSON Schema for inputs), but Converse wraps it differently: each tool is a `toolSpec`, and the schema goes under `inputSchema.json`.
+~~
+محتوای اسکیما همان است (اسم، یک توضیح خوب، اسکیمای JSON برای ورودی‌ها)، ولی Converse آن را متفاوت بسته‌بندی می‌کند: هر ابزار یک `toolSpec` است و اسکیما زیر `inputSchema.json` می‌آید.
+
+#code python A Converse tool definition
+get_current_datetime_tool = {
+    "toolSpec": {
+        "name": "get_current_datetime",
+        "description": "Returns the current date and time. Call this for any relative date "
+                       "like 'today' or 'in 3 weeks'.",
+        "inputSchema": {"json": {
+            "type": "object",
+            "properties": {"date_format": {"type": "string",
+                                           "description": "Python strftime format"}},
+            "required": ["date_format"],
+        }},
+    }
+}
+tool_config = {"tools": [get_current_datetime_tool]}
+#end
+
+#analogy
+Same menu description, different **menu holder**: Anthropic's API and Bedrock just print it in different frames.
+~~
+همان توضیح منو، با **جامنوی** متفاوت: API آنتروپیک و Bedrock فقط آن را در قاب‌های متفاوت چاپ می‌کنند.
+
+@lesson
+id: handling-tool-use-responses
+en: Handling tool use responses
+fa: کار با پاسخ‌های استفاده از ابزار
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/handling-tool-use-responses
+
+#explain
+When Claude wants a tool, `response["stopReason"] == "tool_use"` and the assistant message contains `toolUse` blocks, each with a `toolUseId`, `name` and `input`. Append the assistant message to your history unchanged, then run the tools.
+~~
+وقتی Claude ابزاری می‌خواهد، `response["stopReason"] == "tool_use"` است و پیام دستیار بلوک‌های `toolUse` دارد که هر کدام `toolUseId`، `name` و `input` دارند. پیام دستیار را بدون تغییر به تاریخچه اضافه کن، بعد ابزارها را اجرا کن.
+
+#code python Reading toolUse blocks
+response = client.converse(modelId=MODEL_ID, messages=messages, toolConfig=tool_config,
+                           inferenceConfig={"maxTokens": 1000})
+assistant_message = response["output"]["message"]
+messages.append(assistant_message)                         # keep every block
+
+if response["stopReason"] == "tool_use":
+    for block in assistant_message["content"]:
+        if "toolUse" in block:
+            tu = block["toolUse"]
+            print(tu["toolUseId"], tu["name"], tu["input"])
+#end
+
+@lesson
+id: sending-tool-results
+en: Sending tool results
+fa: فرستادن نتیجهٔ ابزار
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Answer with a **user** message containing one `toolResult` per `toolUse`, matched by `toolUseId`. Content can be text or JSON; add `"status": "error"` when the tool failed so Claude can recover.
+~~
+با یک پیام **کاربر** جواب بده که برای هر `toolUse` یک `toolResult` دارد و با `toolUseId` جفت می‌شود. محتوا می‌تواند متن یا JSON باشد؛ وقتی ابزار شکست خورد `"status": "error"` اضافه کن تا Claude بتواند جبران کند.
+
+#code python Building toolResult blocks
+results = []
+for block in assistant_message["content"]:
+    if "toolUse" in block:
+        tu = block["toolUse"]
+        try:
+            output = run_tool(tu["name"], tu["input"])
+            results.append({"toolResult": {"toolUseId": tu["toolUseId"],
+                                           "content": [{"text": str(output)}]}})
+        except Exception as e:
+            results.append({"toolResult": {"toolUseId": tu["toolUseId"],
+                                           "content": [{"text": f"Error: {e}"}],
+                                           "status": "error"}})
+messages.append({"role": "user", "content": results})
+#end
+
+@lesson
+id: multi-turn-conversations-with-tools
+en: Multi-turn conversations with tools
+fa: گفت‌وگوهای چندنوبتی با ابزار
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Loop until `stopReason` is no longer `"tool_use"`; Claude may chain several tools. Full lesson: [Multi-turn conversations with tools](page:building-with-the-claude-api#multi-turn-conversations-with-tools).
+~~
+تا وقتی `stopReason` دیگر `"tool_use"` نیست حلقه بزن؛ Claude ممکن است چند ابزار را پشت هم صدا بزند. درس کامل: [گفت‌وگوهای چندنوبتی با ابزار](page:building-with-the-claude-api#multi-turn-conversations-with-tools).
+
+@lesson
+id: using-multiple-tools
+en: Using multiple tools
+fa: استفاده از چند ابزار
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Several tools, possibly several `toolUse` blocks in one reply: return all results in one message. Full lesson: [Using multiple tools](page:building-with-the-claude-api#using-multiple-tools).
+~~
+چند ابزار، و احتمالاً چند بلوک `toolUse` در یک جواب: همهٔ نتیجه‌ها را در یک پیام برگردان. درس کامل: [استفاده از چند ابزار](page:building-with-the-claude-api#using-multiple-tools).
+
+@lesson
+id: batch-tool-use
+en: Batch tool use
+fa: استفادهٔ دسته‌ای از ابزار
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Sometimes Claude calls tools **one at a time** even when they're independent, which means extra round trips. The **batch tool** pattern adds one more tool, `batch_tool`, whose input is a **list of other tool calls**. Claude can then request several operations at once, and your code runs them all (even in parallel) and returns the combined results. Current models do parallel tool calls on their own more often, but the pattern is still handy when you want to encourage it.
+~~
+گاهی Claude ابزارها را **یکی‌یکی** صدا می‌زند، حتی وقتی مستقل‌اند؛ یعنی رفت‌وبرگشت‌های اضافه. الگوی **ابزار دسته‌ای** یک ابزار دیگر به اسم `batch_tool` اضافه می‌کند که ورودی‌اش **فهرستی از فراخوانی‌های ابزارهای دیگر** است. آن وقت Claude می‌تواند چند عملیات را با هم درخواست کند و کد تو همه را اجرا می‌کند (حتی موازی) و نتیجه‌های ترکیبی را برمی‌گرداند. مدل‌های فعلی بیشتر وقت‌ها خودشان ابزارها را موازی صدا می‌زنند، ولی این الگو وقتی می‌خواهی تشویقش کنی هنوز به درد می‌خورد.
+
+#code python The batch tool
+batch_tool = {"toolSpec": {
+    "name": "batch_tool",
+    "description": "Invoke several other tools at once. Use it whenever you need two or "
+                   "more independent tool calls.",
+    "inputSchema": {"json": {
+        "type": "object",
+        "properties": {"invocations": {"type": "array", "items": {
+            "type": "object",
+            "properties": {"name": {"type": "string"},
+                           "arguments": {"type": "string", "description": "JSON-encoded arguments"}},
+            "required": ["name", "arguments"]}}},
+        "required": ["invocations"],
+    }},
+}}
+
+def run_batch(invocations):
+    return [{"tool": i["name"], "output": run_tool(i["name"], json.loads(i["arguments"]))}
+            for i in invocations]
+#end
+
+#analogy
+Like giving a waiter **one order slip with the whole table's dishes** instead of calling them back for each plate.
+~~
+مثل این است که به گارسون **یک برگهٔ سفارش با غذای همهٔ سر میز** بدهی، به جای این‌که برای هر بشقاب دوباره صدایش کنی.
+
+@lesson
+id: structured-data-with-tools
+en: Structured data with tools
+fa: دادهٔ ساختاریافته با ابزارها
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+A reliable way to get structured data: define a tool whose **input schema is exactly the data shape you want** (for example `article_summary` with `title`, `author`, `key_insights`), then make Claude call it. You never run the tool; you just **read its input**, which is your structured data. The course forces the call with `toolChoice={"tool": {"name": ...}}`.
+
+**Note:** on the newest models, forcing a specific tool may be rejected; use **structured outputs** instead, or `auto` with a clear instruction, and check that the call arrived.
+~~
+یک راه مطمئن برای گرفتن دادهٔ ساختاریافته: ابزاری تعریف کن که **اسکیمای ورودی‌اش دقیقاً شکل داده‌ای است که می‌خواهی** (مثلاً `article_summary` با `title`، `author`، `key_insights`)، بعد کاری کن Claude صدایش بزند. هیچ‌وقت ابزار را اجرا نمی‌کنی؛ فقط **ورودی‌اش را می‌خوانی** که همان دادهٔ ساختاریافتهٔ توست. دوره فراخوانی را با `toolChoice={"tool": {"name": ...}}` اجباری می‌کند.
+
+**توجه:** روی جدیدترین مدل‌ها اجبار به یک ابزار مشخص ممکن است رد شود؛ به جایش از **خروجی ساختاریافته** استفاده کن، یا `auto` با یک دستور روشن، و چک کن فراخوانی رسیده باشد.
+
+#code python The tool-as-schema trick
+summary_tool = {"toolSpec": {
+    "name": "article_summary",
+    "description": "Record a structured summary of the article.",
+    "inputSchema": {"json": {"type": "object", "properties": {
+        "title": {"type": "string"}, "author": {"type": "string"},
+        "key_insights": {"type": "array", "items": {"type": "string"}}},
+        "required": ["title", "author", "key_insights"]}},
+}}
+response = client.converse(
+    modelId=MODEL_ID,
+    messages=[{"role": "user", "content": [{"text": f"<article>{article}</article>\nSummarize it."}]}],
+    toolConfig={"tools": [summary_tool], "toolChoice": {"tool": {"name": "article_summary"}}},
+    inferenceConfig={"maxTokens": 1000},
+)
+data = next(b["toolUse"]["input"] for b in response["output"]["message"]["content"] if "toolUse" in b)
+#end
+
+#analogy
+It's like handing someone a **form with labeled boxes** and saying "fill this in": the form's shape *is* the answer's shape.
+~~
+مثل این است که **فرمی با خانه‌های برچسب‌دار** دست کسی بدهی و بگویی «این را پر کن»: شکل فرم *همان* شکل جواب است.
+
+@lesson
+id: the-text-edit-tool
+en: The text edit tool
+fa: ابزار ویرایش متن
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Anthropic-defined, client-executed file editing (view, create, str_replace, insert). Confine paths to one folder. Full lesson: [The text edit tool](page:building-with-the-claude-api#the-text-edit-tool). Note that Anthropic's **server** tools such as web search aren't available on Bedrock, so on AWS you'd implement search as your own tool.
+~~
+ویرایش فایل که Anthropic تعریفش کرده و سمت تو اجرا می‌شود (view، create، str_replace، insert). مسیرها را به یک پوشه محدود کن. درس کامل: [ابزار ویرایش متن](page:building-with-the-claude-api#the-text-edit-tool). توجه کن که ابزارهای **سمت سرور** Anthropic مثل جست‌وجوی وب روی Bedrock در دسترس نیستند؛ پس روی AWS جست‌وجو را به شکل ابزار خودت پیاده می‌کنی.
+
+@lesson
+id: quiz-on-tool-use
+en: Quiz on tool use
+fa: آزمونک استفاده از ابزار
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Checks the Converse tool format (`toolSpec`, `toolUse`, `toolResult`), multi-turn loops, the batch tool and structured data with tools.
+~~
+قالب ابزار در Converse (`toolSpec`، `toolUse`، `toolResult`)، حلقه‌های چندنوبتی، ابزار دسته‌ای و دادهٔ ساختاریافته با ابزارها را می‌سنجد.
+
+@section Retrieval augmented generation | تولید تقویت‌شده با بازیابی (RAG)
+
+@lesson
+id: introducing-retrieval-augmented-generation
+en: Introducing retrieval augmented generation
+fa: آشنایی با RAG
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/introducing-retrieval-augmented-generation
+
+#explain
+Retrieve only the relevant chunks instead of sending whole documents. Full lesson: [Introducing RAG](page:building-with-the-claude-api#introducing-retrieval-augmented-generation).
+~~
+به جای فرستادن کل سندها، فقط تکه‌های مرتبط را بازیابی کن. درس کامل: [آشنایی با RAG](page:building-with-the-claude-api#introducing-retrieval-augmented-generation).
+
+@lesson
+id: text-chunking-strategies
+en: Text chunking strategies
+fa: راهبردهای تکه‌کردن متن
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Size-based with overlap, structure-based, sentence-based. Full lesson: [Text chunking strategies](page:building-with-the-claude-api#text-chunking-strategies).
+~~
+بر اساس اندازه با هم‌پوشانی، بر اساس ساختار، بر اساس جمله. درس کامل: [راهبردهای تکه‌کردن متن](page:building-with-the-claude-api#text-chunking-strategies).
+
+@lesson
+id: text-embeddings
+en: Text embeddings
+fa: بردارهای معنایی متن
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Turn chunks into vectors that capture meaning. Full lesson: [Text embeddings](page:building-with-the-claude-api#text-embeddings). On AWS you can also use embedding models hosted on Bedrock; the idea is identical.
+~~
+تکه‌ها را به بردارهایی تبدیل کن که معنا را نگه می‌دارند. درس کامل: [بردارهای معنایی متن](page:building-with-the-claude-api#text-embeddings). روی AWS می‌توانی از مدل‌های embedding میزبانی‌شده روی Bedrock هم استفاده کنی؛ ایده دقیقاً همان است.
+
+@lesson
+id: the-full-rag-flow
+en: The full RAG flow
+fa: جریان کامل RAG
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Index once (chunk, embed, store); per question embed, rank by cosine similarity, answer from the top chunks. Full lesson: [The full RAG flow](page:building-with-the-claude-api#the-full-rag-flow).
+~~
+یک بار نمایه بساز (تکه، embed، ذخیره)؛ برای هر سؤال embed کن، با شباهت کسینوسی رتبه بده و از تکه‌های برتر جواب بده. درس کامل: [جریان کامل RAG](page:building-with-the-claude-api#the-full-rag-flow).
+
+@lesson
+id: implementing-the-rag-flow
+en: Implementing the RAG flow
+fa: پیاده‌سازی جریان RAG
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+A small in-memory vector index plus "answer only from the context". Full lesson: [Implementing the RAG flow](page:building-with-the-claude-api#implementing-the-rag-flow).
+~~
+یک نمایهٔ برداری کوچک داخل حافظه به‌اضافهٔ «فقط از روی زمینه جواب بده». درس کامل: [پیاده‌سازی جریان RAG](page:building-with-the-claude-api#implementing-the-rag-flow).
+
+@lesson
+id: bm25-lexical-search
+en: BM25 lexical search
+fa: جست‌وجوی واژگانی BM25
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Keyword ranking that catches exact IDs and rare terms semantic search misses. Full lesson: [BM25 lexical search](page:building-with-the-claude-api#bm25-lexical-search).
+~~
+رتبه‌بندی کلیدواژه‌ای که شناسه‌های دقیق و کلمه‌های کمیابی را که جست‌وجوی معنایی جا می‌اندازد می‌گیرد. درس کامل: [جست‌وجوی واژگانی BM25](page:building-with-the-claude-api#bm25-lexical-search).
+
+@lesson
+id: a-multi-search-rag-pipeline
+en: A multi-search RAG pipeline
+fa: خط لولهٔ RAG با چند جست‌وجو
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/a-multi-search-rag-pipeline
+
+#explain
+One retriever over a vector index and BM25, merged with reciprocal rank fusion (you can't add raw scores from different systems directly). Full lesson: [A multi-index RAG pipeline](page:building-with-the-claude-api#a-multi-index-rag-pipeline).
+~~
+یک بازیاب روی یک نمایهٔ برداری و BM25 که با ادغام رتبهٔ معکوس یکی می‌شوند (امتیازهای خامِ سیستم‌های مختلف را نمی‌شود مستقیم جمع زد). درس کامل: [خط لولهٔ RAG چندنمایه‌ای](page:building-with-the-claude-api#a-multi-index-rag-pipeline).
+
+@lesson
+id: reranking-results
+en: Reranking results
+fa: رتبه‌بندی دوبارهٔ نتیجه‌ها
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Hybrid search finds good **candidates**, but its order isn't always the best for the actual question. **Reranking** adds one step: retrieve more candidates than you need (say 10), then ask Claude to **reorder them by relevance** to the question and keep the top 3. It costs one extra call but often improves answer quality noticeably, especially for subtle questions.
+~~
+جست‌وجوی ترکیبی **کاندیداهای** خوبی پیدا می‌کند، ولی ترتیبش همیشه برای سؤال واقعی بهترین نیست. **رتبه‌بندی دوباره** یک قدم اضافه می‌کند: بیشتر از نیازت کاندیدا بازیابی کن (مثلاً ۱۰ تا)، بعد از Claude بخواه آن‌ها را **بر اساس ارتباط** با سؤال دوباره مرتب کند و ۳ تای برتر را نگه دار. یک فراخوانی اضافه هزینه دارد، ولی اغلب کیفیت جواب را محسوس بهتر می‌کند، مخصوصاً برای سؤال‌های ظریف.
+
+#code python Rerank with Claude
+def rerank(question, candidates, k=3):
+    listing = "\n".join(f'<doc id="{i}">{c}</doc>' for i, c in enumerate(candidates))
+    prompt = (f"<question>{question}</question>\n<documents>\n{listing}\n</documents>\n"
+              f"Return the ids of the {k} most relevant documents, most relevant first, "
+              f"as a comma-separated list of numbers and nothing else.")
+    response = client.converse(modelId=MODEL_ID,
+                               messages=[{"role": "user", "content": [{"text": prompt}]}],
+                               inferenceConfig={"maxTokens": 50})
+    ids = response["output"]["message"]["content"][0]["text"].split(",")
+    return [candidates[int(i)] for i in ids if i.strip().isdigit()][:k]
+#end
+
+#analogy
+Search is the **first audition round** that picks 10 singers; reranking is the **judges' final ranking** of those 10.
+~~
+جست‌وجو **دور اول تست خوانندگی** است که ۱۰ خواننده را انتخاب می‌کند؛ رتبه‌بندی دوباره **رتبه‌بندی نهایی داورها** بین همان ۱۰ نفر است.
+
+@lesson
+id: contextual-retrieval
+en: Contextual retrieval
+fa: بازیابی زمینه‌دار
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/contextual-retrieval
+
+#explain
+A chunk cut out of a long document often **loses its context**: "Revenue grew 3% over the previous quarter" (which company? which quarter?). **Contextual retrieval** fixes this at indexing time: for each chunk, ask Claude to write a short **context sentence** based on the whole document, prepend it to the chunk, and index the combined text (for both embeddings and BM25). Searches now match on that context too.
+~~
+تکه‌ای که از یک سند طولانی بریده می‌شود اغلب **زمینه‌اش را از دست می‌دهد**: «درآمد نسبت به فصل قبل ۳٪ رشد کرد» (کدام شرکت؟ کدام فصل؟). **بازیابی زمینه‌دار** این را موقع نمایه‌سازی درست می‌کند: برای هر تکه از Claude بخواه بر اساس کل سند یک **جملهٔ زمینه** کوتاه بنویسد، آن را به اول تکه بچسبان و متن ترکیبی را نمایه کن (هم برای embedding و هم برای BM25). حالا جست‌وجوها روی همان زمینه هم تطبیق پیدا می‌کنند.
+
+#code python Add context to each chunk before indexing
+def contextualize(document, chunk):
+    prompt = (f"<document>{document}</document>\n"
+              f"Here is a chunk from the document:\n<chunk>{chunk}</chunk>\n"
+              "Write one short sentence situating this chunk within the overall document "
+              "to improve search retrieval. Answer with the sentence only.")
+    r = client.converse(modelId=MODEL_ID,
+                        messages=[{"role": "user", "content": [{"text": prompt}]}],
+                        inferenceConfig={"maxTokens": 100})
+    return r["output"]["message"]["content"][0]["text"] + "\n" + chunk
+
+indexed_chunks = [contextualize(report_text, c) for c in chunks]
+#end
+
+#tip
+**Cool tip:** the whole document is the same for every chunk, so put it in a **cached** block (Converse uses a `cachePoint` block, covered below). You then pay full price for the document once, and a fraction for every other chunk.
+~~
+**نکتهٔ خفن:** کل سند برای همهٔ تکه‌ها یکی است؛ پس آن را در یک بلوک **کش‌شده** بگذار (Converse از بلوک `cachePoint` استفاده می‌کند که در ادامه می‌آید). آن وقت قیمت کامل سند را فقط یک بار می‌دهی و برای بقیهٔ تکه‌ها بخش کوچکی از آن را.
+
+#analogy
+It's like writing **"From: Chapter 3, The Ocean"** at the top of every photocopied page, so a loose page still makes sense.
+~~
+مثل این است که بالای هر صفحهٔ کپی‌شده بنویسی **«از: فصل ۳، اقیانوس»** تا یک برگهٔ جدا افتاده هم معنا داشته باشد.
+
+@section Features of Claude | قابلیت‌های Claude
+
+@lesson
+id: extended-thinking
+en: Extended thinking
+fa: تفکر گسترده
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Step-by-step reasoning before the answer. Full lesson: [Extended thinking](page:building-with-the-claude-api#extended-thinking). Older models used a token budget; the newest use adaptive thinking with `effort`. With Converse, model-specific options go in `additionalModelRequestFields`; with the Anthropic SDK on Bedrock, the parameters are identical to the API course.
+~~
+استدلال قدم به قدم قبل از جواب. درس کامل: [تفکر گسترده](page:building-with-the-claude-api#extended-thinking). مدل‌های قدیمی‌تر بودجهٔ توکن داشتند؛ جدیدترین‌ها تفکر تطبیقی با `effort` دارند. با Converse، گزینه‌های مخصوص مدل در `additionalModelRequestFields` قرار می‌گیرند؛ با SDK آنتروپیک روی Bedrock، پارامترها دقیقاً مثل دورهٔ API هستند.
+
+@lesson
+id: image-support
+en: Image support
+fa: پشتیبانی از تصویر
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Same prompting advice as the [API course](page:building-with-the-claude-api#image-support). Converse takes raw bytes (boto3 handles the encoding): `{"image": {"format": "png", "source": {"bytes": open("photo.png", "rb").read()}}}`.
+~~
+همان توصیه‌های پرامپت‌نویسی [دورهٔ API](page:building-with-the-claude-api#image-support). Converse بایت‌های خام می‌گیرد (boto3 رمزگذاری را انجام می‌دهد): `{"image": {"format": "png", "source": {"bytes": open("photo.png", "rb").read()}}}`.
+
+@lesson
+id: pdf-support
+en: PDF support
+fa: پشتیبانی از PDF
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Send PDFs as document blocks: `{"document": {"format": "pdf", "name": "report", "source": {"bytes": pdf_bytes}}}`. Full lesson: [PDF support](page:building-with-the-claude-api#pdf-support).
+~~
+PDFها را به شکل بلوک سند بفرست: `{"document": {"format": "pdf", "name": "report", "source": {"bytes": pdf_bytes}}}`. درس کامل: [پشتیبانی از PDF](page:building-with-the-claude-api#pdf-support).
+
+@lesson
+id: citations
+en: Citations
+fa: ارجاع‌دهی
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Answers that point to the exact passages they came from. Full lesson: [Citations](page:building-with-the-claude-api#citations).
+~~
+جواب‌هایی که دقیقاً به بخش‌هایی که از آن آمده‌اند اشاره می‌کنند. درس کامل: [ارجاع‌دهی](page:building-with-the-claude-api#citations).
+
+@lesson
+id: prompt-caching
+en: Prompt caching (cachePoint)
+fa: کش پرامپت (cachePoint)
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+The idea is identical to the [API course](page:building-with-the-claude-api#prompt-caching): reuse a processed prefix for cheaper, faster requests. In Converse you mark the end of the cacheable part with a **`cachePoint` block** (in `system`, in a message's `content`, or in the tools list). The response's `usage` then reports `cacheWriteInputTokens` and `cacheReadInputTokens`.
+~~
+ایده دقیقاً همان [دورهٔ API](page:building-with-the-claude-api#prompt-caching) است: استفادهٔ دوباره از یک پیشوند پردازش‌شده برای درخواست‌های ارزان‌تر و سریع‌تر. در Converse پایان بخش قابل‌کش را با یک **بلوک `cachePoint`** علامت می‌زنی (در `system`، در `content` یک پیام یا در فهرست ابزارها). بعد `usage` در پاسخ، `cacheWriteInputTokens` و `cacheReadInputTokens` را گزارش می‌دهد.
+
+#code python A cached system prompt in Converse
+response = client.converse(
+    modelId=MODEL_ID,
+    system=[
+        {"text": LONG_STYLE_GUIDE},          # thousands of stable tokens
+        {"cachePoint": {"type": "default"}},  # cache everything above
+    ],
+    messages=[{"role": "user", "content": [{"text": "Rewrite this headline in our style: ..."}]}],
+    inferenceConfig={"maxTokens": 300},
+)
+u = response["usage"]
+print(u.get("cacheWriteInputTokens"), u.get("cacheReadInputTokens"))
+#end
+
+@lesson
+id: rules-of-prompt-caching
+en: Rules of prompt caching
+fa: قانون‌های کش پرامپت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Exact prefix match, order tools → system → messages, limited breakpoints, model-specific minimum length, 5-minute default lifetime. Full lesson: [Rules of prompt caching](page:building-with-the-claude-api#rules-of-prompt-caching).
+~~
+تطابق دقیق پیشوند، ترتیب ابزارها ← سیستم ← پیام‌ها، تعداد محدود نقطهٔ کش، حداقل طول وابسته به مدل، عمر پیش‌فرض ۵ دقیقه. درس کامل: [قانون‌های کش پرامپت](page:building-with-the-claude-api#rules-of-prompt-caching).
+
+@lesson
+id: prompt-caching-in-action
+en: Prompt caching in action
+fa: کش پرامپت در عمل
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Send the same prefix twice and watch the write turn into a read. Full lesson: [Prompt caching in action](page:building-with-the-claude-api#prompt-caching-in-action).
+~~
+یک پیشوند را دو بار بفرست و ببین «نوشتن» به «خواندن» تبدیل می‌شود. درس کامل: [کش پرامپت در عمل](page:building-with-the-claude-api#prompt-caching-in-action).
+
+@lesson
+id: quiz-on-features-of-claude
+en: Quiz on features of Claude
+fa: آزمونک قابلیت‌های Claude
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Checks thinking, image and PDF blocks in Converse, citations and prompt caching with `cachePoint`.
+~~
+تفکر، بلوک‌های تصویر و PDF در Converse، ارجاع‌دهی و کش پرامپت با `cachePoint` را می‌سنجد.
+
+@section Model Context Protocol | پروتکل زمینهٔ مدل (MCP)
+
+@lesson
+id: introducing-mcp
+en: Introducing MCP
+fa: آشنایی با MCP
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/introducing-mcp
+
+#explain
+Servers package tools, resources and prompts; your app is the client. MCP is independent of where Claude runs, so it works the same with Bedrock. Full lesson: [Introducing MCP](page:building-with-the-claude-api#introducing-mcp).
+~~
+سرورها ابزارها، منابع و پرامپت‌ها را بسته‌بندی می‌کنند؛ اپ تو کلاینت است. MCP به این‌که Claude کجا اجرا می‌شود بستگی ندارد؛ پس با Bedrock هم همان‌طور کار می‌کند. درس کامل: [آشنایی با MCP](page:building-with-the-claude-api#introducing-mcp).
+
+@lesson
+id: mcp-clients
+en: MCP clients
+fa: کلاینت‌های MCP
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+The client lists the server's tools, passes them to Claude (converted to `toolSpec` for Converse) and runs calls through the server. Full lesson: [MCP clients](page:building-with-the-claude-api#mcp-clients).
+~~
+کلاینت ابزارهای سرور را فهرست می‌کند، آن‌ها را به Claude می‌دهد (برای Converse به `toolSpec` تبدیل‌شده) و فراخوانی‌ها را از طریق سرور اجرا می‌کند. درس کامل: [کلاینت‌های MCP](page:building-with-the-claude-api#mcp-clients).
+
+@lesson
+id: project-setup
+en: Project setup
+fa: راه‌اندازی پروژه
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/project-setup
+
+#explain
+A CLI document chat with an MCP server and client to complete. Full lesson: [Project setup](page:building-with-the-claude-api#project-setup).
+~~
+یک گفت‌وگوی خط فرمان دربارهٔ سندها با یک سرور و یک کلاینت MCP که باید کاملشان کنی. درس کامل: [راه‌اندازی پروژه](page:building-with-the-claude-api#project-setup).
+
+@lesson
+id: defining-tools-with-mcp
+en: Defining tools with MCP
+fa: تعریف ابزار با MCP
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+`@mcp.tool` turns a typed function into a tool with an automatic schema. Full lesson: [Defining tools with MCP](page:building-with-the-claude-api#defining-tools-with-mcp).
+~~
+`@mcp.tool` یک تابع نوع‌دار را به ابزاری با اسکیمای خودکار تبدیل می‌کند. درس کامل: [تعریف ابزار با MCP](page:building-with-the-claude-api#defining-tools-with-mcp).
+
+@lesson
+id: the-server-inspector
+en: The server inspector
+fa: بازرس سرور
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+`mcp dev mcp_server.py` opens a browser tester for tools, resources and prompts. Full lesson: [The server inspector](page:building-with-the-claude-api#the-server-inspector).
+~~
+`mcp dev mcp_server.py` یک آزمایشگر مرورگری برای ابزارها، منابع و پرامپت‌ها باز می‌کند. درس کامل: [بازرس سرور](page:building-with-the-claude-api#the-server-inspector).
+
+@lesson
+id: implementing-a-client
+en: Implementing a client
+fa: پیاده‌سازی کلاینت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/implementing-a-client
+
+#explain
+Wrap `ClientSession` with `list_tools()` and `call_tool()`. Full lesson: [Implementing a client](page:building-with-the-claude-api#implementing-a-client).
+~~
+`ClientSession` را با `list_tools()` و `call_tool()` بپیچان. درس کامل: [پیاده‌سازی کلاینت](page:building-with-the-claude-api#implementing-a-client).
+
+@lesson
+id: defining-resources
+en: Defining resources
+fa: تعریف منابع
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Read-only data at direct or templated URIs. Full lesson: [Defining resources](page:building-with-the-claude-api#defining-resources).
+~~
+دادهٔ فقط‌خواندنی در URIهای مستقیم یا الگودار. درس کامل: [تعریف منابع](page:building-with-the-claude-api#defining-resources).
+
+@lesson
+id: accessing-resources
+en: Accessing resources
+fa: دسترسی به منابع
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+`read_resource(uri)` plus MIME-type parsing; `@mentions` to attach documents. Full lesson: [Accessing resources](page:building-with-the-claude-api#accessing-resources).
+~~
+`read_resource(uri)` به‌اضافهٔ تجزیه بر اساس نوع MIME؛ `@اشاره` برای پیوست کردن سندها. درس کامل: [دسترسی به منابع](page:building-with-the-claude-api#accessing-resources).
+
+@lesson
+id: defining-prompts
+en: Defining prompts
+fa: تعریف پرامپت‌ها
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/defining-prompts
+
+#explain
+Expert, reusable instruction templates offered by the server. Full lesson: [Defining prompts](page:building-with-the-claude-api#defining-prompts).
+~~
+قالب‌های دستوری حرفه‌ای و قابل‌استفادهٔ دوباره که سرور ارائه می‌دهد. درس کامل: [تعریف پرامپت‌ها](page:building-with-the-claude-api#defining-prompts).
+
+@lesson
+id: prompts-in-the-client
+en: Prompts in the client
+fa: پرامپت‌ها در کلاینت
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+List prompts as slash commands, fetch with `get_prompt`, send the messages to Claude. Full lesson: [Prompts in the client](page:building-with-the-claude-api#prompts-in-the-client).
+~~
+پرامپت‌ها را به شکل فرمان اسلش فهرست کن، با `get_prompt` بگیرشان و پیام‌ها را برای Claude بفرست. درس کامل: [پرامپت‌ها در کلاینت](page:building-with-the-claude-api#prompts-in-the-client).
+
+@lesson
+id: mcp-review
+en: MCP review
+fa: مرور MCP
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Tools = model-controlled, resources = app-controlled, prompts = user-controlled. Full lesson: [MCP review](page:building-with-the-claude-api#mcp-review).
+~~
+ابزارها در کنترل مدل، منابع در کنترل اپ، پرامپت‌ها در کنترل کاربر. درس کامل: [مرور MCP](page:building-with-the-claude-api#mcp-review).
+
+@section Agents: Claude Code and computer use | ایجنت‌ها: Claude Code و استفاده از کامپیوتر
+
+@lesson
+id: claude-code-on-bedrock
+en: Claude Code setup on Bedrock
+fa: راه‌اندازی Claude Code روی Bedrock
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Claude Code can run **through your AWS account**, so usage is billed and governed by AWS. Set an environment variable that tells it to use Bedrock, set your region, and make sure your AWS credentials are available. Everything else (CLAUDE.md, plan mode, MCP servers) works the same.
+~~
+Claude Code می‌تواند **از طریق حساب AWS تو** اجرا شود؛ پس هزینه و مدیریتش با AWS است. یک متغیر محیطی تنظیم کن که به آن بگوید از Bedrock استفاده کند، منطقه‌ات را تعیین کن و مطمئن شو اعتبارنامه‌های AWS در دسترس‌اند. بقیهٔ چیزها (CLAUDE.md، حالت برنامه‌ریزی، سرورهای MCP) همان‌طور کار می‌کنند.
+
+#code bash Point Claude Code at Bedrock
+export CLAUDE_CODE_USE_BEDROCK=1
+export AWS_REGION=us-west-2
+aws sso login            # or any other way of providing AWS credentials
+claude
+#end
+
+#tip
+In a company, admins can set these in a managed settings file so every developer's Claude Code goes through the company's AWS account automatically.
+~~
+در یک شرکت، مدیرها می‌توانند این‌ها را در یک فایل تنظیمات مدیریت‌شده بگذارند تا Claude Code همهٔ برنامه‌نویس‌ها خودکار از حساب AWS شرکت رد شود.
+
+@lesson
+id: claude-code-in-action
+en: Claude Code in action
+fa: Claude Code در عمل
+kind: brief
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/claude-code-in-action
+
+#explain
+Explore, plan, code, commit, with tests as the feedback loop. Full lessons: [Claude Code in action (API course)](page:building-with-the-claude-api#claude-code-in-action) and [Claude Code 101](page:claude-code-101).
+~~
+کشف، برنامه‌ریزی، کدنویسی، کامیت، با تست‌ها به‌عنوان حلقهٔ بازخورد. درس‌های کامل: [Claude Code در عمل (دورهٔ API)](page:building-with-the-claude-api#claude-code-in-action) و [Claude Code 101](page:claude-code-101).
+
+@lesson
+id: parallelizing-claude-code
+en: Parallelizing Claude Code
+fa: اجرای موازی Claude Code
+meta: 13 min
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/parallelizing-claude-code
+
+#explain
+Running several Claude Code sessions on the same folder makes them trip over each other's edits. The solution: give **each instance its own workspace**, typically a **git worktree** (a separate checkout of the same repository on its own branch). Each Claude works in isolation, and you merge the finished branches back. You can even write a custom command that creates the worktree and starts the task for you.
+~~
+اجرای چند جلسهٔ Claude Code روی یک پوشه باعث می‌شود ویرایش‌هایشان به هم بخورد. راه‌حل: به **هر نمونه فضای کاری خودش** را بده؛ معمولاً یک **git worktree** (یک نسخهٔ جدا از همان مخزن روی شاخهٔ خودش). هر Claude جدا کار می‌کند و تو شاخه‌های تمام‌شده را دوباره ادغام می‌کنی. حتی می‌توانی یک فرمان سفارشی بنویسی که worktree را بسازد و کار را برایت شروع کند.
+
+#code bash Two features at once with worktrees
+git worktree add ../app-dark-mode -b feature/dark-mode
+git worktree add ../app-search    -b feature/search
+(cd ../app-dark-mode && claude "Add a dark mode toggle to the settings page")
+(cd ../app-search    && claude "Add full-text search to the notes list")
+# when both are done: review, then merge each branch
+#end
+
+#analogy
+Two chefs can't share **one cutting board**; give each a station, then plate the dishes together.
+~~
+دو آشپز نمی‌توانند **یک تخته‌برش** را با هم استفاده کنند؛ به هر کدام یک ایستگاه بده، بعد غذاها را با هم بچین.
+
+@lesson
+id: automated-debugging
+en: Automated debugging
+fa: اشکال‌زدایی خودکار
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Claude Code doesn't have to be interactive. In **headless mode** (`claude -p "..."`) it can run inside scripts and CI: when a test or deployment fails, a job hands Claude the error logs, lets it investigate the code, and produces a proposed fix (as a patch or a pull request) for a human to review. The key is giving it the evidence (logs, failing test output) and a way to verify (rerun the tests).
+~~
+Claude Code لازم نیست حتماً تعاملی باشد. در **حالت بی‌سر (headless)** (`claude -p "..."`) می‌تواند داخل اسکریپت‌ها و CI اجرا شود: وقتی یک تست یا استقرار شکست می‌خورد، یک کار خودکار لاگ‌های خطا را به Claude می‌دهد، اجازه می‌دهد کد را بررسی کند و یک اصلاح پیشنهادی (به شکل patch یا pull request) برای بازبینی یک آدم می‌سازد. کلید کار، دادن شواهد (لاگ‌ها، خروجی تست شکست‌خورده) و یک راه راستی‌آزمایی (اجرای دوبارهٔ تست‌ها) است.
+
+#code bash A CI step that asks Claude to diagnose a failure
+pytest 2>&1 | tee test-output.txt || \
+claude -p "The test suite failed. Output is in test-output.txt. Find the root cause, \
+fix it with the smallest change, rerun pytest, and summarize what you changed." \
+  --allowedTools "Read" "Edit" "Bash(pytest:*)"
+#end
+
+#warn
+Keep a human in the loop: let automated fixes arrive as **pull requests**, never as direct pushes to production branches, and limit which tools the headless run may use.
+~~
+یک آدم را در حلقه نگه دار: بگذار اصلاح‌های خودکار به شکل **pull request** برسند، هرگز به شکل push مستقیم روی شاخه‌های اصلی، و محدود کن اجرای بی‌سر از کدام ابزارها استفاده کند.
+
+@lesson
+id: computer-use
+en: Computer use
+fa: استفاده از کامپیوتر
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/computer-use
+
+#explain
+**Computer use** lets Claude operate a desktop environment: take screenshots, move the mouse, click, type. It's useful for tasks without an API, like **automated QA testing** of a web app ("sign up, add an item to the cart, check the total") or legacy software. It's slower and less precise than APIs, so use it where nothing better exists, and always in an **isolated virtual machine or container**.
+~~
+**استفاده از کامپیوتر** به Claude اجازه می‌دهد یک محیط دسکتاپ را بچرخاند: اسکرین‌شات بگیرد، ماوس را حرکت دهد، کلیک کند، تایپ کند. برای کارهایی که API ندارند مفید است، مثل **آزمون خودکار کیفیت (QA)** یک وب‌اپ («ثبت‌نام کن، یک کالا به سبد اضافه کن، جمع را چک کن») یا نرم‌افزارهای قدیمی. از APIها کندتر و کم‌دقت‌تر است؛ پس جایی به کارش ببر که گزینهٔ بهتری نیست، و همیشه در یک **ماشین مجازی یا کانتینر ایزوله**.
+
+#warn
+Treat everything on screen as untrusted: a web page could contain text that tries to give Claude instructions. Don't give the environment access to sensitive accounts, and require confirmation for consequential actions.
+~~
+هر چیزی را که روی صفحه است غیرقابل‌اعتماد حساب کن: یک صفحهٔ وب ممکن است متنی داشته باشد که سعی کند به Claude دستور بدهد. به آن محیط دسترسی به حساب‌های حساس نده و برای کارهای پیامددار تأیید بخواه.
+
+#analogy
+Computer use is a **remote helper looking at your screen through a video call**: capable, but you don't let them near your bank account.
+~~
+استفاده از کامپیوتر مثل **کمک‌کننده‌ای از راه دور است که از طریق تماس تصویری صفحه‌ات را می‌بیند**: توانا است، ولی نمی‌گذاری به حساب بانکی‌ات نزدیک شود.
+
+@lesson
+id: how-computer-use-works
+en: How computer use works
+fa: استفاده از کامپیوتر چطور کار می‌کند
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock/how-computer-use-works
+
+#explain
+Under the hood it's the **same tool-use loop** you built earlier. You declare Anthropic's computer-use tool (with the screen size); Claude returns `tool_use` actions like "screenshot", "left_click at (x, y)" or "type 'hello'"; **your code** performs them in the virtual desktop and returns a **screenshot** as the tool result; Claude looks at it and decides the next action. Anthropic provides a reference implementation (a Docker container with a desktop) to start from.
+~~
+در باطن همان **حلقهٔ استفاده از ابزار** است که قبلاً ساختی. ابزار computer use آنتروپیک را (با اندازهٔ صفحه) اعلام می‌کنی؛ Claude کارهایی مثل «اسکرین‌شات»، «کلیک چپ روی (x, y)» یا «تایپ 'hello'» را به شکل `tool_use` برمی‌گرداند؛ **کد تو** آن‌ها را در دسکتاپ مجازی انجام می‌دهد و یک **اسکرین‌شات** را به‌عنوان نتیجهٔ ابزار برمی‌گرداند؛ Claude نگاهش می‌کند و کار بعدی را تصمیم می‌گیرد. Anthropic یک پیاده‌سازی مرجع (یک کانتینر Docker با دسکتاپ) برای شروع ارائه می‌دهد.
+
+#steps
+1. Declare the computer-use tool with the display size.
+2. Claude asks for an action (e.g., take a screenshot).
+3. Your code performs it in the VM.
+4. Return a fresh screenshot as the tool result.
+5. Repeat until the task is done.
+~~
+1. ابزار computer use را با اندازهٔ صفحه اعلام کن.
+2. Claude یک کار می‌خواهد (مثلاً گرفتن اسکرین‌شات).
+3. کد تو آن را در ماشین مجازی انجام می‌دهد.
+4. یک اسکرین‌شات تازه را به‌عنوان نتیجهٔ ابزار برگردان.
+5. تا تمام شدن کار تکرار کن.
+
+#tip
+Computer use is still versioned and evolving: the newest models use a newer computer **toolset** declaration on some platforms (Bedrock still accepts the earlier version for some models). Copy the declaration from the current docs, not from old blog posts.
+~~
+استفاده از کامپیوتر هنوز نسخه‌دار و در حال تکامل است: جدیدترین مدل‌ها روی بعضی سکوها از اعلان تازه‌تری به اسم **toolset** استفاده می‌کنند (Bedrock هنوز نسخهٔ قبلی را برای بعضی مدل‌ها می‌پذیرد). اعلان را از مستندات فعلی کپی کن، نه از پست‌های قدیمی وبلاگ‌ها.
+
+@lesson
+id: final-assessment
+en: Final assessment
+fa: ارزیابی پایانی
+kind: quiz
+url: https://academy.claude.com/courses/claude-with-amazon-bedrock
+
+#explain
+Covers the whole course on AWS: access and IAM, Converse requests and streaming, evals and prompting, tools, RAG with reranking and contextual retrieval, caching, MCP, Claude Code and computer use. Passing earns the completion badge.
+~~
+کل دوره روی AWS را پوشش می‌دهد: دسترسی و IAM، درخواست و استریم با Converse، ارزیابی و پرامپت‌نویسی، ابزارها، RAG با رتبه‌بندی دوباره و بازیابی زمینه‌دار، کش، MCP، Claude Code و استفاده از کامپیوتر. با قبول شدن، نشان پایان دوره را می‌گیری.
+
+@cheatsheet
+- No Anthropic key: **IAM + AWS credentials**; enable **model access** per region.
+- `boto3.client("bedrock-runtime").converse(modelId=..., messages=[{"role": "user", "content": [{"text": ...}]}])`.
+- **Inference profiles** (`us.` / `global.` prefixes) route to regions with capacity.
+- Streaming: `converse_stream` → `contentBlockDelta` events.
+- Tools: `toolConfig={"tools": [{"toolSpec": ...}]}` → `toolUse` → `toolResult` (same `toolUseId`).
+- Structured data: tool-as-schema, or structured outputs on newer models.
+- RAG extras: **reranking** with Claude, **contextual retrieval** (context sentence per chunk).
+- Caching: `{"cachePoint": {"type": "default"}}` after the stable part.
+- Not on Bedrock: Anthropic server tools (web search, code execution), Files API, Message Batches.
+- Newest models/features: Anthropic SDK `AnthropicBedrockMantle` with `anthropic.`-prefixed model IDs.
+- Claude Code: `CLAUDE_CODE_USE_BEDROCK=1`; parallelize with **git worktrees**.
+~~
+- بدون کلید آنتروپیک: **IAM + اعتبارنامه‌های AWS**؛ **دسترسی مدل** را برای هر منطقه فعال کن.
+- `boto3.client("bedrock-runtime").converse(modelId=..., messages=[{"role": "user", "content": [{"text": ...}]}])`.
+- **پروفایل‌های استنتاج** (پیشوندهای `us.` / `global.`) به منطقه‌هایی با ظرفیت مسیریابی می‌کنند.
+- استریم: `converse_stream` ← رویدادهای `contentBlockDelta`.
+- ابزارها: `toolConfig={"tools": [{"toolSpec": ...}]}` ← `toolUse` ← `toolResult` (با همان `toolUseId`).
+- دادهٔ ساختاریافته: ابزار به‌عنوان اسکیما، یا خروجی ساختاریافته روی مدل‌های جدیدتر.
+- چیزهای اضافهٔ RAG: **رتبه‌بندی دوباره** با Claude، **بازیابی زمینه‌دار** (یک جملهٔ زمینه برای هر تکه).
+- کش: `{"cachePoint": {"type": "default"}}` بعد از بخش ثابت.
+- روی Bedrock نیست: ابزارهای سمت سرور آنتروپیک (جست‌وجوی وب، اجرای کد)، Files API، Message Batches.
+- جدیدترین مدل‌ها و قابلیت‌ها: SDK آنتروپیک با کلاینت `AnthropicBedrockMantle` و شناسه‌های مدل با پیشوند `anthropic.`.
+- Claude Code: `CLAUDE_CODE_USE_BEDROCK=1`؛ اجرای موازی با **git worktree**.
+
+@quiz
+Q: Your Bedrock call fails with an access error even though your code is correct. What do you check first? || فراخوانی Bedrock تو با خطای دسترسی شکست می‌خورد، با این‌که کدت درست است. اول چه چیزی را چک می‌کنی؟
+A: That model access is enabled for that Claude model in that region, and that your IAM role allows the Bedrock invoke actions. || این‌که دسترسی به آن مدل Claude در همان منطقه فعال باشد و نقش IAM تو اجازهٔ کارهای فراخوانی Bedrock را بدهد.
+Q: What's the difference between the content of a Converse message and an Anthropic API message? || فرق محتوای یک پیام Converse با یک پیام API آنتروپیک چیست؟
+A: Converse content is always a list of blocks like `[{"text": "..."}]`; tool blocks are named `toolUse` / `toolResult` and tools are wrapped in `toolSpec`. || محتوای Converse همیشه فهرستی از بلوک‌ها مثل `[{"text": "..."}]` است؛ بلوک‌های ابزار `toolUse` / `toolResult` نام دارند و ابزارها در `toolSpec` پیچیده می‌شوند.
+Q: Why add a context sentence to each chunk before indexing? || چرا قبل از نمایه‌سازی به هر تکه یک جملهٔ زمینه اضافه کنیم؟
+A: Chunks lose their context when cut from a document; the sentence restores it so both semantic and keyword search can match it (contextual retrieval). || تکه‌ها وقتی از سند بریده می‌شوند زمینه‌شان را از دست می‌دهند؛ این جمله آن را برمی‌گرداند تا هم جست‌وجوی معنایی و هم کلیدواژه‌ای بتوانند پیدایش کنند (بازیابی زمینه‌دار).
