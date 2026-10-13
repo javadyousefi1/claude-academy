@@ -693,5 +693,32 @@
    "quiz-on-agents-and-workflows",
    "final-assessment"
   ]
+ },
+ {
+  "slug": "tutorials-claude-app",
+  "kind": "tutorials",
+  "group": "tutorials",
+  "en": "Tutorials: the Claude app",
+  "fa": "آموزش‌های کوتاه: اپ Claude",
+  "items": [
+   "getting-started-with-claude",
+   "navigating-the-claude-desktop-app",
+   "choosing-the-right-claude-model",
+   "how-to-select-the-right-effort-setting-for-claude-cowork-and-chat",
+   "how-to-choose-between-voice-mode-and-dictation",
+   "getting-good-at-claude-a-research-backed-curriculum",
+   "intro-to-projects",
+   "using-research",
+   "create-and-edit-files-with-claude-to-eliminate-hours-of-busy-work",
+   "use-artifacts-to-visualize-and-create-ai-apps-without-ever-writing-a-line-of-code",
+   "prototype-ai-powered-apps-with-claude-artifacts",
+   "imagine-with-claude-student-guide",
+   "using-claude-design-for-presentations-and-slide-decks",
+   "using-claude-design-for-prototypes-and-ux",
+   "teach-claude-your-way-of-working-using-skills",
+   "how-to-create-a-skill-with-claude-through-conversation",
+   "getting-started-with-connectors",
+   "connect-your-tools-to-unlock-a-smarter-more-capable-ai-companion"
+  ]
  }
 ]
