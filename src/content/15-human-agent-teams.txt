@@ -1,0 +1,211 @@
+@page
+slug: building-effective-human-agent-teams
+kind: course
+group: fluency
+order: 3
+en: Building effective human-agent teams (beta)
+fa: ساختن تیم‌های مؤثر انسان و ایجنت (بتا)
+stats: 5 lessons · 1 quiz · 45 min · badge
+url: https://academy.claude.com/courses/building-effective-human-agent-teams
+expect: 5
+who_en: Team leads and innovators whose organizations already use AI one-to-one and want to move to "multiplayer" AI.
+who_fa: مدیران تیم و نوآورانی که سازمانشان از هوش مصنوعی به شکل فردی استفاده می‌کند و می‌خواهند به هوش مصنوعی «چندنفره» برسند.
+blurb_fa: چرا هوش مصنوعی چندنفره مهم است، ایجنت‌های چندنفره چه فرقی دارند، یک تیم قوی انسان و ایجنت چه شکلی است، چک‌لیست سازمانی و قدم‌های عملی شروع.
+desc_en: Moving from single-player to multiplayer AI: shared context, agent identity, strong team ingredients and practical first steps.
+
+@intro
+Most people use AI **single-player**: one person, one private chat. That speeds up individuals, but the knowledge stays in private chats. **Multiplayer AI** puts agents into shared spaces (team channels, shared projects) where humans and agents work **side by side with shared context**.
+
+This short beta course explains why that matters, how multiplayer agents differ from personal assistants, what makes a human-agent team strong, and how to start small.
+~~
+بیشتر آدم‌ها از هوش مصنوعی به شکل **تک‌نفره** استفاده می‌کنند: یک نفر، یک گفت‌وگوی خصوصی. این کار سرعت افراد را بالا می‌برد، ولی دانش در گفت‌وگوهای خصوصی می‌ماند. **هوش مصنوعی چندنفره** ایجنت‌ها را در فضاهای مشترک می‌گذارد (کانال‌های تیمی، پروژه‌های مشترک) تا آدم‌ها و ایجنت‌ها **کنار هم و با زمینهٔ مشترک** کار کنند.
+
+این دورهٔ کوتاه بتا توضیح می‌دهد چرا این مهم است، ایجنت‌های چندنفره چه فرقی با دستیارهای شخصی دارند، چه چیزی یک تیم انسان و ایجنت را قوی می‌کند و چطور کوچک شروع کنیم.
+
+@lesson
+id: why-multiplayer-ai-matters
+en: Why multiplayer AI matters
+fa: چرا هوش مصنوعی چندنفره مهم است
+url: https://academy.claude.com/courses/building-effective-human-agent-teams/why-multiplayer-ai-matters
+
+#explain
+Single-player AI makes each person faster, but it can also **silo information**: the great analysis lives in one person's chat; the decision context lives in someone else's. Each agent only knows what its one user told it.
+
+**Multiplayer AI** fixes this: agents work in shared spaces with **shared context**, so what one person teaches the agent helps everyone, and the agent sees the whole picture. The bigger and faster-growing the team, the more siloed context hurts agent performance, and the more multiplayer helps.
+~~
+هوش مصنوعی تک‌نفره هر فرد را سریع‌تر می‌کند، ولی می‌تواند **اطلاعات را هم جزیره‌ای کند**: تحلیل عالی در گفت‌وگوی یک نفر می‌ماند؛ زمینهٔ تصمیم در گفت‌وگوی یک نفر دیگر. هر ایجنت فقط چیزی را می‌داند که همان یک کاربرش به او گفته.
+
+**هوش مصنوعی چندنفره** این را درست می‌کند: ایجنت‌ها در فضاهای مشترک و با **زمینهٔ مشترک** کار می‌کنند؛ پس چیزی که یک نفر به ایجنت یاد می‌دهد به همه کمک می‌کند و ایجنت کل تصویر را می‌بیند. هر چه تیم بزرگ‌تر باشد و سریع‌تر رشد کند، زمینهٔ جزیره‌ای بیشتر به کارایی ایجنت ضربه می‌زند و حالت چندنفره بیشتر کمک می‌کند.
+
+#analogy
+Single-player AI is everyone having a **private tutor** at home. Multiplayer AI is a **teaching assistant in the classroom**: when one student asks a good question, everyone hears the answer.
+~~
+هوش مصنوعی تک‌نفره یعنی هر کس در خانه یک **معلم خصوصی** دارد. هوش مصنوعی چندنفره یعنی یک **دستیار آموزشی در کلاس**: وقتی یک دانش‌آموز سؤال خوبی می‌پرسد، همه جواب را می‌شنوند.
+
+#terms
+Single-player AI = هوش مصنوعی تک‌نفره = استفادهٔ فردی و خصوصی یک نفر از یک دستیار هوش مصنوعی.
+Multiplayer AI = هوش مصنوعی چندنفره = ایجنت‌هایی که در فضاهای مشترک با زمینهٔ مشترک کنار تیم کار می‌کنند.
+
+@lesson
+id: how-multiplayer-agents-differ
+en: How is a multiplayer agent different from traditional AI tools?
+fa: ایجنت چندنفره چه فرقی با ابزارهای سنتی هوش مصنوعی دارد؟
+url: https://academy.claude.com/courses/building-effective-human-agent-teams/how-multiplayer-agents-differ
+
+#explain
+A multiplayer agent is less like a tool and more like a **team member**:
+
+- It has **its own identity**: its own account in your systems, with its own permissions and a log of what it did and who asked.
+- It has **its own memory**: it remembers what happened across threads and days.
+- It has **context it can share** across the team, or with other agents.
+- It can be **proactive**: watch a channel, run routines, and act without being asked each time.
+
+That changes how you manage it: you onboard it, give it a role and access, and review its work, as you would a new colleague.
+~~
+ایجنت چندنفره کمتر شبیه یک ابزار و بیشتر شبیه یک **عضو تیم** است:
+
+- **هویت خودش** را دارد: حساب خودش در سیستم‌های شما، با مجوزهای خودش و ثبت این‌که چه کرده و چه کسی خواسته.
+- **حافظهٔ خودش** را دارد: چیزهایی را که بین رشته‌پیام‌ها و روزها اتفاق افتاده به خاطر می‌سپارد.
+- **زمینه‌ای دارد که می‌تواند به اشتراک بگذارد**، با کل تیم یا با ایجنت‌های دیگر.
+- می‌تواند **پیش‌دستانه** باشد: یک کانال را زیر نظر بگیرد، روتین اجرا کند و بدون این‌که هر بار از او بخواهند عمل کند.
+
+این، روش مدیریتش را عوض می‌کند: آن را وارد تیم می‌کنی، نقش و دسترسی می‌دهی و کارش را بازبینی می‌کنی؛ همان‌طور که با یک همکار تازه رفتار می‌کنی.
+
+#analogy
+A calculator on your desk vs. **a new colleague with a badge, an email address and a desk**: you don't "onboard" a calculator, but you do onboard a colleague.
+~~
+ماشین‌حساب روی میزت در مقابل **یک همکار تازه با کارت شناسایی، آدرس ایمیل و میز کار**: ماشین‌حساب را «وارد تیم» نمی‌کنی، ولی همکار را چرا.
+
+#example
+In a team Slack channel, an agent is tagged in Monday's planning, remembers the decisions on Thursday, posts a weekly summary on Friday without being asked, and its actions in the ticketing system are logged under its own name.
+~~
+در یک کانال اسلک تیمی، ایجنت در جلسهٔ برنامه‌ریزی دوشنبه تگ می‌شود، پنج‌شنبه تصمیم‌ها یادش است، جمعه بدون این‌که کسی بخواهد یک خلاصهٔ هفتگی می‌گذارد و کارهایش در سیستم تیکت با اسم خودش ثبت می‌شود.
+
+#terms
+Agent identity = هویت ایجنت = حساب و مجوزهای مخصوص یک ایجنت در سیستم‌ها، جدا از حساب آدم‌ها.
+
+@lesson
+id: what-a-strong-team-looks-like
+en: What a strong human-agent team looks like
+fa: یک تیم قوی انسان و ایجنت چه شکلی است
+url: https://academy.claude.com/courses/building-effective-human-agent-teams/what-a-strong-team-looks-like
+
+#explain
+Four ingredients make a human-agent team strong:
+
+1. **Clear roles**: who (human or agent) owns which kinds of work, and who decides.
+2. **A written north star**: the team's goal and priorities, written down so agents can read and follow it.
+3. **The right information access**: agents can reach the tools and data they need, and nothing they don't.
+4. **Trust**: built step by step through good results, visible work and quick corrections.
+
+Why it matters more than with all-human teams: human-agent teams **finish tasks faster**, so **misalignment and errors also cost more**: a wrong direction is executed quickly and at scale. Setting the team up well is the job.
+~~
+چهار جزء یک تیم انسان و ایجنت را قوی می‌کند:
+
+1. **نقش‌های روشن**: چه کسی (انسان یا ایجنت) مسئول چه نوع کارهایی است و چه کسی تصمیم می‌گیرد.
+2. **یک ستارهٔ قطبی مکتوب**: هدف و اولویت‌های تیم، نوشته‌شده تا ایجنت‌ها بتوانند بخوانند و دنبالش کنند.
+3. **دسترسی درست به اطلاعات**: ایجنت‌ها به ابزارها و داده‌هایی که لازم دارند می‌رسند و به چیزهایی که لازم ندارند نه.
+4. **اعتماد**: قدم‌به‌قدم با نتیجه‌های خوب، کار قابل‌دیدن و اصلاح سریع ساخته می‌شود.
+
+چرا از تیم‌های تمام‌انسانی مهم‌تر است: تیم‌های انسان و ایجنت **کارها را سریع‌تر تمام می‌کنند**؛ پس **ناهماهنگی و خطا هم گران‌تر تمام می‌شود**: یک مسیر اشتباه سریع و در مقیاس بزرگ اجرا می‌شود. درست چیدن تیم، کار اصلی است.
+
+#analogy
+A faster car needs **better brakes and a clearer map**. Agents are the faster car; roles, north star, access and trust are the brakes and the map.
+~~
+ماشین سریع‌تر **ترمز بهتر و نقشهٔ روشن‌تر** لازم دارد. ایجنت‌ها ماشین سریع‌ترند؛ نقش‌ها، ستارهٔ قطبی، دسترسی و اعتماد، ترمز و نقشه‌اند.
+
+#tip
+Write the north star as a short document the agent can read in every task ("This quarter we prioritize retention over new features; never promise delivery dates without the PM"). Agents can only align with what's written down.
+~~
+ستارهٔ قطبی را به شکل یک سند کوتاه بنویس که ایجنت در هر کاری بتواند بخواند («این فصل حفظ مشتری را به قابلیت‌های تازه ترجیح می‌دهیم؛ هرگز بدون مدیر محصول قول تاریخ تحویل نده»). ایجنت‌ها فقط با چیزی هماهنگ می‌شوند که نوشته شده باشد.
+
+@lesson
+id: organizational-readiness-checklist
+en: Getting ready: an organizational checklist
+fa: آماده شدن: چک‌لیست سازمانی
+url: https://academy.claude.com/courses/building-effective-human-agent-teams
+
+#explain
+Before bringing agents into team spaces, check your organization is ready:
+
+- **Shared spaces exist** where the team's work actually happens (channels, shared projects), not only private chats.
+- **Admins can control access** per space and per tool, and actions are logged.
+- **Policies are written**: what agents may do, what always needs a human, what data is off-limits.
+- **Someone owns the experiment**: a lead who sets it up, gathers feedback and adjusts.
+- **The team is willing**: people understand why, and know how to give the agent feedback.
+~~
+قبل از آوردن ایجنت‌ها به فضاهای تیمی، چک کن سازمانت آماده است:
+
+- **فضاهای مشترک وجود دارند**، همان جایی که کار تیم واقعاً انجام می‌شود (کانال‌ها، پروژه‌های مشترک)، نه فقط گفت‌وگوهای خصوصی.
+- **ادمین‌ها می‌توانند دسترسی را کنترل کنند**، برای هر فضا و هر ابزار، و کارها ثبت می‌شوند.
+- **سیاست‌ها نوشته شده‌اند**: ایجنت‌ها چه کارهایی می‌توانند بکنند، چه کارهایی همیشه انسان لازم دارند، چه داده‌هایی ممنوع‌اند.
+- **کسی مسئول آزمایش است**: یک نفر که راهش می‌اندازد، بازخورد جمع می‌کند و تنظیمش می‌کند.
+- **تیم مشتاق است**: آدم‌ها می‌فهمند چرا و بلدند به ایجنت بازخورد بدهند.
+
+#analogy
+Like preparing for a new team member: the desk is ready, the badge works, the rules are written down, a buddy is assigned, and the team knows someone new is coming.
+~~
+مثل آماده شدن برای ورود یک عضو تازه به تیم است: میز آماده است، کارت ورود کار می‌کند، قانون‌ها نوشته شده‌اند، یک هم‌راه تعیین شده و تیم می‌داند کسی تازه می‌آید.
+
+#try
+Score your team 0-2 on each checklist item. Anything at 0 is your first job before inviting an agent in.
+~~
+به تیمت در هر مورد چک‌لیست از ۰ تا ۲ امتیاز بده. هر موردی که ۰ گرفته، اولین کار تو قبل از دعوت یک ایجنت است.
+
+@lesson
+id: practical-ways-to-get-started
+en: Some practical ways to get started
+fa: چند راه عملی برای شروع
+url: https://academy.claude.com/courses/building-effective-human-agent-teams/practical-ways-to-get-started
+
+#explain
+Concrete advice for the first weeks:
+
+- **Start small**: one collaboration space, **three to five people**, **one agent**, a real project the team completes together. High-trust teams work best for first experiments.
+- **Give a rubric for every task**: say what "passing" looks like, so the agent can check its own work. This builds trust between humans and agents faster than anything else.
+- **Widen permissions one task type at a time**: once the agent has handled one kind of task well several times in a row, let it do more on that task.
+- **Hold a weekly retro**: at the end of each week, humans and agents share what's working and what needs adjusting.
+~~
+توصیه‌های ملموس برای هفته‌های اول:
+
+- **کوچک شروع کن**: یک فضای همکاری، **سه تا پنج نفر**، **یک ایجنت** و یک پروژهٔ واقعی که تیم با هم تمامش می‌کند. تیم‌های با اعتماد بالا برای آزمایش‌های اول بهترین‌اند.
+- **برای هر کار یک معیار ارزیابی (rubric) بده**: بگو «قبول شدن» چه شکلی است تا ایجنت بتواند کار خودش را بسنجد. این کار سریع‌تر از هر چیز دیگری اعتماد بین آدم‌ها و ایجنت‌ها را می‌سازد.
+- **مجوزها را هر بار برای یک نوع کار بیشتر کن**: وقتی ایجنت یک نوع کار را چند بار پشت سر هم خوب انجام داد، اجازه بده در همان کار بیشتر انجام دهد.
+- **یک جلسهٔ مرور هفتگی بگذار**: آخر هر هفته، آدم‌ها و ایجنت‌ها می‌گویند چه چیزی کار می‌کند و چه چیزی تنظیم لازم دارد.
+
+#prompt
+Rubric for this task: the weekly customer summary passes if (1) it covers all tickets tagged "billing" this week, (2) each theme has at least one real quote, (3) it's under 300 words, and (4) it names an owner for every action item. Check your draft against these four points before posting.
+~~
+معیار ارزیابی این کار: خلاصهٔ هفتگی مشتری‌ها قبول است اگر (۱) همهٔ تیکت‌های با برچسب «billing» این هفته را پوشش دهد، (۲) هر موضوع دست‌کم یک نقل‌قول واقعی داشته باشد، (۳) کمتر از ۳۰۰ کلمه باشد و (۴) برای هر کار یک مسئول نام ببرد. قبل از گذاشتن پیش‌نویس، آن را با همین چهار نکته بسنج.
+
+#analogy
+Teaching a teenager to drive: an empty parking lot first, one skill at a time, clear standards ("full stop at the line"), more freedom after each success, and a chat after every lesson.
+~~
+مثل یاد دادن رانندگی به یک نوجوان است: اول یک پارکینگ خالی، هر بار یک مهارت، معیارهای روشن («پشت خط کامل بایست»)، آزادی بیشتر بعد از هر موفقیت و یک گپ بعد از هر جلسه.
+
+#terms
+Rubric = معیار ارزیابی (روبریک) = فهرست روشن شرط‌هایی که مشخص می‌کند یک کار قبول است یا نه.
+Retro = جلسهٔ مرور = جلسه‌ای منظم برای بررسی این‌که چه چیزی خوب پیش رفت و چه چیزی باید عوض شود.
+
+@cheatsheet
+- Single-player AI speeds individuals but **silos context**; multiplayer AI shares it.
+- Multiplayer agents have **identity, memory, shareable context, proactivity**: manage them like teammates.
+- Strong team = **clear roles · written north star · right access · trust**. Faster teams make costlier mistakes.
+- Readiness: shared spaces · admin controls + logs · written policies · an owner · a willing team.
+- Start: **1 space, 3-5 people, 1 agent**, high-trust team · **rubric per task** · widen one task type at a time · **weekly retro**.
+~~
+- هوش مصنوعی تک‌نفره افراد را سریع می‌کند ولی **زمینه را جزیره‌ای می‌کند**؛ چندنفره آن را به اشتراک می‌گذارد.
+- ایجنت‌های چندنفره **هویت، حافظه، زمینهٔ قابل‌اشتراک و پیش‌دستی** دارند: مثل هم‌تیمی مدیریتشان کن.
+- تیم قوی = **نقش‌های روشن · ستارهٔ قطبی مکتوب · دسترسی درست · اعتماد**. تیم‌های سریع‌تر اشتباه‌های گران‌تری می‌کنند.
+- آمادگی: فضاهای مشترک · کنترل ادمین + ثبت · سیاست‌های نوشته · یک مسئول · تیم مشتاق.
+- شروع: **۱ فضا، ۳ تا ۵ نفر، ۱ ایجنت**، تیم با اعتماد بالا · **معیار ارزیابی برای هر کار** · هر بار یک نوع کار را گسترش بده · **مرور هفتگی**.
+
+@quiz
+Q: What problem does multiplayer AI solve that single-player AI creates? || هوش مصنوعی چندنفره چه مشکلی را حل می‌کند که هوش مصنوعی تک‌نفره ایجاد می‌کند؟
+A: Siloed context: knowledge trapped in individual private chats instead of shared with the team and agents. || جزیره‌ای شدن زمینه: دانشی که در گفت‌وگوهای خصوصی افراد گیر می‌افتد، به‌جای این‌که با تیم و ایجنت‌ها به اشتراک گذاشته شود.
+Q: Why does misalignment cost more on human-agent teams? || چرا ناهماهنگی در تیم‌های انسان و ایجنت گران‌تر تمام می‌شود؟
+A: Because they complete tasks faster, so a wrong direction is executed quickly and at scale. || چون کارها را سریع‌تر تمام می‌کنند، پس یک مسیر اشتباه سریع و در مقیاس بزرگ اجرا می‌شود.
+Q: What builds trust between humans and agents fastest? || چه چیزی سریع‌تر از همه اعتماد بین آدم‌ها و ایجنت‌ها را می‌سازد؟
+A: Giving a rubric for every task so the agent can check its own work against a clear definition of passing. || دادن معیار ارزیابی برای هر کار تا ایجنت بتواند کارش را با تعریف روشنی از «قبول» بسنجد.
+Q: When should you widen what an agent may do? || کی باید دامنهٔ کار یک ایجنت را بیشتر کرد؟
+A: One task type at a time, after it has handled that type well several times in a row. || هر بار برای یک نوع کار، بعد از این‌که آن نوع کار را چند بار پشت سر هم خوب انجام داد.

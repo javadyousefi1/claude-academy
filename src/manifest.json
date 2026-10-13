@@ -237,5 +237,65 @@
    "how-the-decisions-connect",
    "when-a-new-product-arrives"
   ]
+ },
+ {
+  "slug": "ai-fluency-framework-foundations",
+  "kind": "course",
+  "group": "fluency",
+  "en": "AI Fluency: Framework and foundations",
+  "fa": "سواد هوش مصنوعی: چارچوب و مبانی (چارچوب 4D)",
+  "items": [
+   "introduction-to-ai-fluency",
+   "why-do-we-need-ai-fluency",
+   "the-4d-framework",
+   "generative-ai-fundamentals",
+   "capabilities-and-limitations",
+   "a-closer-look-at-delegation",
+   "project-planning-and-delegation",
+   "a-closer-look-at-description",
+   "effective-prompting-techniques",
+   "a-closer-look-at-discernment",
+   "the-description-discernment-loop",
+   "a-closer-look-at-diligence",
+   "conclusion",
+   "quiz-activities-and-badge"
+  ]
+ },
+ {
+  "slug": "ai-capabilities-and-limitations",
+  "kind": "course",
+  "group": "fluency",
+  "en": "AI capabilities and limitations",
+  "fa": "توانایی‌ها و محدودیت‌های هوش مصنوعی؛ چهار ویژگی ماشین",
+  "items": [
+   "intro-to-ai-capabilities-and-limitations",
+   "what-we-mean-by-ai",
+   "how-ai-gets-its-character",
+   "next-token-prediction",
+   "try-it-out",
+   "knowledge",
+   "try-it-out-knowledge",
+   "working-memory",
+   "try-it-out-working-memory",
+   "steerability",
+   "try-it-out-steerability",
+   "when-properties-collide",
+   "next-steps",
+   "course-quiz"
+  ]
+ },
+ {
+  "slug": "building-effective-human-agent-teams",
+  "kind": "course",
+  "group": "fluency",
+  "en": "Building effective human-agent teams (beta)",
+  "fa": "ساختن تیم‌های مؤثر انسان و ایجنت (بتا)",
+  "items": [
+   "why-multiplayer-ai-matters",
+   "how-multiplayer-agents-differ",
+   "what-a-strong-team-looks-like",
+   "organizational-readiness-checklist",
+   "practical-ways-to-get-started"
+  ]
  }
 ]

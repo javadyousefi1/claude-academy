@@ -1,0 +1,591 @@
+@page
+slug: ai-fluency-framework-foundations
+kind: course
+group: fluency
+order: 1
+en: "AI Fluency: Framework and foundations"
+fa: سواد هوش مصنوعی: چارچوب و مبانی (چارچوب 4D)
+stats: 14 lessons · 1 quiz · 4 hr · badge
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations
+expect: 14
+who_en: Anyone who uses AI at work, school or home and wants to do it effectively, efficiently, ethically and safely. Examples use Claude.ai, but any assistant works.
+who_fa: هر کسی که در کار، مدرسه یا خانه از هوش مصنوعی استفاده می‌کند و می‌خواهد مؤثر، کارآمد، اخلاقی و امن کار کند. مثال‌ها با Claude.ai است، ولی هر دستیاری جواب می‌دهد.
+blurb_fa: چارچوب 4D: سپردن (Delegation)، توصیف (Description)، تشخیص (Discernment) و مسئولیت‌پذیری (Diligence)؛ به‌اضافهٔ مبانی هوش مصنوعی مولد و شش تکنیک پرامپت‌نویسی.
+desc_en: The 4D framework (Delegation, Description, Discernment, Diligence) plus generative AI fundamentals and prompting techniques.
+
+@intro
+Knowing which buttons to press is not the same as being good with AI. **AI Fluency** is the ability to work with AI systems in ways that are **effective, efficient, ethical and safe**, and it's a skill that lasts longer than any single product.
+
+This course, created by Anthropic with Professors **Rick Dakan** and **Joseph Feller**, is built on the **4D Framework**: four human competencies, **Delegation, Description, Discernment and Diligence**. Two "deep dives" add the technical background (how generative AI works) and practical prompting techniques. You'll apply the 4Ds to a real project of your own throughout the course.
+~~
+بلد بودن این‌که کدام دکمه را بزنی با خوب بودن در کار با هوش مصنوعی یکی نیست. **سواد هوش مصنوعی** (AI Fluency) یعنی توانایی کار با سیستم‌های هوش مصنوعی به شکلی **مؤثر، کارآمد، اخلاقی و امن**؛ مهارتی که از عمر هر محصول خاصی طولانی‌تر است.
+
+این دوره که Anthropic همراه با استادها **ریک داکان** و **جوزف فِلِر** ساخته، بر پایهٔ **چارچوب 4D** است: چهار توانمندی انسانی، **سپردن (Delegation)، توصیف (Description)، تشخیص (Discernment) و مسئولیت‌پذیری (Diligence)**. دو «غواصی عمیق» هم پیش‌زمینهٔ فنی (هوش مصنوعی مولد چطور کار می‌کند) و تکنیک‌های عملی پرامپت‌نویسی را اضافه می‌کنند. در طول دوره 4D را روی یک پروژهٔ واقعی خودت به کار می‌بری.
+
+@section Introduction to AI Fluency | مقدمه
+
+@lesson
+id: introduction-to-ai-fluency
+en: Introduction to AI Fluency
+fa: آشنایی با سواد هوش مصنوعی
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations/introduction-to-ai-fluency
+
+#explain
+Being **fluent** in a language means more than knowing words: you can express what you mean, understand what you hear, and adapt to the situation. AI Fluency is the same for working with AI. It has four goals:
+
+- **Effective**: you get results that actually serve your purpose.
+- **Efficient**: you don't waste time fighting the tool or redoing work.
+- **Ethical**: you respect people, honesty and fairness.
+- **Safe**: you protect yourself, others and data from harm.
+
+The course is about **you**, not about a specific product. Products change monthly; the habits of a fluent collaborator don't.
+~~
+**مسلط بودن** به یک زبان چیزی بیشتر از دانستن کلمه‌هاست: می‌توانی منظورت را بیان کنی، چیزی را که می‌شنوی بفهمی و خودت را با موقعیت جور کنی. سواد هوش مصنوعی همین است برای کار با هوش مصنوعی. چهار هدف دارد:
+
+- **مؤثر**: نتیجه‌ای می‌گیری که واقعاً به هدفت می‌خورد.
+- **کارآمد**: وقتت را با کلنجار رفتن با ابزار یا دوباره‌کاری تلف نمی‌کنی.
+- **اخلاقی**: به آدم‌ها، صداقت و انصاف احترام می‌گذاری.
+- **امن**: از خودت، دیگران و داده‌ها در برابر آسیب محافظت می‌کنی.
+
+این دوره دربارهٔ **خود توست**، نه یک محصول خاص. محصول‌ها ماه‌به‌ماه عوض می‌شوند؛ عادت‌های یک همکار مسلط عوض نمی‌شوند.
+
+#analogy
+A driving licence isn't about one car model. Once you understand traffic, mirrors and braking distance, you can drive almost any car. AI Fluency is the **driving skill**, not the car.
+~~
+گواهینامهٔ رانندگی مال یک مدل ماشین خاص نیست. وقتی ترافیک، آینه‌ها و فاصلهٔ ترمز را فهمیدی، تقریباً هر ماشینی را می‌توانی برانی. سواد هوش مصنوعی **مهارت رانندگی** است، نه خود ماشین.
+
+#try
+Pick a real project you'll use throughout this course (a report, a lesson plan, a small website, a trip plan). Write one sentence about it now.
+~~
+یک پروژهٔ واقعی انتخاب کن که در کل این دوره روی آن کار می‌کنی (یک گزارش، یک طرح درس، یک وب‌سایت کوچک، برنامهٔ یک سفر). همین حالا یک جمله دربارهٔ آن بنویس.
+
+#terms
+AI Fluency = سواد هوش مصنوعی = توانایی کار با هوش مصنوعی به شکلی مؤثر، کارآمد، اخلاقی و امن.
+
+@lesson
+id: why-do-we-need-ai-fluency
+en: Why do we need AI Fluency?
+fa: چرا به سواد هوش مصنوعی نیاز داریم؟
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations
+
+#explain
+AI is now powerful enough to be truly useful **and** fallible enough to cause real problems. Without fluency, people swing between two mistakes: **under-using** AI (missing big gains) and **over-trusting** it (copying wrong answers, sharing private data, letting it decide things it shouldn't).
+
+The course also names **three ways people interact with AI**:
+
+- **Automation**: AI does a specific task following your instructions ("translate this email").
+- **Augmentation**: you and AI think and create together as partners ("help me brainstorm and critique my plan").
+- **Agency**: you set up AI to act on its own on your behalf, defining its knowledge and behavior ("an assistant that answers customer questions using our FAQ").
+
+Each mode needs the 4Ds, but in different amounts. The more independent the AI, the more your up-front description and your diligence matter.
+~~
+هوش مصنوعی حالا آن‌قدر قوی است که واقعاً مفید باشد **و** آن‌قدر خطاپذیر که مشکل واقعی درست کند. بدون سواد، آدم‌ها بین دو اشتباه نوسان می‌کنند: **کم‌استفاده کردن** (از دست دادن سودهای بزرگ) و **بیش‌اعتمادی** (کپی کردن جواب‌های غلط، به اشتراک گذاشتن دادهٔ خصوصی، سپردن تصمیم‌هایی که نباید به آن سپرده شوند).
+
+دوره **سه شیوهٔ تعامل آدم‌ها با هوش مصنوعی** را هم نام می‌برد:
+
+- **خودکارسازی (Automation):** هوش مصنوعی یک کار مشخص را طبق دستور تو انجام می‌دهد («این ایمیل را ترجمه کن»).
+- **تقویت (Augmentation):** تو و هوش مصنوعی مثل دو هم‌فکر با هم فکر می‌کنید و می‌سازید («کمکم کن ایده بدهم و برنامه‌ام را نقد کنم»).
+- **عاملیت (Agency):** هوش مصنوعی را طوری تنظیم می‌کنی که از طرف تو مستقل عمل کند و دانش و رفتارش را تعریف می‌کنی («دستیاری که با استفاده از سؤال‌های متداول ما به مشتری‌ها جواب بدهد»).
+
+هر حالت 4D را لازم دارد، ولی به میزان‌های متفاوت. هر چه هوش مصنوعی مستقل‌تر باشد، توصیف اولیه و مسئولیت‌پذیری تو مهم‌تر می‌شود.
+
+#analogy
+A calculator does one job (automation). A study partner thinks with you (augmentation). A house-sitter acts while you're away, following your instructions (agency). You'd brief a house-sitter much more carefully than you'd use a calculator.
+~~
+ماشین‌حساب یک کار انجام می‌دهد (خودکارسازی). هم‌درسی با تو فکر می‌کند (تقویت). نگهبان خانه وقتی نیستی طبق دستورهایت عمل می‌کند (عاملیت). نگهبان خانه را خیلی دقیق‌تر از استفاده از ماشین‌حساب توجیه می‌کنی.
+
+#terms
+Automation = خودکارسازی = هوش مصنوعی یک کار مشخص را طبق دستور انجام می‌دهد.
+Augmentation = تقویت = انسان و هوش مصنوعی به‌عنوان شریک فکری با هم کار می‌کنند.
+Agency = عاملیت = هوش مصنوعی از طرف انسان و طبق رفتار تعریف‌شده، مستقل عمل می‌کند.
+
+@lesson
+id: the-4d-framework
+en: The 4D Framework
+fa: چارچوب 4D
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations/the-4d-framework
+
+#explain
+The four competencies of AI Fluency:
+
+1. **Delegation**: deciding **what** work to do with AI and what to do yourself, based on your goals, the task and what AI can do.
+2. **Description**: **communicating** clearly with AI: what you want, how it should work, how it should behave.
+3. **Discernment**: **evaluating** what AI produces, how it got there, and how it behaved, with a critical eye.
+4. **Diligence**: taking **responsibility** for how you use AI: what you create with it, being transparent about it, and what you put into the world.
+
+They aren't a straight line. Description and Discernment form a quick **inner loop** (describe, evaluate, refine), while Delegation and Diligence frame the work before you start and after you finish.
+~~
+چهار توانمندی سواد هوش مصنوعی:
+
+1. **سپردن (Delegation)**: تصمیم گرفتن این‌که **چه** کاری را با هوش مصنوعی انجام دهی و چه کاری را خودت، بر اساس هدف‌ها، نوع کار و توانایی هوش مصنوعی.
+2. **توصیف (Description)**: **ارتباط** روشن با هوش مصنوعی: چه می‌خواهی، چطور کار کند، چطور رفتار کند.
+3. **تشخیص (Discernment)**: **ارزیابی** با چشم انتقادی: هوش مصنوعی چه تولید کرده، چطور به آن رسیده و چطور رفتار کرده.
+4. **مسئولیت‌پذیری (Diligence)**: پذیرفتن **مسئولیت** شیوهٔ استفاده‌ات از هوش مصنوعی: چه چیزی با آن می‌سازی، شفاف بودن دربارهٔ آن و چیزی که به دنیا عرضه می‌کنی.
+
+این‌ها یک خط مستقیم نیستند. توصیف و تشخیص یک **حلقهٔ درونی** سریع می‌سازند (توصیف کن، ارزیابی کن، بهتر کن)، درحالی‌که سپردن و مسئولیت‌پذیری قبل از شروع و بعد از پایان، چارچوب کار را می‌سازند.
+
+#analogy
+Hiring a painter for your room: **Delegation** is deciding to hire them for the walls but painting the mural yourself; **Description** is explaining colors, finish and "please cover the floor"; **Discernment** is checking the corners and the drips; **Diligence** is making sure they're paid fairly, safe on the ladder, and that you tell guests who painted what.
+~~
+استخدام یک نقاش برای اتاقت: **سپردن** یعنی تصمیم بگیری دیوارها را به او بسپاری ولی نقاشی دیواری را خودت بکشی؛ **توصیف** یعنی رنگ، براقیت و «لطفاً کف را بپوشان» را توضیح بدهی؛ **تشخیص** یعنی گوشه‌ها و شره‌ها را چک کنی؛ **مسئولیت‌پذیری** یعنی مطمئن شوی دستمزدش منصفانه است، روی نردبان ایمن است و به مهمان‌ها بگویی کدام کار را چه کسی کشیده.
+
+#tip
+When something goes wrong with AI, ask **which D failed**. Wrong task for AI? (Delegation.) Vague request? (Description.) Didn't check? (Discernment.) Shared something you shouldn't have? (Diligence.) Naming the D tells you what to practice.
+~~
+وقتی با هوش مصنوعی چیزی خراب شد، بپرس **کدام D شکست خورد**. کار مناسبی برای هوش مصنوعی نبود؟ (سپردن.) درخواست مبهم بود؟ (توصیف.) چک نکردی؟ (تشخیص.) چیزی را منتشر کردی که نباید؟ (مسئولیت‌پذیری.) نام بردن D به تو می‌گوید چه چیزی را تمرین کنی.
+
+#terms
+4D Framework = چارچوب 4D = چهار توانمندی سواد هوش مصنوعی: سپردن، توصیف، تشخیص و مسئولیت‌پذیری.
+Description-Discernment loop = حلقهٔ توصیف و تشخیص = چرخهٔ «توصیف، ارزیابی، بهتر کردن» در کار با هوش مصنوعی.
+
+@section Deep dive 1: Generative AI | غواصی عمیق ۱: هوش مصنوعی مولد
+
+@lesson
+id: generative-ai-fundamentals
+en: Generative AI fundamentals
+fa: مبانی هوش مصنوعی مولد
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations/generative-ai-fundamentals
+
+#explain
+**Generative AI** creates new content (text, images, code) instead of only classifying or predicting a number. Today's assistants are built on **large language models (LLMs)**:
+
+- **Pretraining**: the model reads an enormous amount of text and learns to predict the next piece of text (a **token**). Doing this billions of times teaches it grammar, facts, reasoning patterns and styles.
+- **Fine-tuning**: the model is then trained to be a helpful, honest and harmless assistant, using human feedback and written principles.
+- **Scale** matters: bigger models trained on more data with more compute became surprisingly capable, including abilities nobody explicitly programmed.
+
+Practical consequences: the model has a **knowledge cutoff** (it doesn't know recent events unless given tools like search), works within a **context window** (how much it can consider at once), and can **hallucinate** (produce confident, plausible but wrong content).
+~~
+**هوش مصنوعی مولد** محتوای تازه (متن، تصویر، کد) می‌سازد، نه این‌که فقط دسته‌بندی کند یا یک عدد پیش‌بینی کند. دستیارهای امروزی بر پایهٔ **مدل‌های زبانی بزرگ (LLM)** ساخته شده‌اند:
+
+- **پیش‌آموزش (Pretraining)**: مدل حجم عظیمی متن می‌خواند و یاد می‌گیرد تکهٔ بعدی متن (یک **توکن**) را پیش‌بینی کند. انجام این کار میلیاردها بار، دستور زبان، دانسته‌ها، الگوهای استدلال و سبک‌ها را به آن یاد می‌دهد.
+- **تنظیم دقیق (Fine-tuning)**: بعد مدل آموزش می‌بیند که یک دستیار مفید، صادق و بی‌آزار باشد؛ با بازخورد انسانی و اصول نوشته‌شده.
+- **مقیاس** مهم است: مدل‌های بزرگ‌تری که با دادهٔ بیشتر و توان محاسباتی بیشتر آموزش دیدند، به‌طرز غافلگیرکننده‌ای توانا شدند؛ حتی توانایی‌هایی پیدا کردند که کسی صریحاً برنامه‌شان نکرده بود.
+
+پیامدهای عملی: مدل یک **تاریخ قطع دانش** دارد (از اتفاق‌های تازه خبر ندارد مگر ابزاری مثل جست‌وجو داشته باشد)، داخل یک **پنجرهٔ کانتکست** کار می‌کند (این‌که هم‌زمان چقدر می‌تواند در نظر بگیرد) و ممکن است **توهم** بزند (محتوای مطمئن و باورپذیر ولی غلط بسازد).
+
+#analogy
+An LLM is like someone who has read **every book in a giant library** and become amazing at continuing any sentence in a sensible way. But they've been locked in the library since a certain date, and when they don't know something, they may fill the gap with something that *sounds* right.
+~~
+یک LLM مثل کسی است که **همهٔ کتاب‌های یک کتابخانهٔ غول‌پیکر را خوانده** و در ادامه دادن منطقی هر جمله‌ای فوق‌العاده شده. ولی از یک تاریخ مشخص در کتابخانه حبس بوده و وقتی چیزی را نمی‌داند، ممکن است جای خالی را با چیزی پر کند که فقط *درست به نظر می‌رسد*.
+
+#tip
+Ask "**how could the model know this?**" If the answer depends on recent events, your private data or exact numbers, give it the source (upload, search, connector) instead of trusting its memory.
+~~
+بپرس «**مدل از کجا باید این را بداند؟**» اگر جواب به اتفاق‌های تازه، دادهٔ خصوصی تو یا عددهای دقیق بستگی دارد، به‌جای اعتماد به حافظه‌اش منبع را بده (آپلود، جست‌وجو، کانکتور).
+
+#terms
+LLM = مدل زبانی بزرگ = مدلی که با پیش‌بینی توکن بعدی روی حجم عظیمی متن آموزش دیده و می‌تواند زبان بفهمد و بسازد.
+Pretraining = پیش‌آموزش = مرحلهٔ اول آموزش که مدل با خواندن متن زیاد، پیش‌بینی ادامهٔ متن را یاد می‌گیرد.
+Hallucination = توهم (خیال‌بافی) = تولید محتوای مطمئن و باورپذیر ولی نادرست.
+Knowledge cutoff = تاریخ قطع دانش = تاریخی که دادهٔ آموزشی مدل تا آن‌جا جمع شده.
+
+@lesson
+id: capabilities-and-limitations
+en: Capabilities and limitations
+fa: توانایی‌ها و محدودیت‌ها
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations
+
+#explain
+What today's AI does well: drafting and editing text, summarizing, explaining at any level, brainstorming, translating, analyzing data you provide, writing and explaining code, switching styles, and keeping up long, coherent conversations.
+
+Where it struggles: facts after its **cutoff**, precise recall of obscure details (**hallucinations**), very long material beyond its **context window**, some complex multi-step reasoning without help, exact counting and arithmetic without tools, and knowing what it doesn't know. It can also be **sycophantic**: agreeing with you when it shouldn't.
+
+Fluency means matching tasks to strengths and putting checks where weaknesses live.
+~~
+کارهایی که هوش مصنوعی امروزی خوب انجام می‌دهد: پیش‌نویس و ویرایش متن، خلاصه کردن، توضیح دادن در هر سطحی، ایده‌پردازی، ترجمه، تحلیل داده‌ای که به آن می‌دهی، نوشتن و توضیح دادن کد، تغییر سبک نوشتن و حفظ گفت‌وگوهای طولانی و منسجم.
+
+جاهایی که به مشکل می‌خورد: واقعیت‌های بعد از **تاریخ قطع دانش**، به خاطر آوردن دقیق جزئیات کم‌پیدا (**توهم**)، مطالب خیلی طولانی بیرون از **پنجرهٔ کانتکست**، بعضی استدلال‌های چندمرحله‌ای پیچیده بدون کمک، شمردن و حساب دقیق بدون ابزار و دانستن این‌که چه چیزی را نمی‌داند. ممکن است **چاپلوس** (sycophantic) هم باشد: با تو موافقت کند وقتی نباید.
+
+سواد یعنی کارها را با نقاط قوت جور کنی و جایی که ضعف‌ها هستند بررسی بگذاری.
+
+#example
+Good fit: "Turn these meeting notes into an email to the team." Risky fit: "What's the exact population of my town in 2026?" Better: "Search the official statistics site and give me the latest figure with a link."
+~~
+مناسب: «این یادداشت‌های جلسه را به یک ایمیل برای تیم تبدیل کن.» پرخطر: «جمعیت دقیق شهر من در ۲۰۲۶ چقدر است؟» بهتر: «سایت رسمی آمار را بگرد و آخرین عدد را با لینک بده.»
+
+#analogy
+A brilliant friend who is a **great writer but sometimes misremembers dates**. You'd happily ask them to polish your speech, but you'd double-check the year of the battle they mention.
+~~
+مثل یک دوست باهوش که **نویسندهٔ فوق‌العاده‌ای است ولی گاهی تاریخ‌ها را اشتباه یادش می‌آید**. با کمال میل از او می‌خواهی سخنرانی‌ات را صیقل بدهد، ولی سال آن جنگی را که اسم می‌برد دوباره چک می‌کنی.
+
+#terms
+Sycophancy = چاپلوسی (sycophancy) = تمایل مدل به تأیید کاربر حتی وقتی کاربر اشتباه می‌کند.
+
+@section Delegation | سپردن (Delegation)
+
+@lesson
+id: a-closer-look-at-delegation
+en: A closer look at Delegation
+fa: نگاهی دقیق‌تر به سپردن
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations/a-closer-look-at-delegation
+
+#explain
+Delegation has three parts:
+
+- **Problem Awareness**: understanding your goal and the work clearly **before** involving AI. What does success look like? Which parts need your judgment, your relationships, your expertise?
+- **Platform Awareness**: knowing what the available AI tools can and can't do (and their privacy terms), so you pick the right tool or decide not to use one.
+- **Task Delegation**: dividing the work thoughtfully between you and AI, playing to each side's strengths.
+
+Good delegation sometimes means **not** using AI, for example when the point is your own learning, when trust and relationships matter most, or when the data is too sensitive.
+~~
+سپردن سه بخش دارد:
+
+- **آگاهی از مسئله (Problem Awareness)**: فهمیدن روشن هدف و کار **قبل از** درگیر کردن هوش مصنوعی. موفقیت چه شکلی است؟ کدام بخش‌ها قضاوت، رابطه‌ها یا تخصص خود تو را لازم دارند؟
+- **آگاهی از ابزار (Platform Awareness)**: دانستن این‌که ابزارهای موجود چه کارهایی می‌توانند و نمی‌توانند بکنند (و شرایط حریم خصوصی‌شان)، تا ابزار درست را انتخاب کنی یا تصمیم بگیری از هیچ‌کدام استفاده نکنی.
+- **تقسیم کار (Task Delegation)**: تقسیم آگاهانهٔ کار بین تو و هوش مصنوعی، طوری که از نقطهٔ قوت هر طرف استفاده شود.
+
+سپردن خوب گاهی یعنی **استفاده نکردن** از هوش مصنوعی؛ مثلاً وقتی هدف یادگیری خود توست، وقتی اعتماد و رابطه از همه مهم‌تر است، یا وقتی داده بیش از حد حساس است.
+
+#analogy
+A head chef decides which dishes the sous-chefs make, which equipment fits each dish, and which signature dish only they cook. That decision comes **before** anyone turns on a stove.
+~~
+سرآشپز تصمیم می‌گیرد کدام غذاها را کمک‌آشپزها درست کنند، کدام وسیله به کدام غذا می‌خورد و کدام غذای مخصوص را فقط خودش می‌پزد. این تصمیم **قبل از** این است که کسی اجاقی روشن کند.
+
+#example
+Writing a eulogy for your grandfather: AI can help you organize memories and suggest structure (augmentation), but the stories and words that matter most should come from you. That's a delegation decision, not a technical one.
+~~
+نوشتن متن یادبود برای پدربزرگت: هوش مصنوعی می‌تواند در مرتب کردن خاطره‌ها و پیشنهاد ساختار کمکت کند (تقویت)، ولی قصه‌ها و کلمه‌هایی که از همه مهم‌ترند باید از خودت بیایند. این یک تصمیم سپردن است، نه یک تصمیم فنی.
+
+#terms
+Problem Awareness = آگاهی از مسئله = روشن بودن هدف و ماهیت کار قبل از استفاده از هوش مصنوعی.
+Platform Awareness = آگاهی از ابزار = شناخت توانایی‌ها، محدودیت‌ها و شرایط ابزارهای هوش مصنوعی موجود.
+Task Delegation = تقسیم کار = تقسیم آگاهانهٔ کار بین انسان و هوش مصنوعی.
+
+@lesson
+id: project-planning-and-delegation
+en: Project planning and Delegation
+fa: برنامه‌ریزی پروژه و سپردن
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations/project-planning-and-delegation
+
+#explain
+Now apply Delegation to your own multi-step project. Break it into parts, and for each part decide:
+
+- Is this **human-only** (your judgment, relationships, personal voice, private data)?
+- Is it **AI-assisted** (augmentation: you lead, AI helps)?
+- Is it **AI-led** (automation: AI does it, you review)?
+
+Write down **why** for each. You'll revisit this plan as you learn more about Description, Discernment and Diligence.
+~~
+حالا سپردن را روی پروژهٔ چندمرحله‌ای خودت به کار ببر. آن را به بخش‌هایی بشکن و برای هر بخش تصمیم بگیر:
+
+- آیا **فقط انسانی** است (قضاوت، رابطه‌ها، صدای شخصی، دادهٔ خصوصی تو)؟
+- آیا **با کمک هوش مصنوعی** است (تقویت: تو هدایت می‌کنی، هوش مصنوعی کمک می‌کند)؟
+- آیا **به رهبری هوش مصنوعی** است (خودکارسازی: هوش مصنوعی انجام می‌دهد، تو بازبینی می‌کنی)؟
+
+برای هر کدام **چرایش** را بنویس. وقتی دربارهٔ توصیف، تشخیص و مسئولیت‌پذیری بیشتر یاد گرفتی، دوباره سراغ این برنامه می‌آیی.
+
+#example
+Project: a family trip to Isfahan.
+- Choosing dates around everyone's work: **human-only** (needs family conversations).
+- Researching hotels and opening hours: **AI-led**, with links you check.
+- Day-by-day itinerary: **AI-assisted**, you adjust for grandma's pace.
+- Booking and paying: **human-only**.
+~~
+پروژه: سفر خانوادگی به اصفهان.
+- انتخاب تاریخ با توجه به کار همه: **فقط انسانی** (گفت‌وگوی خانوادگی لازم دارد).
+- تحقیق دربارهٔ هتل‌ها و ساعت کار جاهای دیدنی: **به رهبری هوش مصنوعی**، با لینک‌هایی که خودت چک می‌کنی.
+- برنامهٔ روزبه‌روز: **با کمک هوش مصنوعی**؛ تو آن را با سرعت راه رفتن مادربزرگ تنظیم می‌کنی.
+- رزرو و پرداخت: **فقط انسانی**.
+
+#analogy
+It's like dividing chores before a party: who cooks, who shops, who decorates, who greets guests. A good plan matches each job to the right person, or to the right machine.
+~~
+مثل تقسیم کارها قبل از یک مهمانی است: چه کسی آشپزی کند، چه کسی خرید کند، چه کسی تزئین کند، چه کسی به مهمان‌ها خوش‌آمد بگوید. یک برنامهٔ خوب هر کار را به آدم درست، یا به ماشین درست، می‌سپارد.
+
+#try
+Make a three-column table for your project: Human only / AI-assisted / AI-led. Fill at least five rows with a one-line reason each.
+~~
+برای پروژه‌ات یک جدول سه‌ستونه بکش: فقط انسانی / با کمک هوش مصنوعی / به رهبری هوش مصنوعی. دست‌کم پنج ردیف را با دلیل یک‌خطی پر کن.
+
+@section Description | توصیف (Description)
+
+@lesson
+id: a-closer-look-at-description
+en: A closer look at Description
+fa: نگاهی دقیق‌تر به توصیف
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations/a-closer-look-at-description
+
+#explain
+Description has three parts:
+
+- **Product Description**: defining **what** you want: the output, its format, audience, length, style. "A one-page summary for parents, in plain language, with a table of dates."
+- **Process Description**: guiding **how** the AI should approach the work: steps, methods, what to consider first. "First list the key dates, then check them against the school calendar, then write."
+- **Performance Description**: defining the AI's **behavior** during the collaboration: its role, tone, how much to push back. "Act as a critical editor; challenge weak arguments; ask me before making big structural changes."
+
+Most weak prompts only describe the product, and vaguely. Adding process and performance is often what turns a generic answer into a great one.
+~~
+توصیف سه بخش دارد:
+
+- **توصیف محصول (Product Description)**: تعریف **چه** می‌خواهی: خروجی، قالب، مخاطب، طول، سبک. «یک خلاصهٔ یک‌صفحه‌ای برای والدین، به زبان ساده، با یک جدول تاریخ‌ها.»
+- **توصیف فرایند (Process Description)**: هدایت این‌که هوش مصنوعی **چطور** سراغ کار برود: قدم‌ها، روش‌ها، چه چیزی را اول در نظر بگیرد. «اول تاریخ‌های کلیدی را فهرست کن، بعد با تقویم مدرسه چکشان کن، بعد بنویس.»
+- **توصیف عملکرد (Performance Description)**: تعریف **رفتار** هوش مصنوعی در طول همکاری: نقشش، لحنش، چقدر مخالفت کند. «مثل یک ویراستار منتقد رفتار کن؛ استدلال‌های ضعیف را به چالش بکش؛ قبل از تغییرهای بزرگ ساختاری از من بپرس.»
+
+بیشتر پرامپت‌های ضعیف فقط محصول را توصیف می‌کنند، آن هم مبهم. اضافه کردن فرایند و عملکرد اغلب همان چیزی است که یک جواب معمولی را به یک جواب عالی تبدیل می‌کند.
+
+#analogy
+Ordering a custom cake: **product** is "chocolate, two layers, 'Happy 10th Birthday Sara'"; **process** is "please use the recipe without nuts and let it cool before icing"; **performance** is "if something won't work, call me before changing it".
+~~
+سفارش یک کیک سفارشی: **محصول** یعنی «شکلاتی، دو طبقه، "تولد ۱۰ سالگی‌ات مبارک سارا"»؛ **فرایند** یعنی «لطفاً از دستور بدون گردو استفاده کن و قبل از خامه‌کشی بگذار خنک شود»؛ **عملکرد** یعنی «اگر چیزی شدنی نبود، قبل از تغییرش به من زنگ بزن».
+
+#prompt
+Product: a 5-slide outline for a talk to new volunteers at our animal shelter, friendly tone, each slide a title + 3 bullets.
+Process: first ask me 3 questions about our shelter, then propose the outline, then wait for my feedback.
+Performance: act like an experienced volunteer coordinator; tell me honestly if any slide is too long or boring.
+~~
+محصول: طرح ۵ اسلایدی برای یک صحبت با داوطلب‌های تازهٔ پناهگاه حیوانات ما، با لحن دوستانه، هر اسلاید یک عنوان + ۳ بولت.
+فرایند: اول ۳ سؤال دربارهٔ پناهگاه ما بپرس، بعد طرح را پیشنهاد بده، بعد منتظر بازخوردم بمان.
+عملکرد: مثل یک هماهنگ‌کنندهٔ باتجربهٔ داوطلب‌ها رفتار کن؛ صادقانه بگو اگر اسلایدی بیش از حد طولانی یا خسته‌کننده است.
+
+#terms
+Product Description = توصیف محصول = مشخص کردن خروجی دلخواه: چه، با چه قالبی، برای چه کسی.
+Process Description = توصیف فرایند = مشخص کردن روش و قدم‌هایی که هوش مصنوعی باید دنبال کند.
+Performance Description = توصیف عملکرد = مشخص کردن نقش و رفتار هوش مصنوعی در طول همکاری.
+
+@section Deep dive 2: Prompting | غواصی عمیق ۲: پرامپت‌نویسی
+
+@lesson
+id: effective-prompting-techniques
+en: Effective prompting techniques
+fa: تکنیک‌های مؤثر پرامپت‌نویسی
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations/effective-prompting-techniques
+
+#explain
+Six foundational techniques that work with almost any AI:
+
+1. **Give context**: who you are, the situation, the goal, the audience.
+2. **Show examples**: one or two samples of what "good" looks like (or what to avoid).
+3. **Specify constraints**: format, length, tone, what to include or leave out.
+4. **Break it into steps**: split a complex task into smaller ones, or ask for a plan first.
+5. **Ask it to think first**: "think through the options before answering" for reasoning-heavy tasks.
+6. **Define a role or tone**: "act as a patient tutor", "write like a friendly neighbor".
+
+And one meta-technique: **ask the AI to help improve your prompt**. Successful prompting is **iterative**: expect to refine based on results.
+~~
+شش تکنیک پایه که تقریباً با هر هوش مصنوعی‌ای کار می‌کنند:
+
+1. **زمینه بده**: تو کی هستی، موقعیت چیست، هدف و مخاطب کیست.
+2. **نمونه نشان بده**: یکی دو نمونه از چیزی که «خوب» محسوب می‌شود (یا چیزی که باید از آن پرهیز کرد).
+3. **محدودیت‌ها را مشخص کن**: قالب، طول، لحن، چه چیزی بیاید یا نیاید.
+4. **به قدم‌ها بشکن**: یک کار پیچیده را به کارهای کوچک‌تر تقسیم کن یا اول یک برنامه بخواه.
+5. **بخواه اول فکر کند**: برای کارهای استدلالی بگو «قبل از جواب دادن، گزینه‌ها را بررسی کن».
+6. **نقش یا لحن تعیین کن**: «مثل یک معلم صبور رفتار کن»، «مثل یک همسایهٔ مهربان بنویس».
+
+و یک فراتکنیک: **از خود هوش مصنوعی بخواه کمکت کند پرامپتت را بهتر کنی**. پرامپت‌نویسی موفق **تکرارشونده** است: انتظار داشته باش بر اساس نتیجه‌ها اصلاحش کنی.
+
+#example
+Before: "Write about climate change."
+After: "I teach 12-year-olds in Shiraz (context). Write a 150-word explanation of why cities feel hotter than villages (constraints), for a class handout. Use one everyday example from Iranian life (example hint). First list 3 key ideas, then write (steps). Friendly, curious tone, like a science YouTuber for kids (role/tone)."
+~~
+قبل: «دربارهٔ تغییر اقلیم بنویس.»
+بعد: «من به بچه‌های ۱۲ سالهٔ شیراز درس می‌دهم (زمینه). یک توضیح ۱۵۰ کلمه‌ای بنویس که چرا شهرها از روستاها گرم‌ترند (محدودیت)، برای برگهٔ کلاس. از یک مثال روزمره از زندگی ایرانی استفاده کن (اشاره به نمونه). اول ۳ ایدهٔ اصلی را فهرست کن، بعد بنویس (قدم‌ها). لحن دوستانه و کنجکاو، مثل یک یوتیوبر علمی برای بچه‌ها (نقش/لحن).»
+
+#prompt
+Here is a prompt I wrote: [paste]. Before answering it, tell me what's unclear or missing, suggest an improved version, and explain your changes in 3 bullets.
+~~
+این پرامپتی است که نوشته‌ام: [بچسبان]. قبل از جواب دادن به آن، بگو چه چیزی مبهم است یا کم دارد، یک نسخهٔ بهترش را پیشنهاد بده و تغییراتت را در ۳ بولت توضیح بده.
+
+#analogy
+These techniques are like the **settings on a camera**: light (context), a sample photo (example), frame size (constraints), focus steps (steps), "take your time" mode (think first), and the filter (role/tone). Beginners shoot on auto; fluent users adjust.
+~~
+این تکنیک‌ها مثل **تنظیمات یک دوربین‌اند**: نور (زمینه)، یک عکس نمونه (نمونه)، اندازهٔ کادر (محدودیت)، مراحل فوکوس (قدم‌ها)، حالت «با حوصله» (اول فکر کن) و فیلتر (نقش/لحن). تازه‌کارها روی حالت خودکار عکس می‌گیرند؛ آدم‌های مسلط تنظیم می‌کنند.
+
+@section Discernment and the loop | تشخیص و حلقه
+
+@lesson
+id: a-closer-look-at-discernment
+en: A closer look at Discernment
+fa: نگاهی دقیق‌تر به تشخیص
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations
+
+#explain
+Discernment mirrors Description, with three parts:
+
+- **Product Discernment**: evaluating the **output**: Is it accurate? Relevant? Complete? Appropriate for the audience? Well-made?
+- **Process Discernment**: evaluating **how** the AI got there: Was the reasoning sound? Did it skip steps, make unjustified leaps, misuse a source?
+- **Performance Discernment**: evaluating the AI's **behavior** in the conversation: Did it follow your instructions? Was it honest about uncertainty? Did it flatter you instead of challenging you?
+
+Discernment is not distrust. It's the careful attention you'd give any collaborator's work before you put your name on it.
+~~
+تشخیص آینهٔ توصیف است و سه بخش دارد:
+
+- **تشخیص محصول (Product Discernment)**: ارزیابی **خروجی**: دقیق است؟ مرتبط است؟ کامل است؟ برای مخاطب مناسب است؟ خوب ساخته شده؟
+- **تشخیص فرایند (Process Discernment)**: ارزیابی این‌که هوش مصنوعی **چطور** به آن رسیده: استدلالش درست بود؟ قدمی را جا انداخت، پرش بی‌دلیل کرد، از منبعی اشتباه استفاده کرد؟
+- **تشخیص عملکرد (Performance Discernment)**: ارزیابی **رفتار** هوش مصنوعی در گفت‌وگو: دستورهایت را رعایت کرد؟ دربارهٔ تردیدهایش صادق بود؟ به‌جای به چالش کشیدنت، تعریفت را کرد؟
+
+تشخیص به معنای بی‌اعتمادی نیست. همان دقتی است که قبل از گذاشتن اسمت پای کار هر همکاری به آن می‌دهی.
+
+#analogy
+A teacher grading a math test checks the **answer** (product), the **working** (process), and whether the student **followed the instructions** like "show your work" (performance). A right answer with nonsense working is still a problem.
+~~
+معلمی که برگهٔ ریاضی را تصحیح می‌کند **جواب** را چک می‌کند (محصول)، **راه‌حل** را (فرایند) و این‌که دانش‌آموز **دستورها را رعایت کرده** یا نه، مثل «راه‌حل را بنویس» (عملکرد). جواب درست با راه‌حل بی‌معنی هنوز یک مشکل است.
+
+#tip
+A fast discernment habit: **spot-check three things**: one fact you can verify, one number you can recompute, and one claim that seems too convenient. If all three hold, your confidence is earned.
+~~
+یک عادت سریع تشخیص: **سه چیز را تصادفی چک کن**: یک واقعیت که می‌توانی تأییدش کنی، یک عدد که می‌توانی دوباره حسابش کنی و یک ادعا که بیش از حد خوشایند به نظر می‌رسد. اگر هر سه درست بودند، اطمینانت به‌حق است.
+
+#terms
+Product / Process / Performance Discernment = تشخیص محصول / فرایند / عملکرد = ارزیابی خروجی، روش رسیدن به آن و رفتار هوش مصنوعی.
+
+@lesson
+id: the-description-discernment-loop
+en: The Description-Discernment loop
+fa: حلقهٔ توصیف و تشخیص
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations
+
+#explain
+In practice, Description and Discernment spin together in a loop:
+
+1. **Describe** what you want (product, process, performance).
+2. **Discern** what came back: what's good, what's off, what's missing.
+3. **Refine** your description based on what you learned, and go again.
+
+Each loop teaches you something about the task **and** about how to describe it. Often the biggest improvement comes from realizing what *you* hadn't made clear, not from the AI "trying harder".
+~~
+در عمل، توصیف و تشخیص با هم در یک حلقه می‌چرخند:
+
+1. **توصیف کن** چه می‌خواهی (محصول، فرایند، عملکرد).
+2. **تشخیص بده** چه چیزی برگشته: چه چیزی خوب است، چه چیزی جور نیست، چه چیزی کم است.
+3. **توصیفت را بهتر کن** بر اساس چیزی که یاد گرفتی و دوباره برو.
+
+هر دور چیزی دربارهٔ خود کار **و** دربارهٔ روش توصیفش به تو یاد می‌دهد. اغلب بزرگ‌ترین پیشرفت از فهمیدن این می‌آید که *خودت* چه چیزی را روشن نکرده بودی، نه از این‌که هوش مصنوعی «بیشتر تلاش کند».
+
+#analogy
+Like tuning a guitar: pluck (describe), listen (discern), turn the peg a little (refine), pluck again. Nobody tunes a guitar in one twist.
+~~
+مثل کوک کردن گیتار است: سیم را بزن (توصیف)، گوش بده (تشخیص)، گوشی را کمی بچرخان (بهتر کردن)، دوباره بزن. هیچ‌کس گیتار را با یک چرخش کوک نمی‌کند.
+
+#example
+Round 1: "Summarize this article." → too long, too technical.
+Round 2: "Summarize it in 5 bullets for my grandmother." → good length, but misses the main warning.
+Round 3: "...and put the safety warning first, in bold." → done. The real lesson: you now know your summaries need **audience + length + priority**.
+~~
+دور ۱: «این مقاله را خلاصه کن.» ← خیلی بلند، خیلی تخصصی.
+دور ۲: «در ۵ بولت برای مادربزرگم خلاصه‌اش کن.» ← طول خوب، ولی هشدار اصلی را جا انداخته.
+دور ۳: «…و هشدار ایمنی را اول و پررنگ بیاور.» ← تمام. درس واقعی: حالا می‌دانی خلاصه‌هایت **مخاطب + طول + اولویت** لازم دارند.
+
+#tip
+When you get a great result after several rounds, ask the AI: "Write the single prompt that would have produced this on the first try." Save it. That's your loop turning into a reusable asset.
+~~
+وقتی بعد از چند دور به یک نتیجهٔ عالی رسیدی، از هوش مصنوعی بپرس: «تک‌پرامپتی را بنویس که از همان بار اول این نتیجه را می‌داد.» ذخیره‌اش کن. این یعنی حلقه‌ات به یک دارایی قابل‌استفادهٔ دوباره تبدیل شد.
+
+@section Diligence | مسئولیت‌پذیری (Diligence)
+
+@lesson
+id: a-closer-look-at-diligence
+en: A closer look at Diligence
+fa: نگاهی دقیق‌تر به مسئولیت‌پذیری
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations
+
+#explain
+Diligence also has three parts:
+
+- **Creation Diligence**: being thoughtful about **which** AI systems you use and **how**: privacy, data protection, whether the tool fits the stakes, avoiding harm while creating.
+- **Transparency Diligence**: being honest about AI's role in your work with the people who need to know: teachers, clients, colleagues, readers.
+- **Deployment Diligence**: taking **responsibility** for verifying and vouching for what you share or use. "The AI wrote it" is never an excuse; once you publish it, it's yours.
+
+One practical tool: an **AI diligence statement**, a short note explaining how AI was used in a piece of work (this course itself includes one about how its authors worked with Claude).
+~~
+مسئولیت‌پذیری هم سه بخش دارد:
+
+- **مسئولیت در ساختن (Creation Diligence)**: دقت در این‌که از **کدام** سیستم‌های هوش مصنوعی و **چطور** استفاده می‌کنی: حریم خصوصی، حفاظت از داده، این‌که ابزار با اهمیت کار جور است، پرهیز از آسیب در حین ساختن.
+- **مسئولیت در شفافیت (Transparency Diligence)**: صادق بودن دربارهٔ نقش هوش مصنوعی در کارت با کسانی که باید بدانند: معلم‌ها، مشتری‌ها، همکاران، خواننده‌ها.
+- **مسئولیت در انتشار (Deployment Diligence)**: پذیرفتن **مسئولیت** راستی‌آزمایی و ضمانت چیزی که به اشتراک می‌گذاری یا استفاده می‌کنی. «هوش مصنوعی نوشته» هرگز بهانه نیست؛ وقتی منتشرش کردی، مال توست.
+
+یک ابزار عملی: **بیانیهٔ مسئولیت‌پذیری هوش مصنوعی**؛ یادداشتی کوتاه که توضیح می‌دهد در یک کار چطور از هوش مصنوعی استفاده شده (خود این دوره یکی دارد دربارهٔ این‌که نویسندگانش چطور با Claude کار کرده‌اند).
+
+#prompt
+Help me write a 3-sentence AI diligence statement for my report: I used Claude to brainstorm the structure and to edit grammar; all data, analysis and conclusions are my own; I checked every statistic against the original sources.
+~~
+کمکم کن یک بیانیهٔ مسئولیت‌پذیری هوش مصنوعی سه‌جمله‌ای برای گزارشم بنویسم: از Claude برای ایده‌پردازی ساختار و ویرایش دستور زبان استفاده کردم؛ همهٔ داده‌ها، تحلیل‌ها و نتیجه‌گیری‌ها مال خودم است؛ هر آمار را با منبع اصلی‌اش چک کردم.
+
+#analogy
+A chef who uses a food processor still answers for the dish: they choose a clean machine (creation), tell guests about allergens (transparency), and taste before serving (deployment).
+~~
+آشپزی که از غذاساز استفاده می‌کند هنوز جواب‌گوی غذاست: دستگاه تمیز انتخاب می‌کند (ساختن)، به مهمان‌ها دربارهٔ مواد حساسیت‌زا می‌گوید (شفافیت) و قبل از سرو می‌چشد (انتشار).
+
+#warn
+Before pasting anything into an AI tool, ask: "Would I be comfortable if this text were read by someone outside my organization?" If not, check your tool's data terms or remove identifying details first.
+~~
+قبل از چسباندن هر چیزی در یک ابزار هوش مصنوعی بپرس: «اگر کسی بیرون از سازمانم این متن را بخواند، راحتم؟» اگر نه، اول شرایط دادهٔ ابزارت را چک کن یا جزئیات شناسایی‌کننده را حذف کن.
+
+#terms
+Creation / Transparency / Deployment Diligence = مسئولیت در ساختن / شفافیت / انتشار = سه بخش مسئولیت‌پذیری در استفاده از هوش مصنوعی.
+AI diligence statement = بیانیهٔ مسئولیت‌پذیری هوش مصنوعی = یادداشت کوتاهی دربارهٔ این‌که در یک کار چطور از هوش مصنوعی استفاده شده.
+
+@section Conclusion | جمع‌بندی
+
+@lesson
+id: conclusion
+en: Conclusion
+fa: جمع‌بندی دوره
+kind: wrap
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations
+
+#explain
+You now have a vocabulary for working with AI that won't expire when the next model arrives: **Delegation** (what to hand over), **Description** (how to ask), **Discernment** (how to judge), **Diligence** (how to stay responsible), plus the background to understand why AI behaves the way it does.
+
+Look back at your project plan from the Delegation lesson. Update it with what you learned: which descriptions worked, where discernment caught problems, and what diligence steps you'll take before sharing the result.
+~~
+حالا یک واژگان برای کار با هوش مصنوعی داری که با آمدن مدل بعدی تاریخ‌مصرفش تمام نمی‌شود: **سپردن** (چه چیزی را بسپاری)، **توصیف** (چطور بخواهی)، **تشخیص** (چطور قضاوت کنی)، **مسئولیت‌پذیری** (چطور مسئول بمانی)؛ به‌اضافهٔ پیش‌زمینه‌ای که بفهمی چرا هوش مصنوعی این‌طور رفتار می‌کند.
+
+به برنامهٔ پروژه‌ات در درس «سپردن» برگرد. با چیزهایی که یاد گرفتی به‌روزش کن: کدام توصیف‌ها جواب داد، تشخیص کجا مشکل را گرفت و قبل از اشتراک نتیجه چه قدم‌های مسئولیت‌پذیری‌ای برمی‌داری.
+
+#try
+Teach the 4Ds to someone in five minutes using one real example from your project. Explaining it is the fastest way to find out what you've really understood.
+~~
+چارچوب 4D را با یک مثال واقعی از پروژه‌ات در پنج دقیقه به کسی یاد بده. توضیح دادن سریع‌ترین راه برای فهمیدن این است که واقعاً چه چیزی را فهمیده‌ای.
+
+@lesson
+id: quiz-activities-and-badge
+en: Course quiz, additional activities and badge
+fa: آزمون، فعالیت‌های تکمیلی و نشان دوره
+kind: quiz
+url: https://academy.claude.com/courses/ai-fluency-framework-foundations
+
+#explain
+The course ends with a **quiz** on the 4D Framework and generative AI fundamentals, optional **additional activities** to practise each D on new tasks, and a **completion badge**. The quiz checks understanding, not memorization: expect scenarios like "which D failed here?".
+
+The editions in this group (for builders, creative work, educators, students, nonprofits, small businesses and more) apply the same framework to specific worlds; this course is the recommended foundation for all of them.
+~~
+دوره با یک **آزمون** دربارهٔ چارچوب 4D و مبانی هوش مصنوعی مولد، **فعالیت‌های تکمیلی** اختیاری برای تمرین هر D روی کارهای تازه و یک **نشان پایان دوره** تمام می‌شود. آزمون فهم را می‌سنجد، نه حفظ کردن را: منتظر سناریوهایی مثل «این‌جا کدام D شکست خورد؟» باش.
+
+نسخه‌های این گروه (برای سازندگان، کار خلاقانه، مدرس‌ها، دانشجوها، مؤسسه‌های خیریه، کسب‌وکارهای کوچک و…) همین چارچوب را در دنیاهای خاص به کار می‌برند؛ این دوره پایهٔ پیشنهادی همهٔ آن‌هاست.
+
+#try
+Self-check before the quiz: for each D, write its three sub-parts from memory. (Delegation: problem, platform, task. Description: product, process, performance. Discernment: product, process, performance. Diligence: creation, transparency, deployment.)
+~~
+خودسنجی قبل از آزمون: برای هر D، سه زیربخشش را از حفظ بنویس. (سپردن: مسئله، ابزار، تقسیم کار. توصیف: محصول، فرایند، عملکرد. تشخیص: محصول، فرایند، عملکرد. مسئولیت‌پذیری: ساختن، شفافیت، انتشار.)
+
+@cheatsheet
+- AI Fluency = working with AI **effectively, efficiently, ethically, safely**.
+- Three interaction modes: **Automation · Augmentation · Agency**.
+- **Delegation**: problem awareness · platform awareness · task delegation (sometimes: don't use AI).
+- **Description**: product (what) · process (how) · performance (behavior).
+- Prompting: context · examples · constraints · steps · think first · role/tone · ask AI to improve the prompt.
+- **Discernment**: product · process · performance. Spot-check a fact, a number, a too-convenient claim.
+- **Description-Discernment loop**: describe → discern → refine.
+- **Diligence**: creation (which tool, which data) · transparency (say how AI was used) · deployment (you own what you publish).
+- GenAI basics: pretraining → fine-tuning; next-token prediction; knowledge cutoff; context window; hallucination; sycophancy.
+~~
+- سواد هوش مصنوعی = کار با هوش مصنوعی به شکلی **مؤثر، کارآمد، اخلاقی و امن**.
+- سه شیوهٔ تعامل: **خودکارسازی · تقویت · عاملیت**.
+- **سپردن**: آگاهی از مسئله · آگاهی از ابزار · تقسیم کار (گاهی یعنی: از هوش مصنوعی استفاده نکن).
+- **توصیف**: محصول (چه) · فرایند (چطور) · عملکرد (رفتار).
+- پرامپت‌نویسی: زمینه · نمونه · محدودیت · قدم‌ها · اول فکر کن · نقش/لحن · بهتر کردن پرامپت با کمک خود هوش مصنوعی.
+- **تشخیص**: محصول · فرایند · عملکرد. یک واقعیت، یک عدد و یک ادعای بیش از حد خوشایند را چک کن.
+- **حلقهٔ توصیف و تشخیص**: توصیف ← تشخیص ← بهتر کردن.
+- **مسئولیت‌پذیری**: ساختن (کدام ابزار، کدام داده) · شفافیت (بگو چطور از هوش مصنوعی استفاده شد) · انتشار (چیزی که منتشر می‌کنی مال توست).
+- مبانی هوش مصنوعی مولد: پیش‌آموزش ← تنظیم دقیق؛ پیش‌بینی توکن بعدی؛ تاریخ قطع دانش؛ پنجرهٔ کانتکست؛ توهم؛ چاپلوسی.
+
+@quiz
+Q: You asked AI for a summary and got a confident but wrong date. Which D should catch this? || از هوش مصنوعی خلاصه خواستی و یک تاریخ مطمئن ولی غلط گرفتی. کدام D باید این را بگیرد؟
+A: Discernment (product discernment: checking accuracy). || تشخیص (تشخیص محصول: سنجیدن درستی).
+Q: Name the three parts of Description. || سه بخش توصیف را نام ببر.
+A: Product, process and performance description. || توصیف محصول، فرایند و عملکرد.
+Q: What is the difference between augmentation and agency? || فرق تقویت و عاملیت چیست؟
+A: In augmentation you and AI work together as thinking partners; in agency you set up AI to act independently on your behalf. || در تقویت تو و هوش مصنوعی به‌عنوان شریک فکری با هم کار می‌کنید؛ در عاملیت هوش مصنوعی را طوری تنظیم می‌کنی که از طرف تو مستقل عمل کند.
+Q: A student submits an AI-polished essay without telling the teacher, against class rules. Which part of Diligence is missing? || دانش‌آموزی بدون گفتن به معلم و برخلاف قانون کلاس، انشایی را که هوش مصنوعی صیقل داده تحویل می‌دهد. کدام بخش مسئولیت‌پذیری غایب است؟
+A: Transparency diligence. || مسئولیت در شفافیت.
+Q: Why does AI sometimes not know about last month's news? || چرا هوش مصنوعی گاهی از خبرهای ماه گذشته خبر ندارد؟
+A: Because of its knowledge cutoff: its training data stops at a certain date unless you give it a tool like web search. || به‌خاطر تاریخ قطع دانش: دادهٔ آموزشی‌اش در یک تاریخ مشخص تمام می‌شود، مگر این‌که ابزاری مثل جست‌وجوی وب به آن بدهی.
